@@ -1,16 +1,22 @@
-Package: BribeR
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Package: bribeR
+Title: Package for Understanding Corruption Transcripts
+Version: 0.0.0.9000
+Authors@R: 
+    person("Andres", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: 
+    dplyr,
+    fs,
+    magrittr,
+    purrr,
+    RColorBrewer,
+    readr,
+    shiny,
+    stringr,
+    tibble,
+    tidyr,
+    visNetwork
