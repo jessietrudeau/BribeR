@@ -1,105 +1,116 @@
-#' Read transcript files into an Arrow Table
+#' Read a Transcript-Formatted RDA File
 #'
-#' @description
-#' Loads all `.csv` and `.tsv` transcript files from a directory into a single
-#' `arrow::Table`. Each transcript is expected to contain at least the columns:
-#' - `speaker_std` : standardized speaker identifier
-#' - `speech` : transcript text, which will be renamed internally to `text`
+#' This function loads a pre-processed `.rda` file containing compiled transcript data.
+#' It supports loading from:
+#' \itemize{
+#'   \item A **local file path** on your computer,
+#'   \item A **remote URL** (e.g., a GitHub raw link), or
+#'   \item An **installed package’s** `data/` directory (optional).
+#' }
 #'
-#' A new column `file_id` is added, taken from the basename of the file
-#' (without the extension). Optionally, the raw `speaker` column can be
-#' preserved if it exists in the input.
+#' The `.rda` file must contain a single object with the standardized transcript structure:
+#' \describe{
+#'   \item{n}{Transcript ID or name (the original `.csv` file name).}
+#'   \item{row_id}{Row number within the individual transcript (chronological order).}
+#'   \item{speaker}{Original speaker label from the source transcript.}
+#'   \item{speech}{Speech text content of the transcript.}
+#'   \item{speaker_std}{Standardized or normalized version of the speaker name.}
+#' }
 #'
-#' @param dir Character string. Path to the directory containing transcript files.
-#' @param pattern Regex pattern for matching files. Defaults to `"\\.(csv|tsv)$"`.
-#' @param recursive Logical. Should subdirectories be searched? Default is `FALSE`.
-#' @param keep_original_speaker Logical. If `TRUE`, include the original `speaker`
-#'   column (if present) in the output. Default is `FALSE`.
-#' @param skip_on_missing Logical. If `TRUE`, files missing required columns
-#'   are skipped with a warning. If `FALSE`, the function stops with an error.
-#'   Default is `TRUE`.
-#' @param quiet Logical. If `FALSE`, print a message for each loaded file.
-#'   Default is `TRUE`.
+#' This function is general-purpose and not tied to any particular package. Any `.rda`
+#' file that follows the schema above can be loaded for analysis or further processing.
 #'
-#' @return
-#' An `arrow::Table` with the following columns:
-#' - `file_id` : transcript identifier (filename without extension)
-#' - `speaker_std` : standardized speaker name
-#' - `text` : transcript text
-#' - `speaker` : included only if `keep_original_speaker = TRUE` and present in source
+#' For demonstration purposes, the examples use the open-source
+#' **BribeRData** repository and its dataset
+#' [`vladivideos_transcripts.rda`](https://github.com/jessietrudeau/BribeRdata/blob/730367bc869081ecd994c73754b51e4373eab887/data/vladivideos_transcripts.rda).
+#'
+#' @param path Character string specifying one of:
+#' \itemize{
+#'   \item The **name** of an `.rda` file within a package (without extension),
+#'   \item A **local file path** to an `.rda`,
+#'   \item Or a **URL** (e.g., GitHub raw link) pointing to an `.rda` file.
+#' }
+#' @param package Optional. Character string naming the package containing the RDA
+#' (if loading from a package’s `data/` directory). Defaults to `NULL`.
+#'
+#' @return A data frame (or tibble) with columns `n`, `row_id`, `speaker`, `speech`,
+#' and `speaker_std`.
 #'
 #' @examples
-read_transcripts <- function(
-    dir,
-    pattern = "\\.(csv|tsv)$",
-    recursive = FALSE,
-    keep_original_speaker = FALSE,
-    skip_on_missing = TRUE,
-    quiet = TRUE
-) {
-  if (!requireNamespace("arrow", quietly = TRUE)) {
-    stop("Package 'arrow' is required. Please install it (e.g., install.packages('arrow')).", call. = FALSE)
+#' \dontrun{
+#' # 1. Load a local RDA file
+#' transcripts_local <- read_transcripts("~/Documents/transcripts_subset.rda")
+#'
+#' # 2. Load a remote RDA file from GitHub (BribeRData example)
+#' transcripts_remote <- read_transcripts(
+#'   "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/730367bc869081ecd994c73754b51e4373eab887/data/vladivideos_transcripts.rda"
+#' )
+#'
+#' # 3. Load from a package (optional, if available)
+#' transcripts_pkg <- read_transcripts("vladivideos_transcripts", package = "BribeRdata")
+#'
+#' # View structure and inspect speaker names
+#' str(transcripts_remote)
+#' unique(transcripts_remote$speaker_std)
+#' }
+#'
+#' @seealso [get_transcripts_raw()], [get_transcript_id()], [get_transcript_speakers()]
+#' @export
+read_transcripts <- function(path, package = NULL) {
+  if (missing(path) || !nzchar(path)) {
+    stop("Please provide the name, path, or URL of the RDA file.")
   }
 
-  files <- base::list.files(path = dir, pattern = pattern, full.names = TRUE, recursive = recursive)
-  if (length(files) == 0L) {
-    stop("No files found in '", dir, "' matching pattern '", pattern, "'.", call. = FALSE)
+  resolved_path <- NULL
+
+  # --- CASE 1: Remote RDA (e.g., GitHub raw link) ---
+  if (grepl("^https?://", path)) {
+    temp_file <- tempfile(fileext = ".rda")
+    message("Downloading RDA from remote URL...")
+    utils::download.file(path, destfile = temp_file, mode = "wb", quiet = TRUE)
+    resolved_path <- temp_file
   }
 
-  .read_transcript <- function(fp) {
-    if (grepl("\\.csv$", fp, ignore.case = TRUE)) {
-      readr::read_csv(fp, show_col_types = FALSE, progress = FALSE)
-    } else if (grepl("\\.tsv$", fp, ignore.case = TRUE) || grepl("\\.txt$", fp, ignore.case = TRUE)) {
-      readr::read_tsv(fp, show_col_types = FALSE, progress = FALSE)
+  # --- CASE 2: Local RDA file ---
+  else if (file.exists(path)) {
+    resolved_path <- path
+  }
+
+  # --- CASE 3: Package RDA (if specified) ---
+  else if (!is.null(package)) {
+    pkg_path <- system.file("data", paste0(path, ".rda"), package = package)
+    if (pkg_path == "" && file.exists(file.path("data", paste0(path, ".rda")))) {
+      pkg_path <- file.path("data", paste0(path, ".rda"))
+    }
+    if (pkg_path != "" && file.exists(pkg_path)) {
+      resolved_path <- pkg_path
     } else {
-      stop("Unsupported file extension for: ", fp)
+      stop("Could not find the specified .rda file in package or local directory: ", path)
     }
   }
 
-  out <- list()
-
-  for (fp in files) {
-    df <- try(.read_transcript(fp), silent = TRUE)
-    if (inherits(df, "try-error")) {
-      warning("Skipping unreadable file: ", basename(fp))
-      next
-    }
-
-    required_cols <- c("speaker_std", "speech")
-    missing <- setdiff(required_cols, names(df))
-    if (length(missing) > 0) {
-      msg <- paste0("Missing required column(s) [", paste(missing, collapse = ", "),
-                    "] in ", basename(fp), ".")
-      if (skip_on_missing) {
-        warning(msg)
-        next
-      } else {
-        stop(msg, call. = FALSE)
-      }
-    }
-
-    core <- tibble::tibble(
-      file_id     = tools::file_path_sans_ext(basename(fp)),
-      speaker_std = as.character(df$speaker_std),
-      text        = as.character(df$speech)
-    )
-
-    if (keep_original_speaker && "speaker" %in% names(df)) {
-      core$speaker <- as.character(df$speaker)
-    }
-
-    core$speaker_std <- stringr::str_trim(core$speaker_std)
-    core$text        <- stringr::str_trim(core$text)
-    core <- dplyr::filter(core, !is.na(.data$text) & .data$text != "")
-
-    if (!quiet) message("Loaded: ", basename(fp), " (", nrow(core), " rows)")
-    out[[length(out) + 1L]] <- core
+  else {
+    stop("Could not resolve path: please provide a valid file path, package name, or URL.")
   }
 
-  if (length(out) == 0L) {
-    stop("No valid transcripts were loaded. Check files or set skip_on_missing = FALSE.", call. = FALSE)
+  # --- Load the RDA file ---
+  env <- new.env()
+  load(resolved_path, envir = env)
+  obj_name <- ls(env)
+  if (length(obj_name) != 1) {
+    stop("The RDA file should contain exactly one object, found: ",
+         paste(obj_name, collapse = ", "))
   }
 
-  all_df <- dplyr::bind_rows(out)
-  arrow::Table$create(all_df)
+  data <- get(obj_name, envir = env)
+
+  # --- Validate column structure ---
+  expected_cols <- c("n", "row_id", "speaker", "speech", "speaker_std")
+  missing_cols <- setdiff(expected_cols, names(data))
+  if (length(missing_cols) > 0) {
+    warning("The following expected columns are missing: ",
+            paste(missing_cols, collapse = ", "))
+  }
+
+  return(data)
 }
