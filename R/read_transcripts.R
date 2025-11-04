@@ -1,4 +1,4 @@
-#' Read a Transcript-Formatted RDA File
+#' Read and Optionally Filter a Transcript-Formatted RDA File
 #'
 #' This function loads a pre-processed `.rda` file containing compiled transcript data.
 #' It supports loading from:
@@ -8,21 +8,9 @@
 #'   \item An **installed package’s** `data/` directory (optional).
 #' }
 #'
-#' The `.rda` file must contain a single object with the standardized transcript structure:
-#' \describe{
-#'   \item{n}{Transcript ID or name (the original `.csv` file name).}
-#'   \item{row_id}{Row number within the individual transcript (chronological order).}
-#'   \item{speaker}{Original speaker label from the source transcript.}
-#'   \item{speech}{Speech text content of the transcript.}
-#'   \item{speaker_std}{Standardized or normalized version of the speaker name.}
-#' }
-#'
-#' This function is general-purpose and not tied to any particular package. Any `.rda`
-#' file that follows the schema above can be loaded for analysis or further processing.
-#'
-#' For demonstration purposes, the examples use the open-source
-#' **BribeRData** repository and its dataset
-#' [`vladivideos_transcripts.rda`](https://github.com/jessietrudeau/BribeRdata/blob/730367bc869081ecd994c73754b51e4373eab887/data/vladivideos_transcripts.rda).
+#' Optionally, users can specify one or multiple transcript IDs (`n`) to filter
+#' only those transcripts of interest. If no filter is provided, the full dataset
+#' is returned.
 #'
 #' @param path Character string specifying one of:
 #' \itemize{
@@ -32,31 +20,35 @@
 #' }
 #' @param package Optional. Character string naming the package containing the RDA
 #' (if loading from a package’s `data/` directory). Defaults to `NULL`.
+#' @param transcripts Optional numeric or character vector specifying transcript
+#' IDs (`n`) to filter. If `NULL`, all transcripts are returned.
 #'
 #' @return A data frame (or tibble) with columns `n`, `row_id`, `speaker`, `speech`,
-#' and `speaker_std`.
+#' and `speaker_std`. If `transcripts` is specified, only matching transcripts are returned.
 #'
 #' @examples
 #' \dontrun{
-#' # 1. Load a local RDA file
-#' transcripts_local <- read_transcripts("~/Documents/transcripts_subset.rda")
-#'
-#' # 2. Load a remote RDA file from GitHub (BribeRData example)
-#' transcripts_remote <- read_transcripts(
-#'   "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/730367bc869081ecd994c73754b51e4373eab887/data/vladivideos_transcripts.rda"
+#' # 1. Load the full dataset
+#' all_transcripts <- read_transcripts(
+#'   "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda"
 #' )
 #'
-#' # 3. Load from a package (optional, if available)
-#' transcripts_pkg <- read_transcripts("vladivideos_transcripts", package = "BribeRdata")
+#' # 2. Retrieve only transcript 1
+#' t1 <- read_transcripts(
+#'   "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda",
+#'   transcripts = 1
+#' )
 #'
-#' # View structure and inspect speaker names
-#' str(transcripts_remote)
-#' unique(transcripts_remote$speaker_std)
+#' # 3. Retrieve transcripts 5, 7, and 13
+#' subset_transcripts <- read_transcripts(
+#'   "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda",
+#'   transcripts = c(5, 7, 13)
+#' )
 #' }
 #'
 #' @seealso [get_transcripts_raw()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
-read_transcripts <- function(path, package = NULL) {
+read_transcripts <- function(path, package = NULL, transcripts = NULL) {
   if (missing(path) || !nzchar(path)) {
     stop("Please provide the name, path, or URL of the RDA file.")
   }
@@ -110,6 +102,19 @@ read_transcripts <- function(path, package = NULL) {
   if (length(missing_cols) > 0) {
     warning("The following expected columns are missing: ",
             paste(missing_cols, collapse = ", "))
+  }
+
+  # --- Optional transcript filtering ---
+  if (!is.null(transcripts)) {
+    if (!"n" %in% names(data)) {
+      stop("Column 'n' not found in the data; cannot filter by transcript.")
+    }
+
+    data <- dplyr::filter(data, n %in% transcripts)
+
+    if (nrow(data) == 0) {
+      warning("No transcripts found matching IDs: ", paste(transcripts, collapse = ", "))
+    }
   }
 
   return(data)
