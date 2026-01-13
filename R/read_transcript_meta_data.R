@@ -46,13 +46,16 @@
 #' @examples
 #' \dontrun{
 #' meta <- read_transcript_meta_data(
-#'   descriptions_path = "../data/Updated Inventory & Descriptions/Descriptions.csv",
-#'   speakers_per_transcript_path = "../data/Updated Inventory & Descriptions/speakers per transcript.csv",
-#'   transcripts_dir = "../data/modified_data/finalized_data",
-#'   recursive = TRUE
-#' )
+#'    descriptions_path = "data-raw/Inventory & Descriptions/Descriptions.csv",
+#'    speakers_per_transcript_path = "data-raw/Inventory & Descriptions/speakers per transcript.csv",
+#'     transcripts_dir = "data-raw/transcripts",
+#'    recursive = TRUE
+#'     )
 #'
-#'view(meta)
+#' view(meta)
+#' }
+#'
+
 
 
 read_transcript_meta_data <- function(

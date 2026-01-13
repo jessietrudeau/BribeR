@@ -1,64 +1,56 @@
-#' Retrieve All Unique Speakers Across Transcripts
+#' Get speakers present in each transcript
 #'
-#' This function scans all `.csv` transcript files in the
-#' `data-raw/transcripts` folder of the **BribeRdata** package and
-#' returns a vector of all unique speaker names found in the
-#' `speaker_std` column.
+#' Reads the canonical "speakers per transcript.csv" file and returns one row per
+#' transcript `n` with a list-column of unique speakers present in that transcript.
 #'
-#' Each transcript is read individually, and unique speaker names are
-#' combined into a single deduplicated list.
+#' @param path Optional. Path to the speakers-per-transcript file.
+#'   Defaults to "data-raw/Inventory & Descriptions/speakers per transcript.csv".
 #'
-#' For reference, see the BribeRdata repository:
-#' <https://github.com/jessietrudeau/BribeRdata/tree/main/data-raw/transcripts>
-#'
-#' @param package Character string naming the package that stores the transcripts.
-#' Defaults to `"BribeRdata"`.
-#'
-#' @return A character vector of unique standardized speaker names.
-#'
+#' @return A tibble with columns:
+#'   - `n` (character): transcript id
+#'   - `speakers` (list): unique, sorted character vector of speakers for that transcript
 #' @examples
-#' \dontrun{
-#' # Retrieve all unique speaker names
+#' # Load in all unique speakers in each transcript
 #' speakers <- get_transcript_speakers()
 #'
-#' # Display how many unique speakers exist
-#' length(speakers)
-#'
-#' # View a few examples
-#' head(speakers, 10)
-#' }
 #'
 #' @export
-get_transcript_speakers <- function(package = "BribeRdata") {
-  # Locate transcripts folder
-  transcripts_dir <- system.file("data-raw", "transcripts", package = package)
-
-  # Fallback for development mode
-  if (transcripts_dir == "" && dir.exists(file.path("data-raw", "transcripts"))) {
-    transcripts_dir <- file.path("data-raw", "transcripts")
+get_transcript_speakers <- function(
+    path = file.path("data-raw", "Inventory & Descriptions", "speakers per transcript.csv")
+) {
+  if (!file.exists(path)) {
+    stop("Speakers-per-transcript file not found at: ", path, call. = FALSE)
   }
 
-  if (transcripts_dir == "" || !dir.exists(transcripts_dir)) {
-    stop("Transcript directory not found. Check that the package or data path exists.")
+  df <- readr::read_csv(path, show_col_types = FALSE, progress = FALSE)
+
+  if (!"n" %in% names(df)) {
+    stop("Expected column 'n' in speakers-per-transcript file.", call. = FALSE)
   }
 
-  # List all .csv transcripts
-  files <- list.files(transcripts_dir, pattern = "\\.csv$", full.names = TRUE)
-  if (length(files) == 0) stop("No transcript files found in ", transcripts_dir)
+  # accept both correct and misspelled prefixes
+  speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(df), value = TRUE)
+  if (!length(speaker_cols)) {
+    stop(
+      "No speaker columns found. Expected columns like 'speakrer_std_1' or 'speaker_std_1'.",
+      call. = FALSE
+    )
+  }
 
-  # Iterate and extract 'speaker_std' values
-  all_speakers <- unique(unlist(lapply(files, function(f) {
-    dat <- tryCatch(read.csv(f, stringsAsFactors = FALSE), error = function(e) NULL)
-    if (!is.null(dat) && "speaker_std" %in% names(dat)) {
-      dat$speaker_std
-    } else {
-      NULL
-    }
-  })))
-
-  # Clean up (remove NAs, duplicates, trim whitespace)
-  all_speakers <- sort(unique(trimws(all_speakers)))
-  all_speakers <- all_speakers[nzchar(all_speakers)]  # remove empty strings
-
-  return(all_speakers)
+  df |>
+    dplyr::mutate(n = as.character(.data$n)) |>
+    dplyr::rowwise() |>
+    dplyr::mutate(
+      speakers = list({
+        v <- unlist(dplyr::c_across(dplyr::all_of(speaker_cols)), use.names = FALSE)
+        v <- as.character(v)
+        v <- v[!is.na(v)]
+        v <- trimws(v)
+        v <- v[nzchar(v)]
+        sort(unique(v))
+      })
+    ) |>
+    dplyr::ungroup() |>
+    dplyr::select(n, speakers) |>
+    tibble::as_tibble()
 }

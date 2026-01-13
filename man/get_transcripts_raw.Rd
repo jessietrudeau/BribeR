@@ -2,9 +2,9 @@
 % Please edit documentation in R/get_transcripts_raw.R
 \name{get_transcripts_raw}
 \alias{get_transcripts_raw}
-\title{Retrieve Raw Transcript Files from BribeRdata}
+\title{Retrieve Raw Transcript Files from bribeR}
 \usage{
-get_transcripts_raw(n = NULL, combine = FALSE, package = "BribeRdata")
+get_transcripts_raw(n = NULL, combine = FALSE, package = "bribeR")
 }
 \arguments{
 \item{n}{Optional integer or vector of integers specifying which transcript(s)
@@ -14,23 +14,20 @@ to load. If \code{NULL} (default), all transcripts are loaded.}
 with an added column \code{n} (the transcript ID). Defaults to \code{FALSE}.}
 
 \item{package}{Character string naming the package that stores the transcripts.
-Defaults to \code{"BribeRdata"}.}
+Defaults to \code{"bribeR"}. (Kept for flexibility/testing.)}
 }
 \value{
-If \code{combine = FALSE}, returns a named list of data frames.
+If \code{combine = FALSE}, returns a named list of data frames (tibbles).
 If \code{combine = TRUE}, returns a combined tibble with an added column \code{n}.
 }
 \description{
 This function retrieves one or more raw transcript \code{.csv} files from the
-\code{data-raw/transcripts} folder of the \strong{BribeRdata} package.
+\code{data-raw/transcripts} folder of the \strong{bribeR} package.
 It supports both installed and development versions of the package.
 }
 \details{
 Transcripts are named by their numeric ID (e.g., \verb{1.csv}, \verb{19.csv}, \verb{104.csv}).
 You can load all transcripts or specify a subset by transcript ID.
-
-For reference, see the BribeRdata repository:
-\url{https://github.com/jessietrudeau/BribeRdata/tree/main/data-raw/transcripts}
 }
 \examples{
 \dontrun{
@@ -41,7 +38,9 @@ all_transcripts <- get_transcripts_raw()
 t3 <- get_transcripts_raw(n = 3)
 
 # Load multiple transcripts and combine them
-subset_combined <- get_transcripts_raw(n = c(3, 19, 104), combine = TRUE)
+subset_combined <- get_transcripts_raw(
+  n = c(3, 19, 104),
+  combine = TRUE
+)
 }
-
 }

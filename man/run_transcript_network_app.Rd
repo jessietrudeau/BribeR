@@ -2,17 +2,62 @@
 % Please edit documentation in R/run_transcript_network_app.R
 \name{run_transcript_network_app}
 \alias{run_transcript_network_app}
-\title{Run the Transcript-Topic-Speaker Shiny app (data from BribeRdata)}
+\title{Run the Transcript-Topic-Speaker Shiny app (fixed project paths)}
 \usage{
 run_transcript_network_app(transcript_dir = NULL)
 }
 \arguments{
 \item{transcript_dir}{Optional path to a directory of transcript CSV/TSV files
-(with a \code{speaker_std} column). If \code{NULL}, the app will try to use
-any packaged transcripts in \pkg{BribeRdata} (if present). If neither is found,
-the app still runs using only metadata.}
+(with a \code{speaker_std} column). If \code{NULL}, the app will use
+\code{data-raw/transcripts} under the current working directory.}
+}
+\value{
+A \code{shiny.appobj} that, when printed, launches the
+Transcript-Topic-Speaker Shiny application.
 }
 \description{
-By default, loads metadata and (optionally) transcripts from the helper package
-\pkg{BribeRdata}. You can override the transcript directory with \code{transcript_dir}.
+Launch an interactive Shiny application that visualizes the relationships
+between speakers and topics in a transcript collection, using fixed
+project-relative paths for metadata and transcripts.
+}
+\details{
+This version assumes your working directory is set to the project root and
+uses the following fixed subdirectories:
+\itemize{
+\item \code{data-raw/Inventory & Descriptions} for:
+\itemize{
+\item \code{Descriptions.csv}
+\item \code{speakers per transcript.csv}
+\item \code{Topic Descriptions.csv}
+\item \code{Actors.csv}
+}
+\item \code{data-raw/transcripts} for transcript CSV/TSV files
+\item \code{inst/images/montesinos.PNG} (optional image for the "montesinos" node)
+}
+
+This function expects the metadata CSVs to have the following structure:
+\itemize{
+\item \code{Descriptions.csv} contains a column \code{n} (transcript ID)
+and multiple \code{topic_...} columns with \code{"x"} indicating topic
+inclusion.
+\item \code{speakers per transcript.csv} contains a column \code{n} and
+wide-format speaker columns with speaker names.
+\item \code{Topic Descriptions.csv} contains a column \code{topics} and
+a column \code{descriptions} describing each topic.
+\item \code{Actors.csv} contains information on actors, including
+\code{speaker}, \code{speaker_std}, \code{Type}, and \code{Position}.
+}
+Transcript files in \code{data-raw/transcripts} (or in \code{transcript_dir})
+must contain a \code{speaker_std} column used to compute speaker frequency
+across conversations.
+}
+\examples{
+\dontrun{
+# Run using the default data-raw/ structure:
+run_transcript_network_app()
+
+# Run using a custom transcript directory:
+run_transcript_network_app("other/transcripts/path")
+}
+
 }

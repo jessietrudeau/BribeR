@@ -68,3 +68,16 @@ a total word count. A transcript file is matched by basename (e.g., \verb{12.csv
 corresponds to \code{n == "12"}). If no file is found, \code{n_words} is \code{NA}.
 }
 }
+\examples{
+\dontrun{
+meta <- read_transcript_meta_data(
+   descriptions_path = "data-raw/Inventory & Descriptions/Descriptions.csv",
+   speakers_per_transcript_path = "data-raw/Inventory & Descriptions/speakers per transcript.csv",
+    transcripts_dir = "data-raw/transcripts",
+   recursive = TRUE
+    )
+
+view(meta)
+}
+
+}

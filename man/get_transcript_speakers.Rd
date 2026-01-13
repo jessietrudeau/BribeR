@@ -2,40 +2,30 @@
 % Please edit documentation in R/get_transcript_speakers.R
 \name{get_transcript_speakers}
 \alias{get_transcript_speakers}
-\title{Retrieve All Unique Speakers Across Transcripts}
+\title{Get speakers present in each transcript}
 \usage{
-get_transcript_speakers(package = "BribeRdata")
+get_transcript_speakers(
+  path = file.path("data-raw", "Inventory & Descriptions", "speakers per transcript.csv")
+)
 }
 \arguments{
-\item{package}{Character string naming the package that stores the transcripts.
-Defaults to \code{"BribeRdata"}.}
+\item{path}{Optional. Path to the speakers-per-transcript file.
+Defaults to "data-raw/Inventory & Descriptions/speakers per transcript.csv".}
 }
 \value{
-A character vector of unique standardized speaker names.
+A tibble with columns:
+\itemize{
+\item \code{n} (character): transcript id
+\item \code{speakers} (list): unique, sorted character vector of speakers for that transcript
+}
 }
 \description{
-This function scans all \code{.csv} transcript files in the
-\code{data-raw/transcripts} folder of the \strong{BribeRdata} package and
-returns a vector of all unique speaker names found in the
-\code{speaker_std} column.
-}
-\details{
-Each transcript is read individually, and unique speaker names are
-combined into a single deduplicated list.
-
-For reference, see the BribeRdata repository:
-\url{https://github.com/jessietrudeau/BribeRdata/tree/main/data-raw/transcripts}
+Reads the canonical "speakers per transcript.csv" file and returns one row per
+transcript \code{n} with a list-column of unique speakers present in that transcript.
 }
 \examples{
-\dontrun{
-# Retrieve all unique speaker names
+# Load in all unique speakers in each transcript
 speakers <- get_transcript_speakers()
 
-# Display how many unique speakers exist
-length(speakers)
-
-# View a few examples
-head(speakers, 10)
-}
 
 }
