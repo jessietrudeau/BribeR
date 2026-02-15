@@ -1,4 +1,4 @@
-Package: bribeR
+Package: BribeR
 Title: Package for Understanding Corruption Transcripts
 Version: 0.0.0.9000
 Authors@R: 
@@ -19,7 +19,8 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    visNetwork
+    visNetwork,
+    tidyselect
 Suggests: 
     testthat (>= 3.0.0),
     withr
