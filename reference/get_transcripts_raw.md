@@ -1,13 +1,12 @@
-# Retrieve Raw Transcript Files from bribeR
+# Retrieve Raw Transcript Files from BribeR
 
-This function retrieves one or more raw transcript `.csv` files from the
-`data-raw/transcripts` folder of the **bribeR** package. It supports
-both installed and development versions of the package.
+Retrieves one or more raw transcript `.csv` files from the
+`data-raw/transcripts` folder of the **BribeR** package.
 
 ## Usage
 
 ``` r
-get_transcripts_raw(n = NULL, combine = FALSE, package = "bribeR")
+get_transcripts_raw(n = NULL, combine = FALSE)
 ```
 
 ## Arguments
@@ -22,11 +21,6 @@ get_transcripts_raw(n = NULL, combine = FALSE, package = "bribeR")
   Logical; if `TRUE`, combines all transcripts into a single tibble with
   an added column `n` (the transcript ID). Defaults to `FALSE`.
 
-- package:
-
-  Character string naming the package that stores the transcripts.
-  Defaults to `"bribeR"`. (Kept for flexibility/testing.)
-
 ## Value
 
 If `combine = FALSE`, returns a named list of data frames (tibbles). If
@@ -37,6 +31,12 @@ If `combine = FALSE`, returns a named list of data frames (tibbles). If
 Transcripts are named by their numeric ID (e.g., `1.csv`, `19.csv`,
 `104.csv`). You can load all transcripts or specify a subset by
 transcript ID.
+
+## See also
+
+[`read_transcripts()`](https://github.com/jessietrudeau/BribeR/reference/read_transcripts.md),
+[`get_transcript_id()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_id.md),
+[`get_transcript_speakers()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_speakers.md)
 
 ## Examples
 
@@ -49,9 +49,6 @@ all_transcripts <- get_transcripts_raw()
 t3 <- get_transcripts_raw(n = 3)
 
 # Load multiple transcripts and combine them
-subset_combined <- get_transcripts_raw(
-  n = c(3, 19, 104),
-  combine = TRUE
-)
+subset_combined <- get_transcripts_raw(n = c(3, 19, 104), combine = TRUE)
 } # }
 ```
