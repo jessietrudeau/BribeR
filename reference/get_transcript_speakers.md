@@ -33,6 +33,5 @@ A tibble with columns:
 ``` r
 # Load in all unique speakers in each transcript
 speakers <- get_transcript_speakers()
-#> Error: Speakers-per-transcript file not found at: data-raw/Inventory & Descriptions/speakers per transcript.csv
 
 ```
