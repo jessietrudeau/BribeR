@@ -1,96 +1,65 @@
-#' Run the Transcript-Topic-Speaker Shiny app (fixed project paths)
+#' Run the Transcript-Topic-Speaker Shiny app
 #'
 #' Launch an interactive Shiny application that visualizes the relationships
-#' between speakers and topics in a transcript collection, using fixed
-#' project-relative paths for metadata and transcripts.
+#' between speakers and topics in a transcript collection. All data is loaded
+#' from the bundled package datasets and the `data-raw/transcripts` folder.
 #'
-#' This version assumes your working directory is set to the project root and
-#' uses the following fixed subdirectories:
+#' The app provides two network views:
 #' \itemize{
-#'   \item \code{data-raw/Inventory & Descriptions} for:
-#'     \itemize{
-#'       \item \code{Descriptions.csv}
-#'       \item \code{speakers per transcript.csv}
-#'       \item \code{Topic Descriptions.csv}
-#'       \item \code{Actors.csv}
-#'     }
-#'   \item \code{data-raw/transcripts} for transcript CSV/TSV files
-#'   \item \code{inst/images/montesinos.PNG} (optional image for the "montesinos" node)
+#'   \item **Speaker-Topic Network**: connects speakers to the topics discussed
+#'     in their transcripts.
+#'   \item **Speaker Co-Appearance Network**: connects speakers who appear in the
+#'     same transcript.
 #' }
 #'
 #' @param transcript_dir Optional path to a directory of transcript CSV/TSV files
 #'   (with a \code{speaker_std} column). If \code{NULL}, the app will use
-#'   \code{data-raw/transcripts} under the current working directory.
+#'   \code{data-raw/transcripts} from the BribeR package.
 #'
 #' @return A \code{shiny.appobj} that, when printed, launches the
 #'   Transcript-Topic-Speaker Shiny application.
 #'
-#' @details
-#' This function expects the metadata CSVs to have the following structure:
-#' \itemize{
-#'   \item \code{Descriptions.csv} contains a column \code{n} (transcript ID)
-#'     and multiple \code{topic_...} columns with \code{"x"} indicating topic
-#'     inclusion.
-#'   \item \code{speakers per transcript.csv} contains a column \code{n} and
-#'     wide-format speaker columns with speaker names.
-#'   \item \code{Topic Descriptions.csv} contains a column \code{topics} and
-#'     a column \code{descriptions} describing each topic.
-#'   \item \code{Actors.csv} contains information on actors, including
-#'     \code{speaker}, \code{speaker_std}, \code{Type}, and \code{Position}.
-#' }
-#' Transcript files in \code{data-raw/transcripts} (or in \code{transcript_dir})
-#' must contain a \code{speaker_std} column used to compute speaker frequency
-#' across conversations.
-#'
 #' @examples
 #' \dontrun{
-#' # Run using the default data-raw/ structure:
+#' # Run the network app
 #' run_transcript_network_app()
-#'
-#' # Run using a custom transcript directory:
-#' run_transcript_network_app("other/transcripts/path")
 #' }
 #'
+#' @seealso [read_transcripts()], [read_transcript_meta_data()]
 #' @export
 run_transcript_network_app <- function(transcript_dir = NULL) {
 
-  # ---- 0) Fixed paths relative to current working directory -----------------
-  meta_dir <- fs::path("data-raw", "Inventory & Descriptions")
-  transcripts_default_dir <- fs::path("data-raw", "transcripts")
-  montesinos_image_path <- fs::path("inst", "images", "montesinos.PNG")
+  # ---- 0) Load bundled data -------------------------------------------------
+  .load_pkg_data <- function(filename, object_name) {
+    rda_path <- system.file("data", paste0(filename, ".rda"), package = "BribeR")
+    if (rda_path == "") {
+      stop("Could not find ", filename, ".rda in the BribeR package.", call. = FALSE)
+    }
+    env <- new.env()
+    load(rda_path, envir = env)
+    env[[object_name]]
+  }
 
-  descriptions_path       <- fs::path(meta_dir, "Descriptions.csv")
-  speakers_path           <- fs::path(meta_dir, "speakers per transcript.csv")
-  topic_descriptions_path <- fs::path(meta_dir, "Topic Descriptions.csv")
-  actors_path             <- fs::path(meta_dir, "Actors.csv")
+  descriptions           <- .load_pkg_data("descriptions", "descriptions")
+  speakers_df            <- .load_pkg_data("speakers_per_transcript", "speakers_per_transcript")
+  topic_descriptions     <- .load_pkg_data("topic_descriptions", "topic_descriptions")
+  actor_descriptions_raw <- .load_pkg_data("actors", "actors")
 
+  # ---- 1) Resolve transcript directory --------------------------------------
   if (is.null(transcript_dir)) {
-    transcript_dir <- transcripts_default_dir
+    transcript_dir <- system.file("data-raw", "transcripts", package = "BribeR")
+    if (transcript_dir == "" && dir.exists(file.path("data-raw", "transcripts"))) {
+      transcript_dir <- file.path("data-raw", "transcripts")
+    }
   }
 
-  # ---- 1) Load metadata from fixed paths ------------------------------------
-  if (!fs::file_exists(descriptions_path)) {
-    stop("Descriptions.csv not found at: ", descriptions_path)
+  # ---- 2) Optional Montesinos image -----------------------------------------
+  montesinos_image_path <- system.file("images", "montesinos.PNG", package = "BribeR")
+  if (montesinos_image_path == "" && file.exists(file.path("inst", "images", "montesinos.PNG"))) {
+    montesinos_image_path <- file.path("inst", "images", "montesinos.PNG")
   }
-  descriptions <- readr::read_csv(descriptions_path, col_types = readr::cols())
 
-  if (!fs::file_exists(speakers_path)) {
-    stop("'speakers per transcript.csv' not found at: ", speakers_path)
-  }
-  speakers_df <- readr::read_csv(speakers_path, col_types = readr::cols())
-
-  if (!fs::file_exists(topic_descriptions_path)) {
-    stop("Topic Descriptions.csv not found at: ", topic_descriptions_path)
-  }
-  topic_descriptions <- readr::read_csv(topic_descriptions_path, col_types = readr::cols())
-
-  if (!fs::file_exists(actors_path)) {
-    stop("Actors.csv not found at: ", actors_path)
-  }
-  actor_descriptions_raw <- readr::read_csv(actors_path, col_types = readr::cols())
-
-  # ---- 2) Optional image from fixed path ------------------------------------
-  has_img <- fs::file_exists(montesinos_image_path)
+  has_img <- nzchar(montesinos_image_path) && file.exists(montesinos_image_path)
   if (has_img) {
     shiny::addResourcePath(
       "briber_images",
@@ -101,19 +70,30 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     montesinos_image <- NULL
   }
 
+  # ---- Tooltip style for visInteraction -------------------------------------
+  tooltip_style <- paste0(
+    "position: fixed;",
+    "visibility: hidden;",
+    "padding: 10px 14px;",
+    "font-family: sans-serif;",
+    "font-size: 14px;",
+    "line-height: 1.5;",
+    "color: #000;",
+    "background-color: #f5f4ed;",
+    "border: 1px solid #d5d4c7;",
+    "border-radius: 4px;",
+    "box-shadow: 3px 3px 10px rgba(0,0,0,0.15);",
+    "max-width: 450px;",
+    "white-space: normal;",
+    "word-wrap: break-word;",
+    "overflow-wrap: break-word;",
+    "word-break: normal;",
+    "pointer-events: none;",
+    "z-index: 9999;"
+  )
+
   # ---- 3) Build UI ----------------------------------------------------------
   ui <- shiny::fluidPage(
-    shiny::tags$head(
-      shiny::tags$style(shiny::HTML("
-        .vis-tooltip, .vis-tooltip * {
-          white-space: normal !important;
-          word-break: keep-all !important;
-          overflow-wrap: break-word !important;
-          hyphens: manual !important;
-          line-height: 1.35;
-        }
-      "))
-    ),
     shiny::titlePanel("Transcript-Topic-Speaker Network"),
     shiny::tabsetPanel(
       shiny::tabPanel(
@@ -140,7 +120,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # Speaker frequency from transcripts (optional)
     speaker_frequency <- {
-      if (!is.null(transcript_dir) && fs::dir_exists(transcript_dir)) {
+      if (!is.null(transcript_dir) && nzchar(transcript_dir) && dir.exists(transcript_dir)) {
         files <- fs::dir_ls(transcript_dir, regexp = "\\.(csv|tsv)$", recurse = TRUE)
         sf <- purrr::map_dfr(files, function(path) {
           ext <- tools::file_ext(path)
@@ -192,7 +172,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     # === Speakers reshape ===
     speaker_long <- speakers_df |>
       tidyr::pivot_longer(
-        cols = - .data$n,
+        cols = -.data$n,
         names_to = "speaker_col",
         values_to = "speaker"
       ) |>
@@ -306,7 +286,6 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
           is.na(.data$Type) | .data$Type == ""   ~ "Unknown",
           TRUE                                   ~ .data$Type
         ),
-        # use `speaker` as display name, fall back to speaker_std if needed
         name = dplyr::coalesce(.data$speaker, .data$speaker_std)
       )
 
@@ -338,10 +317,10 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         value = pmax(1, log1p(dplyr::coalesce(.data$conversation_count, 0))),
         title = paste0(
           "<b>", dplyr::coalesce(.data$name, .data$id), "</b><br>",
-          "Standardized ID: ", .data$id, "<br>",
-          "Type: ", dplyr::coalesce(.data$Type, "Unknown"), "<br>",
-          "Position: ", dplyr::coalesce(.data$Position, "No info"), "<br>",
-          "Transcripts: ", dplyr::coalesce(as.character(.data$conversation_count), "0")
+          "<b>Standardized ID:</b> ", .data$id, "<br>",
+          "<b>Type:</b> ", dplyr::coalesce(.data$Type, "Unknown"), "<br>",
+          "<b>Position:</b> ", dplyr::coalesce(.data$Position, "No info"), "<br>",
+          "<b>Transcripts:</b> ", dplyr::coalesce(as.character(.data$conversation_count), "0")
         )
       ) |>
       dplyr::select(
@@ -350,7 +329,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       ) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
 
-    # Add Montesinos image properties *outside* the pipe, to avoid `{}` on RHS
+    # Add Montesinos image properties
     if (!has_img) {
       nodes_speaker_st <- nodes_speaker_st |>
         dplyr::mutate(
@@ -437,6 +416,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
           highlightNearest = TRUE,
           nodesIdSelection = TRUE
         ) |>
+        visNetwork::visInteraction(
+          tooltipStyle = tooltip_style
+        ) |>
         visNetwork::visPhysics(
           solver = "forceAtlas2Based",
           stabilization = TRUE
@@ -474,6 +456,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
           highlightNearest = TRUE,
           nodesIdSelection = TRUE
         ) |>
+        visNetwork::visInteraction(
+          tooltipStyle = tooltip_style
+        ) |>
         visNetwork::visPhysics(
           solver = "forceAtlas2Based",
           stabilization = TRUE
@@ -505,7 +490,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       )
       shiny::HTML(
         paste(
-          "<b>Legend – Speaker Types:</b><br><div style='margin-top: 5px;'>",
+          "<b>Legend \u2013 Speaker Types:</b><br><div style='margin-top: 5px;'>",
           paste(legend_items, collapse = ""),
           "</div>"
         )
@@ -515,3 +500,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
   shiny::shinyApp(ui = ui, server = server)
 }
+
+
+
+
