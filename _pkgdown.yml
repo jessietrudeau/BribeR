@@ -1,4 +1,40 @@
 url: https://github.com/jessietrudeau/BribeR
 template:
   bootstrap: 5
+  light-switch: true
 
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, lightswitch, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+        - text: "Getting Started"
+          href: articles/getting_started.html
+        - text: "Corpus Overview"
+          href: articles/corpus_overview.html
+
+reference:
+  - title: "Read Transcripts"
+    desc: "Functions for reading and processing transcripts"
+    contents:
+      - read_transcripts
+      - read_transcript_meta_data
+      - get_transcripts_raw
+  - title: "Transcript Details"
+    desc: "Functions for extracting transcript details"
+    contents:
+      - get_transcript_id
+      - get_transcript_speakers
+  - title: "Interactive Tools"
+    desc: "Shiny applications for exploring data"
+    contents:
+      - run_transcript_network_app
+
+articles:
+  - title: "Articles"
+    contents:
+      - getting_started
+      - corpus_overview
