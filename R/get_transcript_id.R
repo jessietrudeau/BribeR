@@ -1,17 +1,14 @@
 #' Retrieve Available Transcript IDs
 #'
-#' Lists all available transcript IDs based on the `.csv` files stored in
-#' the `data-raw/transcripts` folder of the **BribeR** package. Optionally
-#' filters to only those transcripts that include any of the specified
-#' speakers or topics, using the bundled `transcript_index` dataset.
+#' Returns all available transcript IDs (the unique values of `n`) from the
+#' bundled Vladivideos transcript dataset. Optionally filters to only those
+#' transcripts that include any of the specified speakers or topics, using
+#' the bundled `transcript_index` dataset.
 #'
 #' When multiple speakers and/or topics are provided, all filters are
 #' combined with OR logic: a transcript is included if **any** of the
 #' specified speakers appear in it **or** **any** of the specified topics
 #' are flagged.
-#'
-#' Each transcript is named numerically (e.g., `1.csv`, `19.csv`, `104.csv`),
-#' and its ID corresponds directly to that number.
 #'
 #' @param speaker Optional character vector of one or more standardized speaker
 #'   names (e.g., `"montesinos"`, `c("kouri", "crousillat")`). If provided,
@@ -26,6 +23,7 @@
 #' @examples
 #' # Retrieve all available transcript IDs
 #' ids <- get_transcript_id()
+#' head(ids)
 #'
 #' # Retrieve transcript IDs where Montesinos appears
 #' get_transcript_id(speaker = "montesinos")
@@ -42,20 +40,21 @@
 #' @seealso [read_transcripts()], [get_transcripts_raw()], [get_transcript_speakers()]
 #' @export
 get_transcript_id <- function(speaker = NULL, topic = NULL) {
-  transcripts_dir <- system.file("data-raw", "transcripts", package = "BribeR")
 
-  # Fallback: local path during development
-  if (transcripts_dir == "" && dir.exists(file.path("data-raw", "transcripts"))) {
-    transcripts_dir <- file.path("data-raw", "transcripts")
+  # Load all unique IDs from bundled transcripts
+  rda_path <- system.file("data", "vladivideos_detailed.rda", package = "BribeR")
+  if (rda_path == "") {
+    stop("Could not find vladivideos_detailed.rda in the BribeR package.", call. = FALSE)
+  }
+  env <- new.env()
+  load(rda_path, envir = env)
+  data <- env$compiled_transcripts
+
+  if (!"n" %in% names(data)) {
+    stop("Column 'n' not found in the dataset.", call. = FALSE)
   }
 
-  if (transcripts_dir == "" || !dir.exists(transcripts_dir)) {
-    stop("Transcript directory not found. Is the BribeR package installed correctly?", call. = FALSE)
-  }
-
-  files <- list.files(transcripts_dir, pattern = "\\.csv$", full.names = FALSE)
-  all_ids <- as.numeric(tools::file_path_sans_ext(files))
-  all_ids <- sort(all_ids, na.last = NA)
+  all_ids <- sort(unique(as.numeric(data$n)), na.last = NA)
 
   # If no filters, return all IDs
   if (is.null(speaker) && is.null(topic)) {
@@ -63,15 +62,15 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   }
 
   # Load transcript_index for filtering
-  rda_path <- system.file("data", "transcript_index.rda", package = "BribeR")
-  if (rda_path == "") {
+  idx_path <- system.file("data", "transcript_index.rda", package = "BribeR")
+  if (idx_path == "") {
     stop("Could not find transcript_index.rda in the BribeR package.", call. = FALSE)
   }
-  env <- new.env()
-  load(rda_path, envir = env)
-  index <- env$transcript_index
+  env2 <- new.env()
+  load(idx_path, envir = env2)
+  index <- env2$transcript_index
 
-  # Restrict to IDs that exist as files
+  # Restrict to IDs that exist in the transcripts
   index <- index[index$n %in% all_ids, ]
 
   # Collect matching row indices (OR across all filters)
@@ -89,7 +88,7 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
         "Speaker(s) not found in transcript_index: ",
         paste(sub("^speaker_", "", missing), collapse = ", "), ". ",
         "Available speakers include: ",
-        paste(head(available_names, 10), collapse = ", "),
+        paste(utils::head(available_names, 10), collapse = ", "),
         if (length(available_names) > 10) ", ..." else "",
         call. = FALSE
       )
@@ -125,3 +124,9 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   filtered_ids <- sort(as.numeric(index$n[matched]), na.last = NA)
   filtered_ids
 }
+
+
+
+
+
+

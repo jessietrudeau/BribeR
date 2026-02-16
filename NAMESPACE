@@ -3,5 +3,6 @@
 export(get_transcript_id)
 export(get_transcript_speakers)
 export(get_transcripts_raw)
+export(read_transcript_meta_data)
 export(read_transcripts)
 export(run_transcript_network_app)

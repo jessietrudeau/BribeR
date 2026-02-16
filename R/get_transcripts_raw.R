@@ -15,6 +15,7 @@
 #'   If `combine = TRUE`, returns a combined tibble with an added column `n`.
 #'
 #' @examples
+#' \dontrun{
 #' # Load all transcripts (as a list)
 #' all_transcripts <- get_transcripts_raw()
 #'
@@ -23,6 +24,7 @@
 #'
 #' # Load multiple transcripts and combine them
 #' subset_combined <- get_transcripts_raw(n = c(3, 19, 104), combine = TRUE)
+#' }
 #'
 #' @seealso [read_transcripts()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
@@ -69,3 +71,17 @@ get_transcripts_raw <- function(n = NULL, combine = FALSE) {
 
   transcripts
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,30 +2,28 @@
 % Please edit documentation in R/get_transcript_speakers.R
 \name{get_transcript_speakers}
 \alias{get_transcript_speakers}
-\title{Get speakers present in each transcript}
+\title{Get transcripts each speaker appears in}
 \usage{
-get_transcript_speakers(
-  path = file.path("data-raw", "Inventory & Descriptions", "speakers per transcript.csv")
-)
-}
-\arguments{
-\item{path}{Optional. Path to the speakers-per-transcript file.
-Defaults to "data-raw/Inventory & Descriptions/speakers per transcript.csv".}
+get_transcript_speakers()
 }
 \value{
 A tibble with columns:
 \itemize{
-\item \code{n} (character): transcript id
-\item \code{speakers} (list): unique, sorted character vector of speakers for that transcript
+\item \code{speaker_std} (character): standardized speaker identifier
+\item \code{transcripts} (list): sorted numeric vector of transcript IDs where the speaker appears
 }
 }
 \description{
-Reads the canonical "speakers per transcript.csv" file and returns one row per
-transcript \code{n} with a list-column of unique speakers present in that transcript.
+Loads the bundled \code{speakers_per_transcript} dataset and returns one row per
+unique speaker with a list-column of transcript IDs (\code{n}) where that speaker
+appears.
 }
 \examples{
-# Load in all unique speakers in each transcript
+# Get all speakers and their transcript appearances
 speakers <- get_transcript_speakers()
+head(speakers)
 
-
+}
+\seealso{
+\code{\link[=read_transcripts]{read_transcripts()}}, \code{\link[=get_transcript_id]{get_transcript_id()}}, \code{\link[=get_transcripts_raw]{get_transcripts_raw()}}
 }

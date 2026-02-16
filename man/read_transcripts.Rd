@@ -2,61 +2,32 @@
 % Please edit documentation in R/read_transcripts.R
 \name{read_transcripts}
 \alias{read_transcripts}
-\title{Read and Optionally Filter a Transcript-Formatted RDA File}
+\title{Read Vladivideos Transcript Data}
 \usage{
-read_transcripts(path, package = NULL, transcripts = NULL)
+read_transcripts(transcripts = NULL)
 }
 \arguments{
-\item{path}{Character string specifying one of:
-\itemize{
-\item The \strong{name} of an \code{.rda} file within a package (without extension),
-\item A \strong{local file path} to an \code{.rda},
-\item Or a \strong{URL} (e.g., GitHub raw link) pointing to an \code{.rda} file.
-}}
-
-\item{package}{Optional. Character string naming the package containing the RDA
-(if loading from a package’s \verb{data/} directory). Defaults to \code{NULL}.}
-
-\item{transcripts}{Optional numeric or character vector specifying transcript
-IDs (\code{n}) to filter. If \code{NULL}, all transcripts are returned.}
+\item{transcripts}{Optional numeric vector of transcript IDs (\code{n}) to
+keep. If \code{NULL} (the default), all transcripts are returned.}
 }
 \value{
-A data frame (or tibble) with columns \code{n}, \code{row_id}, \code{speaker}, \code{speech},
-and \code{speaker_std}. If \code{transcripts} is specified, only matching transcripts are returned.
+A data frame with columns \code{n}, \code{row_id}, \code{date}, \code{speaker},
+\code{speech}, \code{speaker_std}, and \code{topic}.
 }
 \description{
-This function loads a pre-processed \code{.rda} file containing compiled transcript data.
-It supports loading from:
-\itemize{
-\item A \strong{local file path} on your computer,
-\item A \strong{remote URL} (e.g., a GitHub raw link), or
-\item An \strong{installed package’s} \verb{data/} directory (optional).
-}
-}
-\details{
-Optionally, users can specify one or multiple transcript IDs (\code{n}) to filter
-only those transcripts of interest. If no filter is provided, the full dataset
-is returned.
+Loads the bundled \code{vladivideos_detailed} dataset and optionally filters
+by transcript ID(s).
 }
 \examples{
-\dontrun{
-# 1. Load the full dataset
-all_transcripts <- read_transcripts(
-  "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda"
-)
+# Load all transcripts
+all <- read_transcripts()
+head(all)
 
-# 2. Retrieve only transcript 1
-t1 <- read_transcripts(
-  "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda",
-  transcripts = 1
-)
+# Load only transcript 1
+t1 <- read_transcripts(transcripts = 1)
 
-# 3. Retrieve transcripts 5, 7, and 13
-subset_transcripts <- read_transcripts(
-  "https://raw.githubusercontent.com/jessietrudeau/BribeRdata/main/data/vladivideos_transcripts.rda",
-  transcripts = c(5, 7, 13)
-)
-}
+# Load transcripts 5, 7, and 13
+subset <- read_transcripts(transcripts = c(5, 7, 13))
 
 }
 \seealso{

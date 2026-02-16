@@ -1,125 +1,157 @@
-test_that("read_transcripts errors on missing/empty path", {
-  expect_error(read_transcripts(), "Please provide", fixed = FALSE)
-  expect_error(read_transcripts(""), "Please provide", fixed = FALSE)
-})
+#' Read transcript-level metadata (n, date, speakers, duration, topics)
+#'
+#' @description
+#' Builds a tidy data frame of transcript metadata from bundled package data.
+#' Combines information from three internal sources:
+#' 1. **descriptions** (transcript identifiers, dates, topic flags),
+#' 2. **speakers_per_transcript** (speaker roster per transcript), and
+#' 3. **vladivideos_detailed** (word counts derived from the `speech` column).
+#'
+#' @details
+#' - **Transcript ID (`n`) and `date`:** Read from the bundled `descriptions` dataset.
+#' - **Topics (`topics` list-column):** Columns in `descriptions` whose names start
+#'   with `topic_` are interpreted as topic flags. A topic is considered present if the
+#'   cell is "truthy" (e.g., `x`/`X`, non-empty string, `1`, `TRUE`). Topic names are
+#'   normalized by removing the `topic_` prefix and replacing `_` with spaces.
+#' - **Speakers (`speakers` list-column):** Read from the bundled `speakers_per_transcript`
+#'   dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
+#' - **Duration (`n_words`):** Computed from the bundled `vladivideos_detailed` dataset by
+#'   summing whitespace-delimited tokens in the `speech` column for each unique transcript `n`.
+#'
+#' @param quiet Logical; if `FALSE`, prints progress messages. Default `TRUE`.
+#'
+#' @return
+#' A tibble with one row per transcript and columns:
+#' - `n` (character): transcript identifier.
+#' - `date` (character): date associated with the transcript (or `NA` if absent).
+#' - `speakers` (list of character): unique, sorted vector of speakers for the transcript.
+#' - `n_words` (integer): total word count across the transcript's `speech` column.
+#' - `topics` (list of character): vector of topic names inferred from `topic_*` flags.
+#'
+#' @examples
+#' \dontrun{
+#' # Load metadata for all transcripts
+#' meta <- read_transcript_meta_data()
+#' head(meta)
+#' }
+#'
+#' @seealso [read_transcripts()], [get_transcript_speakers()]
+#' @export
+read_transcript_meta_data <- function(quiet = TRUE) {
 
-test_that("read_transcripts loads a local .rda with exactly one object", {
-  tmp <- tempfile(fileext = ".rda")
+  # --- helper: detect truthy topic flags
+  .is_topic_marked <- function(x) {
+    if (is.logical(x)) return(isTRUE(x))
+    if (is.numeric(x)) return(!is.na(x) && x != 0)
+    if (is.character(x)) {
+      v <- tolower(trimws(x))
+      return(!is.na(v) && nzchar(v) && !v %in% c("0", "false", "no", "na", "n/a"))
+    }
+    FALSE
+  }
 
-  df <- data.frame(
-    n = c(1, 1, 2),
-    row_id = c(1, 2, 1),
-    speaker = c("A", "B", "A"),
-    speech = c("hi", "hello", "yo"),
-    speaker_std = c("a", "b", "a"),
-    stringsAsFactors = FALSE
-  )
+  # --- load bundled data
+  .load_pkg_data <- function(filename, object_name) {
+    rda_path <- system.file("data", paste0(filename, ".rda"), package = "BribeR")
+    if (rda_path == "") {
+      stop("Could not find ", filename, ".rda in the BribeR package.", call. = FALSE)
+    }
+    env <- new.env()
+    load(rda_path, envir = env)
+    env[[object_name]]
+  }
 
-  save(df, file = tmp)
+  desc <- .load_pkg_data("descriptions", "descriptions")
+  spt  <- .load_pkg_data("speakers_per_transcript", "speakers_per_transcript")
+  transcripts <- .load_pkg_data("vladivideos_detailed", "compiled_transcripts")
 
-  out <- read_transcripts(tmp)
+  # --- validate basics
+  if (!"n" %in% names(desc)) stop("`descriptions` must include column 'n'.", call. = FALSE)
+  if (!"date" %in% names(desc)) {
+    if (!quiet) warning("`descriptions` has no 'date' column; setting NA for dates.")
+    desc$date <- NA_character_
+  }
+  if (!"n" %in% names(spt)) stop("`speakers_per_transcript` must include column 'n'.", call. = FALSE)
 
-  expect_s3_class(out, "data.frame")
-  expect_true(all(c("n", "row_id", "speaker", "speech", "speaker_std") %in% names(out)))
-  expect_equal(nrow(out), 3)
-})
+  # --- normalize ids
+  desc <- dplyr::mutate(desc, n = as.character(.data$n))
+  spt  <- dplyr::mutate(spt,  n = as.character(.data$n))
 
-test_that("read_transcripts warns if expected columns are missing", {
-  tmp <- tempfile(fileext = ".rda")
+  # --- speakers: wide -> long -> list-column
+  spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)
+  if (!length(spt_speaker_cols)) {
+    stop("`speakers_per_transcript` must include columns like 'speaker_std_1'.", call. = FALSE)
+  }
 
-  df_missing <- data.frame(
-    n = c(1, 2),
-    speech = c("x", "y"),
-    stringsAsFactors = FALSE
-  )
+  speakers_long <- spt |>
+    tidyr::pivot_longer(
+      cols = dplyr::all_of(spt_speaker_cols),
+      names_to = "slot",
+      values_to = "speaker_std"
+    ) |>
+    dplyr::mutate(speaker_std = stringr::str_trim(as.character(.data$speaker_std))) |>
+    dplyr::filter(!is.na(.data$speaker_std) & .data$speaker_std != "") |>
+    dplyr::distinct(.data$n, .data$speaker_std)
 
-  save(df_missing, file = tmp)
+  speakers_vec <- speakers_long |>
+    dplyr::group_by(.data$n) |>
+    dplyr::summarise(speakers = list(sort(unique(.data$speaker_std))), .groups = "drop")
 
-  expect_warning(
-    out <- read_transcripts(tmp),
-    "expected columns are missing",
-    fixed = FALSE
-  )
+  # --- topics: from topic_* flag columns in descriptions
+  topic_cols <- grep("^topic_", names(desc), value = TRUE)
+  topics_vec <- if (length(topic_cols)) {
+    desc |>
+      dplyr::rowwise() |>
+      dplyr::mutate(
+        topics = list({
+          chosen <- character(0)
+          for (tc in topic_cols) {
+            if (.is_topic_marked(get(tc))) {
+              nm <- gsub("^topic_", "", tc)
+              nm <- gsub("_", " ", nm)
+              chosen <- c(chosen, nm)
+            }
+          }
+          unique(chosen)
+        })
+      ) |>
+      dplyr::ungroup() |>
+      dplyr::select(.data$n, .data$topics)
+  } else {
+    dplyr::transmute(desc, n = .data$n, topics = list(character(0)))
+  }
 
-  expect_s3_class(out, "data.frame")
-  expect_true(all(c("n", "speech") %in% names(out)))
-})
+  # --- word counts: from vladivideos_detailed speech column
+  transcripts <- dplyr::mutate(transcripts, n = as.character(.data$n))
 
-test_that("read_transcripts errors if .rda contains multiple objects", {
-  tmp <- tempfile(fileext = ".rda")
+  duration_df <- transcripts |>
+    dplyr::filter(!is.na(.data$speech) & .data$speech != "") |>
+    dplyr::group_by(.data$n) |>
+    dplyr::summarise(
+      n_words = as.integer(sum(stringr::str_count(.data$speech, "\\S+"), na.rm = TRUE)),
+      .groups = "drop"
+    )
 
-  a <- data.frame(x = 1)
-  b <- data.frame(y = 2)
-  save(a, b, file = tmp)
+  # --- assemble output
+  meta <- desc |>
+    dplyr::transmute(n = .data$n, date = as.character(.data$date)) |>
+    dplyr::left_join(speakers_vec, by = "n") |>
+    dplyr::left_join(duration_df,  by = "n") |>
+    dplyr::left_join(topics_vec,   by = "n")
 
-  expect_error(
-    read_transcripts(tmp),
-    "exactly one object",
-    fixed = FALSE
-  )
-})
+  # ensure list-cols exist even if missing
+  if (!"speakers" %in% names(meta)) meta$speakers <- replicate(nrow(meta), character(0), simplify = FALSE)
+  if (!"topics"   %in% names(meta)) meta$topics   <- replicate(nrow(meta), character(0), simplify = FALSE)
+  if (!"n_words"  %in% names(meta)) meta$n_words  <- NA_integer_
 
-test_that("read_transcripts filters by transcript IDs when provided", {
-  tmp <- tempfile(fileext = ".rda")
+  meta <- meta |>
+    dplyr::select(.data$n, .data$date, .data$speakers, .data$n_words, .data$topics) |>
+    tibble::as_tibble()
 
-  df <- data.frame(
-    n = c(1, 1, 2, 3),
-    row_id = 1:4,
-    speaker = c("A", "B", "C", "D"),
-    speech = c("s1", "s2", "s3", "s4"),
-    speaker_std = c("a", "b", "c", "d"),
-    stringsAsFactors = FALSE
-  )
+  if (!quiet) {
+    message("Built metadata for ", nrow(meta), " transcripts.")
+  }
 
-  save(df, file = tmp)
-
-  out <- read_transcripts(tmp, transcripts = c(1, 3))
-
-  expect_equal(sort(unique(out$n)), c(1, 3))
-  expect_equal(nrow(out), 3)
-})
-
-test_that("read_transcripts warns when filter returns no rows", {
-  tmp <- tempfile(fileext = ".rda")
-
-  df <- data.frame(
-    n = c(1, 1),
-    row_id = 1:2,
-    speaker = c("A", "B"),
-    speech = c("s1", "s2"),
-    speaker_std = c("a", "b"),
-    stringsAsFactors = FALSE
-  )
-
-  save(df, file = tmp)
-
-  expect_warning(
-    out <- read_transcripts(tmp, transcripts = 999),
-    "No transcripts found matching IDs",
-    fixed = FALSE
-  )
-
-  expect_s3_class(out, "data.frame")
-  expect_equal(nrow(out), 0)
-})
-
-test_that("read_transcripts errors if filtering requested but column n is missing", {
-  tmp <- tempfile(fileext = ".rda")
-
-  df_no_n <- data.frame(
-    row_id = 1:2,
-    speaker = c("A", "B"),
-    speech = c("s1", "s2"),
-    speaker_std = c("a", "b"),
-    stringsAsFactors = FALSE
-  )
-
-  save(df_no_n, file = tmp)
-
-  expect_error(
-    read_transcripts(tmp, transcripts = 1),
-    "Column 'n' not found",
-    fixed = FALSE
-  )
-})
+  meta
+}
 

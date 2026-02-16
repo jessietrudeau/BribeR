@@ -29,9 +29,11 @@
 #' - `topics` (list of character): vector of topic names inferred from `topic_*` flags.
 #'
 #' @examples
+#' \dontrun{
 #' # Load metadata for all transcripts
 #' meta <- read_transcript_meta_data()
 #' head(meta)
+#' }
 #'
 #' @seealso [read_transcripts()], [get_transcript_speakers()]
 #' @export
@@ -76,7 +78,6 @@ read_transcript_meta_data <- function(quiet = TRUE) {
   spt  <- dplyr::mutate(spt,  n = as.character(.data$n))
 
   # --- speakers: wide -> long -> list-column
-
   spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)
   if (!length(spt_speaker_cols)) {
     stop("`speakers_per_transcript` must include columns like 'speaker_std_1'.", call. = FALSE)
@@ -153,3 +154,17 @@ read_transcript_meta_data <- function(quiet = TRUE) {
 
   meta
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(bribeR)
+library(BribeR)
 
-test_check("bribeR")
+test_check("BribeR")
