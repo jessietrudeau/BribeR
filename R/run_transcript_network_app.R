@@ -313,7 +313,13 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         group = "Speaker",
         color = type_colors[.data$Type],
         color = ifelse(is.na(.data$color), type_colors[["Unknown"]], .data$color),
-        label = "",
+        # Use display name as label so nodesIdSelection dropdown shows it via
+        # useLabels = TRUE. On-graph text is suppressed via font.size = 0.
+        label = dplyr::coalesce(
+          dplyr::na_if(stringr::str_trim(.data$name), ""),
+          .data$id
+        ),
+        font.size = 0,
         value = pmax(1, log1p(dplyr::coalesce(.data$conversation_count, 0))),
         title = paste0(
           "<b>", dplyr::coalesce(.data$name, .data$id), "</b><br>",
@@ -325,9 +331,19 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       ) |>
       dplyr::select(
         .data$id, .data$group, .data$title, .data$color,
-        .data$label, .data$value
+        .data$label, .data$font.size, .data$value, .data$name
       ) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
+
+    # === Build speaker dropdown map: node id -> display name ================
+    # useLabels = TRUE in nodesIdSelection reads from the node `label` column,
+    # which now holds the display name. We still need `values` to restrict the
+    # dropdown to speakers only (excluding topic nodes).
+    speaker_dropdown_values <- nodes_speaker_st$id
+
+    # Drop helper `name` column before passing nodes to visNetwork
+    nodes_speaker_st <- nodes_speaker_st |>
+      dplyr::select(-.data$name)
 
     # Add Montesinos image properties
     if (!has_img) {
@@ -361,6 +377,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::mutate(
         group = "Topic",
         label = "",
+        font.size = 0,
         title = paste0(
           "<b>",
           stringr::str_to_title(stringr::str_replace_all(.data$id, "_", " ")),
@@ -371,7 +388,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         color = "maroon"
       ) |>
       dplyr::select(.data$id, .data$group, .data$title, .data$value,
-                    .data$color, .data$label) |>
+                    .data$color, .data$label, .data$font.size) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
 
     # === Combined nodes for Speaker-Topic view ===
@@ -379,14 +396,14 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       nodes_speaker_st |>
         dplyr::select(
           .data$id, .data$group, .data$title, .data$color,
-          .data$label, .data$value, .data$shape, .data$image,
-          .data$size, .data$borderWidth
+          .data$label, .data$font.size, .data$value, .data$shape,
+          .data$image, .data$size, .data$borderWidth
         ),
       nodes_topic_st |>
         dplyr::mutate(shape = "dot") |>
         dplyr::select(
           .data$id, .data$group, .data$title, .data$color,
-          .data$label, .data$value, .data$shape
+          .data$label, .data$font.size, .data$value, .data$shape
         )
     ) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
@@ -414,7 +431,13 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         ) |>
         visNetwork::visOptions(
           highlightNearest = TRUE,
-          nodesIdSelection = TRUE
+          nodesIdSelection = list(
+            enabled   = TRUE,
+            values    = speaker_dropdown_values,
+            useLabels = TRUE,
+            style     = "width: 250px;",
+            main      = "Select a speaker"
+          )
         ) |>
         visNetwork::visInteraction(
           tooltipStyle = tooltip_style
@@ -436,8 +459,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         nodes_speaker_st |>
           dplyr::select(
             .data$id, .data$group, .data$title, .data$color,
-            .data$label, .data$value, .data$shape, .data$image,
-            .data$size, .data$borderWidth
+            .data$label, .data$font.size, .data$value, .data$shape,
+            .data$image, .data$size, .data$borderWidth
           ),
         edges_speaker_co
       ) |>
@@ -454,7 +477,13 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         ) |>
         visNetwork::visOptions(
           highlightNearest = TRUE,
-          nodesIdSelection = TRUE
+          nodesIdSelection = list(
+            enabled   = TRUE,
+            values    = speaker_dropdown_values,
+            useLabels = TRUE,
+            style     = "width: 250px;",
+            main      = "Select a speaker"
+          )
         ) |>
         visNetwork::visInteraction(
           tooltipStyle = tooltip_style
@@ -472,9 +501,10 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Legend ===
     output$type_legend <- shiny::renderUI({
+      all_colors <- c(type_colors, "Topics" = "maroon")
       legend_items <- purrr::map2_chr(
-        names(type_colors),
-        type_colors,
+        names(all_colors),
+        all_colors,
         function(type, color) {
           paste0(
             "<div style='display: inline-block; margin-right: 15px;
@@ -490,7 +520,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       )
       shiny::HTML(
         paste(
-          "<b>Legend \u2013 Speaker Types:</b><br><div style='margin-top: 5px;'>",
+          "<b>Legend \u2013 Speaker Types & Topics:</b><br><div style='margin-top: 5px;'>",
           paste(legend_items, collapse = ""),
           "</div>"
         )
@@ -500,7 +530,3 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
   shiny::shinyApp(ui = ui, server = server)
 }
-
-
-
-

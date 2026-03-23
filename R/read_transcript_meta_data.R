@@ -22,7 +22,7 @@
 #'
 #' @return
 #' A tibble with one row per transcript and columns:
-#' - `n` (character): transcript identifier.
+#' - `n` (numeric): transcript identifier.
 #' - `date` (character): date associated with the transcript (or `NA` if absent).
 #' - `speakers` (list of character): unique, sorted vector of speakers for the transcript.
 #' - `n_words` (integer): total word count across the transcript's `speech` column.
@@ -132,9 +132,14 @@ read_transcript_meta_data <- function(quiet = TRUE) {
       .groups = "drop"
     )
 
+  # --- convert joining tables to numeric n before assembly
+  speakers_vec <- dplyr::mutate(speakers_vec, n = as.numeric(.data$n))
+  duration_df  <- dplyr::mutate(duration_df,  n = as.numeric(.data$n))
+  topics_vec   <- dplyr::mutate(topics_vec,   n = as.numeric(.data$n))
+
   # --- assemble output
   meta <- desc |>
-    dplyr::transmute(n = .data$n, date = as.character(.data$date)) |>
+    dplyr::transmute(n = as.numeric(.data$n), date = as.character(.data$date)) |>
     dplyr::left_join(speakers_vec, by = "n") |>
     dplyr::left_join(duration_df,  by = "n") |>
     dplyr::left_join(topics_vec,   by = "n")
@@ -154,10 +159,6 @@ read_transcript_meta_data <- function(quiet = TRUE) {
 
   meta
 }
-
-
-
-
 
 
 

@@ -12,7 +12,7 @@ read_transcript_meta_data(quiet = TRUE)
 \value{
 A tibble with one row per transcript and columns:
 \itemize{
-\item \code{n} (character): transcript identifier.
+\item \code{n} (numeric): transcript identifier.
 \item \code{date} (character): date associated with the transcript (or \code{NA} if absent).
 \item \code{speakers} (list of character): unique, sorted vector of speakers for the transcript.
 \item \code{n_words} (integer): total word count across the transcript's \code{speech} column.

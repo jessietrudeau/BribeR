@@ -124,9 +124,3 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   filtered_ids <- sort(as.numeric(index$n[matched]), na.last = NA)
   filtered_ids
 }
-
-
-
-
-
-
