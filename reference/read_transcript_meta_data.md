@@ -26,7 +26,7 @@ read_transcript_meta_data(quiet = TRUE)
 
 A tibble with one row per transcript and columns:
 
-- `n` (character): transcript identifier.
+- `n` (numeric): transcript identifier.
 
 - `date` (character): date associated with the transcript (or `NA` if
   absent).
