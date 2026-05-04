@@ -1,19 +1,28 @@
 Package: BribeR
-Title: Package for Understanding Corruption Transcripts
-Version: 0.0.0.9000
+Title: Tools for Analyzing the Vladivideos Corruption Transcripts
+Version: 0.1.0
 Authors@R: 
     person("Andres", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Provides access to and tools for analyzing the 'Vladivideos'
+    corpus, a collection of secret recordings in which Vladimiro Montesinos,
+    Peru's intelligence chief under President Alberto Fujimori, is documented
+    bribing politicians, judges, military officers, media owners, and
+    businesspeople during the 1990s. Includes functions for loading and
+    filtering transcripts by speaker or topic, computing transcript-level
+    metadata, and exploring relationships between speakers and topics through
+    an interactive network visualization application.
+URL: https://github.com/jessietrudeau/BribeR
+BugReports: https://github.com/jessietrudeau/BribeR/issues
 License: MIT + file LICENSE
+Depends: R (>= 3.5.0)
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Imports: 
+Imports:
     dplyr,
     fs,
-    magrittr,
     purrr,
-    RColorBrewer,
     readr,
     shiny,
     stringr,

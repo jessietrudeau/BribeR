@@ -15,7 +15,7 @@
 #'   If `combine = TRUE`, returns a combined tibble with an added column `n`.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Load all transcripts (as a list)
 #' all_transcripts <- get_transcripts_raw()
 #'
@@ -30,11 +30,6 @@
 #' @export
 get_transcripts_raw <- function(n = NULL, combine = FALSE) {
   transcripts_dir <- system.file("data-raw", "transcripts", package = "BribeR")
-
-  # Fallback: local path during development
-  if (transcripts_dir == "" && dir.exists(file.path("data-raw", "transcripts"))) {
-    transcripts_dir <- file.path("data-raw", "transcripts")
-  }
 
   if (transcripts_dir == "" || !dir.exists(transcripts_dir)) {
     stop("Transcript directory not found. Is the BribeR package installed correctly?", call. = FALSE)

@@ -30,27 +30,20 @@
 run_transcript_network_app <- function(transcript_dir = NULL) {
 
   # ---- 0) Load bundled data -------------------------------------------------
-  .load_pkg_data <- function(filename, object_name) {
-    rda_path <- system.file("data", paste0(filename, ".rda"), package = "BribeR")
-    if (rda_path == "") {
-      stop("Could not find ", filename, ".rda in the BribeR package.", call. = FALSE)
-    }
-    env <- new.env()
-    load(rda_path, envir = env)
+  .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
+    env <- new.env(parent = emptyenv())
+    utils::data(list = dataset_name, package = "BribeR", envir = env)
     env[[object_name]]
   }
 
-  descriptions           <- .load_pkg_data("descriptions", "descriptions")
-  speakers_df            <- .load_pkg_data("speakers_per_transcript", "speakers_per_transcript")
-  topic_descriptions     <- .load_pkg_data("topic_descriptions", "topic_descriptions")
-  actor_descriptions_raw <- .load_pkg_data("actors", "actors")
+  descriptions           <- .load_pkg_data("descriptions")
+  speakers_df            <- .load_pkg_data("speakers_per_transcript")
+  topic_descriptions     <- .load_pkg_data("topic_descriptions")
+  actor_descriptions_raw <- .load_pkg_data("actors")
 
   # ---- 1) Resolve transcript directory --------------------------------------
   if (is.null(transcript_dir)) {
     transcript_dir <- system.file("data-raw", "transcripts", package = "BribeR")
-    if (transcript_dir == "" && dir.exists(file.path("data-raw", "transcripts"))) {
-      transcript_dir <- file.path("data-raw", "transcripts")
-    }
   }
 
   # ---- 2) Optional Montesinos image -----------------------------------------

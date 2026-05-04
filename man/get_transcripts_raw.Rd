@@ -26,7 +26,7 @@ Transcripts are named by their numeric ID (e.g., \verb{1.csv}, \verb{19.csv}, \v
 You can load all transcripts or specify a subset by transcript ID.
 }
 \examples{
-\dontrun{
+\donttest{
 # Load all transcripts (as a list)
 all_transcripts <- get_transcripts_raw()
 

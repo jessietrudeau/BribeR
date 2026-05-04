@@ -29,7 +29,7 @@
 #' - `topics` (list of character): vector of topic names inferred from `topic_*` flags.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Load metadata for all transcripts
 #' meta <- read_transcript_meta_data()
 #' head(meta)
@@ -51,18 +51,14 @@ read_transcript_meta_data <- function(quiet = TRUE) {
   }
 
   # --- load bundled data
-  .load_pkg_data <- function(filename, object_name) {
-    rda_path <- system.file("data", paste0(filename, ".rda"), package = "BribeR")
-    if (rda_path == "") {
-      stop("Could not find ", filename, ".rda in the BribeR package.", call. = FALSE)
-    }
-    env <- new.env()
-    load(rda_path, envir = env)
+  .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
+    env <- new.env(parent = emptyenv())
+    utils::data(list = dataset_name, package = "BribeR", envir = env)
     env[[object_name]]
   }
 
-  desc <- .load_pkg_data("descriptions", "descriptions")
-  spt  <- .load_pkg_data("speakers_per_transcript", "speakers_per_transcript")
+  desc        <- .load_pkg_data("descriptions")
+  spt         <- .load_pkg_data("speakers_per_transcript")
   transcripts <- .load_pkg_data("vladivideos_detailed", "compiled_transcripts")
 
   # --- validate basics

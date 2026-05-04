@@ -41,13 +41,8 @@
 #' @export
 get_transcript_id <- function(speaker = NULL, topic = NULL) {
 
-  # Load all unique IDs from bundled transcripts
-  rda_path <- system.file("data", "vladivideos_detailed.rda", package = "BribeR")
-  if (rda_path == "") {
-    stop("Could not find vladivideos_detailed.rda in the BribeR package.", call. = FALSE)
-  }
-  env <- new.env()
-  load(rda_path, envir = env)
+  env <- new.env(parent = emptyenv())
+  utils::data("vladivideos_detailed", package = "BribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!"n" %in% names(data)) {
@@ -62,12 +57,8 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   }
 
   # Load transcript_index for filtering
-  idx_path <- system.file("data", "transcript_index.rda", package = "BribeR")
-  if (idx_path == "") {
-    stop("Could not find transcript_index.rda in the BribeR package.", call. = FALSE)
-  }
-  env2 <- new.env()
-  load(idx_path, envir = env2)
+  env2 <- new.env(parent = emptyenv())
+  utils::data("transcript_index", package = "BribeR", envir = env2)
   index <- env2$transcript_index
 
   # Restrict to IDs that exist in the transcripts

@@ -42,7 +42,7 @@ summing whitespace-delimited tokens in the \code{speech} column for each unique 
 }
 }
 \examples{
-\dontrun{
+\donttest{
 # Load metadata for all transcripts
 meta <- read_transcript_meta_data()
 head(meta)

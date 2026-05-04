@@ -40,17 +40,13 @@
 get_transcript_speakers <- function(n = NULL, topic = NULL) {
 
   # --- helper: load bundled .rda
-  .load_pkg_data <- function(filename, object_name) {
-    rda_path <- system.file("data", paste0(filename, ".rda"), package = "BribeR")
-    if (rda_path == "") {
-      stop("Could not find ", filename, ".rda in the BribeR package.", call. = FALSE)
-    }
-    env <- new.env()
-    load(rda_path, envir = env)
+  .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
+    env <- new.env(parent = emptyenv())
+    utils::data(list = dataset_name, package = "BribeR", envir = env)
     env[[object_name]]
   }
 
-  df <- .load_pkg_data("speakers_per_transcript", "speakers_per_transcript")
+  df <- .load_pkg_data("speakers_per_transcript")
 
   if (!"n" %in% names(df)) {
     stop("Expected column 'n' in speakers_per_transcript dataset.", call. = FALSE)
@@ -85,7 +81,7 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
 
   # Filter by topic using transcript_index
   if (!is.null(topic)) {
-    index <- .load_pkg_data("transcript_index", "transcript_index")
+    index <- .load_pkg_data("transcript_index")
 
     topic_cols <- ifelse(grepl("^topic_", topic), topic, paste0("topic_", tolower(topic)))
     available_topics <- grep("^topic_", names(index), value = TRUE)

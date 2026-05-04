@@ -23,12 +23,8 @@
 #' @seealso [get_transcripts_raw()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
 read_transcripts <- function(transcripts = NULL) {
-  rda_path <- system.file("data", "vladivideos_detailed.rda", package = "BribeR")
-  if (rda_path == "") {
-    stop("Could not find vladivideos_detailed.rda in the BribeR package.")
-  }
-  env <- new.env()
-  load(rda_path, envir = env)
+  env <- new.env(parent = emptyenv())
+  utils::data("vladivideos_detailed", package = "BribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!is.null(transcripts)) {
