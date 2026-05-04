@@ -1,0 +1,18 @@
+actors                  Actor Roster
+actors_description      Actor Descriptions
+compiled_transcripts    Vladivideos Detailed Transcripts
+descriptions            Transcript Descriptions
+get_transcript_id       Retrieve Available Transcript IDs
+get_transcript_speakers
+                        Get transcripts each speaker appears in
+get_transcripts_raw     Retrieve Raw Transcript Files from BribeR
+read_transcript_meta_data
+                        Read transcript-level metadata (n, date,
+                        speakers, duration, topics)
+read_transcripts        Read Vladivideos Transcript Data
+run_transcript_network_app
+                        Run the Transcript-Topic-Speaker Shiny app
+speakers_per_transcript
+                        Speakers Per Transcript
+topic_descriptions      Topic Descriptions
+transcript_index        Transcript Index

@@ -1,0 +1,120 @@
+Hmm ... looks like a package
+Converting parsed Rd's to LaTeX .
+Creating pdf output from LaTeX ...
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'Rd2.tex' failed.
+Messages:
+/opt/R/x86_64/bin/texi2dvi: makeindex failed
+Output:
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2024-06-01> patch level 2
+L3 programming layer <2024-08-16>
+(./Rd2.tex
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2024/02/08 v1.4n Standard LaTeX document class
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/bk10.clo)) (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/bm.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/alltt.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/eucal.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/times.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.sty `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex))))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty)
+Writing index file Rd2.idx
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.aux) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.out) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.out) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/t1zi4.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.toc
+[1{/Users/andressoto/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/andressoto/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/andressoto/Library/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}])
+Overfull \hbox (24.61096pt too wide) in paragraph at lines 65--69
+[]\T1/zi4/m/n/10 "Businessperson"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Elected Official"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Bureaucrat"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Foreign"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Illicit"[]\T1/ptm/m/n/10 , or []\T1/zi4/m/n/10 "Unknown"[]\T1/ptm/m/n/10 . 
+
+[2]
+[3]
+Overfull \hbox (692.34027pt too wide) in paragraph at lines 175--178
+[]
+
+[4]
+Overfull \hbox (29.63899pt too wide) in paragraph at lines 261--265
+[]\T1/ptm/m/n/10 Optional char-ac-ter vec-tor of one or more topic names (e.g., []\T1/zi4/m/n/10 "media"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 c("reelection",
+
+[5]
+Overfull \hbox (29.63899pt too wide) in paragraph at lines 323--327
+[]\T1/ptm/m/n/10 Optional char-ac-ter vec-tor of one or more topic names (e.g., []\T1/zi4/m/n/10 "media"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 c("reelection",
+
+[6]
+[7]
+Overfull \hbox (8.93852pt too wide) in paragraph at lines 447--449
+[]\T1/ptm/b/n/10 Speakers ([]\T1/zi4/m/n/10 speakers []\T1/ptm/b/n/10 list-column): \T1/ptm/m/n/10 Read from the bun-dled []\T1/zi4/m/n/10 speakers_per_transcript []\T1/ptm/m/n/10 dataset.
+
+[8]
+[9]
+Overfull \hbox (7.45735pt too wide) in paragraph at lines 557--562
+[]\T1/ptm/m/n/10 Standardized speaker iden-ti-fier for the 1st through 19th speaker
+
+Overfull \hbox (19.34877pt too wide) in paragraph at lines 588--590
+[]\T1/ptm/m/n/10 Topic iden-ti-fier, match-ing the []\T1/zi4/m/n/10 topic_* []\T1/ptm/m/n/10 col-umn names in []\T1/zi4/m/n/10 descriptions []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 transcript_index[]\T1/ptm/m/n/10 . 
+
+[10]
+Overfull \hbox (692.34027pt too wide) in paragraph at lines 625--627
+[]
+
+Overfull \hbox (1.07779pt too wide) in paragraph at lines 627--630
+[]\T1/ptm/m/n/10 Integer in-di-ca-tor (1/0) for each stan-dard-ized speaker. One col-umn per unique
+No file Rd2.ind.
+
+[11] (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.aux) )
+(see the transcript file for additional information)</Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/andressoto/Library/Ti
+
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+LaTeX2e <2024-06-01> patch level 2
+L3 programming layer <2024-08-16>
+(./Rd2.tex
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2024/02/08 v1.4n Standard LaTeX document class
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/bk10.clo)) (/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/Rd.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/bm.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/alltt.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/eucal.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/times.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/zi4.sty `inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex))))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty)) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/base/makeidx.sty)
+Writing index file Rd2.idx
+(/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.aux) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.out) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.out) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/inconsolata/t1zi4.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd) (/Users/andressoto/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd) (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.toc
+[1{/Users/andressoto/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/andressoto/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}{/Users/andressoto/Library/TinyTeX/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc}])
+Overfull \hbox (24.61096pt too wide) in paragraph at lines 65--69
+[]\T1/zi4/m/n/10 "Businessperson"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Elected Official"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Bureaucrat"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Foreign"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 "Illicit"[]\T1/ptm/m/n/10 , or []\T1/zi4/m/n/10 "Unknown"[]\T1/ptm/m/n/10 . 
+
+[2]
+[3]
+Overfull \hbox (692.34027pt too wide) in paragraph at lines 175--178
+[]
+
+[4]
+Overfull \hbox (29.63899pt too wide) in paragraph at lines 261--265
+[]\T1/ptm/m/n/10 Optional char-ac-ter vec-tor of one or more topic names (e.g., []\T1/zi4/m/n/10 "media"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 c("reelection",
+
+[5]
+Overfull \hbox (29.63899pt too wide) in paragraph at lines 323--327
+[]\T1/ptm/m/n/10 Optional char-ac-ter vec-tor of one or more topic names (e.g., []\T1/zi4/m/n/10 "media"[]\T1/ptm/m/n/10 , []\T1/zi4/m/n/10 c("reelection",
+
+[6]
+[7]
+Overfull \hbox (8.93852pt too wide) in paragraph at lines 447--449
+[]\T1/ptm/b/n/10 Speakers ([]\T1/zi4/m/n/10 speakers []\T1/ptm/b/n/10 list-column): \T1/ptm/m/n/10 Read from the bun-dled []\T1/zi4/m/n/10 speakers_per_transcript []\T1/ptm/m/n/10 dataset.
+
+[8]
+[9]
+Overfull \hbox (7.45735pt too wide) in paragraph at lines 557--562
+[]\T1/ptm/m/n/10 Standardized speaker iden-ti-fier for the 1st through 19th speaker
+
+Overfull \hbox (19.34877pt too wide) in paragraph at lines 588--590
+[]\T1/ptm/m/n/10 Topic iden-ti-fier, match-ing the []\T1/zi4/m/n/10 topic_* []\T1/ptm/m/n/10 col-umn names in []\T1/zi4/m/n/10 descriptions []\T1/ptm/m/n/10 and []\T1/zi4/m/n/10 transcript_index[]\T1/ptm/m/n/10 . 
+
+[10]
+Overfull \hbox (692.34027pt too wide) in paragraph at lines 625--627
+[]
+
+Overfull \hbox (1.07779pt too wide) in paragraph at lines 627--630
+[]\T1/ptm/m/n/10 Integer in-di-ca-tor (1/0) for each stan-dard-ized speaker. One col-umn per unique
+No file Rd2.ind.
+
+[11] (/private/var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T/RtmpjKChvt/Rd2pdfd3c1675b55cd/Rd2.aux) )
+(see the transcript file for additional information)</Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/andressoto/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Rd2.pdf (11 pages, 101916 bytes).
+Transcript written on Rd2.log.
+Saving output to 'BribeR-manual.pdf' ...
+Done
+You may want to clean up by 'rm -Rf /var/folders/8f/5m06870x2p91mw04736jwwvc0000gn/T//RtmpjKChvt/Rd2pdfd3c1675b55cd'

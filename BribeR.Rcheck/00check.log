@@ -1,0 +1,175 @@
+* using log directory '/Users/andressoto/Documents/BribeR/BribeR.Rcheck'
+* using R version 4.4.1 (2024-06-14)
+* using platform: x86_64-apple-darwin20
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Ventura 13.6.7
+* using session charset: ASCII
+* using option '--as-cran'
+* checking for file 'BribeR/DESCRIPTION' ... OK
+* this is package 'BribeR' version '0.1.0'
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... [7s/17s] NOTE
+Maintainer: 'Andres Soto Plaza <andressotoplaza@gmail.com>'
+
+New submission
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package 'BribeR' can be installed ... OK
+* checking installed package size ... NOTE
+  installed size is 10.1Mb
+  sub-directories of 1Mb or more:
+    data       2.0Mb
+    data-raw   7.1Mb
+* checking package directory ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  'LICENSE.md'
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... OK
+* checking examples with --run-donttest ... OK
+* checking for unstated dependencies in 'tests' ... OK
+* checking tests ... [12s/14s] OK
+  Running 'testthat.R' [11s/13s]
+* checking PDF version of manual ... OK
+* checking HTML version of manual ... NOTE
+Found the following HTML validation problems:
+actors.html:15:44 (actors.Rd:6): Error: <main> is not recognized!
+actors.html:15:44 (actors.Rd:6): Warning: discarding unexpected <main>
+actors.html:66:1 (actors.Rd:24): Warning: discarding unexpected </main>
+actors.html:4:1 (actors.Rd:6): Warning: <link> inserting "type" attribute
+actors.html:12:1 (actors.Rd:6): Warning: <script> proprietary attribute "onload"
+actors.html:12:1 (actors.Rd:6): Warning: <script> inserting "type" attribute
+actors.html:17:1 (actors.Rd:6): Warning: <table> lacks "summary" attribute
+actors_description.html:15:44 (actors_description.Rd:6): Error: <main> is not recognized!
+actors_description.html:15:44 (actors_description.Rd:6): Warning: discarding unexpected <main>
+actors_description.html:55:1 (actors_description.Rd:17): Warning: discarding unexpected </main>
+actors_description.html:4:1 (actors_description.Rd:6): Warning: <link> inserting "type" attribute
+actors_description.html:12:1 (actors_description.Rd:6): Warning: <script> proprietary attribute "onload"
+actors_description.html:12:1 (actors_description.Rd:6): Warning: <script> inserting "type" attribute
+actors_description.html:17:1 (actors_description.Rd:6): Warning: <table> lacks "summary" attribute
+compiled_transcripts.html:15:44 (compiled_transcripts.Rd:6): Error: <main> is not recognized!
+compiled_transcripts.html:15:44 (compiled_transcripts.Rd:6): Warning: discarding unexpected <main>
+compiled_transcripts.html:64:1 (compiled_transcripts.Rd:21): Warning: discarding unexpected </main>
+compiled_transcripts.html:4:1 (compiled_transcripts.Rd:6): Warning: <link> inserting "type" attribute
+compiled_transcripts.html:12:1 (compiled_transcripts.Rd:6): Warning: <script> proprietary attribute "onload"
+compiled_transcripts.html:12:1 (compiled_transcripts.Rd:6): Warning: <script> inserting "type" attribute
+compiled_transcripts.html:17:1 (compiled_transcripts.Rd:6): Warning: <table> lacks "summary" attribute
+descriptions.html:15:44 (descriptions.Rd:6): Error: <main> is not recognized!
+descriptions.html:15:44 (descriptions.Rd:6): Warning: discarding unexpected <main>
+descriptions.html:75:1 (descriptions.Rd:29): Warning: discarding unexpected </main>
+descriptions.html:4:1 (descriptions.Rd:6): Warning: <link> inserting "type" attribute
+descriptions.html:12:1 (descriptions.Rd:6): Warning: <script> proprietary attribute "onload"
+descriptions.html:12:1 (descriptions.Rd:6): Warning: <script> inserting "type" attribute
+descriptions.html:17:1 (descriptions.Rd:6): Warning: <table> lacks "summary" attribute
+get_transcript_id.html:15:44 (get_transcript_id.Rd:5): Error: <main> is not recognized!
+get_transcript_id.html:15:44 (get_transcript_id.Rd:5): Warning: discarding unexpected <main>
+get_transcript_id.html:96:1 (get_transcript_id.Rd:50): Warning: discarding unexpected </main>
+get_transcript_id.html:4:1 (get_transcript_id.Rd:5): Warning: <link> inserting "type" attribute
+get_transcript_id.html:12:1 (get_transcript_id.Rd:5): Warning: <script> proprietary attribute "onload"
+get_transcript_id.html:12:1 (get_transcript_id.Rd:5): Warning: <script> inserting "type" attribute
+get_transcript_id.html:17:1 (get_transcript_id.Rd:5): Warning: <table> lacks "summary" attribute
+get_transcript_id.html:38:1 (get_transcript_id.Rd:10): Warning: <table> lacks "summary" attribute
+get_transcript_speakers.html:15:44 (get_transcript_speakers.Rd:5): Error: <main> is not recognized!
+get_transcript_speakers.html:15:44 (get_transcript_speakers.Rd:5): Warning: discarding unexpected <main>
+get_transcript_speakers.html:101:1 (get_transcript_speakers.Rd:50): Warning: discarding unexpected </main>
+get_transcript_speakers.html:4:1 (get_transcript_speakers.Rd:5): Warning: <link> inserting "type" attribute
+get_transcript_speakers.html:12:1 (get_transcript_speakers.Rd:5): Warning: <script> proprietary attribute "onload"
+get_transcript_speakers.html:12:1 (get_transcript_speakers.Rd:5): Warning: <script> inserting "type" attribute
+get_transcript_speakers.html:17:1 (get_transcript_speakers.Rd:5): Warning: <table> lacks "summary" attribute
+get_transcript_speakers.html:38:1 (get_transcript_speakers.Rd:10): Warning: <table> lacks "summary" attribute
+get_transcripts_raw.html:15:44 (get_transcripts_raw.Rd:5): Error: <main> is not recognized!
+get_transcripts_raw.html:15:44 (get_transcripts_raw.Rd:5): Warning: discarding unexpected <main>
+get_transcripts_raw.html:85:1 (get_transcripts_raw.Rd:39): Warning: discarding unexpected </main>
+get_transcripts_raw.html:4:1 (get_transcripts_raw.Rd:5): Warning: <link> inserting "type" attribute
+get_transcripts_raw.html:12:1 (get_transcripts_raw.Rd:5): Warning: <script> proprietary attribute "onload"
+get_transcripts_raw.html:12:1 (get_transcripts_raw.Rd:5): Warning: <script> inserting "type" attribute
+get_transcripts_raw.html:17:1 (get_transcripts_raw.Rd:5): Warning: <table> lacks "summary" attribute
+get_transcripts_raw.html:36:1 (get_transcripts_raw.Rd:10): Warning: <table> lacks "summary" attribute
+read_transcript_meta_data.html:15:44 (read_transcript_meta_data.Rd:5): Error: <main> is not recognized!
+read_transcript_meta_data.html:15:44 (read_transcript_meta_data.Rd:5): Warning: discarding unexpected <main>
+read_transcript_meta_data.html:120:1 (read_transcript_meta_data.Rd:50): Warning: discarding unexpected </main>
+read_transcript_meta_data.html:4:1 (read_transcript_meta_data.Rd:5): Warning: <link> inserting "type" attribute
+read_transcript_meta_data.html:12:1 (read_transcript_meta_data.Rd:5): Warning: <script> proprietary attribute "onload"
+read_transcript_meta_data.html:12:1 (read_transcript_meta_data.Rd:5): Warning: <script> inserting "type" attribute
+read_transcript_meta_data.html:17:1 (read_transcript_meta_data.Rd:5): Warning: <table> lacks "summary" attribute
+read_transcript_meta_data.html:48:1 (read_transcript_meta_data.Rd:10): Warning: <table> lacks "summary" attribute
+read_transcripts.html:15:44 (read_transcripts.Rd:5): Error: <main> is not recognized!
+read_transcripts.html:15:44 (read_transcripts.Rd:5): Warning: discarding unexpected <main>
+read_transcripts.html:72:1 (read_transcripts.Rd:31): Warning: discarding unexpected </main>
+read_transcripts.html:4:1 (read_transcripts.Rd:5): Warning: <link> inserting "type" attribute
+read_transcripts.html:12:1 (read_transcripts.Rd:5): Warning: <script> proprietary attribute "onload"
+read_transcripts.html:12:1 (read_transcripts.Rd:5): Warning: <script> inserting "type" attribute
+read_transcripts.html:17:1 (read_transcripts.Rd:5): Warning: <table> lacks "summary" attribute
+read_transcripts.html:36:1 (read_transcripts.Rd:10): Warning: <table> lacks "summary" attribute
+run_transcript_network_app.html:15:44 (run_transcript_network_app.Rd:5): Error: <main> is not recognized!
+run_transcript_network_app.html:15:44 (run_transcript_network_app.Rd:5): Warning: discarding unexpected <main>
+run_transcript_network_app.html:87:1 (run_transcript_network_app.Rd:37): Warning: discarding unexpected </main>
+run_transcript_network_app.html:4:1 (run_transcript_network_app.Rd:5): Warning: <link> inserting "type" attribute
+run_transcript_network_app.html:12:1 (run_transcript_network_app.Rd:5): Warning: <script> proprietary attribute "onload"
+run_transcript_network_app.html:12:1 (run_transcript_network_app.Rd:5): Warning: <script> inserting "type" attribute
+run_transcript_network_app.html:17:1 (run_transcript_network_app.Rd:5): Warning: <table> lacks "summary" attribute
+run_transcript_network_app.html:37:1 (run_transcript_network_app.Rd:10): Warning: <table> lacks "summary" attribute
+speakers_per_transcript.html:15:44 (speakers_per_transcript.Rd:6): Error: <main> is not recognized!
+speakers_per_transcript.html:15:44 (speakers_per_transcript.Rd:6): Warning: discarding unexpected <main>
+speakers_per_transcript.html:57:1 (speakers_per_transcript.Rd:19): Warning: discarding unexpected </main>
+speakers_per_transcript.html:4:1 (speakers_per_transcript.Rd:6): Warning: <link> inserting "type" attribute
+speakers_per_transcript.html:12:1 (speakers_per_transcript.Rd:6): Warning: <script> proprietary attribute "onload"
+speakers_per_transcript.html:12:1 (speakers_per_transcript.Rd:6): Warning: <script> inserting "type" attribute
+speakers_per_transcript.html:17:1 (speakers_per_transcript.Rd:6): Warning: <table> lacks "summary" attribute
+topic_descriptions.html:15:44 (topic_descriptions.Rd:6): Error: <main> is not recognized!
+topic_descriptions.html:15:44 (topic_descriptions.Rd:6): Warning: discarding unexpected <main>
+topic_descriptions.html:54:1 (topic_descriptions.Rd:16): Warning: discarding unexpected </main>
+topic_descriptions.html:4:1 (topic_descriptions.Rd:6): Warning: <link> inserting "type" attribute
+topic_descriptions.html:12:1 (topic_descriptions.Rd:6): Warning: <script> proprietary attribute "onload"
+topic_descriptions.html:12:1 (topic_descriptions.Rd:6): Warning: <script> inserting "type" attribute
+topic_descriptions.html:17:1 (topic_descriptions.Rd:6): Warning: <table> lacks "summary" attribute
+transcript_index.html:15:44 (transcript_index.Rd:6): Error: <main> is not recognized!
+transcript_index.html:15:44 (transcript_index.Rd:6): Warning: discarding unexpected <main>
+transcript_index.html:73:1 (transcript_index.Rd:28): Warning: discarding unexpected </main>
+transcript_index.html:4:1 (transcript_index.Rd:6): Warning: <link> inserting "type" attribute
+transcript_index.html:12:1 (transcript_index.Rd:6): Warning: <script> proprietary attribute "onload"
+transcript_index.html:12:1 (transcript_index.Rd:6): Warning: <script> inserting "type" attribute
+transcript_index.html:17:1 (transcript_index.Rd:6): Warning: <table> lacks "summary" attribute
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 5 NOTEs

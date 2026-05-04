@@ -1,0 +1,30 @@
+Package: BribeR
+Title: Tools for Analyzing the Vladivideos Corruption Transcripts
+Version: 0.1.0
+Authors@R: 
+    person("Andres", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut", "cre"))
+Description: Provides access to and tools for analyzing the 'Vladivideos'
+    corpus, a collection of secret recordings in which Vladimiro Montesinos,
+    Peru's intelligence chief under President Alberto Fujimori, is documented
+    bribing politicians, judges, military officers, media owners, and
+    businesspeople during the 1990s. Includes functions for loading and
+    filtering transcripts by speaker or topic, computing transcript-level
+    metadata, and exploring relationships between speakers and topics through
+    an interactive network visualization application.
+URL: https://github.com/jessietrudeau/BribeR
+BugReports: https://github.com/jessietrudeau/BribeR/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: dplyr, fs, purrr, readr, shiny, stringr, tibble, tidyr,
+        visNetwork, tidyselect
+Suggests: testthat (>= 3.0.0), withr
+Config/testthat/edition: 3
+NeedsCompilation: no
+Packaged: 2026-05-04 19:15:19 UTC; andressoto
+Author: Andres Soto Plaza [aut, cre]
+Maintainer: Andres Soto Plaza <andressotoplaza@gmail.com>
+Depends: R (>= 3.5.0)
+Built: R 4.4.1; ; 2026-05-04 19:15:42 UTC; unix
