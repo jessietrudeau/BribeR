@@ -1,0 +1,206 @@
+---
+title: "Actors & Topics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Actors & Topics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE
+)
+```
+
+## Overview
+
+This article documents the actors and topics metadata bundled with BribeR.
+Understanding who is in the corpus and what they were discussing is essential
+for filtering, subsetting, and interpreting the transcripts.
+
+## Actors
+
+The `actors` dataset contains biographical and institutional metadata for
+125 individuals named in the Vladivideos transcripts. Each person is
+classified by their institutional role at the time of the recordings.
+
+```{r actors-load}
+library(BribeR)
+
+head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
+#> # A tibble: 6 × 5
+#>   speaker              Position                          Type     Party speaker_std
+#>   <chr>                <chr>                             <chr>    <chr> <chr>
+#> 1 Vladimir Montesinos  Alberto Fujimori's Chief of Staff Security NA    MONTESINOS
+#> 2 Alberto Fujimori     President of Peru                 Elected… C90   FUJIMORI
+#> ...
+```
+
+### Institutional Types
+
+Actors are grouped into nine institutional categories:
+
+| Type | Count | Description |
+|---|---|---|
+| `Security` | 31 | Military officers and police commanders |
+| `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
+| `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
+| `Media` | 14 | Television channel owners and newspaper directors |
+| `Businessperson` | 12 | Private sector executives and financiers |
+| `Elected Official` | 9 | Mayors, regional presidents, and other elected officials |
+| `Bureaucrat` | 8 | Senior civil servants and agency heads |
+| `Illicit` | 5 | Individuals primarily associated with organized crime |
+| `Foreign` | 3 | Foreign officials and diplomats |
+
+### Finding Transcripts by Actor Type
+
+You can combine the `actors` dataset with `get_transcript_speakers()` to
+filter the corpus by institutional type:
+
+```{r filter-by-type}
+library(dplyr)
+
+# Get all media-sector actors
+media_actors <- actors |>
+  filter(Type == "Media") |>
+  pull(speaker_std) |>
+  tolower()
+
+# Find transcripts featuring any media actor
+media_ids <- get_transcript_id(speaker = media_actors)
+length(media_ids)
+#> [1] 14
+```
+
+### Actor Descriptions
+
+Short biographies are available for 79 actors in the `actors_description`
+dataset, keyed by `speaker_std`:
+
+```{r actor-desc}
+actors_description |>
+  filter(speaker_std == "MONTESINOS")
+#> # A tibble: 1 × 2
+#>   speaker_std description
+#>   <chr>       <chr>
+#> 1 MONTESINOS  "Fujimori's Chief of Staff"
+```
+
+To view a description for any speaker appearing in the transcripts:
+
+```{r desc-join}
+transcripts <- read_transcripts(transcripts = 1)
+
+transcripts |>
+  distinct(speaker_std) |>
+  left_join(actors_description, by = "speaker_std")
+```
+
+## Topics
+
+Each transcript is tagged with one or more of 15 thematic topics. Topics
+reflect the main areas of Montesinos's corrupt activity captured in the
+recordings.
+
+```{r topics-list}
+topic_descriptions
+#> # A tibble: 15 × 2
+#>    topics                   descriptions
+#>    <chr>                    <chr>
+#>  1 topic_referendum         "Referendum to Peruvian constitution..."
+#>  2 topic_ecuador            "..."
+#>  3 topic_lucchetti_factory  "..."
+#>  ...
+```
+
+### Topic Reference
+
+| Topic tag | Theme |
+|---|---|
+| `state_capture` | Systematic co-optation of state institutions across multiple sectors |
+| `reelection` | Planning and executing Fujimori's contested 2000 reelection |
+| `media` | Payments to television channels and newspapers for favorable coverage |
+| `congress` | Bribing legislators to switch parties or support key legislation |
+| `judiciary` | Influencing judges, prosecutors, and the electoral tribunal |
+| `promotions` | Military and police promotions granted in exchange for political loyalty |
+| `safety` | Internal security operations against the political opposition |
+| `foreign` | Foreign policy, international relations, and the 1995 Ecuador border conflict |
+| `ivcher` | The case of Baruch Ivcher, a media owner stripped of Peruvian citizenship |
+| `canal4` | Dealings with Canal 4 (RBC Televisión) and its ownership |
+| `wiese` | Interactions involving the Wiese banking group |
+| `lucchetti_factory` | The Lucchetti pasta factory zoning controversy in Lima |
+| `referendum` | The 1993 constitutional referendum supporting Fujimori's agenda |
+| `municipal98` | Lima's 1998 municipal elections and political manipulation |
+| `miraflores` | Dealings involving the Miraflores district municipality |
+| `public_officials` | Interactions with civil servants and administrative officials |
+| `ecuador` | Diplomatic and military dimensions of the Peru–Ecuador border conflict |
+
+### Finding Transcripts by Topic
+
+```{r find-by-topic}
+# Single topic
+state_capture_ids <- get_transcript_id(topic = "state_capture")
+length(state_capture_ids)
+#> [1] 22
+
+# Multiple topics (OR logic)
+media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
+
+# Combine speaker and topic filters
+montesinos_media <- get_transcript_id(
+  speaker = "montesinos",
+  topic   = "media"
+)
+```
+
+### Topic Co-occurrence
+
+Many transcripts cover multiple topics simultaneously — a single meeting
+might involve media payments, electoral fraud, and legislative manipulation
+at once. You can explore this using `read_transcript_meta_data()`:
+
+```{r co-occurrence}
+library(dplyr)
+
+meta <- read_transcript_meta_data()
+
+# How many topics does each transcript cover?
+meta |>
+  mutate(n_topics = lengths(topics)) |>
+  count(n_topics, sort = TRUE)
+#> # A tibble: 5 × 2
+#>   n_topics     n
+#>      <int> <int>
+#> 1        1    58
+#> 2        2    29
+#> 3        3    10
+#> 4        0     3
+#> 5        4     1
+
+# Transcripts covering the most topics
+meta |>
+  mutate(n_topics = lengths(topics)) |>
+  arrange(desc(n_topics)) |>
+  select(n, date, n_topics, topics) |>
+  head(5)
+```
+
+## Using `speaker_std` as a Linking Key
+
+The `speaker_std` column is the consistent identifier linking actors across
+all datasets. It uses uppercase surnames and resolves naming variation in
+the original source material. When writing analysis code, always use
+`speaker_std` rather than the raw `speaker` column for joins and filters.
+
+```{r speaker-std-example}
+# Correct: use speaker_std for filtering
+transcripts |>
+  filter(speaker_std == "MONTESINOS") |>
+  summarise(n_turns = n(), n_words = sum(nchar(speech)))
+
+# get_transcript_id() also expects lowercase speaker_std values
+get_transcript_id(speaker = "montesinos")   # lowercase
+```

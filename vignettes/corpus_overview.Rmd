@@ -1,0 +1,177 @@
+---
+title: "Corpus Overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Corpus Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE
+)
+```
+
+## The Vladivideos
+
+Between 1990 and 2000, Vladimiro Montesinos Torres — Peru's de facto
+intelligence chief under President Alberto Fujimori — secretly recorded
+thousands of meetings in which he bribed politicians, judges, military
+officers, media executives, and businesspeople. When the recordings were
+leaked and broadcast publicly in September 2000, they triggered the collapse
+of the Fujimori government and became one of the most extensively documented
+cases of systemic corruption in Latin American history.
+
+The videos capture corruption across every major institution of the Peruvian
+state: legislators accepting cash to switch party allegiances, television
+channel owners receiving monthly payments to control news coverage, military
+generals coordinating electoral fraud, and judges confirming their
+availability to rule in Montesinos's favor.
+
+**{BribeR}** provides structured access to transcripts of 101 of these
+recordings, along with metadata on the speakers involved and the topics
+discussed.
+
+## Transcripts
+
+```{r meta-load}
+library(BribeR)
+library(dplyr)
+
+meta <- read_transcript_meta_data()
+nrow(meta)
+#> [1] 101
+```
+
+The corpus spans recordings made between 1996 and 2000, covering the period
+from Fujimori's successful bid for a controversial third term through the
+final months before the regime's collapse.
+
+```{r word-counts}
+# Distribution of transcript length
+summary(meta$n_words)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#>     102    1377    2502    3028    3956   18021
+```
+
+Transcripts range from brief exchanges of a few hundred words to lengthy
+multi-hour meetings exceeding 18,000 words. The median transcript is
+approximately 2,500 words.
+
+## Actors
+
+The corpus involves 125 named individuals. Each actor in the `actors` dataset
+is classified by institutional type:
+
+```{r actors-table}
+actors |>
+  count(Type, sort = TRUE)
+#> # A tibble: 9 × 2
+#>   Type                  n
+#>   <chr>             <int>
+#> 1 Security             31
+#> 2 Congress             25
+#> 3 Judiciary            18
+#> 4 Media                14
+#> 5 Businessperson       12
+#> 6 Elected Official      9
+#> 7 Bureaucrat            8
+#> 8 Illicit               5
+#> 9 Foreign               3
+```
+
+Security forces (military and police) and Congress form the two largest
+groups, reflecting Montesinos's priorities: controlling the armed forces and
+ensuring a legislative majority for Fujimori's agenda.
+
+The most frequently appearing speaker across transcripts is Montesinos himself:
+
+```{r speaker-freq}
+speakers <- get_transcript_speakers()
+
+speakers |>
+  mutate(n_transcripts = lengths(transcripts)) |>
+  arrange(desc(n_transcripts)) |>
+  head(10)
+#> # A tibble: 10 × 3
+#>    speaker_std        transcripts n_transcripts
+#>    <chr>              <list>              <int>
+#>  1 MONTESINOS         <dbl [98]>             98
+#>  2 CROUSILLAT         <dbl [12]>             12
+#>  3 KOURI              <dbl [10]>             10
+#>  4 DELGADO PARKER     <dbl [9]>               9
+#>  5 FUJIMORI           <dbl [8]>               8
+#>  ...
+```
+
+## Topics
+
+Each transcript is tagged with one or more thematic topics. The 15 topics
+in the corpus reflect the main areas of Montesinos's corrupt activity:
+
+| Topic | Description |
+|---|---|
+| `state_capture` | Systematic co-optation of state institutions |
+| `media` | Payments to television channels and newspapers |
+| `reelection` | Planning and executing Fujimori's 2000 reelection campaign |
+| `congress` | Bribing legislators to switch parties or support legislation |
+| `judiciary` | Influencing judges and prosecutors |
+| `promotions` | Military and police promotions in exchange for loyalty |
+| `foreign` | Foreign policy and international relations |
+| `ivcher` | The case of Baruch Ivcher, a media owner stripped of citizenship |
+| `canal4` | Dealings with Canal 4 (RBC Televisión) |
+| `safety` | Internal security and anti-opposition operations |
+| `state_capture` | Cross-institutional coordination of authoritarian control |
+| `wiese` | The Wiese banking group |
+| `lucchetti_factory` | The Lucchetti factory zoning controversy |
+| `ecuador` | The 1995 border conflict with Ecuador |
+| `referendum` | The 1993 constitutional referendum |
+| `municipal98` | Lima's 1998 municipal elections |
+| `miraflores` | The Miraflores district municipality |
+| `public_officials` | Interactions with civil servants and bureaucrats |
+
+```{r topic-counts}
+# Transcripts per topic
+get_transcript_id(topic = "media")      |> length()
+#> [1] 14
+get_transcript_id(topic = "reelection") |> length()
+#> [1] 18
+get_transcript_id(topic = "state_capture") |> length()
+#> [1] 22
+```
+
+State capture — the coordinated takeover of multiple institutions — is the
+most common topic tag, appearing in 22 transcripts. Many transcripts are
+tagged with multiple topics: a single meeting might involve media payments,
+legislative maneuvering, and electoral fraud simultaneously.
+
+## Data Structure
+
+The full compiled corpus contains 47,375 speech turns across the 101
+transcripts:
+
+```{r corpus-size}
+transcripts <- read_transcripts()
+nrow(transcripts)
+#> [1] 47375
+
+# Columns available
+names(transcripts)
+#> [1] "n"           "row_id"      "date"        "speaker"
+#> [5] "speech"      "speaker_std" "topic"
+```
+
+Each row represents one turn in the conversation. The `speech` column
+contains the original Spanish text; `speaker_std` is a standardized
+uppercase surname identifier that matches across the `actors`,
+`transcript_index`, and `speakers_per_transcript` datasets.
+
+## Further Reading
+
+- Conaghan, C. M. (2005). *Fujimori's Peru: Deception in the Public Sphere*.
+  University of Pittsburgh Press.
+- McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos in
+  Peru. *Journal of Economic Perspectives*, 18(4), 69–92.

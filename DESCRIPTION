@@ -30,7 +30,12 @@ Imports:
     tidyr,
     visNetwork,
     tidyselect
-Suggests: 
+Suggests:
     testthat (>= 3.0.0),
-    withr
+    withr,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    dplyr
+VignetteBuilder: knitr
 Config/testthat/edition: 3

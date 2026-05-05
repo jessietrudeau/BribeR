@@ -1,40 +1,72 @@
-url: https://github.com/jessietrudeau/BribeR
+url: https://jessietrudeau.github.io/BribeR
+
 template:
   bootstrap: 5
   light-switch: true
 
+home:
+  title: "BribeR: Tools for Analyzing the Vladivideos Corruption Transcripts"
+  description: >
+    An R package for accessing and analyzing the Vladivideos — secret
+    recordings documenting systematic corruption under Peru's Fujimori
+    government in the 1990s.
+
 navbar:
   structure:
-    left: [intro, reference, articles, news]
+    left:  [home, intro, reference, articles, news]
     right: [search, lightswitch, github]
   components:
+    intro:
+      text: Get Started
+      href: articles/getting_started.html
     articles:
       text: Articles
       menu:
-        - text: "Getting Started"
-          href: articles/getting_started.html
         - text: "Corpus Overview"
           href: articles/corpus_overview.html
+        - text: "Data Structure"
+          href: articles/data_structure.html
+        - text: "Actors & Topics"
+          href: articles/documentation.html
 
 reference:
-  - title: "Read Transcripts"
-    desc: "Functions for reading and processing transcripts"
+  - title: "Reading Transcripts"
+    desc: "Load and filter the Vladivideos transcript corpus."
     contents:
       - read_transcripts
-      - read_transcript_meta_data
       - get_transcripts_raw
-  - title: "Transcript Details"
-    desc: "Functions for extracting transcript details"
+
+  - title: "Finding Transcripts"
+    desc: "Search the corpus by speaker or topic."
     contents:
       - get_transcript_id
       - get_transcript_speakers
-  - title: "Interactive Tools"
-    desc: "Shiny applications for exploring data"
+
+  - title: "Metadata"
+    desc: "Transcript-level summary information."
+    contents:
+      - read_transcript_meta_data
+
+  - title: "Visualization"
+    desc: "Interactive network visualization."
     contents:
       - run_transcript_network_app
 
+  - title: "Datasets"
+    desc: "Bundled datasets included in BribeR."
+    contents:
+      - compiled_transcripts
+      - descriptions
+      - transcript_index
+      - speakers_per_transcript
+      - actors
+      - actors_description
+      - topic_descriptions
+
 articles:
   - title: "Articles"
+    navbar: ~
     contents:
-      - getting_started
       - corpus_overview
+      - data_structure
+      - documentation

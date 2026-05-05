@@ -1,0 +1,197 @@
+---
+title: "Getting Started with BribeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with BribeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  eval     = FALSE
+)
+```
+
+## Overview
+
+**{BribeR}** is an R package for accessing and analyzing the *Vladivideos* —
+a collection of secret recordings documenting Vladimiro Montesinos, Peru's
+intelligence chief under President Alberto Fujimori, bribing politicians,
+judges, military officers, media owners, and businesspeople throughout the
+1990s. The recordings were declassified and made public in 2000, and have
+since become a landmark dataset for the study of corruption, state capture,
+and authoritarian politics.
+
+The package provides structured, machine-readable access to 101 transcripts
+along with metadata on speakers, topics, and institutional roles. It includes
+six main functions:
+
+| Function | Description |
+|---|---|
+| `read_transcripts()` | Load the full transcript corpus, optionally filtered by ID |
+| `get_transcript_id()` | Find transcript IDs by speaker or topic |
+| `get_transcript_speakers()` | Get speakers associated with each transcript |
+| `get_transcripts_raw()` | Load the raw source CSV files |
+| `read_transcript_meta_data()` | Build a tidy metadata summary per transcript |
+| `run_transcript_network_app()` | Launch an interactive network visualization app |
+
+## Installation
+
+```{r install}
+# Install from CRAN
+install.packages("BribeR")
+
+# Or install the development version from GitHub
+# remotes::install_github("jessietrudeau/BribeR")
+```
+
+## Loading Transcripts
+
+The main entry point is `read_transcripts()`, which loads the full corpus as
+a tidy data frame. Each row is one speech turn, with columns for the
+transcript ID (`n`), speaker, speech text, standardized speaker name, date,
+and topic.
+
+```{r read-all}
+library(BribeR)
+
+transcripts <- read_transcripts()
+head(transcripts)
+#> # A tibble: 6 × 7
+#>       n row_id date      speaker    speech                  speaker_std topic
+#>   <dbl>  <dbl> <chr>     <chr>      <chr>                   <chr>       <chr>
+#> 1     1      1 3/25/1997 BACKGROUND Declaraciones de…       BACKGROUND  topic_foreign
+#> 2     1      2 3/25/1997 ALVA       Yo en realidad…         ALVA        topic_foreign
+#> 3     1      3 3/25/1997 LEWIS      Podría usted…           LEWIS       topic_foreign
+#> ...
+```
+
+You can filter to one or more transcripts by passing their numeric IDs:
+
+```{r read-subset}
+# Load a single transcript
+t1 <- read_transcripts(transcripts = 1)
+
+# Load a selection of transcripts
+subset <- read_transcripts(transcripts = c(5, 12, 47))
+```
+
+## Finding Transcripts by Speaker or Topic
+
+`get_transcript_id()` returns transcript IDs matching any combination of
+speakers and topics. Filters use OR logic: a transcript is returned if
+**any** of the specified speakers appear in it, or if **any** of the
+specified topics are flagged.
+
+```{r get-ids}
+# All available transcript IDs
+all_ids <- get_transcript_id()
+length(all_ids)
+#> [1] 101
+
+# Transcripts featuring Montesinos
+montesinos_ids <- get_transcript_id(speaker = "montesinos")
+
+# Transcripts about media manipulation
+media_ids <- get_transcript_id(topic = "media")
+
+# Transcripts featuring Kouri OR about reelection
+combined_ids <- get_transcript_id(speaker = "kouri", topic = "reelection")
+```
+
+Available topic names include: `referendum`, `ecuador`, `lucchetti_factory`,
+`municipal98`, `reelection`, `miraflores`, `canal4`, `media`, `promotions`,
+`ivcher`, `foreign`, `wiese`, `public_officials`, `safety`, and
+`state_capture`.
+
+## Getting Speakers Per Transcript
+
+`get_transcript_speakers()` returns a tibble with one row per speaker and a
+list-column of the transcript IDs they appear in. You can filter by
+transcript ID, topic, or both.
+
+```{r get-speakers}
+# All speakers across all transcripts
+speakers <- get_transcript_speakers()
+head(speakers)
+#> # A tibble: 6 × 2
+#>   speaker_std transcripts
+#>   <chr>       <list>
+#> 1 ALVA        <dbl [1]>
+#> 2 AMERICANO   <dbl [2]>
+#> 3 AMOIN       <dbl [1]>
+#> 4 ARANCIBIA   <dbl [3]>
+#> 5 ARCE        <dbl [1]>
+#> 6 AYBAR       <dbl [1]>
+
+# Speakers who appear in transcripts about media
+media_speakers <- get_transcript_speakers(topic = "media")
+```
+
+## Transcript Metadata
+
+`read_transcript_meta_data()` assembles a one-row-per-transcript summary
+combining dates, speaker rosters, word counts, and topic flags from the
+bundled datasets.
+
+```{r metadata}
+meta <- read_transcript_meta_data()
+head(meta)
+#> # A tibble: 6 × 5
+#>       n date      speakers  n_words topics
+#>   <dbl> <chr>     <list>      <int> <list>
+#> 1     1 3/25/1997 <chr [4]>    2819 <chr [1]>
+#> 2     2 3/19/1997 <chr [2]>    1020 <chr [1]>
+#> 3     3 6/4/1998  <chr [3]>    3277 <chr [1]>
+#> ...
+```
+
+The `speakers` and `topics` columns are list-columns. You can unnest them or
+work with them directly:
+
+```{r metadata-work}
+library(dplyr)
+
+# Five longest transcripts by word count
+meta |>
+  arrange(desc(n_words)) |>
+  select(n, date, n_words) |>
+  head(5)
+```
+
+## Loading Raw Transcripts
+
+`get_transcripts_raw()` provides access to the original source CSV files.
+This is useful when you need the unprocessed data or want to work with
+specific transcripts without loading the full compiled corpus.
+
+```{r raw}
+# Load transcript 3 as a data frame
+t3 <- get_transcripts_raw(n = 3)
+
+# Load multiple transcripts combined into a single tibble
+combined <- get_transcripts_raw(n = c(3, 19, 47), combine = TRUE)
+```
+
+## Network Visualization App
+
+`run_transcript_network_app()` launches an interactive Shiny application
+with two network views:
+
+- **Speaker–Topic Network**: connects speakers to the topics discussed in
+  their transcripts. Node size reflects the number of transcripts a speaker
+  appears in; color reflects institutional type (Congress, Judiciary, Media,
+  Security, etc.).
+- **Speaker Co-Appearance Network**: connects speakers who appear in the same
+  transcript, with edge weight proportional to co-appearance frequency.
+
+```{r app}
+run_transcript_network_app()
+```
+
+Both networks support hover tooltips with speaker biographies and topic
+descriptions, and a dropdown to highlight any individual speaker's
+connections across the network.
