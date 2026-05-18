@@ -11,7 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment  = "#>",
-  eval     = FALSE
+  fig.width = 7,
+  fig.height = 4
 )
 ```
 
@@ -37,13 +38,13 @@ discussed.
 
 ## Transcripts
 
-```{r meta-load}
+```{r meta-load, message=FALSE}
 library(BribeR)
 library(dplyr)
+library(ggplot2)
 
 meta <- read_transcript_meta_data()
 nrow(meta)
-#> [1] 101
 ```
 
 The corpus spans recordings made between 1996 and 2000, covering the period
@@ -51,15 +52,23 @@ from Fujimori's successful bid for a controversial third term through the
 final months before the regime's collapse.
 
 ```{r word-counts}
-# Distribution of transcript length
 summary(meta$n_words)
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#>     102    1377    2502    3028    3956   18021
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
 multi-hour meetings exceeding 18,000 words. The median transcript is
 approximately 2,500 words.
+
+```{r length-hist, fig.alt="Histogram of transcript word counts showing a right-skewed distribution centered around 2500 words"}
+ggplot(meta, aes(x = n_words)) +
+  geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
+  labs(
+    title = "Distribution of transcript length",
+    x     = "Words per transcript",
+    y     = "Count"
+  ) +
+  theme_minimal(base_size = 13)
+```
 
 ## Actors
 
@@ -69,25 +78,30 @@ is classified by institutional type:
 ```{r actors-table}
 actors |>
   count(Type, sort = TRUE)
-#> # A tibble: 9 × 2
-#>   Type                  n
-#>   <chr>             <int>
-#> 1 Security             31
-#> 2 Congress             25
-#> 3 Judiciary            18
-#> 4 Media                14
-#> 5 Businessperson       12
-#> 6 Elected Official      9
-#> 7 Bureaucrat            8
-#> 8 Illicit               5
-#> 9 Foreign               3
 ```
 
 Security forces (military and police) and Congress form the two largest
 groups, reflecting Montesinos's priorities: controlling the armed forces and
 ensuring a legislative majority for Fujimori's agenda.
 
-The most frequently appearing speaker across transcripts is Montesinos himself:
+```{r actors-bar, fig.alt="Bar chart of actor counts by institutional type, showing Security and Congress as the largest groups"}
+actors |>
+  count(Type, sort = TRUE) |>
+  ggplot(aes(x = reorder(Type, n), y = n)) +
+  geom_col(fill = "#8B1A1A") +
+  coord_flip() +
+  labs(
+    title = "Actors by institutional type",
+    x     = NULL,
+    y     = "Number of actors"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+## Speaker Frequency
+
+Montesinos appears in 98 of the 101 transcripts — he is the constant
+throughout the corpus, present in nearly every recorded meeting.
 
 ```{r speaker-freq}
 speakers <- get_transcript_speakers()
@@ -96,35 +110,39 @@ speakers |>
   mutate(n_transcripts = lengths(transcripts)) |>
   arrange(desc(n_transcripts)) |>
   head(10)
-#> # A tibble: 10 × 3
-#>    speaker_std        transcripts n_transcripts
-#>    <chr>              <list>              <int>
-#>  1 MONTESINOS         <dbl [98]>             98
-#>  2 CROUSILLAT         <dbl [12]>             12
-#>  3 KOURI              <dbl [10]>             10
-#>  4 DELGADO PARKER     <dbl [9]>               9
-#>  5 FUJIMORI           <dbl [8]>               8
-#>  ...
+```
+
+```{r speaker-bar, fig.alt="Bar chart of top 10 most frequent speakers by number of transcripts they appear in"}
+speakers |>
+  mutate(n_transcripts = lengths(transcripts)) |>
+  arrange(desc(n_transcripts)) |>
+  head(10) |>
+  ggplot(aes(x = reorder(speaker_std, n_transcripts), y = n_transcripts)) +
+  geom_col(fill = "#8B1A1A") +
+  coord_flip() +
+  labs(
+    title = "Top 10 speakers by transcript appearances",
+    x     = NULL,
+    y     = "Number of transcripts"
+  ) +
+  theme_minimal(base_size = 13)
 ```
 
 ## Topics
 
 Each transcript is tagged with one or more thematic topics. The 15 topics
-in the corpus reflect the main areas of Montesinos's corrupt activity:
+reflect the main areas of Montesinos's corrupt activity:
 
 | Topic | Description |
 |---|---|
 | `state_capture` | Systematic co-optation of state institutions |
-| `media` | Payments to television channels and newspapers |
 | `reelection` | Planning and executing Fujimori's 2000 reelection campaign |
-| `congress` | Bribing legislators to switch parties or support legislation |
-| `judiciary` | Influencing judges and prosecutors |
+| `media` | Payments to television channels and newspapers |
 | `promotions` | Military and police promotions in exchange for loyalty |
 | `foreign` | Foreign policy and international relations |
 | `ivcher` | The case of Baruch Ivcher, a media owner stripped of citizenship |
 | `canal4` | Dealings with Canal 4 (RBC Televisión) |
 | `safety` | Internal security and anti-opposition operations |
-| `state_capture` | Cross-institutional coordination of authoritarian control |
 | `wiese` | The Wiese banking group |
 | `lucchetti_factory` | The Lucchetti factory zoning controversy |
 | `ecuador` | The 1995 border conflict with Ecuador |
@@ -133,22 +151,41 @@ in the corpus reflect the main areas of Montesinos's corrupt activity:
 | `miraflores` | The Miraflores district municipality |
 | `public_officials` | Interactions with civil servants and bureaucrats |
 
-```{r topic-counts}
-# Transcripts per topic
-get_transcript_id(topic = "media")      |> length()
-#> [1] 14
-get_transcript_id(topic = "reelection") |> length()
-#> [1] 18
-get_transcript_id(topic = "state_capture") |> length()
-#> [1] 22
+```{r topic-counts, fig.alt="Bar chart showing number of transcripts tagged with each topic, with state_capture and reelection as the most common"}
+topic_names <- c(
+  "state_capture", "reelection", "media", "promotions", "foreign",
+  "ivcher", "canal4", "safety", "wiese", "lucchetti_factory",
+  "ecuador", "referendum", "municipal98", "miraflores", "public_officials"
+)
+
+topic_counts <- sapply(topic_names, function(t) {
+  length(get_transcript_id(topic = t))
+})
+
+data.frame(topic = topic_names, n = topic_counts) |>
+  ggplot(aes(x = reorder(topic, n), y = n)) +
+  geom_col(fill = "#8B1A1A") +
+  coord_flip() +
+  labs(
+    title = "Transcripts per topic",
+    x     = NULL,
+    y     = "Number of transcripts"
+  ) +
+  theme_minimal(base_size = 12)
 ```
 
 State capture — the coordinated takeover of multiple institutions — is the
-most common topic tag, appearing in 22 transcripts. Many transcripts are
-tagged with multiple topics: a single meeting might involve media payments,
-legislative maneuvering, and electoral fraud simultaneously.
+most common topic tag. Many transcripts are tagged with multiple topics: a
+single meeting might involve media payments, legislative maneuvering, and
+electoral fraud simultaneously.
 
-## Data Structure
+```{r multi-topic}
+meta |>
+  mutate(n_topics = lengths(topics)) |>
+  count(n_topics, sort = TRUE)
+```
+
+## Data Structure at a Glance
 
 The full compiled corpus contains 47,375 speech turns across the 101
 transcripts:
@@ -156,18 +193,17 @@ transcripts:
 ```{r corpus-size}
 transcripts <- read_transcripts()
 nrow(transcripts)
-#> [1] 47375
-
-# Columns available
 names(transcripts)
-#> [1] "n"           "row_id"      "date"        "speaker"
-#> [5] "speech"      "speaker_std" "topic"
 ```
 
 Each row represents one turn in the conversation. The `speech` column
 contains the original Spanish text; `speaker_std` is a standardized
 uppercase surname identifier that matches across the `actors`,
 `transcript_index`, and `speakers_per_transcript` datasets.
+
+For a full description of all seven bundled datasets and their linking
+columns, see the
+[Data Structure](data_structure.html) article.
 
 ## Further Reading
 

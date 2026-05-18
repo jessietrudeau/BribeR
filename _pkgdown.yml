@@ -64,6 +64,11 @@ reference:
       - topic_descriptions
 
 articles:
+  - title: "Get Started"
+    navbar: ~
+    contents:
+      - getting_started
+
   - title: "Articles"
     navbar: ~
     contents:

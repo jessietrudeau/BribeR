@@ -11,7 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment  = "#>",
-  eval     = FALSE
+  fig.width = 7,
+  fig.height = 4
 )
 ```
 
@@ -27,20 +28,12 @@ which columns they share, and how to combine them for analysis.
 
 The main dataset. Each row is one speech turn within a transcript.
 
-```{r compiled}
+```{r compiled, message=FALSE}
 library(BribeR)
+library(dplyr)
 
 transcripts <- read_transcripts()
 glimpse(transcripts)
-#> Rows: 47,375
-#> Columns: 7
-#> $ n           <dbl>  1, 1, 1, 1, 1, ...
-#> $ row_id      <dbl>  1, 2, 3, 4, 5, ...
-#> $ date        <chr>  "3/25/1997", "3/25/1997", ...
-#> $ speaker     <chr>  "BACKGROUND", "ALVA", "LEWIS", ...
-#> $ speech      <chr>  "Declaraciones de...", "Yo en realidad...", ...
-#> $ speaker_std <chr>  "BACKGROUND", "ALVA", "LEWIS", ...
-#> $ topic       <chr>  "topic_foreign", "topic_foreign", ...
 ```
 
 | Column | Type | Description |
@@ -64,26 +57,12 @@ information, and plain-language English summaries.
 
 ```{r descriptions}
 head(descriptions[, c("n", "date", "type", "summary")])
-#> # A tibble: 6 × 4
-#>       n date      type  summary
-#>   <dbl> <chr>     <chr> <chr>
-#> 1   104 7/1/2000  audio "Montesinos convenes a meeting..."
-#> 2   103 6/27/2000 audio "..."
-#> ...
 ```
 
 The `topic_*` columns use `"x"` to indicate a topic is present:
 
 ```{r topic-flags}
 names(descriptions)[grepl("^topic_", names(descriptions))]
-#>  [1] "topic_referendum"       "topic_ecuador"
-#>  [3] "topic_lucchetti_factory" "topic_municipal98"
-#>  [5] "topic_reelection"       "topic_miraflores"
-#>  [7] "topic_canal4"           "topic_media"
-#>  [9] "topic_promotions"       "topic_ivcher"
-#> [11] "topic_foreign"          "topic_wiese"
-#> [13] "topic_public_officials" "topic_safety"
-#> [15] "topic_state_capture"
 ```
 
 ### `transcript_index` — Fast Lookup Table
@@ -94,9 +73,6 @@ corpus.
 
 ```{r index}
 dim(transcript_index)
-#> [1] 101 134
-
-# Columns: n, file, format, date, topic_*, speaker_*, topic_count, speaker_count
 ```
 
 The `speaker_*` and `topic_*` columns contain `1` (present) or `0` (absent).
@@ -108,10 +84,6 @@ One row per transcript, with up to 19 speaker slots as separate columns.
 
 ```{r speakers-wide}
 speakers_per_transcript[1, ]
-#> # A tibble: 1 × 20
-#>       n speakrer_std_1 speakrer_std_2 speakrer_std_3 speakrer_std_4 ...
-#>   <dbl> <chr>          <chr>          <chr>          <chr>
-#> 1     1 ALVA           LEWIS          BURNET         GARCIA         NA
 ```
 
 Note: the column names contain a known typo (`speakrer` instead of
@@ -125,11 +97,6 @@ the transcripts.
 
 ```{r actors}
 head(actors[, c("speaker", "Position", "Type", "speaker_std")])
-#> # A tibble: 6 × 4
-#>   speaker              Position                          Type       speaker_std
-#>   <chr>                <chr>                             <chr>      <chr>
-#> 1 Vladimir Montesinos  Alberto Fujimori's Chief of Staff Security   MONTESINOS
-#> 2 ...
 ```
 
 The `Type` column classifies actors into institutional categories:
@@ -145,11 +112,6 @@ Short biographical descriptions for 79 actors, keyed by `speaker_std`.
 
 ```{r actor-desc}
 head(actors_description)
-#> # A tibble: 6 × 2
-#>   speaker_std description
-#>   <chr>       <chr>
-#> 1 MONTESINOS  "Fujimori's Chief of Staff"
-#> ...
 ```
 
 ### `topic_descriptions` — Topic Reference
@@ -158,12 +120,6 @@ Human-readable labels and descriptions for each of the 15 topic tags.
 
 ```{r topic-desc}
 topic_descriptions
-#> # A tibble: 15 × 2
-#>    topics                  descriptions
-#>    <chr>                   <chr>
-#>  1 topic_referendum        "Referendum to Peruvian constitution..."
-#>  2 topic_ecuador           "..."
-#> ...
 ```
 
 ## Linking Datasets
@@ -182,10 +138,6 @@ The table below shows which columns connect the datasets:
 ## Example: Joining Transcripts with Actor Metadata
 
 ```{r join-example}
-library(dplyr)
-
-transcripts <- read_transcripts()
-
 transcripts |>
   left_join(
     actors |> select(speaker_std, Type, Position),
@@ -193,13 +145,28 @@ transcripts |>
   ) |>
   filter(!is.na(Type)) |>
   count(Type, sort = TRUE)
-#> # A tibble: 9 × 2
-#>   Type                  n
-#>   <chr>             <int>
-#> 1 Security          15823
-#> 2 Congress           8741
-#> 3 Judiciary          4302
-#> ...
+```
+
+## Example: Finding Transcripts by Speaker Type
+
+You can combine `actors` and `get_transcript_id()` to filter the corpus by
+institutional category rather than by individual name. The example below
+finds all transcripts featuring any media-sector actor who appears in the
+transcript index:
+
+```{r type-filter}
+media_actors <- actors |>
+  filter(Type == "Media") |>
+  pull(speaker_std) |>
+  tolower()
+
+# Keep only actors present in the transcript index
+index_speakers <- gsub("^speaker_", "",
+                       grep("^speaker_", names(transcript_index), value = TRUE))
+media_actors <- media_actors[media_actors %in% index_speakers]
+
+media_ids <- get_transcript_id(speaker = media_actors)
+length(media_ids)
 ```
 
 ## Accessing Data Directly
@@ -208,10 +175,7 @@ All datasets are lazily loaded when the package is attached, so you can
 reference them by name after `library(BribeR)`:
 
 ```{r direct-access}
-library(BribeR)
-
-# Access datasets directly
-nrow(compiled_transcripts)   # 47375
-nrow(actors)                 # 125
-nrow(topic_descriptions)     # 15
+nrow(compiled_transcripts)
+nrow(actors)
+nrow(topic_descriptions)
 ```
