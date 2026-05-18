@@ -39,9 +39,9 @@ are flagged.
 
 ## See also
 
-[`read_transcripts()`](https://github.com/jessietrudeau/BribeR/reference/read_transcripts.md),
-[`get_transcripts_raw()`](https://github.com/jessietrudeau/BribeR/reference/get_transcripts_raw.md),
-[`get_transcript_speakers()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_speakers.md)
+[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
+[`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md),
+[`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md)
 
 ## Examples
 

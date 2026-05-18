@@ -36,8 +36,8 @@ The app provides two network views:
 
 ## See also
 
-[`read_transcripts()`](https://github.com/jessietrudeau/BribeR/reference/read_transcripts.md),
-[`read_transcript_meta_data()`](https://github.com/jessietrudeau/BribeR/reference/read_transcript_meta_data.md)
+[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
+[`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md)
 
 ## Examples
 

@@ -61,15 +61,24 @@ A tibble with one row per transcript and columns:
 
 ## See also
 
-[`read_transcripts()`](https://github.com/jessietrudeau/BribeR/reference/read_transcripts.md),
-[`get_transcript_speakers()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_speakers.md)
+[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
+[`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md)
 
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Load metadata for all transcripts
 meta <- read_transcript_meta_data()
 head(meta)
-} # }
+#> # A tibble: 6 × 5
+#>       n date      speakers   n_words topics   
+#>   <dbl> <chr>     <list>       <int> <list>   
+#> 1   104 7/1/2000  <chr [2]>     9289 <chr [2]>
+#> 2    19 4/21/1998 <chr [11]>    5693 <chr [2]>
+#> 3    11 2/10/1998 <chr [3]>     9420 <chr [1]>
+#> 4    12 2/10/1998 <chr [2]>     1283 <chr [1]>
+#> 5     5 1/8/1998  <chr [5]>     9391 <chr [2]>
+#> 6     7 1/15/1998 <chr [6]>    11146 <chr [3]>
+# }
 ```

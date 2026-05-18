@@ -1,31 +1,175 @@
-What the package does (one paragraph).
+# BribeR ![Montesinos](inst/images/montesinos.PNG)
+
+**{BribeR}** is an R package for accessing and analyzing the
+*Vladivideos* — secret recordings documenting Vladimiro Montesinos,
+Peru’s intelligence chief under President Alberto Fujimori, bribing
+politicians, judges, military officers, media owners, and businesspeople
+throughout the 1990s. The recordings became public in 2000 and triggered
+the collapse of the Fujimori government. They remain one of the most
+extensively documented cases of systemic corruption in Latin American
+history.
+
+The package provides structured, machine-readable access to 101
+transcripts, along with metadata on the 125 named actors, 15 topic
+categories, and 47,375 individual speech turns in the corpus.
+
+## Installation
+
+``` r
+
+# Install from CRAN
+install.packages("BribeR")
+
+# Or install the development version from GitHub
+# install.packages("remotes")
+remotes::install_github("jessietrudeau/BribeR")
+```
+
+## Core Functions
+
+**Reading transcripts**
+
+| Function | Description |
+|----|----|
+| [`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md) | Load the full corpus, optionally filtered by transcript ID |
+| [`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md) | Load the original source CSV files |
+
+**Finding transcripts**
+
+| Function | Description |
+|----|----|
+| [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md) | Return transcript IDs matching speakers or topics |
+| [`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md) | Return speakers appearing in each transcript |
+
+**Metadata**
+
+| Function | Description |
+|----|----|
+| [`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md) | Build a tidy one-row-per-transcript summary |
+
+**Visualization**
+
+| Function | Description |
+|----|----|
+| [`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md) | Launch an interactive Speaker–Topic network app |
+
+## Datasets
+
+BribeR includes seven bundled datasets:
+
+| Dataset | Description |
+|----|----|
+| `compiled_transcripts` | Full corpus: 47,375 speech turns across 101 transcripts |
+| `transcript_index` | Wide-format boolean lookup by speaker and topic |
+| `speakers_per_transcript` | Speaker roster per transcript |
+| `descriptions` | Transcript-level metadata with dates, topics, and summaries |
+| `actors` | Biographical and institutional metadata for 125 individuals |
+| `actors_description` | Short descriptions for a subset of actors |
+| `topic_descriptions` | Labels and descriptions for the 15 topic categories |
+
+## Basic Usage
+
+``` r
+
+library(BribeR)
+
+# Load all transcripts
+transcripts <- read_transcripts()
+
+# Find transcripts about media manipulation
+media_ids <- get_transcript_id(topic = "media")
+
+# Get the metadata summary
+meta <- read_transcript_meta_data()
+
+# Launch the network visualization app
+run_transcript_network_app()
+```
+
+## Citation
+
+If you use BribeR in your research, please cite it as:
+
+> Soto Plaza, A. (2025). *BribeR: Tools for Analyzing the Vladivideos
+> Corruption Transcripts*. R package version 0.1.0.
+> <https://github.com/jessietrudeau/BribeR>
+
+The underlying data is derived from the Vladivideos archive. For the
+original recordings, see:
+
+> McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos
+> in Peru. *Journal of Economic Perspectives*, 18(4), 69–92.
+
+## Contributing
+
+Contributions are welcome. Please open an issue or pull request on
+[GitHub](https://github.com/jessietrudeau/BribeR/issues).
 
 # Package index
 
-## Read Transcripts
+## Reading Transcripts
 
-Functions for reading and processing transcripts
+Load and filter the Vladivideos transcript corpus.
 
-- [`read_transcripts()`](https://github.com/jessietrudeau/BribeR/reference/read_transcripts.md)
+- [`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md)
   : Read Vladivideos Transcript Data
-- [`read_transcript_meta_data()`](https://github.com/jessietrudeau/BribeR/reference/read_transcript_meta_data.md)
-  : Read transcript-level metadata (n, date, speakers, duration, topics)
-- [`get_transcripts_raw()`](https://github.com/jessietrudeau/BribeR/reference/get_transcripts_raw.md)
+- [`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md)
   : Retrieve Raw Transcript Files from BribeR
 
-## Transcript Details
+## Finding Transcripts
 
-Functions for extracting transcript details
+Search the corpus by speaker or topic.
 
-- [`get_transcript_id()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_id.md)
+- [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
   : Retrieve Available Transcript IDs
-- [`get_transcript_speakers()`](https://github.com/jessietrudeau/BribeR/reference/get_transcript_speakers.md)
+- [`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md)
   : Get transcripts each speaker appears in
 
-## Interactive Tools
+## Metadata
 
-Shiny applications for exploring data
+Transcript-level summary information.
 
-- [`run_transcript_network_app()`](https://github.com/jessietrudeau/BribeR/reference/run_transcript_network_app.md)
+- [`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md)
+  : Read transcript-level metadata (n, date, speakers, duration, topics)
+
+## Visualization
+
+Interactive network visualization.
+
+- [`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md)
   : Run the Transcript-Topic-Speaker Shiny app
 
+## Datasets
+
+Bundled datasets included in BribeR.
+
+- [`compiled_transcripts`](https://jessietrudeau.github.io/BribeR/reference/compiled_transcripts.md)
+  : Vladivideos Detailed Transcripts
+- [`descriptions`](https://jessietrudeau.github.io/BribeR/reference/descriptions.md)
+  : Transcript Descriptions
+- [`transcript_index`](https://jessietrudeau.github.io/BribeR/reference/transcript_index.md)
+  : Transcript Index
+- [`speakers_per_transcript`](https://jessietrudeau.github.io/BribeR/reference/speakers_per_transcript.md)
+  : Speakers Per Transcript
+- [`actors`](https://jessietrudeau.github.io/BribeR/reference/actors.md)
+  : Actor Roster
+- [`actors_description`](https://jessietrudeau.github.io/BribeR/reference/actors_description.md)
+  : Actor Descriptions
+- [`topic_descriptions`](https://jessietrudeau.github.io/BribeR/reference/topic_descriptions.md)
+  : Topic Descriptions
+
+# Articles
+
+### Get Started
+
+- [Getting Started with
+  BribeR](https://jessietrudeau.github.io/BribeR/articles/getting_started.md):
+
+### Articles
+
+- [Corpus
+  Overview](https://jessietrudeau.github.io/BribeR/articles/corpus_overview.md):
+- [Data
+  Structure](https://jessietrudeau.github.io/BribeR/articles/data_structure.md):
+- [Actors &
+  Topics](https://jessietrudeau.github.io/BribeR/articles/documentation.md):
