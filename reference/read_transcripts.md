@@ -1,6 +1,6 @@
 # Read Vladivideos Transcript Data
 
-Loads the bundled `vladivideos_detailed` dataset and optionally filters
+Loads the bundled `compiled_transcripts` dataset and optionally filters
 by transcript ID(s).
 
 ## Usage

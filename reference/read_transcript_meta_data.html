@@ -3,13 +3,13 @@
 Combines information from three internal sources:
 descriptions (transcript identifiers, dates, topic flags),
 speakers_per_transcript (speaker roster per transcript), and
-vladivideos_detailed (word counts derived from the speech column).
+compiled_transcripts (word counts derived from the speech column).
 
 "><meta property="og:description" content="Builds a tidy data frame of transcript metadata from bundled package data.
 Combines information from three internal sources:
 descriptions (transcript identifiers, dates, topic flags),
 speakers_per_transcript (speaker roster per transcript), and
-vladivideos_detailed (word counts derived from the speech column).
+compiled_transcripts (word counts derived from the speech column).
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -62,7 +62,7 @@ vladivideos_detailed (word counts derived from the speech column).
     <p>Builds a tidy data frame of transcript metadata from bundled package data.
 Combines information from three internal sources:</p><ol><li><p><strong>descriptions</strong> (transcript identifiers, dates, topic flags),</p></li>
 <li><p><strong>speakers_per_transcript</strong> (speaker roster per transcript), and</p></li>
-<li><p><strong>vladivideos_detailed</strong> (word counts derived from the <code>speech</code> column).</p></li>
+<li><p><strong>compiled_transcripts</strong> (word counts derived from the <code>speech</code> column).</p></li>
 </ol></div>
 
     <div class="section level2">
@@ -96,7 +96,7 @@ cell is "truthy" (e.g., <code>x</code>/<code>X</code>, non-empty string, <code>1
 normalized by removing the <code>topic_</code> prefix and replacing <code>_</code> with spaces.</p></li>
 <li><p><strong>Speakers (<code>speakers</code> list-column):</strong> Read from the bundled <code>speakers_per_transcript</code>
 dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.</p></li>
-<li><p><strong>Duration (<code>n_words</code>):</strong> Computed from the bundled <code>vladivideos_detailed</code> dataset by
+<li><p><strong>Duration (<code>n_words</code>):</strong> Computed from the bundled <code>compiled_transcripts</code> dataset by
 summing whitespace-delimited tokens in the <code>speech</code> column for each unique transcript <code>n</code>.</p></li>
 </ul></div>
     <div class="section level2">

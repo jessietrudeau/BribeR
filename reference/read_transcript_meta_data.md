@@ -7,7 +7,7 @@ data. Combines information from three internal sources:
 
 2.  **speakers_per_transcript** (speaker roster per transcript), and
 
-3.  **vladivideos_detailed** (word counts derived from the `speech`
+3.  **compiled_transcripts** (word counts derived from the `speech`
     column).
 
 ## Usage
@@ -56,7 +56,7 @@ A tibble with one row per transcript and columns:
   unique, sorted character vector per transcript.
 
 - **Duration (`n_words`):** Computed from the bundled
-  `vladivideos_detailed` dataset by summing whitespace-delimited tokens
+  `compiled_transcripts` dataset by summing whitespace-delimited tokens
   in the `speech` column for each unique transcript `n`.
 
 ## See also
