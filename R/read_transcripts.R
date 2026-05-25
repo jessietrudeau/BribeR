@@ -1,6 +1,6 @@
 #' Read Vladivideos Transcript Data
 #'
-#' Loads the bundled `vladivideos_detailed` dataset and optionally filters
+#' Loads the bundled `compiled_transcripts` dataset and optionally filters
 #' by transcript ID(s).
 #'
 #' @param transcripts Optional numeric vector of transcript IDs (`n`) to
@@ -24,7 +24,7 @@
 #' @export
 read_transcripts <- function(transcripts = NULL) {
   env <- new.env(parent = emptyenv())
-  utils::data("vladivideos_detailed", package = "BribeR", envir = env)
+  utils::data("compiled_transcripts", package = "BribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!is.null(transcripts)) {

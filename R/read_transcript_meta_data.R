@@ -5,7 +5,7 @@
 #' Combines information from three internal sources:
 #' 1. **descriptions** (transcript identifiers, dates, topic flags),
 #' 2. **speakers_per_transcript** (speaker roster per transcript), and
-#' 3. **vladivideos_detailed** (word counts derived from the `speech` column).
+#' 3. **compiled_transcripts** (word counts derived from the `speech` column).
 #'
 #' @details
 #' - **Transcript ID (`n`) and `date`:** Read from the bundled `descriptions` dataset.
@@ -15,7 +15,7 @@
 #'   normalized by removing the `topic_` prefix and replacing `_` with spaces.
 #' - **Speakers (`speakers` list-column):** Read from the bundled `speakers_per_transcript`
 #'   dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
-#' - **Duration (`n_words`):** Computed from the bundled `vladivideos_detailed` dataset by
+#' - **Duration (`n_words`):** Computed from the bundled `compiled_transcripts` dataset by
 #'   summing whitespace-delimited tokens in the `speech` column for each unique transcript `n`.
 #'
 #' @param quiet Logical; if `FALSE`, prints progress messages. Default `TRUE`.
@@ -59,7 +59,7 @@ read_transcript_meta_data <- function(quiet = TRUE) {
 
   desc        <- .load_pkg_data("descriptions")
   spt         <- .load_pkg_data("speakers_per_transcript")
-  transcripts <- .load_pkg_data("vladivideos_detailed", "compiled_transcripts")
+  transcripts <- .load_pkg_data("compiled_transcripts")
 
   # --- validate basics
   if (!"n" %in% names(desc)) stop("`descriptions` must include column 'n'.", call. = FALSE)
@@ -117,7 +117,7 @@ read_transcript_meta_data <- function(quiet = TRUE) {
     dplyr::transmute(desc, n = .data$n, topics = list(character(0)))
   }
 
-  # --- word counts: from vladivideos_detailed speech column
+  # --- word counts: from compiled_transcripts speech column
   transcripts <- dplyr::mutate(transcripts, n = as.character(.data$n))
 
   duration_df <- transcripts |>

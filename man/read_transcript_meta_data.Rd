@@ -25,7 +25,7 @@ Combines information from three internal sources:
 \enumerate{
 \item \strong{descriptions} (transcript identifiers, dates, topic flags),
 \item \strong{speakers_per_transcript} (speaker roster per transcript), and
-\item \strong{vladivideos_detailed} (word counts derived from the \code{speech} column).
+\item \strong{compiled_transcripts} (word counts derived from the \code{speech} column).
 }
 }
 \details{
@@ -37,7 +37,7 @@ cell is "truthy" (e.g., \code{x}/\code{X}, non-empty string, \code{1}, \code{TRU
 normalized by removing the \code{topic_} prefix and replacing \verb{_} with spaces.
 \item \strong{Speakers (\code{speakers} list-column):} Read from the bundled \code{speakers_per_transcript}
 dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
-\item \strong{Duration (\code{n_words}):} Computed from the bundled \code{vladivideos_detailed} dataset by
+\item \strong{Duration (\code{n_words}):} Computed from the bundled \code{compiled_transcripts} dataset by
 summing whitespace-delimited tokens in the \code{speech} column for each unique transcript \code{n}.
 }
 }

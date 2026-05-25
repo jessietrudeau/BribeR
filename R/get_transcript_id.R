@@ -42,7 +42,7 @@
 get_transcript_id <- function(speaker = NULL, topic = NULL) {
 
   env <- new.env(parent = emptyenv())
-  utils::data("vladivideos_detailed", package = "BribeR", envir = env)
+  utils::data("compiled_transcripts", package = "BribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!"n" %in% names(data)) {

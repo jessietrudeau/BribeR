@@ -15,7 +15,7 @@ A data frame with columns \code{n}, \code{row_id}, \code{date}, \code{speaker},
 \code{speech}, \code{speaker_std}, and \code{topic}.
 }
 \description{
-Loads the bundled \code{vladivideos_detailed} dataset and optionally filters
+Loads the bundled \code{compiled_transcripts} dataset and optionally filters
 by transcript ID(s).
 }
 \examples{
