@@ -35,7 +35,6 @@ Suggests:
     withr,
     knitr,
     rmarkdown,
-    ggplot2,
-    dplyr
+    ggplot2
 VignetteBuilder: knitr
 Config/testthat/edition: 3

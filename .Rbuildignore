@@ -6,3 +6,5 @@
 ^pkgdown$
 ^data-raw$
 ^git$
+^CODE_OF_CONDUCT\.md$
+^.*\.icloud$
