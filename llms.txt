@@ -105,6 +105,13 @@ original recordings, see:
 Contributions are welcome. Please open an issue or pull request on
 [GitHub](https://github.com/jessietrudeau/BribeR/issues).
 
+## Code of Conduct
+
+Please note that the BribeR project is released with a [Contributor Code
+of
+Conduct](https://jessietrudeau.github.io/BribeR/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
 # Package index
 
 ## Reading Transcripts
