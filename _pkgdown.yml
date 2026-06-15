@@ -11,6 +11,10 @@ home:
     recordings documenting systematic corruption under Peru's Fujimori
     government in the 1990s.
 
+  sidebar:
+    structure: [links, license, citation, authors, dev]
+
+
 navbar:
   structure:
     left:  [home, intro, reference, articles, news]
