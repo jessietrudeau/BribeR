@@ -1,17 +1,31 @@
 # BribeR ![Montesinos](inst/images/montesinos.PNG)
 
-**{BribeR}** is an R package for accessing and analyzing the
-*Vladivideos* — secret recordings documenting Vladimiro Montesinos,
-Peru’s intelligence chief under President Alberto Fujimori, bribing
-politicians, judges, military officers, media owners, and businesspeople
-throughout the 1990s. The recordings became public in 2000 and triggered
-the collapse of the Fujimori government. They remain one of the most
-extensively documented cases of systemic corruption in Latin American
-history.
+**{BribeR}** is an R package for accessing and analyzing text transcript
+data from the *Vladivideos,* covert recordings documenting bribery and
+corruption during Alberto Fujimori’s presidency in Peru, spanning from
+1990 to 2000. The *Vladivideo* corpus – named after the corruption
+scheme’s architect, Vladimiro Montesinos, the head of Peru’s National
+Intelligence Service – include videos of Montesinos bribing politicians,
+judges, military officers, media owners, and businesspeople. Most of the
+footage (and subsequent transcripts included in this archive) was
+covertly recorded from within Montesinos’ office, unbeknownst to his
+subjects.
 
-The package provides structured, machine-readable access to 101
-transcripts, along with metadata on the 125 named actors, 15 topic
-categories, and 47,375 individual speech turns in the corpus.
+Select recordings became public in 2000 and triggered the collapse of
+the Fujimori government. The rest were made public in 2001 during
+Congressional investigations and criminal proceedings. The Fujimori
+presidency remains one of the most extensively documented cases of
+systemic corruption in Latin American history, thanks to the evidence
+from the *Vladivideos.*
+
+The **{BribeR}** package provides structured, machine-readable access to
+text data from 101 *Vladivideo* transcripts, which contain 47,375
+individual speech turns. The package includes several functions that
+make individual transcript text easy to access and analyze, or to
+aggregate by relevant metadata, including the 125 speakers present
+throughout the files or by 15 hand-coded topics.
+
+------------------------------------------------------------------------
 
 ## Installation
 
@@ -25,89 +39,85 @@ install.packages("BribeR")
 remotes::install_github("jessietrudeau/BribeR")
 ```
 
+------------------------------------------------------------------------
+
 ## Core Functions
 
-**Reading transcripts**
+This package provides three families of functions to access, organize,
+and analyze *Vladivideo* data. For a full online guide, see: [BribeR
+User
+Guide](https://jessietrudeau.com/BribeR/articles/getting_started.html)
 
-| Function | Description |
-|----|----|
-| [`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md) | Load the full corpus, optionally filtered by transcript ID |
-| [`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md) | Load the original source CSV files |
+**1. Reading transcripts**
 
-**Finding transcripts**
+These functions load the full corpus of data or original source .csv
+files.
 
-| Function | Description |
-|----|----|
-| [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md) | Return transcript IDs matching speakers or topics |
-| [`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md) | Return speakers appearing in each transcript |
+**2. Finding transcripts**
 
-**Metadata**
+These functions allow the user to filter transcripts by specific
+speakers, topics, or transcript ID numbers.
 
-| Function | Description |
-|----|----|
-| [`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md) | Build a tidy one-row-per-transcript summary |
+**3. Collect transcript metadata**
 
-**Visualization**
+These functions allow the user to collect metadata about selected
+transcripts and their speakers.
 
-| Function | Description |
-|----|----|
-| [`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md) | Launch an interactive Speaker–Topic network app |
-
-## Datasets
-
-BribeR includes seven bundled datasets:
-
-| Dataset | Description |
-|----|----|
-| `compiled_transcripts` | Full corpus: 47,375 speech turns across 101 transcripts |
-| `transcript_index` | Wide-format boolean lookup by speaker and topic |
-| `speakers_per_transcript` | Speaker roster per transcript |
-| `descriptions` | Transcript-level metadata with dates, topics, and summaries |
-| `actors` | Biographical and institutional metadata for 125 individuals |
-| `actors_description` | Short descriptions for a subset of actors |
-| `topic_descriptions` | Labels and descriptions for the 15 topic categories |
+------------------------------------------------------------------------
 
 ## Basic Usage
+
+The syntax of `BribeR` is designed to help users easily find and
+download transcripts relevant to their interest. For example, a user
+interested in obtaining transcript text data and metadata about all
+conversations where media manipulation would run the following lines of
+code:
 
 ``` r
 
 library(BribeR)
 
-# Load all transcripts
-transcripts <- read_transcripts()
-
-# Find transcripts about media manipulation
+# Find specific transcripts about media manipulation
 media_ids <- get_transcript_id(topic = "media")
 
-# Get the metadata summary
-meta <- read_transcript_meta_data()
+# Get the metadata summary of the transcripts about media manipulation
+meta <- read_transcript_meta_data(media_ids)
 
-# Launch the network visualization app
-run_transcript_network_app()
+# Load transcripts about media manipulation
+media_transcripts <- read_transcripts(media_ids)
 ```
 
-## Citation
+------------------------------------------------------------------------
 
-If you use BribeR in your research, please cite it as:
+## Datasets
 
-> Soto Plaza, A. (2025). *BribeR: Tools for Analyzing the Vladivideos
-> Corruption Transcripts*. R package version 0.1.0.
-> <https://github.com/jessietrudeau/BribeR>
+BribeR includes seven datasets:
 
-The underlying data is derived from the Vladivideos archive. For the
-original recordings, see:
+| Dataset | Description |
+|----|----|
+| `compiled_transcripts` | Full text corpus: 47,375 speech turns across 101 transcripts |
+| `transcript_index` | Wide-format transcript-level metadata, searchable by speaker and topic |
+| `speakers_per_transcript` | Speaker roster per transcript |
+| `transcript_descriptions` | Transcript-level metadata with dates, topics, and summaries |
+| `actors` | Biographical and institutional metadata for 125 individuals |
+| `actors_description` | Short descriptions for a subset of actors |
+| `topic_descriptions` | Labels and descriptions for the 15 topic categories |
 
-> McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos
-> in Peru. *Journal of Economic Perspectives*, 18(4), 69–92.
+------------------------------------------------------------------------
 
 ## Contributing
 
 Contributions are welcome. Please open an issue or pull request on
 [GitHub](https://github.com/jessietrudeau/BribeR/issues).
 
-## Code of Conduct
+------------------------------------------------------------------------
 
-Please note that the BribeR project is released with a [Contributor Code
-of
-Conduct](https://jessietrudeau.github.io/BribeR/CODE_OF_CONDUCT.html).
-By contributing to this project, you agree to abide by its terms.
+## Credits
+
+This is the most complete dataset known …. Provided by the Congress of
+Peru…. (cite M and Z) … If you use **BribeR** in your research, please
+cite it as:
+
+> Trudeau, Jessie, and Andrés Soto Plaza. 2026. *BribeR: Tools for
+> Analyzing the Vladivideos Corruption Transcripts*. R package version
+> 0.1.0. <https://github.com/jessietrudeau/BribeR>
