@@ -2,7 +2,7 @@ Package: BribeR
 Title: Tools for Analyzing the Vladivideos Corruption Transcripts
 Version: 0.1.0
 Authors@R: 
-    c(person("Jessie", "Trudeau", email = jtrudeau@syr.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2486-4439")),
+    c(person("Jessie", "Trudeau", email = "jtrudeau@syr.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2486-4439")),
       person("Andres", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut", "cre")))
 Maintainer: Jessie Trudeau <jtrudeau@syr.edu.
 Description: Provides access to and tools for analyzing the 'Vladivideos'
