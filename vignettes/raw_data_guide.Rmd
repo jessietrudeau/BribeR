@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 4
 )
+
 ```
 
 # About the Vladivideos
@@ -70,7 +71,7 @@ head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
 Actors are grouped into nine categories:
 
 | Type | Count | Description |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `Security` | 31 | Military officers and police commanders |
 | `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
 | `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
@@ -110,7 +111,7 @@ topics include:
 ### Topic Types
 
 | Topic | Description |
-|------------------------------------|------------------------------------|
+|----|----|
 | `state_capture` | Co-optation of state institutions |
 | `reelection` | Fujimori's 2000 reelection campaign |
 | `media` | Bribery of television channels and newspapers |
@@ -152,6 +153,11 @@ data.frame(topic = topic_names, n = topic_counts) |>
 
 As demonstrated in M and Z - media is the most common topic tag. Many
 transcripts are tagged with two or more topics.
+
+```{r topic-load, include=FALSE}
+meta <- read_transcript_meta_data()
+nrow(meta)
+```
 
 ```{r co-occurrence-bar, fig.alt="Bar chart showing how many transcripts cover 1, 2, 3, or 4 topics simultaneously"}
 meta |>
