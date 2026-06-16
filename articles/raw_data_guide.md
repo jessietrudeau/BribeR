@@ -23,14 +23,58 @@ confirming their availability to rule in Montesinos’s favor.
 recordings, along with metadata on the speakers involved and the topics
 discussed.
 
-(EXAMPLE HERE)
-
-## Actors and Topics
-
 Understanding who is in the corpus and what they were discussing is
 essential for filtering, subsetting, and interpreting the transcripts. …
 This page shows the raw data… I demonstrate how to use the functions
 later on (LINK).
+
+(EXAMPLE HERE)
+
+### Transcripts
+
+``` r
+
+library(BribeR)
+library(dplyr)
+library(ggplot2)
+
+meta <- read_transcript_meta_data()
+nrow(meta)
+#> [1] 104
+```
+
+The corpus spans recordings made between 1996 and 2000, covering the
+period from Fujimori’s successful bid for a controversial third term
+through the final months before the regime’s collapse.
+
+``` r
+
+summary(meta$n_words)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+#>     175    4544    8547    8946   11721   29161       3
+```
+
+Transcripts range from brief exchanges of a few hundred words to lengthy
+multi-hour meetings exceeding 18,000 words. The median transcript is
+approximately 2,500 words.
+
+``` r
+
+ggplot(meta, aes(x = n_words)) +
+  geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
+  labs(
+    title = "Distribution of transcript length",
+    x     = "Words per transcript",
+    y     = "Count"
+  ) +
+  theme_minimal(base_size = 13)
+#> Warning: Removed 3 rows containing non-finite outside the scale range
+#> (`stat_bin()`).
+```
+
+![Histogram of transcript word counts showing a right-skewed
+distribution centered around 2500
+words](raw_data_guide_files/figure-html/length-hist-1.png)
 
 ### Actors
 
@@ -39,10 +83,6 @@ for 125 individuals named in the Vladivideos transcripts. Each person is
 classified by their institutional role at the time of the recordings.
 
 ``` r
-
-library(BribeR)
-library(dplyr)
-library(ggplot2)
 
 head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
 #> # A tibble: 6 × 5

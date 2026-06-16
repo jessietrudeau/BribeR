@@ -13,9 +13,3 @@
   Guide](https://jessietrudeau.github.io/BribeR/articles/briber_data_guide.md):
 - [Using
   BribeR](https://jessietrudeau.github.io/BribeR/articles/using_briber.md):
-- [Corpus
-  Overview](https://jessietrudeau.github.io/BribeR/articles/corpus_overview.md):
-- [Data
-  Structure](https://jessietrudeau.github.io/BribeR/articles/data_structure.md):
-- [Actors &
-  Topics](https://jessietrudeau.github.io/BribeR/articles/documentation.md):
