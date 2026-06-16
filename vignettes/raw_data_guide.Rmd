@@ -1,10 +1,13 @@
 ---
 title: "Raw Data Guide"
-output: rmarkdown::raw_data_guide
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Raw Data Guide}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -24,15 +27,16 @@ Between 1990 and 2000, Vladimiro Montesinos Torres — Peru's de facto
 intelligence chief under President Alberto Fujimori — secretly recorded
 thousands of meetings in which he bribed politicians, judges, military
 officers, media executives, and businesspeople. When the recordings were
-leaked and broadcast publicly in September 2000, they triggered the collapse
-of the Fujimori government and became one of the most extensively documented
-cases of systemic corruption in Latin American history.
+leaked and broadcast publicly in September 2000, they triggered the
+collapse of the Fujimori government and became one of the most
+extensively documented cases of systemic corruption in Latin American
+history.
 
-The videos capture corruption across every major institution of the Peruvian
-state: legislators accepting cash to switch party allegiances, television
-channel owners receiving monthly payments to control news coverage, military
-generals coordinating electoral fraud, and judges confirming their
-availability to rule in Montesinos's favor.
+The videos capture corruption across every major institution of the
+Peruvian state: legislators accepting cash to switch party allegiances,
+television channel owners receiving monthly payments to control news
+coverage, military generals coordinating electoral fraud, and judges
+confirming their availability to rule in Montesinos's favor.
 
 **{BribeR}** provides structured access to transcripts of 101 of these
 recordings, along with metadata on the speakers involved and the topics
@@ -40,16 +44,17 @@ discussed.
 
 (EXAMPLE HERE)
 
+# Actors and Topics
 
-# Actors and Topics 
-
-Understanding who is in the corpus and what they were discussing is essential
-for filtering, subsetting, and interpreting the transcripts. ... This page shows the raw data... I demonstrate how to use the functions later on (LINK). 
+Understanding who is in the corpus and what they were discussing is
+essential for filtering, subsetting, and interpreting the transcripts.
+... This page shows the raw data... I demonstrate how to use the
+functions later on (LINK).
 
 ## Actors
 
-The `actors` dataset contains biographical and institutional metadata for
-125 individuals named in the Vladivideos transcripts. Each person is
+The `actors` dataset contains biographical and institutional metadata
+for 125 individuals named in the Vladivideos transcripts. Each person is
 classified by their institutional role at the time of the recordings.
 
 ```{r actors-load, message=FALSE}
@@ -65,7 +70,7 @@ head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
 Actors are grouped into nine categories:
 
 | Type | Count | Description |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | `Security` | 31 | Military officers and police commanders |
 | `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
 | `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
@@ -90,20 +95,22 @@ actors |>
   theme_minimal(base_size = 13)
 ```
 
-- Very few are desconocido 
-- Party is able to be linked to VParty ... 
-
+- Very few are desconocido
+- Party is able to be linked to VParty ...
 
 ## Topics
 
-Each transcript is hand-coded[^footnote] and classified by topic(s). The 15 topics include:
+Each transcript is hand-coded[^1] and classified by topic(s). The 15
+topics include:
 
-[^footnote]: Each transcript was read 2-3 times by native Spanish-language speakers and classified as pertaining to one or more relevant topics. 
+[^1]: Each transcript was read 2-3 times by native Spanish-language
+    speakers and classified as pertaining to one or more relevant
+    topics.
 
 ### Topic Types
 
 | Topic | Description |
-|---|---|
+|------------------------------------|------------------------------------|
 | `state_capture` | Co-optation of state institutions |
 | `reelection` | Fujimori's 2000 reelection campaign |
 | `media` | Bribery of television channels and newspapers |
@@ -143,7 +150,8 @@ data.frame(topic = topic_names, n = topic_counts) |>
   theme_minimal(base_size = 12)
 ```
 
-As demonstrated in M and Z - media is the most common topic tag. Many transcripts are tagged with two or more topics.
+As demonstrated in M and Z - media is the most common topic tag. Many
+transcripts are tagged with two or more topics.
 
 ```{r co-occurrence-bar, fig.alt="Bar chart showing how many transcripts cover 1, 2, 3, or 4 topics simultaneously"}
 meta |>
@@ -161,7 +169,7 @@ meta |>
 
 ## Further Reading
 
-- Conaghan, C. M. (2005). *Fujimori's Peru: Deception in the Public Sphere*.
-  University of Pittsburgh Press.
-- McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos in
-  Peru. *Journal of Economic Perspectives*, 18(4), 69–92.
+- Conaghan, C. M. (2005). *Fujimori's Peru: Deception in the Public
+  Sphere*. University of Pittsburgh Press.
+- McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos
+  in Peru. *Journal of Economic Perspectives*, 18(4), 69–92.
