@@ -29,36 +29,49 @@ See, for example, the snippet of this exchange about consolidating power
 in the judicial branch between Montesinos and Alipio Montes de Oca,
 Supreme Court Judge (Transcript 888, May 3, 1998):
 
-    <button onclick="showQuote('eng')" type="button">ENG</button>
-    <button onclick="showQuote('esp')" type="button">ESP</button>
+ENG ESP
 
-    <p><strong>Mr. MONTES DE OCA —</strong> Okay, just say it.</p>
+**Mr. MONTES DE OCA —** Okay, just say it.
 
-    <p><strong>Mr. MONTESINOS TORRES —</strong> The first is that you rejoin the Executive Commission.</p>
+**Mr. MONTESINOS TORRES —** The first is that you rejoin the Executive
+Commission.
 
-    <p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
+**Mr. MONTES DE OCA —** Okay.
 
-    <p><strong>Mr. MONTESINOS TORRES —</strong> Because on Monday I have to make a move.</p>
+**Mr. MONTESINOS TORRES —** Because on Monday I have to make a move.
 
-    <p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
+**Mr. MONTES DE OCA —** Okay.
 
-    <p><strong>Mr. MONTESINOS TORRES —</strong> I already spoke with Víctor Raúl and with Serpa; they agree that (unintelligible). Someone has told them what we are going to do on Monday. And the next step is (unintelligible) the National Elections Jury (unintelligible), the President of the Jury (unintelligible).</p>
+**Mr. MONTESINOS TORRES —** I already spoke with Víctor Raúl and with
+Serpa; they agree that the (unintelligible). Someone has told them what
+we are going to do on Monday. And the next step is (unintelligible) of
+the National Elections Jury (unintelligible), the President of the Jury
+(unintelligible).
 
-    <p><strong>Mr. MONTES DE OCA —</strong> Right, that is why I am asking you for (unintelligible), and what we had agreed on, remember (unintelligible). So we talk more directly here; we leave it that way (unintelligible).</p>
+**Mr. MONTES DE OCA —** Right, that is why I am asking you for
+(unintelligible), and what we had agreed on, remember (unintelligible).
+So we talk more directly here; we leave it that way (unintelligible).
 
-    <p><strong>El señor MONTES DE OCA —</strong> Ya, di no más.</p>
+**El señor MONTES DE OCA —** Ya, di no más.
 
-    <p><strong>El señor MONTESINOS TORRES —</strong> La primera es que te reincorpores a la Comisión Ejecutiva.</p>
+**El señor MONTESINOS TORRES —** La primera es que te reincorpores a la
+Comisión Ejecutiva.
 
-    <p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
+**El señor MONTES DE OCA —** Ya.
 
-    <p><strong>El señor MONTESINOS TORRES —</strong> Porque el lunes tengo que dar un golpe.</p>
+**El señor MONTESINOS TORRES —** Porque el lunes tengo que dar un golpe.
 
-    <p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
+**El señor MONTES DE OCA —** Ya.
 
-    <p><strong>El señor MONTESINOS TORRES —</strong> Ya hablé con Víctor Raúl y con Serpa, están de acuerdo en que los (ininteligible) alguien les ha dicho lo que vamos a hacer el lunes. Y el siguiente paso es (ininteligible) del Jurado Nacional de Elecciones (ininteligible) el Presidente del Jurado (ininteligible).</p>
+**El señor MONTESINOS TORRES —** Ya hablé con Víctor Raúl y con Serpa,
+están de acuerdo en que los (ininteligible) alguien les ha dicho lo que
+vamos a hacer el lunes. Y el siguiente paso es (ininteligible) del
+Jurado Nacional de Elecciones (ininteligible) el Presidente del Jurado
+(ininteligible).
 
-    <p><strong>El señor MONTES DE OCA —</strong> Ya, por eso yo te estoy pidiendo (ininteligible) y que habíamos quedado te acuerdas (ininteligible). Entonces, conversamos más directos acá, quedamos así (ininteligible).</p>
+**El señor MONTES DE OCA —** Ya, por eso yo te estoy pidiendo
+(ininteligible) y que habíamos quedado te acuerdas (ininteligible).
+Entonces, conversamos más directos acá, quedamos así (ininteligible).
 
 **BribeR** provides structured access to transcripts of 101 of these
 recordings, which contain 47,375 individual speech turns. The package
@@ -67,21 +80,11 @@ topics.
 
 This page introduces the raw data, highlighting how it is organized at
 the transcript-, actor-, and topic-level. This page uses some of the
-core functions in **BribeR**, all of which are detailed in the [**User
+functions included in **BribeR**, all of which are detailed in the
+[**User
 Guide**](https://jessietrudeau.com/BribeR/articles/using_briber.html)**.**
 
 ## Transcripts
-
-``` r
-
-library(BribeR)
-library(dplyr)
-library(ggplot2)
-
-meta <- read_transcript_meta_data()
-nrow(meta)
-#> [1] 104
-```
 
 The corpus spans recordings made between 1996 and 2000, covering the
 period after Fujimori’s successful bid for a second term through the
@@ -106,16 +109,25 @@ from two main sources:
 
 ``` r
 
-summary(meta$n_words)
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
-#>     175    4544    8547    8946   11721   29161       3
+library(BribeR)
+library(dplyr)
+library(ggplot2)
+
+## There are 101 transcripts in the dataset
+meta <- read_transcript_meta_data()
+nrow(meta)
+#> [1] 104
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
-multi-hour meetings exceeding 18,000 words. The median transcript is
-approximately 2,500 words.
+multi-hour meetings exceeding 29,000 words. The median transcript is
+approximately 8,500 words (approximately an hour-long conversation).
 
 ``` r
+
+summary(meta$n_words)
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+#>     175    4544    8547    8946   11721   29161       3
 
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
@@ -125,8 +137,6 @@ ggplot(meta, aes(x = n_words)) +
     y     = "Count"
   ) +
   theme_minimal(base_size = 13)
-#> Warning: Removed 3 rows containing non-finite outside the scale range
-#> (`stat_bin()`).
 ```
 
 ![](raw_data_guide_files/figure-html/length-hist-1.png)
@@ -269,4 +279,5 @@ meta |>
 
 [^1]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
-    more relevant topics.
+    more relevant topics. These were inductively determined by a close
+    reading of the transcripts.

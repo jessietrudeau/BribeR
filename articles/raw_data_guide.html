@@ -101,42 +101,6 @@ judges confirming their availability to rule in Montesinos’s favor.</p>
 <p>See, for example, the snippet of this exchange about consolidating
 power in the judicial branch between Montesinos and Alipio Montes de
 Oca, Supreme Court Judge (Transcript 888, May 3, 1998):</p>
-<div class="quote-toggle-box">
-<div class="quote-toggle-buttons">
-<pre><code>&lt;button onclick="showQuote('eng')" type="button"&gt;ENG&lt;/button&gt;
-&lt;button onclick="showQuote('esp')" type="button"&gt;ESP&lt;/button&gt;</code></pre>
-</div>
-<div id="quote-eng" class="quote-version">
-<pre><code>&lt;p&gt;&lt;strong&gt;Mr. MONTES DE OCA —&lt;/strong&gt; Okay, just say it.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTESINOS TORRES —&lt;/strong&gt; The first is that you rejoin the Executive Commission.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTES DE OCA —&lt;/strong&gt; Okay.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTESINOS TORRES —&lt;/strong&gt; Because on Monday I have to make a move.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTES DE OCA —&lt;/strong&gt; Okay.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTESINOS TORRES —&lt;/strong&gt; I already spoke with Víctor Raúl and with Serpa; they agree that (unintelligible). Someone has told them what we are going to do on Monday. And the next step is (unintelligible) the National Elections Jury (unintelligible), the President of the Jury (unintelligible).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Mr. MONTES DE OCA —&lt;/strong&gt; Right, that is why I am asking you for (unintelligible), and what we had agreed on, remember (unintelligible). So we talk more directly here; we leave it that way (unintelligible).&lt;/p&gt;</code></pre>
-</div>
-<div id="quote-esp" class="quote-version" style="display: none;">
-<pre><code>&lt;p&gt;&lt;strong&gt;El señor MONTES DE OCA —&lt;/strong&gt; Ya, di no más.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTESINOS TORRES —&lt;/strong&gt; La primera es que te reincorpores a la Comisión Ejecutiva.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTES DE OCA —&lt;/strong&gt; Ya.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTESINOS TORRES —&lt;/strong&gt; Porque el lunes tengo que dar un golpe.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTES DE OCA —&lt;/strong&gt; Ya.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTESINOS TORRES —&lt;/strong&gt; Ya hablé con Víctor Raúl y con Serpa, están de acuerdo en que los (ininteligible) alguien les ha dicho lo que vamos a hacer el lunes. Y el siguiente paso es (ininteligible) del Jurado Nacional de Elecciones (ininteligible) el Presidente del Jurado (ininteligible).&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;El señor MONTES DE OCA —&lt;/strong&gt; Ya, por eso yo te estoy pidiendo (ininteligible) y que habíamos quedado te acuerdas (ininteligible). Entonces, conversamos más directos acá, quedamos así (ininteligible).&lt;/p&gt;</code></pre>
-</div>
-</div>
 <style>
 .quote-toggle-box {
   margin: 1.5em 2.5em;
@@ -146,49 +110,125 @@ Oca, Supreme Court Judge (Transcript 888, May 3, 1998):</p>
   font-size: 0.95em;
 }
 
-.quote-toggle-buttons {
-  margin-bottom: 1em;
+.quote-toggle-box input[type="radio"] {
+  display: none;
 }
 
-.quote-toggle-buttons button {
+.quote-toggle-box label {
+  display: inline-block;
   margin-right: 0.4em;
+  margin-bottom: 1em;
   padding: 0.25em 0.7em;
   border: 1px solid #aaa;
   background-color: white;
   cursor: pointer;
   font-size: 0.85em;
+  border-radius: 3px;
+}
+
+#quote-eng-toggle:checked ~ .quote-toggle-buttons label[for="quote-eng-toggle"],
+#quote-esp-toggle:checked ~ .quote-toggle-buttons label[for="quote-esp-toggle"] {
+  background-color: #e6e6e6;
+  font-weight: bold;
+}
+
+.quote-version {
+  display: none;
+}
+
+#quote-eng-toggle:checked ~ #quote-eng,
+#quote-esp-toggle:checked ~ #quote-esp {
+  display: block;
 }
 
 .quote-version p {
   margin-bottom: 0.75em;
 }
 </style>
-<script>
-function showQuote(lang) {
-  document.getElementById("quote-eng").style.display = lang === "eng" ? "block" : "none";
-  document.getElementById("quote-esp").style.display = lang === "esp" ? "block" : "none";
-}
-</script><p><strong>BribeR</strong> provides structured access to transcripts of
+<div class="quote-toggle-box">
+<p><input type="radio" name="quote-language" id="quote-eng-toggle" checked><input type="radio" name="quote-language" id="quote-esp-toggle"></p>
+<div class="quote-toggle-buttons">
+<p><label for="quote-eng-toggle">ENG</label>
+<label for="quote-esp-toggle">ESP</label></p>
+</div>
+<div id="quote-eng" class="quote-version">
+<p>
+<strong>Mr. MONTES DE OCA —</strong> Okay, just say it.
+</p>
+<p>
+<strong>Mr. MONTESINOS TORRES —</strong> The first is that you rejoin
+the Executive Commission.
+</p>
+<p>
+<strong>Mr. MONTES DE OCA —</strong> Okay.
+</p>
+<p>
+<strong>Mr. MONTESINOS TORRES —</strong> Because on Monday I have to
+make a move.
+</p>
+<p>
+<strong>Mr. MONTES DE OCA —</strong> Okay.
+</p>
+<p>
+<strong>Mr. MONTESINOS TORRES —</strong> I already spoke with Víctor
+Raúl and with Serpa; they agree that the (unintelligible). Someone has
+told them what we are going to do on Monday. And the next step is
+(unintelligible) of the National Elections Jury (unintelligible), the
+President of the Jury (unintelligible).
+</p>
+<p>
+<strong>Mr. MONTES DE OCA —</strong> Right, that is why I am asking you
+for (unintelligible), and what we had agreed on, remember
+(unintelligible). So we talk more directly here; we leave it that way
+(unintelligible).
+</p>
+</div>
+<div id="quote-esp" class="quote-version">
+<p>
+<strong>El señor MONTES DE OCA —</strong> Ya, di no más.
+</p>
+<p>
+<strong>El señor MONTESINOS TORRES —</strong> La primera es que te
+reincorpores a la Comisión Ejecutiva.
+</p>
+<p>
+<strong>El señor MONTES DE OCA —</strong> Ya.
+</p>
+<p>
+<strong>El señor MONTESINOS TORRES —</strong> Porque el lunes tengo que
+dar un golpe.
+</p>
+<p>
+<strong>El señor MONTES DE OCA —</strong> Ya.
+</p>
+<p>
+<strong>El señor MONTESINOS TORRES —</strong> Ya hablé con Víctor Raúl y
+con Serpa, están de acuerdo en que los (ininteligible) alguien les ha
+dicho lo que vamos a hacer el lunes. Y el siguiente paso es
+(ininteligible) del Jurado Nacional de Elecciones (ininteligible) el
+Presidente del Jurado (ininteligible).
+</p>
+<p>
+<strong>El señor MONTES DE OCA —</strong> Ya, por eso yo te estoy
+pidiendo (ininteligible) y que habíamos quedado te acuerdas
+(ininteligible). Entonces, conversamos más directos acá, quedamos así
+(ininteligible).
+</p>
+</div>
+</div>
+<p><strong>BribeR</strong> provides structured access to transcripts of
 101 of these recordings, which contain 47,375 individual speech turns.
 The package also includes relevant metadata about 125 recorded speakers
 and 15 topics.</p>
 <p>This page introduces the raw data, highlighting how it is organized
 at the transcript-, actor-, and topic-level. This page uses some of the
-core functions in <strong>BribeR</strong>, all of which are detailed in
-the <a href="https://jessietrudeau.com/BribeR/articles/using_briber.html" class="external-link"><strong>User
+functions included in <strong>BribeR</strong>, all of which are detailed
+in the <a href="https://jessietrudeau.com/BribeR/articles/using_briber.html" class="external-link"><strong>User
 Guide</strong></a><strong>.</strong></p>
 </div>
 <div class="section level2">
 <h2 id="transcripts">Transcripts<a class="anchor" aria-label="anchor" href="#transcripts"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jessietrudeau.github.io/BribeR">BribeR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 104</span></span></code></pre></div>
 <p>The corpus spans recordings made between 1996 and 2000, covering the
 period after Fujimori’s successful bid for a second term through the
 final months before the regime’s collapse. Transcripts were collected
@@ -210,24 +250,32 @@ the transcripts available through LUM as well as additional transcripts
 not available in LUM’s online database. We digitized and OCRed the
 transcripts that were present only in the print volumes.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jessietrudeau.github.io/BribeR">BribeR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## There are 101 transcripts in the dataset</span></span>
+<span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 104</span></span></code></pre></div>
+<p>Transcripts range from brief exchanges of a few hundred words to
+lengthy multi-hour meetings exceeding 29,000 words. The median
+transcript is approximately 8,500 words (approximately an hour-long
+conversation).</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">$</span><span class="va">n_words</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs </span></span>
-<span><span class="co">#&gt;     175    4544    8547    8946   11721   29161       3</span></span></code></pre></div>
-<p>Transcripts range from brief exchanges of a few hundred words to
-lengthy multi-hour meetings exceeding 18,000 words. The median
-transcript is approximately 2,500 words.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">meta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n_words</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="co">#&gt;     175    4544    8547    8946   11721   29161       3</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">meta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n_words</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">25</span>, fill <span class="op">=</span> <span class="st">"#8B1A1A"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
 <span>    title <span class="op">=</span> <span class="st">"Distribution of transcript length"</span>,</span>
 <span>    x     <span class="op">=</span> <span class="st">"Words per transcript"</span>,</span>
 <span>    y     <span class="op">=</span> <span class="st">"Count"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 3 rows containing non-finite outside the scale range</span></span>
-<span><span class="co">#&gt; (`stat_bin()`).</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div>
 <p><img src="raw_data_guide_files/figure-html/length-hist-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
@@ -237,7 +285,7 @@ transcript is approximately 2,500 words.</p>
 individuals named in the Vladivideos transcripts through the
 <code>actors</code> dataset. Each person is classified by their
 institutional role at the time of the recordings.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speaker"</span>, <span class="st">"Position"</span>, <span class="st">"Type"</span>, <span class="st">"Party"</span>, <span class="st">"speaker_std"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   speaker                         Position               Type  Party speaker_std</span></span>
@@ -313,7 +361,7 @@ officials</td>
 <p>This figure shows that the three most common types of actors to be
 recorded are members of the security sector, congresspeople, and
 bureaucrats.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">actors</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Type</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">Type</span>, <span class="va">n</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -336,7 +384,8 @@ conversation except for salutations.</p>
 </h2>
 <p>Each transcript is hand-coded<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Each transcript was read and validated by 2-3 native
 Spanish-language speakers and classified as pertaining to one or more
-relevant topics.&lt;/p&gt;"><sup>1</sup></a> and classified by topic(s). The 15 topics
+relevant topics. These were inductively determined by a close reading of
+the transcripts.&lt;/p&gt;"><sup>1</sup></a> and classified by topic(s). The 15 topics
 include:</p>
 <table class="table">
 <colgroup>
@@ -415,7 +464,7 @@ citizenship</td>
 and Zoido</a> (2004), capture of the media was the most common topic
 discussed in the <em>Vladivideos</em>, followed by Fujimori’s reelection
 campaign in 2000 and domestic security operations.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">topic_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"state_capture"</span>, <span class="st">"reelection"</span>, <span class="st">"media"</span>, <span class="st">"promotions"</span>, <span class="st">"foreign"</span>,</span>
 <span>  <span class="st">"ivcher"</span>, <span class="st">"canal4"</span>, <span class="st">"safety"</span>, <span class="st">"wiese"</span>, <span class="st">"lucchetti_factory"</span>,</span>
@@ -439,7 +488,7 @@ campaign in 2000 and domestic security operations.</p>
 <p><img src="raw_data_guide_files/figure-html/topic-counts-1.png" class="r-plt" alt="" width="672"></p>
 <p>Many of the conversations in <em>Vladivideo</em> recordings covered
 more than one topic.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_topics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="va">topics</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">n_topics</span><span class="op">)</span> <span class="op">|&gt;</span></span>
