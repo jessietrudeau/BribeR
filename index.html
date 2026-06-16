@@ -70,7 +70,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><strong>{BribeR}</strong> is an R package for accessing and analyzing text transcript data from the <em>Vladivideos,</em> covert recordings documenting bribery and corruption during Alberto Fujimori’s presidency in Peru, spanning from 1990 to 2000. This package provides user-friendly access to a large digital archive of <em>Vladivideo</em> transcripts and metadata, including data about 125 individual speakers in the files and 15 topics of importance during the Fujimori presidency.</p>
+<p><strong>{BribeR}</strong> is an R package for accessing and analyzing text transcript data from the <em>Vladivideos,</em> covert recordings documenting bribery and corruption during Alberto Fujimori’s presidency in Peru (1990-2000). This package provides user-friendly access to a large digital archive of <em>Vladivideo</em> transcripts and metadata, including data about 125 individual speakers in the files and 15 topics of importance during the Fujimori presidency.</p>
 <p>(PICTURE)</p>
 <hr>
 <div class="section level2">
@@ -89,7 +89,7 @@
 <div class="section level2">
 <h2 id="core-functions">Core Functions<a class="anchor" aria-label="anchor" href="#core-functions"></a>
 </h2>
-<p>This package provides three families of functions to access, organize, and analyze <em>Vladivideo</em> data. For a full online guide, see: <a href="https://jessietrudeau.com/BribeR/articles/using_briber.html" target="_blank" class="external-link">BribeR User Guide</a></p>
+<p>This package provides three families of functions to access, organize, and analyze <em>Vladivideo</em> data. For a full online guide, see the <a href="https://jessietrudeau.com/BribeR/articles/using_briber.html" target="_blank" class="external-link">BribeR User Guide</a>.</p>
 <p><strong>1. Read transcripts</strong></p>
 <p>These functions load transcript data as tibbles(?) or load original source .csv files.</p>
 <p><strong>2. Find transcripts</strong></p>
@@ -109,9 +109,6 @@
 <span><span class="co"># Find specific transcripts about media manipulation</span></span>
 <span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># There are 38 transcripts about media manipulation</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span> </span>
-<span></span>
 <span><span class="co"># Get the metadata summary of the transcripts about media manipulation</span></span>
 <span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
 <span></span>
@@ -122,7 +119,7 @@
 <div class="section level2">
 <h2 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a>
 </h2>
-<p>BribeR includes seven datasets:</p>
+<p>BribeR includes four datasets:</p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -142,27 +139,16 @@
 <td>Wide-format transcript-level metadata, searchable by speaker and topic</td>
 </tr>
 <tr>
-<td><code>speakers_per_transcript</code></td>
-<td>Speaker roster per transcript</td>
-</tr>
-<tr>
 <td><code>transcript_descriptions</code></td>
 <td>Transcript-level metadata with dates, topics, and summaries</td>
 </tr>
 <tr>
-<td><code>actors</code></td>
-<td>Biographical and institutional metadata for 125 individuals</td>
-</tr>
-<tr>
-<td><code>actors_description</code></td>
-<td>Short descriptions for a subset of actors</td>
-</tr>
-<tr>
-<td><code>topic_descriptions</code></td>
-<td>Labels and descriptions for the 15 topic categories</td>
+<td><code>speakers_per_transcript</code></td>
+<td>Speaker roster per transcript</td>
 </tr>
 </tbody>
 </table>
+<p>A full description of the raw data is in the <a href="https://jessietrudeau.com/BribeR/articles/raw_data_guide.html" target="_blank" class="external-link">Raw Data Guide</a>, as well as a description of additional actor- and topic-level metadata accessible in <strong>BribeR.</strong> A full description of the datasets included in the package is in the <a href="https://jessietrudeau.com/BribeR/articles/briber_data_guide.html" target="_blank" class="external-link">BribeR Data Guide</a>.</p>
 <hr>
 </div>
 <div class="section level2">
@@ -175,16 +161,15 @@
 <div class="section level2">
 <h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
 </h2>
-<p>All <em>Vladivideo</em> transcript data included in this package are drawn from publicly available materials, including print volumes published by the Peruvian Truth and Reconciliation Commission (<em>Comisión de la Verdad e Reconciliación</em>) and online Congressional archives from <a href="https://lum.cultura.pe/cdi/busqueda/colecciones?field_coleccion=55&amp;field_palabra_clave%5B%5D=13462&amp;field_year=" target="_blank" class="external-link">LUM/CDI</a> (Lugar de la Memoria, la Tolerancia y la Inclusión Social<em>), the Ministry of Culture’s Place of Memory, Tolerance, and Social Inclusion).<br>
-In accordance with LUM’s guidance, we understand these official documentary materials to fall outside copyright protection under Article 9(b) of <a href="https://www.leyes.congreso.gob.pe/Documentos/DecretosLegislativos/00822.pdf" target="_blank" class="external-link">Peru’s Legislative Decree No. 822</a>, which excludes official legislative, administrative, and judicial texts, since the original entity that provided the </em>Vladivideo* data was the Congress of the Republic of Peru.</p>
-<p>This research was supported by Syracuse University’s Open Source Program Office (OSPO) and the Sloan Foundation.</p>
+<p>All <em>Vladivideo</em> transcript data included in this package are drawn from publicly available materials, including print volumes published by the Peruvian Truth and Reconciliation Commission (<em>Comisión de la Verdad e Reconciliación</em>) and online Congressional archives from <a href="https://lum.cultura.pe/cdi/busqueda/colecciones?field_coleccion=55&amp;field_palabra_clave%5B%5D=13462&amp;field_year=" target="_blank" class="external-link">LUM/CDI</a> (<em>Lugar de la Memoria, la Tolerancia y la Inclusión Social</em>), the Ministry of Culture’s Place of Memory, Tolerance, and Social Inclusion. In accordance with LUM’s guidance, we understand these official documentary materials to fall outside copyright protection under Article 9(b) of Peru’s <a href="https://www.leyes.congreso.gob.pe/Documentos/DecretosLegislativos/00822.pdf" target="_blank" class="external-link">Legislative Decree No. 822</a>, which excludes official legislative, administrative, and judicial texts, since the original entity that provided the <em>Vladivideo</em> data was the Congress of the Republic of Peru.</p>
+<p>This research was generously supported by Syracuse University’s <a href="https://opensource.syracuse.edu/%22" target="_blank" class="external-link">Open Source Program Office</a> (OSPO) and the Sloan Foundation.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use <strong>BribeR</strong> in your research, please cite it as:</p>
 <blockquote>
-<p>Trudeau, Jessie, and Soto Plaza, Andrés. 2026. <em>BribeR: Tools for Analyzing Vladivideos Transcript Data</em>. R package version 0.1.0. <a href="https://github.com/jessietrudeau/BribeR" class="external-link uri">https://github.com/jessietrudeau/BribeR</a></p>
+<p>Trudeau, Jessie, and Soto Plaza, Andrés. 2026. <em>BribeR: Tools for Analyzing Vladivideo Transcript Data</em>. R package version 0.1.0. <a href="https://github.com/jessietrudeau/BribeR" class="external-link uri">https://github.com/jessietrudeau/BribeR</a></p>
 </blockquote>
 </div>
 </div>
@@ -215,7 +200,7 @@ In accordance with LUM’s guidance, we understand these official documentary ma
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Jessie Trudeau <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-2486-4439" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
-<li>Andres Soto Plaza <br><small class="roles"> Author </small>   </li>
+<li>Andrés Soto Plaza <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -232,7 +217,7 @@ In accordance with LUM’s guidance, we understand these official documentary ma
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jessie Trudeau, Andres Soto Plaza.</p>
+  <p>Developed by Jessie Trudeau, Andrés Soto Plaza.</p>
 </div>
 
 <div class="pkgdown-footer-right">
