@@ -1,9 +1,9 @@
 Package: BribeR
-Title: Tools for Analyzing the Vladivideos Corruption Transcripts
+Title: Tools for Analyzing Vladivideo Transcript Data
 Version: 0.1.0
 Authors@R: 
     c(person("Jessie", "Trudeau", email = "jtrudeau@syr.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2486-4439")),
-      person("Andres", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut")))
+      person("Andrés", "Soto Plaza", , "andressotoplaza@gmail.com", role = c("aut")))
 Description: Provides access to and tools for analyzing the 'Vladivideos'
     corpus, a collection of secret recordings in which Vladimiro Montesinos,
     Peru's intelligence chief under President Alberto Fujimori, is documented
