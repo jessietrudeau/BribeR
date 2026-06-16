@@ -167,7 +167,7 @@ meta |>
 ![Bar chart showing how many transcripts cover 1, 2, 3, or 4 topics
 simultaneously](raw_data_guide_files/figure-html/co-occurrence-bar-1.png)
 
-### Further Reading
+## Further Reading
 
 - Conaghan, C. M. (2005). *Fujimori’s Peru: Deception in the Public
   Sphere*. University of Pittsburgh Press.
