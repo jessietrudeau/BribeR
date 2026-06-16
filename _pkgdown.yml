@@ -26,6 +26,8 @@ navbar:
     articles:
       text: Articles
       menu:
+        - text: "Raw Data Guide"
+          href: articles/raw_data_guide.html
         - text: "Corpus Overview"
           href: articles/corpus_overview.html
         - text: "Data Structure"
@@ -76,6 +78,7 @@ articles:
   - title: "Articles"
     navbar: ~
     contents:
+      - raw_data_guide
       - corpus_overview
       - data_structure
       - documentation

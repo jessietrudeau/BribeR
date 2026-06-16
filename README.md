@@ -91,3 +91,10 @@ Contributions are welcome. Please open an issue or pull request on
 This is the most complete dataset known .... Provided by the Congress of Peru.... (cite M and Z) ... If you use **BribeR** in your research, please cite it as:
 
 > Trudeau, Jessie, and Andrés Soto Plaza. 2026. *BribeR: Tools for Analyzing the Vladivideos Corruption Transcripts*. R package version 0.1.0. https://github.com/jessietrudeau/BribeR
+
+---
+
+## Support 
+
+Thanks to OSPO... Sloan Foundation...
+

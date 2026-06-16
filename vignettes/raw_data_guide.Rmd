@@ -1,0 +1,167 @@
+---
+title: "Raw Data Guide"
+output: rmarkdown::raw_data_guide
+vignette: >
+  %\VignetteIndexEntry{Raw Data Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  fig.width = 7,
+  fig.height = 4
+)
+```
+
+# About the Vladivideos
+
+(PICTURE)
+
+Between 1990 and 2000, Vladimiro Montesinos Torres — Peru's de facto
+intelligence chief under President Alberto Fujimori — secretly recorded
+thousands of meetings in which he bribed politicians, judges, military
+officers, media executives, and businesspeople. When the recordings were
+leaked and broadcast publicly in September 2000, they triggered the collapse
+of the Fujimori government and became one of the most extensively documented
+cases of systemic corruption in Latin American history.
+
+The videos capture corruption across every major institution of the Peruvian
+state: legislators accepting cash to switch party allegiances, television
+channel owners receiving monthly payments to control news coverage, military
+generals coordinating electoral fraud, and judges confirming their
+availability to rule in Montesinos's favor.
+
+**{BribeR}** provides structured access to transcripts of 101 of these
+recordings, along with metadata on the speakers involved and the topics
+discussed.
+
+(EXAMPLE HERE)
+
+
+# Actors and Topics 
+
+Understanding who is in the corpus and what they were discussing is essential
+for filtering, subsetting, and interpreting the transcripts. ... This page shows the raw data... I demonstrate how to use the functions later on (LINK). 
+
+## Actors
+
+The `actors` dataset contains biographical and institutional metadata for
+125 individuals named in the Vladivideos transcripts. Each person is
+classified by their institutional role at the time of the recordings.
+
+```{r actors-load, message=FALSE}
+library(BribeR)
+library(dplyr)
+library(ggplot2)
+
+head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
+```
+
+### Actor Types
+
+Actors are grouped into nine categories:
+
+| Type | Count | Description |
+|---|---|---|
+| `Security` | 31 | Military officers and police commanders |
+| `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
+| `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
+| `Media` | 14 | Television channel owners and newspaper directors |
+| `Businessperson` | 12 | Private sector executives and financiers |
+| `Elected Official` | 9 | Mayors, regional presidents, and other elected officials |
+| `Bureaucrat` | 8 | Senior civil servants and agency heads |
+| `Illicit` | 5 | Individuals primarily associated with organized crime |
+| `Foreign` | 3 | Foreign officials and diplomats |
+
+```{r type-bar, fig.alt="Bar chart of actor counts by institutional type"}
+actors |>
+  count(Type, sort = TRUE) |>
+  ggplot(aes(x = reorder(Type, n), y = n)) +
+  geom_col(fill = "#8B1A1A") +
+  coord_flip() +
+  labs(
+    title = "Actors by institutional type",
+    x     = NULL,
+    y     = "Number of actors"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+- Very few are desconocido 
+- Party is able to be linked to VParty ... 
+
+
+## Topics
+
+Each transcript is hand-coded[^footnote] and classified by topic(s). The 15 topics include:
+
+[^footnote]: Each transcript was read 2-3 times by native Spanish-language speakers and classified as pertaining to one or more relevant topics. 
+
+### Topic Types
+
+| Topic | Description |
+|---|---|
+| `state_capture` | Co-optation of state institutions |
+| `reelection` | Fujimori's 2000 reelection campaign |
+| `media` | Bribery of television channels and newspapers |
+| `promotions` | Military and police promotions in exchange for loyalty |
+| `foreign` | Foreign policy and international relations |
+| `ivcher` | The case of Baruch Ivcher, a media owner stripped of citizenship |
+| `canal4` | Dealings with Canal 4 (RBC Televisión) |
+| `safety` | Domestic public security and anti-opposition suppression |
+| `wiese` | Wiese banking group |
+| `lucchetti_factory` | Lucchetti factory zoning controversy |
+| `ecuador` | 1995 border conflict with Ecuador |
+| `referendum` | Presidental term limits referendum |
+| `municipal98` | 1998 municipal elections |
+| `miraflores` | 1998 Miraflores district elections |
+| `public_officials` | Interactions with civil servants and bureaucrats |
+
+```{r topic-counts, fig.alt="Bar chart showing number of transcripts tagged with each topic, with state_capture and reelection as the most common"}
+topic_names <- c(
+  "state_capture", "reelection", "media", "promotions", "foreign",
+  "ivcher", "canal4", "safety", "wiese", "lucchetti_factory",
+  "ecuador", "referendum", "municipal98", "miraflores", "public_officials"
+)
+
+topic_counts <- sapply(topic_names, function(t) {
+  length(get_transcript_id(topic = t))
+})
+
+data.frame(topic = topic_names, n = topic_counts) |>
+  ggplot(aes(x = reorder(topic, n), y = n)) +
+  geom_col(fill = "#8B1A1A") +
+  coord_flip() +
+  labs(
+    title = "Transcripts per topic",
+    x     = NULL,
+    y     = "Number of transcripts"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+As demonstrated in M and Z - media is the most common topic tag. Many transcripts are tagged with two or more topics.
+
+```{r co-occurrence-bar, fig.alt="Bar chart showing how many transcripts cover 1, 2, 3, or 4 topics simultaneously"}
+meta |>
+  mutate(n_topics = lengths(topics)) |>
+  count(n_topics) |>
+  ggplot(aes(x = factor(n_topics), y = n)) +
+  geom_col(fill = "#8B1A1A") +
+  labs(
+    title = "Topics per transcript",
+    x     = "Number of topics",
+    y     = "Number of transcripts"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+## Further Reading
+
+- Conaghan, C. M. (2005). *Fujimori's Peru: Deception in the Public Sphere*.
+  University of Pittsburgh Press.
+- McMillan, J., & Zoido, P. (2004). How to subvert democracy: Montesinos in
+  Peru. *Journal of Economic Perspectives*, 18(4), 69–92.
