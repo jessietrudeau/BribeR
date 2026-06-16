@@ -70,13 +70,13 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><strong>{BribeR}</strong> is an R package for accessing and analyzing text transcript data from the <em>Vladivideos,</em> covert recordings documenting bribery and corruption during Alberto Fujimori’s presidency in Peru, spanning from 1990 to 2000. The <em>Vladivideo</em> corpus – named after the corruption scheme’s architect, Vladimiro Montesinos, the head of Peru’s National Intelligence Service – include videos of Montesinos bribing politicians, judges, military officers, media owners, and businesspeople. Most of the footage (and subsequent transcripts included in this archive) was covertly recorded from within Montesinos’ office, unbeknownst to his subjects.</p>
-<p>Select recordings became public in 2000 and triggered the collapse of the Fujimori government. The rest were made public in 2001 during Congressional investigations and criminal proceedings. The Fujimori presidency remains one of the most extensively documented cases of systemic corruption in Latin American history, thanks to the evidence from the <em>Vladivideos.</em></p>
-<p>The <strong>{BribeR}</strong> package provides structured, machine-readable access to text data from 101 <em>Vladivideo</em> transcripts, which contain 47,375 individual speech turns. The package includes several functions that make individual transcript text easy to access and analyze, or to aggregate by relevant metadata, including the 125 speakers present throughout the files or by 15 hand-coded topics.</p>
+<p><strong>{BribeR}</strong> is an R package for accessing and analyzing text transcript data from the <em>Vladivideos,</em> covert recordings documenting bribery and corruption during Alberto Fujimori’s presidency in Peru, spanning from 1990 to 2000. This package provides user-friendly access to a large digital archive of <em>Vladivideo</em> transcripts and metadata, including data about 125 individual speakers in the files and 15 topics of importance during the Fujimori presidency.</p>
+<p>(PICTURE)</p>
 <hr>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>To install the package in your console, run one of the two below commands:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install from CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BribeR"</span><span class="op">)</span></span>
@@ -89,13 +89,13 @@
 <div class="section level2">
 <h2 id="core-functions">Core Functions<a class="anchor" aria-label="anchor" href="#core-functions"></a>
 </h2>
-<p>This package provides three families of functions to access, organize, and analyze <em>Vladivideo</em> data. For a full online guide, see: <a href="https://jessietrudeau.com/BribeR/articles/getting_started.html" target="_blank" class="external-link">BribeR User Guide</a></p>
-<p><strong>1. Reading transcripts</strong></p>
-<p>These functions load the full corpus of data or original source .csv files.</p>
-<p><strong>2. Finding transcripts</strong></p>
+<p>This package provides three families of functions to access, organize, and analyze <em>Vladivideo</em> data. For a full online guide, see: <a href="https://jessietrudeau.com/BribeR/articles/using_briber.html" target="_blank" class="external-link">BribeR User Guide</a></p>
+<p><strong>1. Read transcripts</strong></p>
+<p>These functions load transcript data as tibbles(?) or load original source .csv files.</p>
+<p><strong>2. Find transcripts</strong></p>
 <p>These functions allow the user to filter transcripts by specific speakers, topics, or transcript ID numbers.</p>
-<p><strong>3. Collect transcript metadata</strong></p>
-<p>These functions allow the user to collect metadata about selected transcripts and their speakers.</p>
+<p><strong>3. Integrate with transcript metadata</strong></p>
+<p>These functions allow the user to find metadata and combine it with transcripts or their speakers.</p>
 <hr>
 </div>
 <div class="section level2">
@@ -103,15 +103,19 @@
 </h2>
 <p>The syntax of <code>BribeR</code> is designed to help users easily find and download transcripts relevant to their interest. For example, a user interested in obtaining transcript text data and metadata about all conversations where media manipulation would run the following lines of code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jessietrudeau.github.io/BribeR">BribeR</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Load data </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jessietrudeau.github.io/BribeR">BribeR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Find specific transcripts about media manipulation</span></span>
 <span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># There are 38 transcripts about media manipulation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span> </span>
+<span></span>
 <span><span class="co"># Get the metadata summary of the transcripts about media manipulation</span></span>
 <span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Load transcripts about media manipulation</span></span>
+<span><span class="co"># Load full-text transcripts about media manipulation</span></span>
 <span><span class="va">media_transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
@@ -164,22 +168,24 @@
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>Contributions are welcome. Please open an issue or pull request on <a href="https://github.com/jessietrudeau/BribeR/issues" class="external-link">GitHub</a>.</p>
+<p>Contributions are welcome. Please create a new branch for a feature, to open an issue, or for a pull request on <a href="https://github.com/jessietrudeau/BribeR/issues" class="external-link">GitHub</a>.</p>
+<p>Document exported functions with roxygen2 comments. Add or update tests in tests/testthat/.</p>
 <hr>
 </div>
 <div class="section level2">
 <h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
 </h2>
-<p>This is the most complete dataset known …. Provided by the Congress of Peru…. (cite M and Z) … If you use <strong>BribeR</strong> in your research, please cite it as:</p>
-<blockquote>
-<p>Trudeau, Jessie, and Andrés Soto Plaza. 2026. <em>BribeR: Tools for Analyzing the Vladivideos Corruption Transcripts</em>. R package version 0.1.0. <a href="https://github.com/jessietrudeau/BribeR" class="external-link uri">https://github.com/jessietrudeau/BribeR</a></p>
-</blockquote>
-<hr>
+<p>All <em>Vladivideo</em> transcript data included in this package are drawn from publicly available materials, including print volumes published by the Peruvian Truth and Reconciliation Commission (<em>Comisión de la Verdad e Reconciliación</em>) and online Congressional archives from <a href="https://lum.cultura.pe/cdi/busqueda/colecciones?field_coleccion=55&amp;field_palabra_clave%5B%5D=13462&amp;field_year=" target="_blank" class="external-link">LUM/CDI</a> (Lugar de la Memoria, la Tolerancia y la Inclusión Social<em>), the Ministry of Culture’s Place of Memory, Tolerance, and Social Inclusion).<br>
+In accordance with LUM’s guidance, we understand these official documentary materials to fall outside copyright protection under Article 9(b) of <a href="https://www.leyes.congreso.gob.pe/Documentos/DecretosLegislativos/00822.pdf" target="_blank" class="external-link">Peru’s Legislative Decree No. 822</a>, which excludes official legislative, administrative, and judicial texts, since the original entity that provided the </em>Vladivideo* data was the Congress of the Republic of Peru.</p>
+<p>This research was supported by Syracuse University’s Open Source Program Office (OSPO) and the Sloan Foundation.</p>
 </div>
 <div class="section level2">
-<h2 id="support">Support<a class="anchor" aria-label="anchor" href="#support"></a>
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Thanks to OSPO… Sloan Foundation…</p>
+<p>If you use <strong>BribeR</strong> in your research, please cite it as:</p>
+<blockquote>
+<p>Trudeau, Jessie, and Soto Plaza, Andrés. 2026. <em>BribeR: Tools for Analyzing Vladivideos Transcript Data</em>. R package version 0.1.0. <a href="https://github.com/jessietrudeau/BribeR" class="external-link uri">https://github.com/jessietrudeau/BribeR</a></p>
+</blockquote>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
