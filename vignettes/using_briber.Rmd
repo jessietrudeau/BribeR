@@ -1,0 +1,21 @@
+---
+title: "Using BribeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using BribeR}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  fig.width = 7,
+  fig.height = 4
+)
+
+```

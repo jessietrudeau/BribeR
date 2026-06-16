@@ -71,7 +71,7 @@ head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
 Actors are grouped into nine categories:
 
 | Type | Count | Description |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `Security` | 31 | Military officers and police commanders |
 | `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
 | `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
@@ -111,7 +111,7 @@ topics include:
 ### Topic Types
 
 | Topic | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | `state_capture` | Co-optation of state institutions |
 | `reelection` | Fujimori's 2000 reelection campaign |
 | `media` | Bribery of television channels and newspapers |
@@ -173,7 +173,7 @@ meta |>
   theme_minimal(base_size = 13)
 ```
 
-## Further Reading
+# Further Reading
 
 - Conaghan, C. M. (2005). *Fujimori's Peru: Deception in the Public
   Sphere*. University of Pittsburgh Press.

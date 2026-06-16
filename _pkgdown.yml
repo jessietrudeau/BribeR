@@ -28,6 +28,10 @@ navbar:
       menu:
         - text: "Raw Data Guide"
           href: articles/raw_data_guide.html
+        - text: "BribeR Data Guide"
+          href: articles/briber_data_guide.html
+        - text: "Using BribeR"
+          href: articles/using_briber.html
         - text: "Corpus Overview"
           href: articles/corpus_overview.html
         - text: "Data Structure"
@@ -79,6 +83,8 @@ articles:
     navbar: ~
     contents:
       - raw_data_guide
+      - briber_data_guide
+      - using_briber
       - corpus_overview
       - data_structure
       - documentation
