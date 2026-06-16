@@ -32,12 +32,6 @@ navbar:
           href: articles/briber_data_guide.html
         - text: "Using BribeR"
           href: articles/using_briber.html
-        - text: "Corpus Overview"
-          href: articles/corpus_overview.html
-        - text: "Data Structure"
-          href: articles/data_structure.html
-        - text: "Actors & Topics"
-          href: articles/documentation.html
 
 reference:
   - title: "Reading Transcripts"
@@ -85,6 +79,3 @@ articles:
       - raw_data_guide
       - briber_data_guide
       - using_briber
-      - corpus_overview
-      - data_structure
-      - documentation

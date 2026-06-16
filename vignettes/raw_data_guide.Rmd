@@ -43,14 +43,49 @@ confirming their availability to rule in Montesinos's favor.
 recordings, along with metadata on the speakers involved and the topics
 discussed.
 
-(EXAMPLE HERE)
-
-# Actors and Topics
 
 Understanding who is in the corpus and what they were discussing is
 essential for filtering, subsetting, and interpreting the transcripts.
 ... This page shows the raw data... I demonstrate how to use the
 functions later on (LINK).
+
+
+(EXAMPLE HERE)
+
+
+## Transcripts
+
+```{r meta-load, message=FALSE}
+library(BribeR)
+library(dplyr)
+library(ggplot2)
+
+meta <- read_transcript_meta_data()
+nrow(meta)
+```
+
+The corpus spans recordings made between 1996 and 2000, covering the period
+from Fujimori's successful bid for a controversial third term through the
+final months before the regime's collapse.
+
+```{r word-counts}
+summary(meta$n_words)
+```
+
+Transcripts range from brief exchanges of a few hundred words to lengthy
+multi-hour meetings exceeding 18,000 words. The median transcript is
+approximately 2,500 words.
+
+```{r length-hist, fig.alt="Histogram of transcript word counts showing a right-skewed distribution centered around 2500 words"}
+ggplot(meta, aes(x = n_words)) +
+  geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
+  labs(
+    title = "Distribution of transcript length",
+    x     = "Words per transcript",
+    y     = "Count"
+  ) +
+  theme_minimal(base_size = 13)
+```
 
 ## Actors
 
@@ -59,10 +94,6 @@ for 125 individuals named in the Vladivideos transcripts. Each person is
 classified by their institutional role at the time of the recordings.
 
 ```{r actors-load, message=FALSE}
-library(BribeR)
-library(dplyr)
-library(ggplot2)
-
 head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
 ```
 
@@ -154,10 +185,6 @@ data.frame(topic = topic_names, n = topic_counts) |>
 As demonstrated in M and Z - media is the most common topic tag. Many
 transcripts are tagged with two or more topics.
 
-```{r topic-load, include=FALSE}
-meta <- read_transcript_meta_data()
-nrow(meta)
-```
 
 ```{r co-occurrence-bar, fig.alt="Bar chart showing how many transcripts cover 1, 2, 3, or 4 topics simultaneously"}
 meta |>
