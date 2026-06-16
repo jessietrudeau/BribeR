@@ -49,51 +49,6 @@ See, for example, the snippet of this exchange about consolidating power
 in the judicial branch between Montesinos and Alipio Montes de Oca,
 Supreme Court Judge (Transcript 888, May 3, 1998):
 
-:::::: quote-toggle-box
-::: quote-toggle-buttons
-```         
-<button onclick="showQuote('eng')" type="button">ENG</button>
-<button onclick="showQuote('esp')" type="button">ESP</button>
-```
-:::
-
-::: {#quote-eng .quote-version}
-```         
-<p><strong>Mr. MONTES DE OCA —</strong> Okay, just say it.</p>
-
-<p><strong>Mr. MONTESINOS TORRES —</strong> The first is that you rejoin the Executive Commission.</p>
-
-<p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
-
-<p><strong>Mr. MONTESINOS TORRES —</strong> Because on Monday I have to make a move.</p>
-
-<p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
-
-<p><strong>Mr. MONTESINOS TORRES —</strong> I already spoke with Víctor Raúl and with Serpa; they agree that (unintelligible). Someone has told them what we are going to do on Monday. And the next step is (unintelligible) the National Elections Jury (unintelligible), the President of the Jury (unintelligible).</p>
-
-<p><strong>Mr. MONTES DE OCA —</strong> Right, that is why I am asking you for (unintelligible), and what we had agreed on, remember (unintelligible). So we talk more directly here; we leave it that way (unintelligible).</p>
-```
-:::
-
-::: {#quote-esp .quote-version style="display: none;"}
-```         
-<p><strong>El señor MONTES DE OCA —</strong> Ya, di no más.</p>
-
-<p><strong>El señor MONTESINOS TORRES —</strong> La primera es que te reincorpores a la Comisión Ejecutiva.</p>
-
-<p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
-
-<p><strong>El señor MONTESINOS TORRES —</strong> Porque el lunes tengo que dar un golpe.</p>
-
-<p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
-
-<p><strong>El señor MONTESINOS TORRES —</strong> Ya hablé con Víctor Raúl y con Serpa, están de acuerdo en que los (ininteligible) alguien les ha dicho lo que vamos a hacer el lunes. Y el siguiente paso es (ininteligible) del Jurado Nacional de Elecciones (ininteligible) el Presidente del Jurado (ininteligible).</p>
-
-<p><strong>El señor MONTES DE OCA —</strong> Ya, por eso yo te estoy pidiendo (ininteligible) y que habíamos quedado te acuerdas (ininteligible). Entonces, conversamos más directos acá, quedamos así (ininteligible).</p>
-```
-:::
-::::::
-
 ```{=html}
 <style>
 .quote-toggle-box {
@@ -104,17 +59,35 @@ Supreme Court Judge (Transcript 888, May 3, 1998):
   font-size: 0.95em;
 }
 
-.quote-toggle-buttons {
-  margin-bottom: 1em;
+.quote-toggle-box input[type="radio"] {
+  display: none;
 }
 
-.quote-toggle-buttons button {
+.quote-toggle-box label {
+  display: inline-block;
   margin-right: 0.4em;
+  margin-bottom: 1em;
   padding: 0.25em 0.7em;
   border: 1px solid #aaa;
   background-color: white;
   cursor: pointer;
   font-size: 0.85em;
+  border-radius: 3px;
+}
+
+#quote-eng-toggle:checked ~ .quote-toggle-buttons label[for="quote-eng-toggle"],
+#quote-esp-toggle:checked ~ .quote-toggle-buttons label[for="quote-esp-toggle"] {
+  background-color: #e6e6e6;
+  font-weight: bold;
+}
+
+.quote-version {
+  display: none;
+}
+
+#quote-eng-toggle:checked ~ #quote-eng,
+#quote-esp-toggle:checked ~ #quote-esp {
+  display: block;
 }
 
 .quote-version p {
@@ -123,14 +96,65 @@ Supreme Court Judge (Transcript 888, May 3, 1998):
 </style>
 ```
 
-```{=html}
-<script>
-function showQuote(lang) {
-  document.getElementById("quote-eng").style.display = lang === "eng" ? "block" : "none";
-  document.getElementById("quote-esp").style.display = lang === "esp" ? "block" : "none";
-}
-</script>
-```
+:::::: quote-toggle-box
+<input type="radio" name="quote-language" id="quote-eng-toggle" checked>
+<input type="radio" name="quote-language" id="quote-esp-toggle">
+
+::: quote-toggle-buttons
+<label for="quote-eng-toggle">ENG</label>
+<label for="quote-esp-toggle">ESP</label>
+:::
+
+::: {#quote-eng .quote-version}
+<p><strong>Mr. MONTES DE OCA —</strong> Okay, just say it.</p>
+
+<p><strong>Mr. MONTESINOS TORRES —</strong> The first is that you rejoin
+the Executive Commission.</p>
+
+<p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
+
+<p><strong>Mr. MONTESINOS TORRES —</strong> Because on Monday I have to
+make a move.</p>
+
+<p><strong>Mr. MONTES DE OCA —</strong> Okay.</p>
+
+<p><strong>Mr. MONTESINOS TORRES —</strong> I already spoke with Víctor
+Raúl and with Serpa; they agree that the (unintelligible). Someone has
+told them what we are going to do on Monday. And the next step is
+(unintelligible) of the National Elections Jury (unintelligible), the
+President of the Jury (unintelligible).</p>
+
+<p><strong>Mr. MONTES DE OCA —</strong> Right, that is why I am asking
+you for (unintelligible), and what we had agreed on, remember
+(unintelligible). So we talk more directly here; we leave it that way
+(unintelligible).</p>
+:::
+
+::: {#quote-esp .quote-version}
+<p><strong>El señor MONTES DE OCA —</strong> Ya, di no más.</p>
+
+<p><strong>El señor MONTESINOS TORRES —</strong> La primera es que te
+reincorpores a la Comisión Ejecutiva.</p>
+
+<p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
+
+<p><strong>El señor MONTESINOS TORRES —</strong> Porque el lunes tengo
+que dar un golpe.</p>
+
+<p><strong>El señor MONTES DE OCA —</strong> Ya.</p>
+
+<p><strong>El señor MONTESINOS TORRES —</strong> Ya hablé con Víctor
+Raúl y con Serpa, están de acuerdo en que los (ininteligible) alguien
+les ha dicho lo que vamos a hacer el lunes. Y el siguiente paso es
+(ininteligible) del Jurado Nacional de Elecciones (ininteligible) el
+Presidente del Jurado (ininteligible).</p>
+
+<p><strong>El señor MONTES DE OCA —</strong> Ya, por eso yo te estoy
+pidiendo (ininteligible) y que habíamos quedado te acuerdas
+(ininteligible). Entonces, conversamos más directos acá, quedamos así
+(ininteligible).</p>
+:::
+::::::
 
 **BribeR** provides structured access to transcripts of 101 of these
 recordings, which contain 47,375 individual speech turns. The package
@@ -139,19 +163,11 @@ topics.
 
 This page introduces the raw data, highlighting how it is organized at
 the transcript-, actor-, and topic-level. This page uses some of the
-core functions in **BribeR**, all of which are detailed in the [**User
+functions included in **BribeR**, all of which are detailed in the
+[**User
 Guide**](https://jessietrudeau.com/BribeR/articles/using_briber.html)**.**
 
 # Transcripts
-
-```{r meta-load, message=FALSE}
-library(BribeR)
-library(dplyr)
-library(ggplot2)
-
-meta <- read_transcript_meta_data()
-nrow(meta)
-```
 
 The corpus spans recordings made between 1996 and 2000, covering the
 period after Fujimori's successful bid for a second term through the
@@ -174,15 +190,23 @@ from two main sources:
   in LUM’s online database. We digitized and OCRed the transcripts that
   were present only in the print volumes.
 
-```{r word-counts}
-summary(meta$n_words)
+```{r meta-load, message=FALSE}
+library(BribeR)
+library(dplyr)
+library(ggplot2)
+
+## There are 101 transcripts in the dataset
+meta <- read_transcript_meta_data()
+nrow(meta)
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
-multi-hour meetings exceeding 18,000 words. The median transcript is
-approximately 2,500 words.
+multi-hour meetings exceeding 29,000 words. The median transcript is
+approximately 8,500 words (approximately an hour-long conversation).
 
-```{r length-hist}
+```{r length-hist, warning=F}
+summary(meta$n_words)
+
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
   labs(
@@ -248,7 +272,8 @@ topics include:
 
 [^1]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
-    more relevant topics.
+    more relevant topics. These were inductively determined by a close
+    reading of the transcripts.
 
 | Topic | Description |
 |------------------------------------|------------------------------------|
