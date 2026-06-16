@@ -122,6 +122,12 @@ cite it as:
 > Analyzing the Vladivideos Corruption Transcripts*. R package version
 > 0.1.0. <https://github.com/jessietrudeau/BribeR>
 
+------------------------------------------------------------------------
+
+## Support
+
+Thanks to OSPO… Sloan Foundation…
+
 # Package index
 
 ## Reading Transcripts
@@ -184,6 +190,8 @@ Bundled datasets included in BribeR.
 
 ### Articles
 
+- [Raw Data
+  Guide](https://jessietrudeau.github.io/BribeR/articles/raw_data_guide.md):
 - [Corpus
   Overview](https://jessietrudeau.github.io/BribeR/articles/corpus_overview.md):
 - [Data

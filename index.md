@@ -121,3 +121,9 @@ cite it as:
 > Trudeau, Jessie, and Andrés Soto Plaza. 2026. *BribeR: Tools for
 > Analyzing the Vladivideos Corruption Transcripts*. R package version
 > 0.1.0. <https://github.com/jessietrudeau/BribeR>
+
+------------------------------------------------------------------------
+
+## Support
+
+Thanks to OSPO… Sloan Foundation…

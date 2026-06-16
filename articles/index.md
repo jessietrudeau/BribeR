@@ -7,6 +7,8 @@
 
 ### Articles
 
+- [Raw Data
+  Guide](https://jessietrudeau.github.io/BribeR/articles/raw_data_guide.md):
 - [Corpus
   Overview](https://jessietrudeau.github.io/BribeR/articles/corpus_overview.md):
 - [Data
