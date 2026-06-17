@@ -73,6 +73,10 @@ read_transcript_meta_data <- function(quiet = TRUE) {
   desc <- dplyr::mutate(desc, n = as.character(.data$n))
   spt  <- dplyr::mutate(spt,  n = as.character(.data$n))
 
+  # --- drop transcript IDs that have no actual transcript data
+  valid_ids <- unique(as.character(transcripts$n))
+  desc <- dplyr::filter(desc, .data$n %in% valid_ids)
+
   # --- speakers: wide -> long -> list-column
   spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)
   if (!length(spt_speaker_cols)) {
