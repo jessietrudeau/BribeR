@@ -57,7 +57,7 @@ corresponds to the within-conversation turn identifier, and
 text label for the speaker, respectively. The `speech` variable is
 unedited and in its original Spanish-language format.
 
-## `transcript_index` 
+## `transcript_index`
 
 This wide-format file contains transcript-level metadata, including date
 of the recording, recording type (AUDIO OR VIDEO?), short English
@@ -67,16 +67,15 @@ summaries, topic indicators, speaker indicators.
 head(descriptions[, c("n", "date", "type", "summary")])
 ```
 
-| Column        | Type      | Description                             |
-|---------------|-----------|-----------------------------------------|
-| `id`          | numeric   | Transcript identifier                   |
-| `id_raw`      | numeric   | Source transcript identifier            |
-| ....          | numeric   |FILL IN THE REST OF TABLE...             |
-| ....          | numeric   |FILL IN THE REST OF TABLE...             |
-| ....          | numeric   |FILL IN THE REST OF TABLE...             |
-| `topic_*`     | numeric   | Topic indicators                        |
-| `speaker_*`   | numeric   | Speaker indicators                      |
-
+| Column      | Type    | Description                  |
+|-------------|---------|------------------------------|
+| `id`        | numeric | Transcript identifier        |
+| `id_raw`    | numeric | Source transcript identifier |
+| ....        | numeric | FILL IN THE REST OF TABLE... |
+| ....        | numeric | FILL IN THE REST OF TABLE... |
+| ....        | numeric | FILL IN THE REST OF TABLE... |
+| `topic_*`   | numeric | Topic indicators             |
+| `speaker_*` | numeric | Speaker indicators           |
 
 The 15 `topic_*` and 125 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
@@ -89,26 +88,37 @@ names(descriptions)[grepl("^topic_", names(descriptions))]
 
 ## `speakers_per_transcript`
 
-This file contains one row per transcript, allowing users to quickly search for the speakers present during any one conversation. The standardized speaker name `speaker_std` is used to indicate which actors are present for each conversation, sorted by chronological speaking order (?). 
+This file contains one row per transcript, allowing users to quickly
+search for the speakers present during any one conversation. The
+standardized speaker name `speaker_std` is used to indicate which actors
+are present for each conversation, sorted by chronological speaking
+order (?).
 
 ```{r speakers-wide}
 # Who was present in conversation 3? 
 speakers_per_transcript[3, ]
 ```
 
-**ANDRES: FIX THIS IN THE RAW DATA -- Note: the column names contain a known typo (`speakrer` instead of `speaker`) preserved from the source data. The package handles this automatically in all functions.**
+**ANDRES: FIX THIS IN THE RAW DATA -- Note: the column names contain a
+known typo (`speakrer` instead of `speaker`) preserved from the source
+data. The package handles this automatically in all functions.**
 
-## `actors` 
+## `actors`
 
-This file contains biographical and institutional metadata for 125 individuals named in the transcripts.
+This file contains biographical and institutional metadata for 125
+individuals named in the transcripts.
 
 ```{r actors}
 head(actors[, c("speaker", "Position", "Type", "speaker_std")])
 ```
 
-The `Type` column references the categories described in the Raw Data Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`, `Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and `Illicit`. 
+The `Type` column references the categories described in the Raw Data
+Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`,
+`Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and
+`Illicit`.
 
-For elected officials, the political party at the time of the recording is also included, **CONSISTENT WITH V-DEM PARTY LABELS(?)** 
+For elected officials, the political party at the time of the recording
+is also included, **CONSISTENT WITH V-DEM PARTY LABELS(?)**
 
 ```{r actors 2}
 actors %>% 
@@ -118,21 +128,26 @@ actors %>%
   
 ```
 
-
 # Linking datasets
 
-Full-text transcript data and metadata can be linked by using `id` or `speaker_std` as a crosswalk. The table below shows which columns connect the datasets:
+Full-text transcript data and metadata can be linked by using `id` or
+`speaker_std` as a crosswalk. The table below shows which columns
+connect the datasets:
 
-| From                   | To                        | Key column         |
-|------------------------|---------------------------|--------------------|
-| `compiled_transcripts` | `transcript_index`        | `id`               |
-| `compiled_transcripts` | `speakers_per_transcript` | `id`               |
-| `compiled_transcripts` | `actors`                  | `speaker_std`      |
-
+| From                   | To                        | Key column    |
+|------------------------|---------------------------|---------------|
+| `compiled_transcripts` | `transcript_index`        | `id`          |
+| `compiled_transcripts` | `speakers_per_transcript` | `id`          |
+| `compiled_transcripts` | `actors`                  | `speaker_std` |
 
 ## `id`
 
-The `id` column is unique to **BribeR** and assigns a unique numeric identifier to each transcript. The original transcript numbers (e.g., from the the Peruvian Congress' numbering system) are included in the `transcript_index` metadata file, but given that many are alphanumeric identifiers, **BribeR** generates new a new `id` variable for simplicity.
+The `id` column is unique to **BribeR** and assigns a unique numeric
+identifier to each transcript. The original transcript numbers (e.g.,
+from the the Peruvian Congress' numbering system) are included in the
+`transcript_index` metadata file, but given that many are alphanumeric
+identifiers, **BribeR** generates new a new `id` variable for
+simplicity.
 
 ```{r id-example}
 ## id column, crossed with original id and source
@@ -141,10 +156,15 @@ descriptions %>%
   slice_head()
 ```
 
+## `speaker_std`
 
-## `speaker_std` 
-
-The `speaker_std` column resolves naming variation from the original source material, which often varies from transcript to transcript and can frustrate attempts at string matching (e.g. "el Señor Montesinos Torres" to "El Señor M. Torres"). It is a standardized lowercase identifier for each speaker, consistent across all transcripts. Use `speaker_std` rather than the raw `speaker` column for joins and filters.
+The `speaker_std` column resolves naming variation from the original
+source material, which often varies from transcript to transcript and
+can frustrate attempts at string matching (e.g. "el Señor Montesinos
+Torres" to "El Señor M. Torres"). It is a standardized lowercase
+identifier for each speaker, consistent across all transcripts. Use
+`speaker_std` rather than the raw `speaker` column for joins and
+filters.
 
 ```{r speaker-std-example}
 ## add comment 
@@ -152,7 +172,6 @@ transcripts |>
   filter(speaker_std == "MONTESINOS") |>
   summarise(n_turns = n())
 ```
-
 
 # Accessing data directly
 
