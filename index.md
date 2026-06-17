@@ -86,9 +86,9 @@ BribeR includes four datasets:
 | Dataset | Description |
 |----|----|
 | `compiled_transcripts` | Full text corpus: 47,375 speech turns across 101 transcripts |
-| `transcript_index` | Wide-format transcript-level metadata, searchable by speaker and topic |
-| `transcript_descriptions` | Transcript-level metadata with dates, topics, and summaries |
+| `transcript_index` | Wide-format transcript-level metadata with dates and summaries, and searchable by speaker and topic |
 | `speakers_per_transcript` | Speaker roster per transcript |
+| `actors` | actor-level metadata, including industry and a short description |
 
 A full description of the raw data is in the [Raw Data
 Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html),

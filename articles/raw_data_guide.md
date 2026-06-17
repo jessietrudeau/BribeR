@@ -27,8 +27,8 @@ judges confirming their availability to rule in Montesinos’s favor.
 
 See, for example, this exchange about consolidating power in the
 judicial branch between Montesinos and Alipio Montes de Oca, Supreme
-Court Judge (Transcript id XX[^1], May 3, 1998). This exchange is
-printed in English with Spanish original text in italics below.[^2]
+Court Judge (Transcript XX[^1], May 3, 1998). This exchange is printed
+in English with Spanish original text in italics below.[^2]
 
 **MONTES DE OCA —** Okay, just say it.  
 ***MONTES DE OCA —*** *Ya, di no más.*
@@ -269,12 +269,12 @@ meta |>
 
 ![](raw_data_guide_files/figure-html/co-occurrence-bar-1.png)
 
-[^1]: Originally numbered Transcript 888 by the Congress of Peru.
+[^1]: Originally numbered Transcript 888 in the Congress of Peru’s
+    archive.
 
-[^2]: Each transcript was read and validated by 2-3 native
-    Spanish-language speakers and classified as pertaining to one or
-    more relevant topics. These were inductively determined by a close
-    reading of the transcripts.
+[^2]: All transcripts in the database are not translated from their
+    original Spanish version. This is translated just as an example for
+    readability in the vignette.
 
 [^3]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
