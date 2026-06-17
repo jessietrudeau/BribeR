@@ -25,9 +25,10 @@ television channel owners receiving monthly payments to censor news
 coverage, military generals coordinating electoral suppression, and
 judges confirming their availability to rule in Montesinos’s favor.
 
-See, for example, the snippet of this exchange about consolidating power
-in the judicial branch between Montesinos and Alipio Montes de Oca,
-Supreme Court Judge (Transcript 888, May 3, 1998):
+See, for example, this exchange about consolidating power in the
+judicial branch between Montesinos and Alipio Montes de Oca, Supreme
+Court Judge (Transcript id XX[^1], May 3, 1998). This exchange is
+printed in English with Spanish original text in italics below.[^2]
 
 **MONTES DE OCA —** Okay, just say it.  
 ***MONTES DE OCA —*** *Ya, di no más.*
@@ -195,7 +196,7 @@ salutations.
 
 ## Topics
 
-Each transcript is hand-coded[^1] and classified by topic(s). The 15
+Each transcript is hand-coded[^3] and classified by topic(s). The 15
 topics include:
 
 | Topic | Description |
@@ -268,7 +269,14 @@ meta |>
 
 ![](raw_data_guide_files/figure-html/co-occurrence-bar-1.png)
 
-[^1]: Each transcript was read and validated by 2-3 native
+[^1]: Originally numbered Transcript 888 by the Congress of Peru.
+
+[^2]: Each transcript was read and validated by 2-3 native
+    Spanish-language speakers and classified as pertaining to one or
+    more relevant topics. These were inductively determined by a close
+    reading of the transcripts.
+
+[^3]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
     more relevant topics. These were inductively determined by a close
     reading of the transcripts.

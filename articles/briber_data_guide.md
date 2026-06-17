@@ -1,17 +1,17 @@
 # BribeR Data Guide
 
-## Overview
+The data available in **BribeR** includes cleaned and processed versions
+of the raw transcript data described in the Raw Data Guide, as well as
+companion metadata files to facilitate analysis. This vignette explains
+what each dataset contains and how to combine them.
 
-BribeR bundles seven datasets that together describe the Vladivideos
-corpus from different angles. This article explains what each dataset
-contains, which columns they share, and how to combine them for
-analysis.
+## Included data
 
-## The Seven Datasets
+### `compiled_transcripts`
 
-### `compiled_transcripts` — Full Corpus
-
-The main dataset. Each row is one speech turn within a transcript.
+This is the main dataset, containing every spoken line from all 101
+transcripts, indexed by (OUR/THEIR) transcript number. Each row
+corresponds to one speech turn within a transcript.
 
 ``` r
 
@@ -31,24 +31,27 @@ glimpse(transcripts)
 #> $ topic       <chr> "topic_foreign", "topic_foreign", "topic_foreign", "topic_…
 ```
 
-| Column        | Type      | Description                          |
-|---------------|-----------|--------------------------------------|
-| `n`           | numeric   | Transcript identifier                |
-| `row_id`      | numeric   | Row number within the transcript     |
-| `date`        | character | Recording date                       |
-| `speaker`     | character | Raw speaker label from the source    |
-| `speech`      | character | Speech text (Spanish)                |
-| `speaker_std` | character | Standardized speaker identifier      |
-| `topic`       | character | Primary topic tag for the transcript |
+| Column        | Type      | Description                             |
+|---------------|-----------|-----------------------------------------|
+| `id`          | numeric   | Transcript identifier                   |
+| `row_id`      | numeric   | Row number within the transcript        |
+| `date`        | character | Recording date                          |
+| `speaker_std` | character | Standardized speaker identifier         |
+| `speaker`     | character | Raw speaker label from the source       |
+| `speech`      | character | Speech text (Spanish)                   |
+| `topic`       | character | Primary(?) topic tag for the transcript |
 
-The `speaker_std` column is the key linking column across all datasets.
-It uses uppercase surnames and is consistent with the `actors`,
-`speakers_per_transcript`, and `transcript_index` datasets.
+`id`, `date`, and `topic` are transcript-level variables, while `row_id`
+corresponds to the within-conversation turn identifier, and
+`speaker_std` and `speaker` correspond to the standardized and unedited
+text label for the speaker, respectively. The `speech` variable is
+unedited and in its original Spanish-language format.
 
-### `descriptions` — Transcript Metadata
+### `transcript_index`
 
-One row per transcript. Contains dates, topic flags, availability
-information, and plain-language English summaries.
+This wide-format file contains transcript-level metadata, including date
+of the recording, recording type (AUDIO OR VIDEO?), short English
+summaries, topic indicators, speaker indicators.
 
 ``` r
 
@@ -64,11 +67,24 @@ head(descriptions[, c("n", "date", "type", "summary")])
 #> 6     7 1/15/1998 video Montesinos, Luz Salgado, and Absalón Vásquez discuss st…
 ```
 
-The `topic_*` columns use `"x"` to indicate a topic is present:
+| Column      | Type    | Description                  |
+|-------------|---------|------------------------------|
+| `id`        | numeric | Transcript identifier        |
+| `id_raw`    | numeric | Source transcript identifier |
+| ….          | numeric | FILL IN THE REST OF TABLE…   |
+| ….          | numeric | FILL IN THE REST OF TABLE…   |
+| ….          | numeric | FILL IN THE REST OF TABLE…   |
+| `topic_*`   | numeric | Topic indicators             |
+| `speaker_*` | numeric | Speaker indicators           |
+
+The 15 `topic_*` and 125 `speaker_*` columns take on a value of 1 if the
+topic or speaker is present and a value of 0 otherwise. They are
+designed for fast filtering for specific actors or topics without
+loading the full corpus.
 
 ``` r
 
-names(descriptions)[grepl("^topic_", names(descriptions))]
+names(descriptions)[grepl("^topic_", names(descriptions))] 
 #>  [1] "topic_referendum"        "topic_ecuador"          
 #>  [3] "topic_lucchetti_factory" "topic_municipal98"      
 #>  [5] "topic_reelection"        "topic_miraflores"       
@@ -79,33 +95,22 @@ names(descriptions)[grepl("^topic_", names(descriptions))]
 #> [15] "topic_state_capture"
 ```
 
-### `transcript_index` — Fast Lookup Table
+### `speakers_per_transcript`
 
-A wide-format boolean table with one row per transcript and one column
-per speaker and per topic. Designed for fast filtering without loading
-the full corpus.
-
-``` r
-
-dim(transcript_index)
-#> [1] 101 134
-```
-
-The `speaker_*` and `topic_*` columns contain `1` (present) or `0`
-(absent). This is the dataset used internally by
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md).
-
-### `speakers_per_transcript` — Speaker Roster
-
-One row per transcript, with up to 19 speaker slots as separate columns.
+This file contains one row per transcript, allowing users to quickly
+search for the speakers present during any one conversation. The
+standardized speaker name `speaker_std` is used to indicate which actors
+are present for each conversation, sorted by chronological speaking
+order (?).
 
 ``` r
 
-speakers_per_transcript[1, ]
+# Who was present in conversation 3? 
+speakers_per_transcript[3, ]
 #> # A tibble: 1 × 20
 #>       n speakrer_std_1 speakrer_std_2 speakrer_std_3 speakrer_std_4
 #>   <dbl> <chr>          <chr>          <chr>          <chr>         
-#> 1     1 ALVA           LEWIS          BURNET         GARCIA        
+#> 1   100 DE LOPEZ       SMITH          NA             NA            
 #> # ℹ 15 more variables: speakrer_std_5 <chr>, speakrer_std_6 <chr>,
 #> #   speakrer_std_7 <chr>, speakrer_std_8 <chr>, speakrer_std_9 <chr>,
 #> #   speakrer_std_10 <chr>, speakrer_std_11 <chr>, speakrer_std_12 <chr>,
@@ -114,14 +119,14 @@ speakers_per_transcript[1, ]
 #> #   speakrer_std_19 <chr>
 ```
 
-Note: the column names contain a known typo (`speakrer` instead of
-`speaker`) preserved from the source data. The package handles this
-automatically in all functions.
+**ANDRES: FIX THIS IN THE RAW DATA – Note: the column names contain a
+known typo (`speakrer` instead of `speaker`) preserved from the source
+data. The package handles this automatically in all functions.**
 
-### `actors` — Actor Roster
+### `actors`
 
-Biographical and institutional metadata for 125 individuals named in the
-transcripts.
+This file contains biographical and institutional metadata for 125
+individuals named in the transcripts.
 
 ``` r
 
@@ -137,105 +142,82 @@ head(actors[, c("speaker", "Position", "Type", "speaker_std")])
 #> 6 Alberto Fujimori                President of Peru (1990-200… Elec… FUJIMORI
 ```
 
-The `Type` column classifies actors into institutional categories:
-`Security`, `Congress`, `Judiciary`, `Media`, `Businessperson`,
-`Elected Official`, `Bureaucrat`, `Foreign`, and `Illicit`.
+The `Type` column references the categories described in the Raw Data
+Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`,
+`Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and
+`Illicit`.
 
-The `speaker_std` column links to `compiled_transcripts`,
-`transcript_index`, and `speakers_per_transcript`.
-
-### `actors_description` — Actor Descriptions
-
-Short biographical descriptions for 79 actors, keyed by `speaker_std`.
+For elected officials, the political party at the time of the recording
+is also included, **CONSISTENT WITH V-DEM PARTY LABELS(?)**
 
 ``` r
 
-head(actors_description)
-#> # A tibble: 6 × 2
-#>   speaker_std description                                                       
-#>   <chr>       <chr>                                                             
-#> 1 MONTESINOS  Fujimori's Chief of Staff                                         
-#> 2 DESCONOCIDO NA                                                                
-#> 3 KOURI       Elected Constituent Congressman (1992 - 1995) for the Partido Pop…
-#> 4 LUCCHETTI   Company specialized in pasta manufacturing                        
-#> 5 FERRERO     Congressman (1995-2000)                                           
-#> 6 FUJIMORI    President of Peru (1990-2000)
+actors %>% 
+  filter(Type == "Congress") %>% 
+  select(speaker_std, Type, Party) %>% 
+  slice_head()
+#> # A tibble: 1 × 3
+#>   speaker_std Type     Party                          
+#>   <chr>       <chr>    <chr>                          
+#> 1 ALEX KOURI  Congress Partido Popular Cristiano (PPC)
 ```
 
-### `topic_descriptions` — Topic Reference
+## Linking datasets
 
-Human-readable labels and descriptions for each of the 15 topic tags.
+Full-text transcript data and metadata can be linked by using `id` or
+`speaker_std` as a crosswalk. The table below shows which columns
+connect the datasets:
+
+| From                   | To                        | Key column    |
+|------------------------|---------------------------|---------------|
+| `compiled_transcripts` | `transcript_index`        | `id`          |
+| `compiled_transcripts` | `speakers_per_transcript` | `id`          |
+| `compiled_transcripts` | `actors`                  | `speaker_std` |
+
+### `id`
+
+The `id` column is unique to **BribeR** and assigns a unique numeric
+identifier to each transcript. The original transcript numbers (e.g.,
+from the the Peruvian Congress’ numbering system) are included in the
+`transcript_index` metadata file, but given that many are alphanumeric
+identifiers, **BribeR** generates new a new `id` variable for
+simplicity.
 
 ``` r
 
-topic_descriptions
-#> # A tibble: 15 × 2
-#>    topics                  descriptions                                         
-#>    <chr>                   <chr>                                                
-#>  1 topic_referendum        Referendum to Preuvian consitution that was supporte…
-#>  2 topic_ecuador           Ensuring end to Peru-Ecuador war, while maintaining …
-#>  3 topic_reelection        Extended discussions involving ensured reelection of…
-#>  4 topic_media             Key transcripts highlighting control that Montesinos…
-#>  5 topic_foreign           Conversations regarding Peru’s relations with foreig…
-#>  6 topic_safety            Discussions on internal armed conflict, drug traffic…
-#>  7 topic_lucchetti_factory Legal battle over whether Lucchetti Pasta could lega…
-#>  8 topic_municipal98       Discussions involving Alex Kouri, Alberto Andrade an…
-#>  9 topic_miraflores        Discussions about the elections for mayor in Lima an…
-#> 10 topic_canal4            Key transcripts highlighting control that Montesinos…
-#> 11 topic_promotions        Promotions being granted to different members of the…
-#> 12 topic_ivcher            Conversations regarding Ivcher providing information…
-#> 13 topic_wiese             Conversations Montesinos had with members of Wiese B…
-#> 14 topic_public_officials  Conversations in which Montesinos reassigns, plans, …
-#> 15 topic_state_capture     Discussions about capturing Congress, military bodie…
+## id column, crossed with original id and source
+descriptions %>% 
+  select(n, original_n, in_book, in_online_archive) %>% 
+  slice_head()
+#> # A tibble: 1 × 4
+#>       n original_n in_book in_online_archive
+#>   <dbl> <chr>      <chr>   <chr>            
+#> 1   104 353        x       NA
 ```
 
-## Linking Datasets
+### `speaker_std`
 
-The table below shows which columns connect the datasets:
-
-| From                   | To                        | Key column         |
-|------------------------|---------------------------|--------------------|
-| `compiled_transcripts` | `actors`                  | `speaker_std`      |
-| `compiled_transcripts` | `transcript_index`        | `n`                |
-| `compiled_transcripts` | `speakers_per_transcript` | `n`                |
-| `compiled_transcripts` | `descriptions`            | `n`                |
-| `actors`               | `actors_description`      | `speaker_std`      |
-| `descriptions`         | `topic_descriptions`      | topic column names |
-
-## Using `speaker_std` as a Linking Key
-
-The `speaker_std` column is the consistent identifier linking actors
-across all datasets. It uses uppercase surnames and resolves naming
-variation in the original source material. When writing analysis code,
-always use `speaker_std` rather than the raw `speaker` column for joins
-and filters.
+The `speaker_std` column resolves naming variation from the original
+source material, which often varies from transcript to transcript and
+can frustrate attempts at string matching (e.g. “el Señor Montesinos
+Torres” to “El Señor M. Torres”). It is a standardized lowercase
+identifier for each speaker, consistent across all transcripts. Use
+`speaker_std` rather than the raw `speaker` column for joins and
+filters.
 
 ``` r
 
+## add comment 
 transcripts |>
   filter(speaker_std == "MONTESINOS") |>
-  summarise(n_turns = n(), n_words = sum(nchar(speech)))
-#> # A tibble: 1 × 2
-#>   n_turns n_words
-#>     <int>   <int>
-#> 1   16609      NA
+  summarise(n_turns = n())
+#> # A tibble: 1 × 1
+#>   n_turns
+#>     <int>
+#> 1   16609
 ```
 
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
-expects lowercase values for the `speaker` argument, which it matches
-against lowercase `speaker_std` values internally:
-
-``` r
-
-get_transcript_id(speaker = "montesinos")
-#>  [1]   5   6   7   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24
-#> [20]  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  44  45
-#> [39]  46  47  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67
-#> [58]  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86
-#> [77]  87  88  89  90  94  95  96  97  98 102 103 104
-```
-
-## Accessing Data Directly
+## Accessing data directly
 
 All datasets are lazily loaded when the package is attached, so you can
 reference them by name after
@@ -245,8 +227,7 @@ reference them by name after
 
 nrow(compiled_transcripts)
 #> [1] 47375
-nrow(actors)
-#> [1] 125
-nrow(topic_descriptions)
-#> [1] 15
+names(actors)
+#> [1] "speaker"     "Position"    "Type"        "Party"       "speaker_std"
+#> [6] "notes"
 ```
