@@ -108,7 +108,7 @@ library(ggplot2)
 ## There are 101 transcripts in the dataset
 meta <- read_transcript_meta_data()
 nrow(meta)
-#> [1] 104
+#> [1] 101
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
@@ -118,8 +118,8 @@ approximately 8,500 words (approximately an hour-long conversation).
 ``` r
 
 summary(meta$n_words)
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
-#>     175    4544    8547    8946   11721   29161       3
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>     175    4544    8547    8946   11721   29161
 
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
