@@ -29,49 +29,40 @@ See, for example, the snippet of this exchange about consolidating power
 in the judicial branch between Montesinos and Alipio Montes de Oca,
 Supreme Court Judge (Transcript 888, May 3, 1998):
 
-ENG ESP
+**MONTES DE OCA —** Okay, just say it.  
+***MONTES DE OCA —*** *Ya, di no más.*
 
-**Mr. MONTES DE OCA —** Okay, just say it.
+**MONTESINOS TORRES —** The first is that you rejoin the Executive
+Commission.  
+***MONTESINOS TORRES —*** *La primera es que te reincorpores a la
+Comisión Ejecutiva.*
 
-**Mr. MONTESINOS TORRES —** The first is that you rejoin the Executive
-Commission.
+**MONTES DE OCA —** Okay.  
+***MONTES DE OCA —*** *Ya.*
 
-**Mr. MONTES DE OCA —** Okay.
+**MONTESINOS TORRES —** Because on Monday I have to make a move.  
+***MONTESINOS TORRES —*** *Porque el lunes tengo que dar un golpe.*
 
-**Mr. MONTESINOS TORRES —** Because on Monday I have to make a move.
+**MONTES DE OCA —** Okay.  
+***MONTES DE OCA —*** *Ya.*
 
-**Mr. MONTES DE OCA —** Okay.
+**MONTESINOS TORRES —** I already spoke with Víctor Raúl and with Serpa;
+they agree that the (unintelligible). Someone has told them what we are
+going to do on Monday. And the next step is (unintelligible) of the
+National Elections Jury (unintelligible), the President of the Jury
+(unintelligible).  
+***MONTESINOS TORRES —*** *Ya hablé con Víctor Raúl y con Serpa, están
+de acuerdo en que los (ininteligible) alguien les ha dicho lo que vamos
+a hacer el lunes. Y el siguiente paso es (ininteligible) del Jurado
+Nacional de Elecciones (ininteligible) el Presidente del Jurado
+(ininteligible).*
 
-**Mr. MONTESINOS TORRES —** I already spoke with Víctor Raúl and with
-Serpa; they agree that the (unintelligible). Someone has told them what
-we are going to do on Monday. And the next step is (unintelligible) of
-the National Elections Jury (unintelligible), the President of the Jury
-(unintelligible).
-
-**Mr. MONTES DE OCA —** Right, that is why I am asking you for
+**MONTES DE OCA —** Right, that is why I am asking you for
 (unintelligible), and what we had agreed on, remember (unintelligible).
-So we talk more directly here; we leave it that way (unintelligible).
-
-**El señor MONTES DE OCA —** Ya, di no más.
-
-**El señor MONTESINOS TORRES —** La primera es que te reincorpores a la
-Comisión Ejecutiva.
-
-**El señor MONTES DE OCA —** Ya.
-
-**El señor MONTESINOS TORRES —** Porque el lunes tengo que dar un golpe.
-
-**El señor MONTES DE OCA —** Ya.
-
-**El señor MONTESINOS TORRES —** Ya hablé con Víctor Raúl y con Serpa,
-están de acuerdo en que los (ininteligible) alguien les ha dicho lo que
-vamos a hacer el lunes. Y el siguiente paso es (ininteligible) del
-Jurado Nacional de Elecciones (ininteligible) el Presidente del Jurado
-(ininteligible).
-
-**El señor MONTES DE OCA —** Ya, por eso yo te estoy pidiendo
-(ininteligible) y que habíamos quedado te acuerdas (ininteligible).
-Entonces, conversamos más directos acá, quedamos así (ininteligible).
+So we talk more directly here; we leave it that way (unintelligible).  
+***MONTES DE OCA —*** *Ya, por eso yo te estoy pidiendo (ininteligible)
+y que habíamos quedado te acuerdas (ininteligible). Entonces,
+conversamos más directos acá, quedamos así (ininteligible).*
 
 **BribeR** provides structured access to transcripts of 101 of these
 recordings, which contain 47,375 individual speech turns. The package
