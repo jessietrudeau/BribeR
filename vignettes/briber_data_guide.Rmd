@@ -103,7 +103,7 @@ speakers_per_transcript[3, ]
 This file contains biographical and institutional metadata for 125 individuals named in the transcripts.
 
 ```{r actors}
-head(actors[, c("speaker", "position", "type", "speaker_std")])
+head(actors[, c("speaker", "Position", "Type", "speaker_std")])
 ```
 
 The `Type` column references the categories described in the Raw Data Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`, `Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and `Illicit`. 
