@@ -29,6 +29,8 @@ navbar:
           href: articles/briber_data_guide.html
         - text: "Using BribeR"
           href: articles/using_briber.html
+        - text: "Visualizing BribeR (Shiny)"
+          href: articles/visualizing_briber.html
 
 reference:
   - title: "Reading Transcripts"
@@ -71,3 +73,5 @@ articles:
       - raw_data_guide
       - briber_data_guide
       - using_briber
+      - visualizing_briber
+

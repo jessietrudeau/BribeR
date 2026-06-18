@@ -73,7 +73,7 @@ nrow(t_sub)
 
 `get_transcripts_raw()` provides access to the original source CSV files for users who wish to access the data before compilation.
 
-```{r raw, eval=T}
+```{r raw, eval=F}
 # Load transcript 3 as a data frame
 t3 <- get_transcripts_raw(n = 3)
 head(t3)
