@@ -17,12 +17,9 @@ home:
 
 navbar:
   structure:
-    left:  [home, intro, reference, articles, news]
+    left:  [home, reference, articles, news]
     right: [search, lightswitch, github]
   components:
-    intro:
-      text: Get Started
-      href: articles/getting_started.html
     articles:
       text: Articles
       menu:
@@ -68,11 +65,6 @@ reference:
       - topic_descriptions
 
 articles:
-  - title: "Get Started"
-    navbar: ~
-    contents:
-      - getting_started
-
   - title: "Articles"
     navbar: ~
     contents:
