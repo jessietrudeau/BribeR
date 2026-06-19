@@ -29,7 +29,6 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/getting_started.html">Get Started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -37,6 +36,7 @@
 <li><a class="dropdown-item" href="../articles/raw_data_guide.html">Raw Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/briber_data_guide.html">BribeR Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/using_briber.html">Using BribeR</a></li>
+    <li><a class="dropdown-item" href="../articles/visualizing_briber.html">Visualizing BribeR (Shiny)</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -76,8 +76,327 @@
 
     
     
-
-  </main>
+<p><strong>BribeR</strong> provides structured, full-text access to 101
+<em>Vladivideo</em> transcripts, along with metadata about the
+conversations, speakers, and topics. This vignette introduces the three
+main families of functions (below) and provides user-friendly examples
+for how to use <strong>BribeR.</strong></p>
+<p><strong>1. Read transcripts</strong></p>
+<p><strong>2. Find transcripts</strong></p>
+<p><strong>3. Integrate with metadata</strong></p>
+<p>To begin, install and load the package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install from CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BribeR"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or install the development version from GitHub</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"jessietrudeau/BribeR"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jessietrudeau.github.io/BribeR">BribeR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter, lag</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="read-transcripts">Read transcripts<a class="anchor" aria-label="anchor" href="#read-transcripts"></a>
+</h2>
+<p>Use <code><a href="../reference/read_transcripts.html">read_transcripts()</a></code> to access the corpus of full-text
+transcripts as a tidy data frame. Each row corresponds to one speech
+turn, indexed by transcript ID (<code>id</code>), speaker, standardized
+speaker name, speech text, date, and (DELETE THIS - topic?).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get full-text transcripts </span></span>
+<span><span class="va">transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Additional variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "n"           "row_id"      "date"        "speaker"     "speech"     </span></span>
+<span><span class="co">#&gt; [6] "speaker_std" "topic"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;       n row_id date      speaker              speech           speaker_std topic</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1      1 3/25/1997 BACKGROUND           ﻿Declaraciones …  BACKGROUND  topi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1      2 3/25/1997 BACKGROUND           [La entrevista … BACKGROUND  topi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1      3 3/25/1997 La señora            Levante su mano… ALVA        topi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     1      4 3/25/1997 El señor Javier Alva Sí.              ALVA        topi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     1      5 3/25/1997 El señor Neil Lewis  Señor Alva, mi … LEWIS       topi…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     1      6 3/25/1997 El señor Javier Alva Javier Alva Orl… ALVA        topi…</span></span></code></pre></div>
+<p>You can filter to one or more transcripts using their numeric
+IDs:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select first transcript</span></span>
+<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 697</span></span>
+<span></span>
+<span><span class="co"># Select multiple transcripts </span></span>
+<span><span class="va">t_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">47</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t_sub</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1324</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="read-raw-transcript-data">Read raw transcript data<a class="anchor" aria-label="anchor" href="#read-raw-transcript-data"></a>
+</h3>
+<p><code><a href="../reference/get_transcripts_raw.html">get_transcripts_raw()</a></code> provides access to the original
+source CSV files for users who wish to access the data before
+compilation.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load transcript 3 as a data frame</span></span>
+<span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">t3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load multiple transcripts combined into a single tibble</span></span>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">19</span>, <span class="fl">47</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="find-transcripts">Find transcripts<a class="anchor" aria-label="anchor" href="#find-transcripts"></a>
+</h2>
+<p>Often, users may not know the numerid <code>id</code> they wish to
+read transcripts by, but know the actor(s) or topic(s) they wish to
+focus on. <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> is the primary function used
+to filter transcripts by speaker or topic characteristics.</p>
+<div class="section level3">
+<h3 id="by-actor">By actor<a class="anchor" aria-label="anchor" href="#by-actor"></a>
+</h3>
+<p>The <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> function accepts lowercase
+string values for the standardized speaker’s name (the
+<code>speaker_std</code> variable), and returns transcript IDs where
+these speakers are present.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Transcripts featuring Montesinos</span></span>
+<span><span class="va">montesinos_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="st">"montesinos"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">montesinos_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 88</span></span>
+<span><span class="va">montesinos_ids</span></span>
+<span><span class="co">#&gt;  [1]   5   6   7   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24</span></span>
+<span><span class="co">#&gt; [20]  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  44  45</span></span>
+<span><span class="co">#&gt; [39]  46  47  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67</span></span>
+<span><span class="co">#&gt; [58]  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86</span></span>
+<span><span class="co">#&gt; [77]  87  88  89  90  94  95  96  97  98 102 103 104</span></span>
+<span></span>
+<span><span class="co"># Transcripts featuring Alex Kouri</span></span>
+<span><span class="va">kouri_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="st">"kouri"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span><span class="va">kouri_ids</span></span>
+<span><span class="co">#&gt; [1]  7 10 76 78 82 83 86</span></span></code></pre></div>
+<p>There are 125 valid speaker IDs that the <code>speaker_std</code>
+variable can take on. These are available (WHERE???)</p>
+</div>
+<div class="section level3">
+<h3 id="by-topic">By topic<a class="anchor" aria-label="anchor" href="#by-topic"></a>
+</h3>
+<p>Similarly, <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> function accepts
+lowercase string values for topic names, and returns returns transcript
+IDs where these topics are discussed.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Transcripts about media manipulation</span></span>
+<span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 38</span></span>
+<span><span class="va">media_ids</span></span>
+<span><span class="co">#&gt;  [1]   4   6   7   8   9  24  25  33  34  35  39  41  42  43  44  45  50  55  56</span></span>
+<span><span class="co">#&gt; [20]  58  59  62  70  71  72  73  74  75  79  86  87  88  90  94  95  97 102 103</span></span>
+<span></span>
+<span><span class="co"># Transcripts about both/either media and reelection </span></span>
+<span><span class="va">media_reelection_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_reelection_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 56</span></span></code></pre></div>
+<p>There are 15 valid topics, detailed in the BribeR Data Guide:
+<code>referendum</code>, <code>ecuador</code>,
+<code>lucchetti_factory</code>, <code>municipal98</code>,
+<code>reelection</code>, <code>miraflores</code>, <code>canal4</code>,
+<code>media</code>, <code>promotions</code>, <code>ivcher</code>,
+<code>foreign</code>, <code>wiese</code>, <code>public_officials</code>,
+<code>SAFETY(???)</code>, and <code>state_capture</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="by-both">By both<a class="anchor" aria-label="anchor" href="#by-both"></a>
+</h3>
+<p>Finally, users can filter transcripts by actor and topic. This
+function uses AND logic and returns transcript IDs if
+<strong>any</strong> of the specified speakers appear alongside
+<strong>any</strong> of the specified topics.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Find transcripts about ecuador  </span></span>
+<span><span class="va">ecuador_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"ecuador"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ecuador_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span>
+<span></span>
+<span><span class="co"># Find transcripts about ecuador where a Sendero Luminoso (armed group) leader is present </span></span>
+<span><span class="va">morote_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"ecuador"</span>, speaker <span class="op">=</span> <span class="st">"morote"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">morote_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8</span></span>
+<span></span>
+<span><span class="co">## Transcripts about montesinos and/or media (?)</span></span>
+<span><span class="va">montesinos_media</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span></span>
+<span>  speaker <span class="op">=</span> <span class="st">"montesinos"</span>,</span>
+<span>  topic   <span class="op">=</span> <span class="st">"media"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">montesinos_media</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 92</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="integrate-with-metadata">Integrate with metadata<a class="anchor" aria-label="anchor" href="#integrate-with-metadata"></a>
+</h2>
+<p>Rich transcript-level and actor-level metadata is available in
+<strong>BribeR</strong>.</p>
+<p>The <code><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data()</a></code> function presents
+transcript-level data containing dates, summaries[^1], speakers present,
+topics mentioned, and word counts.</p>
+<p>When left blank, it returns the metadata for every transcript in the
+corpus, but can also be filtered using the transcript <code>id</code>
+variable.</p>
+<p>[^1] These summaries were written by undergraduate native-Spanish
+speakers.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;       n date      speakers   n_words topics   </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   104 7/1/2000  <span style="color: #949494;">&lt;chr [2]&gt;</span>     <span style="text-decoration: underline;">9</span>289 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    19 4/21/1998 <span style="color: #949494;">&lt;chr [11]&gt;</span>    <span style="text-decoration: underline;">5</span>693 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    11 2/10/1998 <span style="color: #949494;">&lt;chr [3]&gt;</span>     <span style="text-decoration: underline;">9</span>420 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    12 2/10/1998 <span style="color: #949494;">&lt;chr [2]&gt;</span>     <span style="text-decoration: underline;">1</span>283 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 1/8/1998  <span style="color: #949494;">&lt;chr [5]&gt;</span>     <span style="text-decoration: underline;">9</span>391 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     7 1/15/1998 <span style="color: #949494;">&lt;chr [6]&gt;</span>    <span style="text-decoration: underline;">11</span>146 <span style="color: #949494;">&lt;chr [3]&gt;</span></span></span>
+<span></span>
+<span><span class="co"># Get metadata for transcript 5</span></span>
+<span><span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 101 × 5</span></span></span>
+<span><span class="co">#&gt;        n date      speakers   n_words topics   </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>   104 7/1/2000  <span style="color: #949494;">&lt;chr [2]&gt;</span>     <span style="text-decoration: underline;">9</span>289 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>    19 4/21/1998 <span style="color: #949494;">&lt;chr [11]&gt;</span>    <span style="text-decoration: underline;">5</span>693 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>    11 2/10/1998 <span style="color: #949494;">&lt;chr [3]&gt;</span>     <span style="text-decoration: underline;">9</span>420 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>    12 2/10/1998 <span style="color: #949494;">&lt;chr [2]&gt;</span>     <span style="text-decoration: underline;">1</span>283 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     5 1/8/1998  <span style="color: #949494;">&lt;chr [5]&gt;</span>     <span style="text-decoration: underline;">9</span>391 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     7 1/15/1998 <span style="color: #949494;">&lt;chr [6]&gt;</span>    <span style="text-decoration: underline;">11</span>146 <span style="color: #949494;">&lt;chr [3]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     9 1/23/1988 <span style="color: #949494;">&lt;chr [3]&gt;</span>    <span style="text-decoration: underline;">16</span>843 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    10 1/28/1998 <span style="color: #949494;">&lt;chr [8]&gt;</span>    <span style="text-decoration: underline;">15</span>704 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>    17 4/14/1998 <span style="color: #949494;">&lt;chr [2]&gt;</span>    <span style="text-decoration: underline;">11</span>547 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>    22 5/5/1998  <span style="color: #949494;">&lt;chr [2]&gt;</span>     <span style="text-decoration: underline;">2</span>219 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 91 more rows</span></span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<p>We expect a common workflow to be to i) identify transcripts of
+interest, ii) load the data for them, and iii) leverage relevant
+metadata to analyze the text.</p>
+<p>The two below examples demonstrate how the <strong>BribeR</strong>
+functions and data can be used together.</p>
+<div class="section level3">
+<h3 id="example-1-who-speaks-about-media-manipulation-for-how-long">Example 1: Who speaks about media manipulation? For how long?<a class="anchor" aria-label="anchor" href="#example-1-who-speaks-about-media-manipulation-for-how-long"></a>
+</h3>
+<p>Say that we are interested in how Montesinos and his counterparts
+talk about a commonly discussed topic, media manipulation. This exercise
+shows how, with minimal prior knowledge of <code>tidyverse</code>
+commands and regular expressions, we can begin to answer this
+question.</p>
+<p>First, we start by selecting the conversations about media
+manipulation and counting which actors speak the most during these
+conversations:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 1: find transcript IDs about media </span></span>
+<span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 2: load just those transcripts about the media </span></span>
+<span><span class="va">media_transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="va">media_ids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 3: count words spoken per actor</span></span>
+<span><span class="va">media_transcripts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">speech</span>, <span class="st">"\\s+"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">speaker_std</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>total_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n_words</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_words</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co">## drop the 'background' and 'desconocido' to focus on identifiable actors only</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speaker_std</span> <span class="op">!=</span> <span class="st">"DESCONOCIDO"</span> <span class="op">&amp;</span> <span class="va">speaker_std</span> <span class="op">!=</span> <span class="st">"BACKGROUND"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">speaker_std</span>, <span class="va">total_words</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">total_words</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#8B1A1A"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Words spoken in media-related transcripts, \n top-10 most likely speakers"</span>,</span>
+<span>    x     <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y     <span class="op">=</span> <span class="st">"Total words"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div>
+<p><img src="using_briber_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="672"></p>
+<p>Second, let’s say we’re interested in making some aggregate
+conclusions about the type of actor that’s speaking during such
+conversations. This requires crossing the corpus of media transcripts
+with the actor-level metadata.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Step 1: Left join media_transcripts with actor-level metadata from `actors`</span></span>
+<span><span class="va">media_transcripts</span> <span class="op">&lt;-</span> <span class="va">media_transcripts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">actors</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speaker_std</span>, <span class="va">Type</span>, <span class="va">Position</span><span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="st">"speaker_std"</span></span>
+<span>  <span class="op">)</span> </span>
+<span><span class="co">#&gt; Warning in left_join(media_transcripts, select(actors, speaker_std, Type, : Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 11749 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 1 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> If a many-to-many relationship is expected, set `relationship =</span></span>
+<span><span class="co">#&gt;   "many-to-many"` to silence this warning.</span></span>
+<span></span>
+<span><span class="co">## Step 2: Count words spoken in media_transcripts and group by type, summarize </span></span>
+<span><span class="va">media_transcripts</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>n_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">speech</span>, <span class="st">"\\s+"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>total_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n_words</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">total_words</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">Type</span>, <span class="va">total_words</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">total_words</span>, fill <span class="op">=</span> <span class="va">Type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Words spoken in media-related transcripts, by actor type"</span>,</span>
+<span>    x     <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    y     <span class="op">=</span> <span class="st">"Total words"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span></span></code></pre></div>
+<p><img src="using_briber_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="672"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="co">## Step 3: Fill plot by type -- fix topic labels </span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="example-2-redo-finding-transcripts-by-speaker-type">Example 2 (redo): Finding Transcripts by Speaker Type<a class="anchor" aria-label="anchor" href="#example-2-redo-finding-transcripts-by-speaker-type"></a>
+</h3>
+<p>You can combine <code>actors</code> and
+<code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> to filter the corpus by institutional
+category rather than by individual name. The example below finds all
+transcripts featuring any media-sector actor who appears in the
+transcript index:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">media_actors</span> <span class="op">&lt;-</span> <span class="va">actors</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"Media"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">speaker_std</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Keep only media actors present in the transcript index</span></span>
+<span><span class="va">index_speakers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"^speaker_"</span>, <span class="st">""</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"^speaker_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">media_actors</span> <span class="op">&lt;-</span> <span class="va">media_actors</span><span class="op">[</span><span class="va">media_actors</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">index_speakers</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="va">media_actors</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 29</span></span></code></pre></div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
