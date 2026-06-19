@@ -37,7 +37,9 @@ install.packages("BribeR")
 
 # Or install the development version from GitHub
 remotes::install_github("jessietrudeau/BribeR")
+```
 
+```{r load}
 # Load package 
 library(BribeR)
 ```
