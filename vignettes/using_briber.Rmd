@@ -40,8 +40,9 @@ remotes::install_github("jessietrudeau/BribeR")
 ```
 
 ```{r load}
-# Load package 
+# Load packages
 library(BribeR)
+library(dplyr)
 ```
 
 # Read transcripts
