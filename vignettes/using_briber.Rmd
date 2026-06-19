@@ -131,7 +131,7 @@ Finally, users can filter transcripts by actor and topic. This function uses AND
 ```{r}
 # Find transcripts about ecuador  
 ecuador_ids <- get_transcript_id(topic = "ecuador")
-length(ecuador_ids_ids)
+length(ecuador_ids)
 
 # Find transcripts about ecuador where a Sendero Luminoso (armed group) leader is present 
 morote_ids <- get_transcript_id(topic = "ecuador", speaker = "morote")
