@@ -195,7 +195,7 @@ media_transcripts |>
   summarise(total_words = sum(n_words, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(total_words)) |>
   ## drop the 'background' and 'desconocido' to focus on identifiable actors only
-  filter(speaker_std != "DESCONOCIDO" & speaker_std != "BACKGROUND") %>% 
+  filter(speaker_std != "DESCONOCIDO" & speaker_std != "BACKGROUND") |> 
   head(10) |>
   ggplot(aes(x = reorder(speaker_std, total_words), y = total_words)) +
   geom_col(fill = "#8B1A1A") +
