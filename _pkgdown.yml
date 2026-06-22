@@ -33,38 +33,39 @@ navbar:
           href: articles/visualizing_briber.html
 
 reference:
-  - title: "Reading Transcripts"
+  - title: "Read Transcripts"
     desc: "Load and filter the Vladivideos transcript corpus."
     contents:
       - read_transcripts
       - get_transcripts_raw
 
-  - title: "Finding Transcripts"
+  - title: "Find Transcripts"
     desc: "Search the corpus by speaker or topic."
     contents:
       - get_transcript_id
-      - get_transcript_speakers
 
-  - title: "Metadata"
+  - title: "Integrate with Metadata"
     desc: "Transcript-level summary information."
     contents:
       - read_transcript_meta_data
-
-  - title: "Visualization"
-    desc: "Interactive network visualization."
-    contents:
-      - run_transcript_network_app
+      - get_transcript_speakers
 
   - title: "Datasets"
-    desc: "Bundled datasets included in BribeR."
+    desc: "Searchable datasets included in BribeR."
     contents:
       - compiled_transcripts
-      - descriptions
       - transcript_index
       - speakers_per_transcript
       - actors
-      - actors_description
+
+  - title: "Visualization"
+    desc: "Functions and data files for Shiny network visualization."
+    contents:
+      - run_transcript_network_app
+      - transcript_descriptions
+      - actors_descriptions
       - topic_descriptions
+
 
 articles:
   - title: "Articles"
