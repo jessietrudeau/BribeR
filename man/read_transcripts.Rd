@@ -7,12 +7,12 @@
 read_transcripts(transcripts = NULL)
 }
 \arguments{
-\item{transcripts}{Optional numeric vector of transcript IDs (\code{n}) to
-keep. If \code{NULL} (the default), all transcripts are returned.}
+\item{transcripts}{Optional numeric vector of transcript IDs to keep.
+If \code{NULL} (the default), all transcripts are returned.}
 }
 \value{
-A data frame with columns \code{n}, \code{row_id}, \code{date}, \code{speaker},
-\code{speech}, \code{speaker_std}, and \code{topic}.
+A data frame with columns \code{id}, \code{row_id}, \code{date}, \code{speaker_std},
+\code{speaker}, and \code{speech}.
 }
 \description{
 Loads the bundled \code{compiled_transcripts} dataset and optionally filters

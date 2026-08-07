@@ -3,15 +3,14 @@
 #' The main corpus of the Vladivideos recordings. Each row represents a single
 #' speech turn within a transcript, with the speaker's words and metadata.
 #'
-#' @format A tibble with 47,375 rows and 7 variables:
+#' @format A tibble with 46,597 rows and 6 variables:
 #' \describe{
-#'   \item{n}{Numeric transcript identifier.}
+#'   \item{id}{Numeric transcript identifier.}
 #'   \item{row_id}{Row number within the transcript.}
 #'   \item{date}{Date of the recording (character).}
+#'   \item{speaker_std}{Standardized speaker identifier (lowercase surname).}
 #'   \item{speaker}{Raw speaker label as it appears in the original transcript.}
 #'   \item{speech}{Text of the speaker's turn (in Spanish).}
-#'   \item{speaker_std}{Standardized speaker identifier (uppercase surname).}
-#'   \item{topic}{Primary topic tag assigned to the transcript.}
 #' }
 #' @source Vladimiro Montesinos Torres secret recordings, transcribed and
 #'   compiled from the public Vladivideos archive.
@@ -20,29 +19,38 @@
 
 #' Transcript Index
 #'
-#' A wide-format lookup table with one row per transcript. Contains boolean
-#' indicator columns for each topic and each speaker, enabling fast filtering
-#' without loading the full corpus.
+#' A wide-format lookup table with one row per transcript, combining
+#' descriptive metadata with binary indicator columns for topics and
+#' speakers, enabling fast filtering without loading the full corpus. This
+#' is the single source of transcript-level metadata for the package; there
+#' is no separate `descriptions` dataset.
 #'
-#' @format A tibble with 101 rows and 134 variables. Key variables:
+#' @format A tibble with 99 rows. Descriptive columns first, followed by
+#'   speaker/topic counts, followed by the boolean (1/0) `speaker_*` and
+#'   `topic_*` indicator columns:
 #' \describe{
-#'   \item{n}{Numeric transcript identifier.}
-#'   \item{file}{Relative path to the source CSV file.}
+#'   \item{id}{Numeric transcript identifier (BribeR internal numbering).}
+#'   \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
 #'   \item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 #'   \item{date}{Date of the recording.}
-#'   \item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
-#'     topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
-#'     topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
-#'     topic_public_officials, topic_safety, topic_state_capture}{Integer
-#'     indicator (1/0) for each topic.}
+#'   \item{original_id}{Original transcript identifier from the source archive.}
+#'   \item{in_book}{1 if the transcript is cited in published work, 0 otherwise.}
+#'   \item{in_online_archive}{1 if available in the online archive, 0 otherwise.}
+#'   \item{type}{Recording medium (\code{"audio"} or \code{"video"}).}
+#'   \item{summary}{Plain-language English summary of the transcript content.}
+#'   \item{speakers}{Free-text description of participants.}
+#'   \item{speaker_count}{Total number of distinct speakers in the transcript.}
+#'   \item{topic_count}{Total number of topics flagged for the transcript.}
 #'   \item{speaker_SURNAME}{Integer indicator (1/0) for each standardized
 #'     speaker. One column per unique speaker, named \code{speaker_} followed
 #'     by the speaker's standardized surname.}
-#'   \item{topic_count}{Total number of topics flagged for the transcript.}
-#'   \item{speaker_count}{Total number of distinct speakers in the transcript.}
+#'   \item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
+#'     topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
+#'     topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
+#'     topic_public_officials, topic_security, topic_state_capture}{Integer
+#'     indicator (1/0) for each topic.}
 #' }
-#' @source Derived from the Vladivideos transcripts and the package's
-#'   descriptions and speakers datasets.
+#' @source Derived from the Vladivideos transcripts and accompanying metadata.
 "transcript_index"
 
 
@@ -53,43 +61,13 @@
 #'
 #' @format A tibble with 101 rows and 20 variables:
 #' \describe{
-#'   \item{n}{Numeric transcript identifier.}
-#'   \item{speakrer_std_1 ... speakrer_std_19}{Standardized speaker identifier
+#'   \item{id}{Numeric transcript identifier.}
+#'   \item{speaker_std_1 ... speaker_std_19}{Standardized speaker identifier
 #'     for the 1st through 19th speaker slot. \code{NA} if the slot is unused
-#'     for that transcript. Note: column names contain a known typo
-#'     (\code{speakrer} instead of \code{speaker}) preserved from the source
-#'     data.}
+#'     for that transcript.}
 #' }
 #' @source Derived from the Vladivideos transcripts.
 "speakers_per_transcript"
-
-
-#' Transcript Descriptions
-#'
-#' Transcript-level metadata including dates, topic flags, availability
-#' information, and plain-language summaries.
-#'
-#' @format A tibble with 104 rows and 24 variables:
-#' \describe{
-#'   \item{n}{Numeric transcript identifier.}
-#'   \item{date}{Date of the recording.}
-#'   \item{speakers}{Free-text description of participants.}
-#'   \item{original_n}{Original transcript number from the source archive.}
-#'   \item{Missing Topic}{Flag indicating the transcript has no assigned topic.}
-#'   \item{in_book}{Flag indicating the transcript is cited in published work.}
-#'   \item{in_online_archive}{Flag indicating availability in the online archive.}
-#'   \item{type}{Recording medium (e.g. \code{"audio"}, \code{"video"}).}
-#'   \item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
-#'     topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
-#'     topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
-#'     topic_public_officials, topic_safety, topic_state_capture}{Topic
-#'     indicator flags. A cell value of \code{"x"} indicates the topic is
-#'     present in that transcript.}
-#'   \item{summary}{Plain-language English summary of the transcript's content.}
-#' }
-#' @source Manually compiled from the Vladivideos archive and related
-#'   published research.
-"descriptions"
 
 
 #' Actor Roster
@@ -100,12 +78,14 @@
 #' @format A tibble with 125 rows and 6 variables:
 #' \describe{
 #'   \item{speaker}{Full name of the individual.}
-#'   \item{Position}{Institutional role or title at the time of the recordings.}
-#'   \item{Type}{Broad institutional category. One of \code{"Security"},
-#'     \code{"Congress"}, \code{"Judiciary"}, \code{"Media"},
-#'     \code{"Businessperson"}, \code{"Elected Official"}, \code{"Bureaucrat"},
-#'     \code{"Foreign"}, \code{"Illicit"}, or \code{"Unknown"}.}
-#'   \item{Party}{Political party affiliation, where applicable.}
+#'   \item{position}{Institutional role or title at the time of the recordings.}
+#'   \item{type}{Broad institutional category (lowercase). One of
+#'     \code{"montesinos"} (Vladimiro Montesinos himself, kept separate from
+#'     \code{"security"}), \code{"security"}, \code{"congress"},
+#'     \code{"judiciary"}, \code{"media"}, \code{"businessperson"},
+#'     \code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
+#'     \code{"illicit"}, or \code{"unknown"}.}
+#'   \item{party}{Political party affiliation, where applicable.}
 #'   \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
 #'     column in the transcripts corpus.}
 #'   \item{notes}{Additional notes on the individual.}
@@ -139,7 +119,7 @@
 #' @format A tibble with 15 rows and 2 variables:
 #' \describe{
 #'   \item{topics}{Topic identifier, matching the \code{topic_*} column names
-#'     in \code{descriptions} and \code{transcript_index}.}
+#'     in \code{transcript_index}.}
 #'   \item{descriptions}{Plain-language description of what the topic covers.}
 #' }
 #' @source Manually compiled as part of the BribeR package development.

@@ -20,6 +20,7 @@ library(tidyr)
 # ---- configuration ----
 transcripts_candidates <- c(
   Sys.getenv("TRANSCRIPTS_DIR", unset = NA),
+  "inst/data-raw/transcripts",
   "data-raw/transcripts"
 ) |> unique()
 transcripts_candidates <- transcripts_candidates[!is.na(transcripts_candidates)]
@@ -42,57 +43,37 @@ nums <- suppressWarnings(as.integer(base_ids))
 ord <- if (all(!is.na(nums))) order(nums) else order(base_ids)
 files <- files[ord]
 
-# ---- load descriptions (for topics + date) ----
-descriptions_df <- NULL
-used_source <- NULL
-
-if (exists("descriptions", inherits = TRUE)) {
-  obj <- get("descriptions", inherits = TRUE)
-  if (is.data.frame(obj)) {
-    descriptions_df <- obj
-    used_source <- "memory(descriptions)"
-  }
+# ---- load descriptions.csv ----
+# There is no standalone `descriptions` dataset shipped with the package;
+# its content is folded directly into `transcript_index` below.
+desc_candidates <- c(
+  Sys.getenv("DESCRIPTIONS_CSV", unset = NA),
+  "data-raw/Inventory & Descriptions/Descriptions.csv",
+  "data-raw/descriptions.csv",
+  file.path(transcripts_root, "descriptions.csv")
+) |> unique()
+desc_candidates <- desc_candidates[!is.na(desc_candidates)]
+desc_path <- desc_candidates[file_exists(desc_candidates)][1]
+if (is.na(desc_path)) {
+  stop("descriptions.csv not found. Checked: ", paste(desc_candidates, collapse = " | "))
 }
+descriptions_df <- read_csv(desc_path, show_col_types = FALSE)
 
-if (is.null(descriptions_df)) {
-  rda_candidate <- Sys.getenv("DESCRIPTIONS_RDA", unset = "~/Documents/BribeRdata/data/descriptions.rda")
-  if (file_exists(rda_candidate)) {
-    env <- new.env(parent = emptyenv())
-    loaded <- load(rda_candidate, envir = env)
-    if ("descriptions" %in% loaded && is.data.frame(env$descriptions)) {
-      descriptions_df <- env$descriptions
-      used_source <- rda_candidate
-    }
-  }
+message("Using descriptions from: ", desc_path)
+
+# Helper: convert a raw "x"/NA (or blank) character flag to integer 0/1.
+.to_flag <- function(x) {
+  if (is.numeric(x) || is.integer(x)) return(as.integer(!is.na(x) & x != 0L))
+  as.integer(!is.na(x) & grepl("^\\s*x\\s*$", as.character(x), ignore.case = TRUE))
 }
-
-if (is.null(descriptions_df)) {
-  desc_candidates <- c(
-    Sys.getenv("DESCRIPTIONS_CSV", unset = NA),
-    "data-raw/Inventory & Descriptions/descriptions.csv",
-    "data-raw/descriptions.csv",
-    file.path(transcripts_root, "descriptions.csv")
-  ) |> unique()
-  desc_candidates <- desc_candidates[!is.na(desc_candidates)]
-  desc_path <- desc_candidates[file_exists(desc_candidates)][1]
-  if (is.na(desc_path)) {
-    stop("descriptions.csv not found. Checked: ", paste(desc_candidates, collapse = " | "))
-  }
-  descriptions_df <- read_csv(desc_path, show_col_types = FALSE)
-  used_source <- desc_path
-}
-
-message("Using descriptions from: ", used_source)
 
 # ---- identify and convert topic columns to binary ----
+names(descriptions_df)[names(descriptions_df) == "topic_safety"] <- "topic_security"
 topic_cols <- grep("(?i)^topic", names(descriptions_df), value = TRUE)
 message("Detected ", length(topic_cols), " topic columns.")
 if (length(topic_cols) > 0) {
   descriptions_df <- descriptions_df %>%
-    mutate(across(
-      all_of(topic_cols),
-      ~ ifelse(str_detect(str_to_lower(trimws(.)), "x"), 1L, 0L)
-    ))
+    mutate(across(all_of(topic_cols), .to_flag))
 } else {
   message("⚠️ No topic columns found. Check column names in descriptions.csv.")
 }
@@ -111,9 +92,12 @@ metadata_df <- descriptions_df %>%
         "Y b d", "Y B d", "b Y", "B Y", "Y"
       ),
       tz = "UTC"
-    ) |> as.Date())
+    ) |> as.Date()),
+    in_book           = .to_flag(in_book),
+    in_online_archive = .to_flag(in_online_archive),
+    original_id       = as.character(original_n)
   ) %>%
-  select(n, date, all_of(topic_cols)) %>%
+  select(n, original_id, date, in_book, in_online_archive, type, summary, speakers, all_of(topic_cols)) %>%
   filter(!is.na(n))
 
 # ======================================================================
@@ -122,16 +106,24 @@ metadata_df <- descriptions_df %>%
 
 message("Loading wide-format 'speakers per transcript.csv'...")
 
-speakers_path <- "/Users/andressoto/Documents/BribeRdata/data-raw/Inventory & Descriptions/speakers per transcript.csv"
+speakers_candidates <- c(
+  Sys.getenv("SPEAKERS_CSV", unset = NA),
+  "data-raw/Inventory & Descriptions/speakers per transcript.csv",
+  "data-raw/speakers per transcript.csv"
+) |> unique()
+speakers_candidates <- speakers_candidates[!is.na(speakers_candidates)]
+speakers_path <- speakers_candidates[file_exists(speakers_candidates)][1]
 
-if (!file_exists(speakers_path)) {
-  stop("The file 'speakers per transcript.csv' was not found at ", speakers_path)
+if (is.na(speakers_path)) {
+  stop("The file 'speakers per transcript.csv' was not found. Checked: ",
+       paste(speakers_candidates, collapse = " | "))
 }
 
 speakers_df <- read_csv(speakers_path, show_col_types = FALSE)
+names(speakers_df) <- gsub("speakrer_std_", "speaker_std_", names(speakers_df), fixed = TRUE)
 
-# Identify all speaker columns (with the typo 'speakrer_std_')
-speaker_cols <- grep("^speakrer_std_", names(speakers_df), value = TRUE)
+# Identify all speaker columns
+speaker_cols <- grep("^speaker_std_", names(speakers_df), value = TRUE)
 if (length(speaker_cols) == 0) {
   stop("No 'speakrer_std_' columns detected in the speakers file.")
 }
@@ -208,15 +200,14 @@ if (exists("speaker_matrix") && nrow(speaker_matrix) > 0) {
 # ---- build transcript index ----
 transcript_index <- tibble(file_abs = files) %>%
   mutate(
-    file   = path_rel(file_abs, start = rel_start),
-    id     = tools::file_path_sans_ext(path_file(file_abs)),
-    n      = suppressWarnings(as.integer(id)),
-    format = tolower(path_ext(file_abs))
+    n      = suppressWarnings(as.integer(tools::file_path_sans_ext(path_file(file_abs)))),
+    file   = path_file(file_abs),
+    format = tolower(tools::file_ext(file_abs))
   ) %>%
   select(n, file, format) %>%
   left_join(metadata_df, by = "n") %>%
   left_join(speaker_matrix, by = "n") %>%
-  arrange(n, file)
+  arrange(n)
 
 # ---- replace NA with 0 ----
 speaker_cols_present <- grep("^speaker_", names(transcript_index), value = TRUE)
@@ -240,9 +231,25 @@ transcript_index <- transcript_index %>%
       rowSums(across(all_of(speaker_cols_present)), na.rm = TRUE) else NA_integer_
   )
 
+# ---- reorder columns and rename n -> id ----
+# Descriptive columns first, then speaker/topic counts, then the speaker_*
+# and topic_* boolean (1/0) indicator columns used for filtering.
+.desc_cols <- intersect(
+  c("n", "file", "format", "date", "original_id", "in_book",
+    "in_online_archive", "type", "summary", "speakers"),
+  names(transcript_index)
+)
+.cnt_cols <- intersect(c("speaker_count", "topic_count"), names(transcript_index))
+.s_cols   <- setdiff(grep("^speaker_", names(transcript_index), value = TRUE), "speaker_count")
+.t_cols   <- setdiff(grep("^topic_",   names(transcript_index), value = TRUE), "topic_count")
+
+transcript_index <- transcript_index %>%
+  select(all_of(c(.desc_cols, .cnt_cols, .s_cols, .t_cols))) %>%
+  rename(id = n)
+
 # ---- diagnostics ----
-if (any(is.na(transcript_index$n))) {
-  warning("Non-numeric filenames detected; some `n` values are NA.")
+if (any(is.na(transcript_index$id))) {
+  warning("Non-numeric filenames detected; some `id` values are NA.")
 }
 if ("date" %in% names(transcript_index) && any(is.na(transcript_index$date))) {
   message("ℹ️ Some transcripts are missing date information.")

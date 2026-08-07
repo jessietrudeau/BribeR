@@ -1,17 +1,16 @@
-#' Read transcript-level metadata (n, date, speakers, duration, topics)
+#' Read transcript-level metadata (id, date, speakers, duration, topics)
 #'
 #' @description
 #' Builds a tidy data frame of transcript metadata from bundled package data.
 #' Combines information from three internal sources:
-#' 1. **descriptions** (transcript identifiers, dates, topic flags),
+#' 1. **transcript_index** (transcript identifiers, dates, topic flags),
 #' 2. **speakers_per_transcript** (speaker roster per transcript), and
 #' 3. **compiled_transcripts** (word counts derived from the `speech` column).
 #'
 #' @details
-#' - **Transcript ID (`n`) and `date`:** Read from the bundled `descriptions` dataset.
-#' - **Topics (`topics` list-column):** Columns in `descriptions` whose names start
-#'   with `topic_` are interpreted as topic flags. A topic is considered present if the
-#'   cell is "truthy" (e.g., `x`/`X`, non-empty string, `1`, `TRUE`). Topic names are
+#' - **Transcript ID (`id`) and `date`:** Read from the bundled `transcript_index` dataset.
+#' - **Topics (`topics` list-column):** Columns in `transcript_index` whose names start
+#'   with `topic_` are interpreted as topic flags (1/0 integers). Topic names are
 #'   normalized by removing the `topic_` prefix and replacing `_` with spaces.
 #' - **Speakers (`speakers` list-column):** Read from the bundled `speakers_per_transcript`
 #'   dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
@@ -22,7 +21,7 @@
 #'
 #' @return
 #' A tibble with one row per transcript and columns:
-#' - `n` (numeric): transcript identifier.
+#' - `id` (numeric): transcript identifier.
 #' - `date` (character): date associated with the transcript (or `NA` if absent).
 #' - `speakers` (list of character): unique, sorted vector of speakers for the transcript.
 #' - `n_words` (integer): total word count across the transcript's `speech` column.
@@ -57,25 +56,25 @@ read_transcript_meta_data <- function(quiet = TRUE) {
     env[[object_name]]
   }
 
-  desc        <- .load_pkg_data("descriptions")
+  desc        <- .load_pkg_data("transcript_index")
   spt         <- .load_pkg_data("speakers_per_transcript")
   transcripts <- .load_pkg_data("compiled_transcripts")
 
   # --- validate basics
-  if (!"n" %in% names(desc)) stop("`descriptions` must include column 'n'.", call. = FALSE)
+  if (!"id" %in% names(desc)) stop("`transcript_index` must include column 'id'.", call. = FALSE)
   if (!"date" %in% names(desc)) {
-    if (!quiet) warning("`descriptions` has no 'date' column; setting NA for dates.")
+    if (!quiet) warning("`transcript_index` has no 'date' column; setting NA for dates.")
     desc$date <- NA_character_
   }
-  if (!"n" %in% names(spt)) stop("`speakers_per_transcript` must include column 'n'.", call. = FALSE)
+  if (!"id" %in% names(spt)) stop("`speakers_per_transcript` must include column 'id'.", call. = FALSE)
 
   # --- normalize ids
-  desc <- dplyr::mutate(desc, n = as.character(.data$n))
-  spt  <- dplyr::mutate(spt,  n = as.character(.data$n))
+  desc <- dplyr::mutate(desc, id = as.character(.data$id))
+  spt  <- dplyr::mutate(spt,  id = as.character(.data$id))
 
   # --- drop transcript IDs that have no actual transcript data
-  valid_ids <- unique(as.character(transcripts$n))
-  desc <- dplyr::filter(desc, .data$n %in% valid_ids)
+  valid_ids <- unique(as.character(transcripts$id))
+  desc <- dplyr::filter(desc, .data$id %in% valid_ids)
 
   # --- speakers: wide -> long -> list-column
   spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)
@@ -91,10 +90,10 @@ read_transcript_meta_data <- function(quiet = TRUE) {
     ) |>
     dplyr::mutate(speaker_std = stringr::str_trim(as.character(.data$speaker_std))) |>
     dplyr::filter(!is.na(.data$speaker_std) & .data$speaker_std != "") |>
-    dplyr::distinct(.data$n, .data$speaker_std)
+    dplyr::distinct(.data$id, .data$speaker_std)
 
   speakers_vec <- speakers_long |>
-    dplyr::group_by(.data$n) |>
+    dplyr::group_by(.data$id) |>
     dplyr::summarise(speakers = list(sort(unique(.data$speaker_std))), .groups = "drop")
 
   # --- topics: from topic_* flag columns in descriptions
@@ -116,33 +115,33 @@ read_transcript_meta_data <- function(quiet = TRUE) {
         })
       ) |>
       dplyr::ungroup() |>
-      dplyr::select(.data$n, .data$topics)
+      dplyr::select(.data$id, .data$topics)
   } else {
-    dplyr::transmute(desc, n = .data$n, topics = list(character(0)))
+    dplyr::transmute(desc, id = .data$id, topics = list(character(0)))
   }
 
   # --- word counts: from compiled_transcripts speech column
-  transcripts <- dplyr::mutate(transcripts, n = as.character(.data$n))
+  transcripts <- dplyr::mutate(transcripts, id = as.character(.data$id))
 
   duration_df <- transcripts |>
     dplyr::filter(!is.na(.data$speech) & .data$speech != "") |>
-    dplyr::group_by(.data$n) |>
+    dplyr::group_by(.data$id) |>
     dplyr::summarise(
       n_words = as.integer(sum(stringr::str_count(.data$speech, "\\S+"), na.rm = TRUE)),
       .groups = "drop"
     )
 
-  # --- convert joining tables to numeric n before assembly
-  speakers_vec <- dplyr::mutate(speakers_vec, n = as.numeric(.data$n))
-  duration_df  <- dplyr::mutate(duration_df,  n = as.numeric(.data$n))
-  topics_vec   <- dplyr::mutate(topics_vec,   n = as.numeric(.data$n))
+  # --- convert joining tables to numeric id before assembly
+  speakers_vec <- dplyr::mutate(speakers_vec, id = as.numeric(.data$id))
+  duration_df  <- dplyr::mutate(duration_df,  id = as.numeric(.data$id))
+  topics_vec   <- dplyr::mutate(topics_vec,   id = as.numeric(.data$id))
 
   # --- assemble output
   meta <- desc |>
-    dplyr::transmute(n = as.numeric(.data$n), date = as.character(.data$date)) |>
-    dplyr::left_join(speakers_vec, by = "n") |>
-    dplyr::left_join(duration_df,  by = "n") |>
-    dplyr::left_join(topics_vec,   by = "n")
+    dplyr::transmute(id = as.numeric(.data$id), date = as.character(.data$date)) |>
+    dplyr::left_join(speakers_vec, by = "id") |>
+    dplyr::left_join(duration_df,  by = "id") |>
+    dplyr::left_join(topics_vec,   by = "id")
 
   # ensure list-cols exist even if missing
   if (!"speakers" %in% names(meta)) meta$speakers <- replicate(nrow(meta), character(0), simplify = FALSE)
@@ -150,7 +149,7 @@ read_transcript_meta_data <- function(quiet = TRUE) {
   if (!"n_words"  %in% names(meta)) meta$n_words  <- NA_integer_
 
   meta <- meta |>
-    dplyr::select(.data$n, .data$date, .data$speakers, .data$n_words, .data$topics) |>
+    dplyr::select(.data$id, .data$date, .data$speakers, .data$n_words, .data$topics) |>
     tibble::as_tibble()
 
   if (!quiet) {

@@ -26,8 +26,8 @@ test_that("get_transcript_id filters by topic", {
 })
 
 test_that("get_transcript_id accepts multiple speakers (OR logic)", {
-  ids_single <- get_transcript_id(speaker = "kouri")
-  ids_multi  <- get_transcript_id(speaker = c("kouri", "montesinos"))
+  ids_single <- get_transcript_id(speaker = "crousillat")
+  ids_multi  <- get_transcript_id(speaker = c("crousillat", "montesinos"))
   expect_true(length(ids_multi) >= length(ids_single))
 })
 
@@ -38,9 +38,9 @@ test_that("get_transcript_id accepts multiple topics (OR logic)", {
 })
 
 test_that("get_transcript_id combines speaker and topic with OR", {
-  ids_speaker <- get_transcript_id(speaker = "kouri")
+  ids_speaker <- get_transcript_id(speaker = "crousillat")
   ids_topic   <- get_transcript_id(topic = "media")
-  ids_both    <- get_transcript_id(speaker = "kouri", topic = "media")
+  ids_both    <- get_transcript_id(speaker = "crousillat", topic = "media")
 
   # OR means combined should be at least as large as either alone
   expect_true(length(ids_both) >= length(ids_speaker))

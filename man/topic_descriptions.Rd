@@ -8,7 +8,7 @@
 A tibble with 15 rows and 2 variables:
 \describe{
 \item{topics}{Topic identifier, matching the \code{topic_*} column names
-in \code{descriptions} and \code{transcript_index}.}
+in \code{transcript_index}.}
 \item{descriptions}{Plain-language description of what the topic covers.}
 }
 }

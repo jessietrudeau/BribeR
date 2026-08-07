@@ -30,11 +30,15 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::shinylive, local::.
           needs: website
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      - name: Export shinylive transcript network app
+        run: shinylive::export("data-raw/shinylive-app", "docs/articles/network-app")
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀

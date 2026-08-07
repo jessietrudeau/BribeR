@@ -160,22 +160,26 @@ dataset. Each person is classified by their institutional role at the
 time of the recordings.
 
 ```{r actors-load, message=FALSE}
-head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
+head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 ```
 
-Actors are grouped into nine categories:
+Actors are grouped into eleven categories. Vladimiro Montesinos, the
+central figure of the transcripts, is kept in his own `montesinos`
+category rather than being grouped under `security`:
 
-| Type | Count | Description |
+| type | Count | Description |
 |------------------------|------------------------|------------------------|
-| `Security` | 31 | Military and police officers |
-| `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
-| `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
-| `Media` | 14 | Television channel and newspaper executives |
-| `Businessperson` | 12 | Private sector executives and financiers |
-| `Elected Official` | 9 | Mayors, executives, and (non-Congressional) other elected officials |
-| `Bureaucrat` | 8 | Senior civil servants and agency heads |
-| `Illicit` | 5 | Individuals primarily associated with armed groups |
-| `Foreign` | 3 | Foreign officials and diplomats |
+| `security` | 26 | Military and police officers |
+| `congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
+| `bureaucrat` | 15 | Senior civil servants and agency heads |
+| `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunal |
+| `foreign` | 13 | Foreign officials and diplomats |
+| `media` | 12 | Television channel and newspaper executives |
+| `illicit` | 8 | Individuals primarily associated with armed groups |
+| `businessperson` | 5 | Private sector executives and financiers |
+| `elected official` | 5 | Mayors, executives, and (non-Congressional) other elected officials |
+| `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
+| `unknown` | 1 | Institutional role not recorded |
 
 This figure shows that the three most common types of actors to be
 recorded are members of the security sector, congresspeople, and
@@ -183,8 +187,8 @@ bureaucrats.
 
 ```{r type-bar}
 actors |>
-  count(Type, sort = TRUE) |>
-  ggplot(aes(x = reorder(Type, n), y = n)) +
+  count(type, sort = TRUE) |>
+  ggplot(aes(x = reorder(type, n), y = n)) +
   geom_col(fill = "#8B1A1A") +
   coord_flip() +
   labs(
@@ -237,7 +241,7 @@ domestic security operations.
 ```{r topic-counts}
 topic_names <- c(
   "state_capture", "reelection", "media", "promotions", "foreign",
-  "ivcher", "canal4", "safety", "wiese", "lucchetti_factory",
+  "ivcher", "canal4", "security", "wiese", "lucchetti_factory",
   "ecuador", "referendum", "municipal98", "miraflores", "public_officials"
 )
 

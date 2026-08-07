@@ -48,8 +48,8 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
 
   df <- .load_pkg_data("speakers_per_transcript")
 
-  if (!"n" %in% names(df)) {
-    stop("Expected column 'n' in speakers_per_transcript dataset.", call. = FALSE)
+  if (!"id" %in% names(df)) {
+    stop("Expected column 'id' in speakers_per_transcript dataset.", call. = FALSE)
   }
 
   # accept both correct and misspelled prefixes
@@ -62,7 +62,7 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
   }
 
   # --- determine which transcript IDs to keep --------------------------------
-  all_ids <- sort(unique(as.numeric(df$n)), na.last = NA)
+  all_ids <- sort(unique(as.numeric(df$id)), na.last = NA)
   keep_ids <- all_ids
 
   # Filter by n
@@ -102,14 +102,14 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
     for (tc in topic_cols) {
       matched <- matched | (!is.na(index[[tc]]) & index[[tc]] != 0)
     }
-    topic_ids <- as.numeric(index$n[matched])
+    topic_ids <- as.numeric(index$id[matched])
     keep_ids <- intersect(keep_ids, topic_ids)
   }
 
   # --- pivot and summarise ---------------------------------------------------
   long <- df |>
-    dplyr::mutate(n = as.numeric(.data$n)) |>
-    dplyr::filter(.data$n %in% keep_ids) |>
+    dplyr::mutate(id = as.numeric(.data$id)) |>
+    dplyr::filter(.data$id %in% keep_ids) |>
     tidyr::pivot_longer(
       cols = dplyr::all_of(speaker_cols),
       names_to = "slot",
@@ -117,13 +117,13 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
     ) |>
     dplyr::mutate(speaker_std = trimws(as.character(.data$speaker_std))) |>
     dplyr::filter(!is.na(.data$speaker_std) & .data$speaker_std != "") |>
-    dplyr::distinct(.data$speaker_std, .data$n)
+    dplyr::distinct(.data$speaker_std, .data$id)
 
   # Group by speaker, collect transcript IDs
   long |>
     dplyr::group_by(.data$speaker_std) |>
     dplyr::summarise(
-      transcripts = list(sort(unique(.data$n))),
+      transcripts = list(sort(unique(.data$id))),
       .groups = "drop"
     ) |>
     dplyr::arrange(.data$speaker_std) |>

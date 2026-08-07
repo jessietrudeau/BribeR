@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_transcript_meta_data.R
 \name{read_transcript_meta_data}
 \alias{read_transcript_meta_data}
-\title{Read transcript-level metadata (n, date, speakers, duration, topics)}
+\title{Read transcript-level metadata (id, date, speakers, duration, topics)}
 \usage{
 read_transcript_meta_data(quiet = TRUE)
 }
@@ -12,7 +12,7 @@ read_transcript_meta_data(quiet = TRUE)
 \value{
 A tibble with one row per transcript and columns:
 \itemize{
-\item \code{n} (numeric): transcript identifier.
+\item \code{id} (numeric): transcript identifier.
 \item \code{date} (character): date associated with the transcript (or \code{NA} if absent).
 \item \code{speakers} (list of character): unique, sorted vector of speakers for the transcript.
 \item \code{n_words} (integer): total word count across the transcript's \code{speech} column.
@@ -23,17 +23,16 @@ A tibble with one row per transcript and columns:
 Builds a tidy data frame of transcript metadata from bundled package data.
 Combines information from three internal sources:
 \enumerate{
-\item \strong{descriptions} (transcript identifiers, dates, topic flags),
+\item \strong{transcript_index} (transcript identifiers, dates, topic flags),
 \item \strong{speakers_per_transcript} (speaker roster per transcript), and
 \item \strong{compiled_transcripts} (word counts derived from the \code{speech} column).
 }
 }
 \details{
 \itemize{
-\item \strong{Transcript ID (\code{n}) and \code{date}:} Read from the bundled \code{descriptions} dataset.
-\item \strong{Topics (\code{topics} list-column):} Columns in \code{descriptions} whose names start
-with \code{topic_} are interpreted as topic flags. A topic is considered present if the
-cell is "truthy" (e.g., \code{x}/\code{X}, non-empty string, \code{1}, \code{TRUE}). Topic names are
+\item \strong{Transcript ID (\code{id}) and \code{date}:} Read from the bundled \code{transcript_index} dataset.
+\item \strong{Topics (\code{topics} list-column):} Columns in \code{transcript_index} whose names start
+with \code{topic_} are interpreted as topic flags (1/0 integers). Topic names are
 normalized by removing the \code{topic_} prefix and replacing \verb{_} with spaces.
 \item \strong{Speakers (\code{speakers} list-column):} Read from the bundled \code{speakers_per_transcript}
 dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.

@@ -32,6 +32,8 @@ navbar:
           href: articles/briber_data_guide.html
         - text: "Using BribeR"
           href: articles/using_briber.html
+        - text: "Transcript Network App"
+          href: articles/transcript_network_app.html
 
 reference:
   - title: "Reading Transcripts"
@@ -60,10 +62,13 @@ reference:
     desc: "Bundled datasets included in BribeR."
     contents:
       - compiled_transcripts
-      - descriptions
       - transcript_index
       - speakers_per_transcript
       - actors
+
+  - title: "Helper Datasets"
+    desc: "Supporting datasets used internally by `run_transcript_network_app()`. Not intended for direct analysis."
+    contents:
       - actors_description
       - topic_descriptions
 
@@ -79,3 +84,4 @@ articles:
       - raw_data_guide
       - briber_data_guide
       - using_briber
+      - transcript_network_app

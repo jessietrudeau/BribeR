@@ -5,34 +5,43 @@
 \alias{transcript_index}
 \title{Transcript Index}
 \format{
-A tibble with 101 rows and 134 variables. Key variables:
+A tibble with 99 rows. Descriptive columns first, followed by
+speaker/topic counts, followed by the boolean (1/0) \verb{speaker_*} and
+\verb{topic_*} indicator columns:
 \describe{
-\item{n}{Numeric transcript identifier.}
-\item{file}{Relative path to the source CSV file.}
+\item{id}{Numeric transcript identifier (BribeR internal numbering).}
+\item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
 \item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 \item{date}{Date of the recording.}
-\item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
-topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
-topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
-topic_public_officials, topic_safety, topic_state_capture}{Integer
-indicator (1/0) for each topic.}
+\item{original_id}{Original transcript identifier from the source archive.}
+\item{in_book}{1 if the transcript is cited in published work, 0 otherwise.}
+\item{in_online_archive}{1 if available in the online archive, 0 otherwise.}
+\item{type}{Recording medium (\code{"audio"} or \code{"video"}).}
+\item{summary}{Plain-language English summary of the transcript content.}
+\item{speakers}{Free-text description of participants.}
+\item{speaker_count}{Total number of distinct speakers in the transcript.}
+\item{topic_count}{Total number of topics flagged for the transcript.}
 \item{speaker_SURNAME}{Integer indicator (1/0) for each standardized
 speaker. One column per unique speaker, named \code{speaker_} followed
 by the speaker's standardized surname.}
-\item{topic_count}{Total number of topics flagged for the transcript.}
-\item{speaker_count}{Total number of distinct speakers in the transcript.}
+\item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
+topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
+topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
+topic_public_officials, topic_security, topic_state_capture}{Integer
+indicator (1/0) for each topic.}
 }
 }
 \source{
-Derived from the Vladivideos transcripts and the package's
-descriptions and speakers datasets.
+Derived from the Vladivideos transcripts and accompanying metadata.
 }
 \usage{
 transcript_index
 }
 \description{
-A wide-format lookup table with one row per transcript. Contains boolean
-indicator columns for each topic and each speaker, enabling fast filtering
-without loading the full corpus.
+A wide-format lookup table with one row per transcript, combining
+descriptive metadata with binary indicator columns for topics and
+speakers, enabling fast filtering without loading the full corpus. This
+is the single source of transcript-level metadata for the package; there
+is no separate \code{descriptions} dataset.
 }
 \keyword{datasets}

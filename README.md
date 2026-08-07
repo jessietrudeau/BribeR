@@ -1,4 +1,4 @@
-# BribeR <img src="inst/images/montesinos.PNG" align="right" height="138" alt="Montesinos" />
+# BribeR <img src="man/figures/montesinos.png" align="right" height="138" alt="Montesinos" />
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/BribeR)](https://CRAN.R-project.org/package=BribeR)

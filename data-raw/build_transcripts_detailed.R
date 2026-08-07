@@ -10,25 +10,13 @@ library(stringr)
 library(purrr)
 
 # ---- define paths ----
-transcript_dir <- "data-raw/transcripts"
+transcript_dir <- "inst/data-raw/transcripts"
 descriptions_path <- "data-raw/Inventory & Descriptions/Descriptions.csv"
-output_path <- "data/vladivideos_detailed.rda"  # you can rename this
+output_path <- "data/compiled_transcripts.rda"
 
 # ---- read descriptions ----
-descriptions <- read_csv(descriptions_path, show_col_types = FALSE)
-
-# identify all columns that start with "topic_"
-topic_cols <- grep("^topic_", names(descriptions), value = TRUE)
-
-# for each row, concatenate the *column names* where the value == "x"
-descriptions <- descriptions %>%
-  rowwise() %>%
-  mutate(topic = paste(
-    topic_cols[which(c_across(all_of(topic_cols)) == "x")],
-    collapse = ", "
-  )) %>%
-  ungroup() %>%
-  select(n, date, topic)
+descriptions <- read_csv(descriptions_path, show_col_types = FALSE) %>%
+  select(id = n, date)
 
 # ---- read transcripts ----
 transcript_files <- list.files(transcript_dir, pattern = "\\.csv$", full.names = TRUE)
@@ -39,7 +27,7 @@ read_single_transcript <- function(file_path) {
   
   data %>%
     mutate(
-      n = n_value,
+      id = n_value,
       row_id = row_number()
     )
 }
@@ -48,7 +36,15 @@ all_transcripts <- map_dfr(transcript_files, read_single_transcript)
 
 # ---- merge topic and date info ----
 compiled_transcripts <- all_transcripts %>%
-  left_join(descriptions, by = "n")
+  left_join(descriptions, by = "id")
+
+# ---- lowercase speaker columns ----
+compiled_transcripts <- compiled_transcripts %>%
+  mutate(across(any_of(c("speaker", "speaker_std")), tolower))
+
+# ---- order columns (speaker_std before the speech text; see briber_data_guide) ----
+compiled_transcripts <- compiled_transcripts %>%
+  select(id, row_id, date, speaker_std, speaker, speech)
 
 # ---- save as RDA ----
 if (!dir.exists("data")) dir.create("data")

@@ -1,7 +1,7 @@
 test_that("read_transcript_meta_data returns a tibble with expected columns", {
   meta <- read_transcript_meta_data()
   expect_s3_class(meta, "tbl_df")
-  expect_true(all(c("n", "date", "speakers", "n_words", "topics") %in% names(meta)))
+  expect_true(all(c("id", "date", "speakers", "n_words", "topics") %in% names(meta)))
   expect_gt(nrow(meta), 0)
 })
 

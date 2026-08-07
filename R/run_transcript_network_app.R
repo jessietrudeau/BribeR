@@ -36,7 +36,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     env[[object_name]]
   }
 
-  descriptions           <- .load_pkg_data("descriptions")
+  descriptions           <- .load_pkg_data("transcript_index")
   speakers_df            <- .load_pkg_data("speakers_per_transcript")
   topic_descriptions     <- .load_pkg_data("topic_descriptions")
   actor_descriptions_raw <- .load_pkg_data("actors")
@@ -142,43 +142,44 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Type colors ===
     type_colors <- c(
-      "Congress"         = "#BDB2FF", "Security"   = "#A0C4FF", "Bureaucrat" = "#CAFFBF",
-      "Judiciary"        = "#FDFFB6", "Foreign"    = "#FFD6A5", "Media"      = "#FFADAD",
-      "Illicit"          = "#FFC6FF", "Elected Official" = "#9BF6FF",
-      "Businessperson"   = "#4daf4a", "Unknown"    = "grey"
+      "montesinos"       = "#E63946",
+      "congress"         = "#BDB2FF", "security"   = "#A0C4FF", "bureaucrat" = "#CAFFBF",
+      "judiciary"        = "#FDFFB6", "foreign"    = "#FFD6A5", "media"      = "#FFADAD",
+      "illicit"          = "#FFC6FF", "elected official" = "#9BF6FF",
+      "businessperson"   = "#4daf4a", "unknown"    = "grey"
     )
 
     # === Topic reshape ===
     long_topics <- descriptions |>
-      dplyr::select(.data$n, tidyselect::starts_with("topic_")) |>
+      dplyr::select(.data$id, tidyselect::starts_with("topic_")) |>
       tidyr::pivot_longer(
         tidyselect::starts_with("topic_"),
         names_to = "topic",
         values_to = "included"
       ) |>
-      dplyr::filter(.data$included == "x") |>
+      dplyr::filter(.data$included == 1L) |>
       dplyr::mutate(
-        n     = as.character(.data$n),
+        id    = as.character(.data$id),
         topic = stringr::str_remove(.data$topic, "^topic_")
       )
 
     # === Speakers reshape ===
     speaker_long <- speakers_df |>
       tidyr::pivot_longer(
-        cols = -.data$n,
+        cols = -.data$id,
         names_to = "speaker_col",
         values_to = "speaker"
       ) |>
       dplyr::filter(!is.na(.data$speaker), .data$speaker != "") |>
       dplyr::mutate(
-        n       = as.character(.data$n),
+        id      = as.character(.data$id),
         speaker = stringr::str_trim(.data$speaker)
       )
 
     # === Edges: Speaker -> Topic ===
     edges_speaker_topic <- speaker_long |>
-      dplyr::inner_join(long_topics, by = "n") |>
-      dplyr::mutate(speaker_std = stringr::str_to_lower(.data$speaker)) |>
+      dplyr::inner_join(long_topics, by = "id") |>
+      dplyr::mutate(speaker_std = .data$speaker) |>
       dplyr::distinct(.data$speaker_std, .data$topic) |>
       dplyr::left_join(
         speaker_frequency |>
@@ -193,12 +194,12 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Speaker pairs for placeholder edges (for layout support) ===
     speaker_pairs_topic_net <- speaker_long |>
-      dplyr::select(.data$n, .data$speaker) |>
+      dplyr::select(.data$id, .data$speaker) |>
       dplyr::distinct() |>
-      dplyr::group_by(.data$n) |>
+      dplyr::group_by(.data$id) |>
       dplyr::filter(dplyr::n() > 1) |>
       dplyr::summarise(
-        pairs = list(combn(stringr::str_to_lower(.data$speaker), 2, simplify = FALSE)),
+        pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
         .groups = "drop"
       ) |>
       tidyr::unnest(.data$pairs) |>
@@ -228,9 +229,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Speaker pairs for co-appearance network ===
     speaker_pairs <- speaker_long |>
-      dplyr::select(.data$n, .data$speaker) |>
+      dplyr::select(.data$id, .data$speaker) |>
       dplyr::distinct() |>
-      dplyr::group_by(.data$n) |>
+      dplyr::group_by(.data$id) |>
       dplyr::filter(dplyr::n() > 1) |>
       dplyr::summarise(
         pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
@@ -246,10 +247,6 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     edges_speaker_co <- speaker_pairs |>
       dplyr::mutate(
-        from = stringr::str_to_lower(.data$from),
-        to   = stringr::str_to_lower(.data$to)
-      ) |>
-      dplyr::mutate(
         edge_id = paste(
           pmin(.data$from, .data$to),
           pmax(.data$from, .data$to),
@@ -264,20 +261,18 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Speaker nodes (actors + frequency) ===
     nodes_speaker_base <- speaker_long |>
-      dplyr::transmute(id = stringr::str_to_lower(stringr::str_trim(.data$speaker))) |>
+      dplyr::transmute(id = stringr::str_trim(.data$speaker)) |>
       dplyr::distinct()
 
     actor_descriptions <- actor_descriptions_raw |>
       dplyr::mutate(
-        Type = stringr::str_trim(.data$Type),
-        Type = stringr::str_to_title(.data$Type),
-        Type = dplyr::case_when(
-          .data$Type %in% c("Illict", "Illicit") ~ "Illicit",
-          .data$Type == "Bereaucrat"             ~ "Bureaucrat",
-          .data$Type == "Elected official"       ~ "Elected Official",
-          .data$Type == "Business"               ~ "Businessperson",
-          is.na(.data$Type) | .data$Type == ""   ~ "Unknown",
-          TRUE                                   ~ .data$Type
+        type = stringr::str_trim(.data$type),
+        type = dplyr::case_when(
+          .data$type %in% c("illict", "illicit") ~ "illicit",
+          .data$type == "bereaucrat"             ~ "bureaucrat",
+          .data$type == "business"               ~ "businessperson",
+          is.na(.data$type) | .data$type == ""   ~ "unknown",
+          TRUE                                   ~ .data$type
         ),
         name = dplyr::coalesce(.data$speaker, .data$speaker_std)
       )
@@ -286,16 +281,15 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::left_join(
         actor_descriptions |>
           dplyr::mutate(
-            speaker_std       = stringr::str_trim(.data$speaker_std),
-            speaker_std_lower = stringr::str_to_lower(.data$speaker_std),
-            Position          = dplyr::coalesce(.data$Position, "No info"),
-            Type              = dplyr::if_else(
-              is.na(.data$Type) | .data$Type == "",
-              "Unknown",
-              .data$Type
+            speaker_std = stringr::str_trim(.data$speaker_std),
+            position    = dplyr::coalesce(.data$position, "No info"),
+            type        = dplyr::if_else(
+              is.na(.data$type) | .data$type == "",
+              "unknown",
+              .data$type
             )
           ),
-        by = dplyr::join_by(id == speaker_std_lower)
+        by = dplyr::join_by(id == speaker_std)
       ) |>
       dplyr::left_join(
         speaker_frequency |>
@@ -304,8 +298,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       ) |>
       dplyr::mutate(
         group = "Speaker",
-        color = type_colors[.data$Type],
-        color = ifelse(is.na(.data$color), type_colors[["Unknown"]], .data$color),
+        color = type_colors[.data$type],
+        color = ifelse(is.na(.data$color), type_colors[["unknown"]], .data$color),
         # Use display name as label so nodesIdSelection dropdown shows it via
         # useLabels = TRUE. On-graph text is suppressed via font.size = 0.
         label = dplyr::coalesce(
@@ -317,8 +311,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         title = paste0(
           "<b>", dplyr::coalesce(.data$name, .data$id), "</b><br>",
           "<b>Standardized ID:</b> ", .data$id, "<br>",
-          "<b>Type:</b> ", dplyr::coalesce(.data$Type, "Unknown"), "<br>",
-          "<b>Position:</b> ", dplyr::coalesce(.data$Position, "No info"), "<br>",
+          "<b>Type:</b> ", dplyr::coalesce(.data$type, "unknown"), "<br>",
+          "<b>Position:</b> ", dplyr::coalesce(.data$position, "No info"), "<br>",
           "<b>Transcripts:</b> ", dplyr::coalesce(as.character(.data$conversation_count), "0")
         )
       ) |>

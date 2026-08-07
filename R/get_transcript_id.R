@@ -45,11 +45,11 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   utils::data("compiled_transcripts", package = "BribeR", envir = env)
   data <- env$compiled_transcripts
 
-  if (!"n" %in% names(data)) {
-    stop("Column 'n' not found in the dataset.", call. = FALSE)
+  if (!"id" %in% names(data)) {
+    stop("Column 'id' not found in the dataset.", call. = FALSE)
   }
 
-  all_ids <- sort(unique(as.numeric(data$n)), na.last = NA)
+  all_ids <- sort(unique(as.numeric(data$id)), na.last = NA)
 
   # If no filters, return all IDs
   if (is.null(speaker) && is.null(topic)) {
@@ -62,7 +62,7 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   index <- env2$transcript_index
 
   # Restrict to IDs that exist in the transcripts
-  index <- index[index$n %in% all_ids, ]
+  index <- index[index$id %in% all_ids, ]
 
   # Collect matching row indices (OR across all filters)
   matched <- logical(nrow(index))
@@ -112,6 +112,6 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
     }
   }
 
-  filtered_ids <- sort(as.numeric(index$n[matched]), na.last = NA)
+  filtered_ids <- sort(as.numeric(index$id[matched]), na.last = NA)
   filtered_ids
 }

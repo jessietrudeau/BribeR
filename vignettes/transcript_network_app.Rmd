@@ -1,0 +1,55 @@
+---
+title: "Transcript Network App"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Transcript Network App}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>"
+)
+```
+
+## Overview
+
+`run_transcript_network_app()` launches an interactive Shiny application
+visualizing the relationships between speakers and topics across the
+Vladivideos transcript corpus. It provides two network views:
+
+- **Speaker-Topic Network** -- connects speakers to the topics discussed in
+  their transcripts.
+- **Speaker Co-Appearance Network** -- connects speakers who appear in the
+  same transcript.
+
+On the package website, the app below runs live in your browser via
+[shinylive](https://posit-dev.github.io/r-shinylive/) -- a WebAssembly build
+of R that needs no Shiny server. It behaves the same as calling
+`run_transcript_network_app()` in RStudio or VS Code: select a speaker from
+the dropdown, drag nodes, zoom, and hover for details.
+
+```{=html}
+<iframe
+  src="network-app/index.html"
+  width="100%"
+  height="950"
+  style="border: 1px solid #d5d4c7; border-radius: 4px;"
+  allowfullscreen>
+</iframe>
+```
+
+First load takes a few seconds while the in-browser R runtime and packages
+initialize.
+
+```{r, eval=FALSE}
+# To run the same app locally instead:
+library(BribeR)
+run_transcript_network_app()
+```
+
+If you're reading this vignette outside the package website (e.g. via
+`browseVignettes()`), the embedded app above won't load -- run
+`run_transcript_network_app()` directly instead.

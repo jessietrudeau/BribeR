@@ -7,12 +7,10 @@
 \format{
 A tibble with 101 rows and 20 variables:
 \describe{
-\item{n}{Numeric transcript identifier.}
-\item{speakrer_std_1 ... speakrer_std_19}{Standardized speaker identifier
+\item{id}{Numeric transcript identifier.}
+\item{speaker_std_1 ... speaker_std_19}{Standardized speaker identifier
 for the 1st through 19th speaker slot. \code{NA} if the slot is unused
-for that transcript. Note: column names contain a known typo
-(\code{speakrer} instead of \code{speaker}) preserved from the source
-data.}
+for that transcript.}
 }
 }
 \source{

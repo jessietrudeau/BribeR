@@ -3,11 +3,11 @@
 #' Loads the bundled `compiled_transcripts` dataset and optionally filters
 #' by transcript ID(s).
 #'
-#' @param transcripts Optional numeric vector of transcript IDs (`n`) to
-#'   keep. If `NULL` (the default), all transcripts are returned.
+#' @param transcripts Optional numeric vector of transcript IDs to keep.
+#'   If `NULL` (the default), all transcripts are returned.
 #'
-#' @return A data frame with columns `n`, `row_id`, `date`, `speaker`,
-#'   `speech`, `speaker_std`, and `topic`.
+#' @return A data frame with columns `id`, `row_id`, `date`, `speaker_std`,
+#'   `speaker`, and `speech`.
 #'
 #' @examples
 #' # Load all transcripts
@@ -28,21 +28,15 @@ read_transcripts <- function(transcripts = NULL) {
   data <- env$compiled_transcripts
 
   if (!is.null(transcripts)) {
-    if (!"n" %in% names(data)) {
-      stop("Column 'n' not found in the data; cannot filter by transcript.")
+    if (!"id" %in% names(data)) {
+      stop("Column 'id' not found in the data; cannot filter by transcript.")
     }
-    data <- data[data$n %in% transcripts, ]
+    data <- data[data$id %in% transcripts, ]
     if (nrow(data) == 0) {
       warning("No transcripts found matching IDs: ",
               paste(transcripts, collapse = ", "))
     }
   }
-
-  # Reorder columns: n, row_id, date first, then everything else
-  first_cols <- c("n", "row_id", "date")
-  first_cols <- first_cols[first_cols %in% names(data)]
-  remaining <- setdiff(names(data), first_cols)
-  data <- data[, c(first_cols, remaining), drop = FALSE]
 
   return(data)
 }

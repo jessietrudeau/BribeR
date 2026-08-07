@@ -8,12 +8,14 @@
 A tibble with 125 rows and 6 variables:
 \describe{
 \item{speaker}{Full name of the individual.}
-\item{Position}{Institutional role or title at the time of the recordings.}
-\item{Type}{Broad institutional category. One of \code{"Security"},
-\code{"Congress"}, \code{"Judiciary"}, \code{"Media"},
-\code{"Businessperson"}, \code{"Elected Official"}, \code{"Bureaucrat"},
-\code{"Foreign"}, \code{"Illicit"}, or \code{"Unknown"}.}
-\item{Party}{Political party affiliation, where applicable.}
+\item{position}{Institutional role or title at the time of the recordings.}
+\item{type}{Broad institutional category (lowercase). One of
+\code{"montesinos"} (Vladimiro Montesinos himself, kept separate from
+\code{"security"}), \code{"security"}, \code{"congress"},
+\code{"judiciary"}, \code{"media"}, \code{"businessperson"},
+\code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
+\code{"illicit"}, or \code{"unknown"}.}
+\item{party}{Political party affiliation, where applicable.}
 \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
 column in the transcripts corpus.}
 \item{notes}{Additional notes on the individual.}

@@ -53,8 +53,8 @@ remotes::install_github("jessietrudeau/BribeR")
 
 The main entry point is `read_transcripts()`, which loads the full corpus as
 a tidy data frame. Each row is one speech turn, with columns for the
-transcript ID (`n`), speaker, speech text, standardized speaker name, date,
-and topic.
+transcript ID (`id`), row number (`row_id`), date, standardized speaker name,
+raw speaker label, and speech text.
 
 ```{r read-all}
 library(BribeR)
@@ -96,7 +96,7 @@ length(media_ids)
 
 Available topic names include: `referendum`, `ecuador`, `lucchetti_factory`,
 `municipal98`, `reelection`, `miraflores`, `canal4`, `media`, `promotions`,
-`ivcher`, `foreign`, `wiese`, `public_officials`, `safety`, and
+`ivcher`, `foreign`, `wiese`, `public_officials`, `security`, and
 `state_capture`.
 
 ## Getting Speakers Per Transcript
@@ -135,7 +135,7 @@ head(meta)
 # Five longest transcripts by word count
 meta |>
   arrange(desc(n_words)) |>
-  select(n, date, n_words) |>
+  select(id, date, n_words) |>
   head(5)
 ```
 

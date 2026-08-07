@@ -5,15 +5,14 @@
 \alias{compiled_transcripts}
 \title{Vladivideos Detailed Transcripts}
 \format{
-A tibble with 47,375 rows and 7 variables:
+A tibble with 46,597 rows and 6 variables:
 \describe{
-\item{n}{Numeric transcript identifier.}
+\item{id}{Numeric transcript identifier.}
 \item{row_id}{Row number within the transcript.}
 \item{date}{Date of the recording (character).}
+\item{speaker_std}{Standardized speaker identifier (lowercase surname).}
 \item{speaker}{Raw speaker label as it appears in the original transcript.}
 \item{speech}{Text of the speaker's turn (in Spanish).}
-\item{speaker_std}{Standardized speaker identifier (uppercase surname).}
-\item{topic}{Primary topic tag assigned to the transcript.}
 }
 }
 \source{

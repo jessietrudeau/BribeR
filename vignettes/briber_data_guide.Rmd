@@ -49,41 +49,50 @@ glimpse(transcripts)
 | `speaker_std` | character | Standardized speaker identifier         |
 | `speaker`     | character | Raw speaker label from the source       |
 | `speech`      | character | Speech text (Spanish)                   |
-| `topic`       | character | Primary(?) topic tag for the transcript |
-
-`id`, `date`, and `topic` are transcript-level variables, while `row_id`
+`id` and `date` are transcript-level variables, while `row_id`
 corresponds to the within-conversation turn identifier, and
-`speaker_std` and `speaker` correspond to the standardized and unedited
-text label for the speaker, respectively. The `speech` variable is
-unedited and in its original Spanish-language format.
+`speaker_std` and `speaker` correspond to the standardized (lowercase)
+and unedited text label for the speaker, respectively. The `speech`
+variable is unedited and in its original Spanish-language format.
 
 ## `transcript_index`
 
-This wide-format file contains transcript-level metadata, including date
-of the recording, recording type (AUDIO OR VIDEO?), short English
-summaries, topic indicators, speaker indicators.
+This wide-format file contains one row per transcript, combining
+descriptive metadata with binary indicator columns for topics and
+speakers. It is the primary lookup table for filtering the corpus, and
+the single source of transcript-level metadata in **BribeR** — there is
+no separate `descriptions` dataset. Descriptive columns come first,
+followed by speaker/topic counts, followed by the `speaker_*` and
+`topic_*` indicator columns.
 
-```{r descriptions}
-head(descriptions[, c("n", "date", "type", "summary")])
+```{r transcript-index}
+head(transcript_index[, c("id", "file", "format", "date", "original_id", "type", "summary")])
 ```
 
-| Column      | Type    | Description                  |
-|-------------|---------|------------------------------|
-| `id`        | numeric | Transcript identifier        |
-| `id_raw`    | numeric | Source transcript identifier |
-| ....        | numeric | FILL IN THE REST OF TABLE... |
-| ....        | numeric | FILL IN THE REST OF TABLE... |
-| ....        | numeric | FILL IN THE REST OF TABLE... |
-| `topic_*`   | numeric | Topic indicators             |
-| `speaker_*` | numeric | Speaker indicators           |
+| Column               | Type      | Description                                        |
+|----------------------|-----------|----------------------------------------------------|
+| `id`                 | numeric   | Transcript identifier (BribeR internal numbering)  |
+| `file`               | character | Source transcript filename (e.g. `"14.csv"`)       |
+| `format`             | character | File format of the source transcript (e.g. `"csv"`)|
+| `date`               | date      | Recording date                                     |
+| `original_id`        | character | Original source archive identifier                 |
+| `in_book`            | integer   | 1 if cited in published work, 0 otherwise          |
+| `in_online_archive`  | integer   | 1 if available in the online archive, 0 otherwise  |
+| `type`               | character | Recording medium (`"audio"` or `"video"`)          |
+| `summary`            | character | Plain-language English summary                     |
+| `speakers`           | character | Free-text description of participants              |
+| `speaker_count`      | integer   | Total distinct speakers in the transcript          |
+| `topic_count`        | integer   | Total topics flagged for the transcript            |
+| `speaker_*`          | integer   | Speaker indicators (1/0)                           |
+| `topic_*`            | integer   | Topic indicators (1/0)                             |
 
-The 15 `topic_*` and 125 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 113 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
 
 ```{r topic-flags}
-names(descriptions)[grepl("^topic_", names(descriptions))] 
+names(transcript_index)[grepl("^topic_", names(transcript_index))]
 ```
 
 ## `speakers_per_transcript`
@@ -99,9 +108,6 @@ order (?).
 speakers_per_transcript[3, ]
 ```
 
-**ANDRES: FIX THIS IN THE RAW DATA -- Note: the column names contain a
-known typo (`speakrer` instead of `speaker`) preserved from the source
-data. The package handles this automatically in all functions.**
 
 ## `actors`
 
@@ -109,21 +115,22 @@ This file contains biographical and institutional metadata for 125
 individuals named in the transcripts.
 
 ```{r actors}
-head(actors[, c("speaker", "Position", "Type", "speaker_std")])
+head(actors[, c("speaker", "position", "type", "speaker_std")])
 ```
 
-The `Type` column references the categories described in the Raw Data
-Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`,
-`Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and
-`Illicit`.
+The `type` column references the categories described in the Raw Data
+Guide: `montesinos`, `security`, `congress`, `judiciary`, `media`,
+`businessperson`, `elected official`, `bureaucrat`, `foreign`, and
+`illicit`. Vladimiro Montesinos is kept in his own `montesinos` category
+rather than being grouped under `security`.
 
 For elected officials, the political party at the time of the recording
 is also included, **CONSISTENT WITH V-DEM PARTY LABELS(?)**
 
 ```{r actors 2}
-actors %>% 
-  filter(Type == "Congress") %>% 
-  select(speaker_std, Type, Party) %>% 
+actors %>%
+  filter(type == "congress") %>%
+  select(speaker_std, type, party) %>%
   slice_head()
   
 ```
@@ -139,6 +146,7 @@ connect the datasets:
 | `compiled_transcripts` | `transcript_index`        | `id`          |
 | `compiled_transcripts` | `speakers_per_transcript` | `id`          |
 | `compiled_transcripts` | `actors`                  | `speaker_std` |
+| `transcript_index`     | `speakers_per_transcript` | `id`          |
 
 ## `id`
 
@@ -151,8 +159,8 @@ simplicity.
 
 ```{r id-example}
 ## id column, crossed with original id and source
-descriptions %>% 
-  select(n, original_n, in_book, in_online_archive) %>% 
+transcript_index %>%
+  select(id, original_id, in_book, in_online_archive) %>%
   slice_head()
 ```
 
@@ -167,9 +175,9 @@ identifier for each speaker, consistent across all transcripts. Use
 filters.
 
 ```{r speaker-std-example}
-## add comment 
+# Count Montesinos's speaking turns across all transcripts
 transcripts |>
-  filter(speaker_std == "MONTESINOS") |>
+  filter(speaker_std == "montesinos") |>
   summarise(n_turns = n())
 ```
 
