@@ -14,16 +14,14 @@ speakers_per_transcript
 
 A tibble with 101 rows and 20 variables:
 
-- n:
+- id:
 
   Numeric transcript identifier.
 
-- speakrer_std_1 ... speakrer_std_19:
+- speaker_std_1 ... speaker_std_19:
 
   Standardized speaker identifier for the 1st through 19th speaker slot.
-  `NA` if the slot is unused for that transcript. Note: column names
-  contain a known typo (`speakrer` instead of `speaker`) preserved from
-  the source data.
+  `NA` if the slot is unused for that transcript.
 
 ## Source
 

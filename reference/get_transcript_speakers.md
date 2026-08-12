@@ -57,44 +57,44 @@ head(speakers)
 #> # A tibble: 6 × 2
 #>   speaker_std   transcripts
 #>   <chr>         <list>     
-#> 1 ALBARRACIN    <dbl [2]>  
-#> 2 ALBERTO KOURI <dbl [1]>  
-#> 3 ALEX KOURI    <dbl [11]> 
-#> 4 ALVA          <dbl [1]>  
-#> 5 AMERICANO     <dbl [2]>  
-#> 6 AMOIN         <dbl [1]>  
+#> 1 albarracin    <dbl [2]>  
+#> 2 alberto kouri <dbl [1]>  
+#> 3 alex kouri    <dbl [11]> 
+#> 4 alva          <dbl [1]>  
+#> 5 americano     <dbl [2]>  
+#> 6 amoin         <dbl [1]>  
 
 # Get speakers from specific transcripts
 get_transcript_speakers(n = c(1, 5))
 #> # A tibble: 9 × 2
 #>   speaker_std      transcripts
 #>   <chr>            <list>     
-#> 1 ALVA             <dbl [1]>  
-#> 2 BOROBIO          <dbl [1]>  
-#> 3 BURNET           <dbl [1]>  
-#> 4 GARCIA           <dbl [1]>  
-#> 5 HERNANDEZ CANELO <dbl [1]>  
-#> 6 LEWIS            <dbl [1]>  
-#> 7 MONTESINOS       <dbl [1]>  
-#> 8 SERPA            <dbl [1]>  
-#> 9 VALLE RIESTRA    <dbl [1]>  
+#> 1 alva             <dbl [1]>  
+#> 2 borobio          <dbl [1]>  
+#> 3 burnet           <dbl [1]>  
+#> 4 garcia           <dbl [1]>  
+#> 5 hernandez canelo <dbl [1]>  
+#> 6 lewis            <dbl [1]>  
+#> 7 montesinos       <dbl [1]>  
+#> 8 serpa            <dbl [1]>  
+#> 9 valle riestra    <dbl [1]>  
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
-#> # A tibble: 52 × 2
+#> # A tibble: 51 × 2
 #>    speaker_std   transcripts
 #>    <chr>         <list>     
-#>  1 ALBERTO KOURI <dbl [1]>  
-#>  2 ALEX KOURI    <dbl [4]>  
-#>  3 ARANCIBIA     <dbl [1]>  
-#>  4 ARCE          <dbl [2]>  
-#>  5 BELLO VAZQUEZ <dbl [1]>  
-#>  6 BOROBIO       <dbl [3]>  
-#>  7 BRINGAS       <dbl [1]>  
-#>  8 CALMELL       <dbl [4]>  
-#>  9 CAMPOS        <dbl [1]>  
-#> 10 CHIRINOS      <dbl [1]>  
-#> # ℹ 42 more rows
+#>  1 alberto kouri <dbl [1]>  
+#>  2 alex kouri    <dbl [3]>  
+#>  3 arancibia     <dbl [1]>  
+#>  4 arce          <dbl [2]>  
+#>  5 bello vazquez <dbl [1]>  
+#>  6 borobio       <dbl [3]>  
+#>  7 bringas       <dbl [1]>  
+#>  8 calmell       <dbl [4]>  
+#>  9 campos        <dbl [1]>  
+#> 10 chirinos      <dbl [1]>  
+#> # ℹ 41 more rows
 
 # Get speakers from transcript 1 that is also about media
 get_transcript_speakers(n = 1, topic = "media")

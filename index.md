@@ -1,4 +1,4 @@
-# BribeR ![Montesinos](inst/images/montesinos.PNG)
+# BribeR ![Montesinos](reference/figures/montesinos.png)
 
 **{BribeR}** is an R package for accessing and analyzing text transcript
 data from the *Vladivideos,* covert recordings documenting bribery and

@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/raw_data_guide.html">Raw Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/briber_data_guide.html">BribeR Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/using_briber.html">Using BribeR</a></li>
-    <li><a class="dropdown-item" href="../articles/visualizing_briber.html">Visualizing BribeR (Shiny)</a></li>
+    <li><a class="dropdown-item" href="../articles/transcript_network_app.html">Transcript Network App</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -174,7 +174,7 @@ transcripts that were present only in the print volumes.</li>
 <span><span class="co">## There are 101 transcripts in the dataset</span></span>
 <span><span class="va">meta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 101</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 99</span></span></code></pre></div>
 <p>Transcripts range from brief exchanges of a few hundred words to
 lengthy multi-hour meetings exceeding 29,000 words. The median
 transcript is approximately 8,500 words (approximately an hour-long
@@ -182,7 +182,7 @@ conversation).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">meta</span><span class="op">$</span><span class="va">n_words</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">#&gt;     175    4544    8547    8946   11721   29161</span></span>
+<span><span class="co">#&gt;     175    4584    8547    8981   11758   29161</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">meta</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">n_words</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">25</span>, fill <span class="op">=</span> <span class="st">"#8B1A1A"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -202,17 +202,20 @@ individuals named in the Vladivideos transcripts through the
 <code>actors</code> dataset. Each person is classified by their
 institutional role at the time of the recordings.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speaker"</span>, <span class="st">"Position"</span>, <span class="st">"Type"</span>, <span class="st">"Party"</span>, <span class="st">"speaker_std"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speaker"</span>, <span class="st">"position"</span>, <span class="st">"type"</span>, <span class="st">"party"</span>, <span class="st">"speaker_std"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">#&gt;   speaker                         Position               Type  Party speaker_std</span></span>
+<span><span class="co">#&gt;   speaker                         position               type  party speaker_std</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Vladimir Montesinos             Alberto Fujimori's Ch… Secu… <span style="color: #BB0000;">NA</span>    MONTESINOS </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Desconocido                     <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    DESCONOCIDO</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Alexander Martin Kouri Bumachar Elected Constituent C… Cong… Part… ALEX KOURI </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lucchetti                       Company specialized i… Busi… <span style="color: #BB0000;">NA</span>    LUCCHETTI  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Carlos Eduardo Ferrero Costa    Congressman (1995-200… Cong… Camb… FERRERO    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Alberto Fujimori                President of Peru (19… Elec… <span style="color: #BB0000;">NA</span>    FUJIMORI</span></span></code></pre></div>
-<p>Actors are grouped into nine categories:</p>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> vladimir montesinos             Head of National Inte… mont… <span style="color: #BB0000;">NA</span>    montesinos </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> desconocido                     <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    desconocido</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> alexander martin kouri bumachar Elected Constituent C… cong… Part… alex kouri </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> lucchetti                       Company specialized i… busi… <span style="color: #BB0000;">NA</span>    lucchetti  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> carlos eduardo ferrero costa    Congressman (1995-200… cong… Camb… ferrero    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> alberto fujimori                President of Peru (19… elec… <span style="color: #BB0000;">NA</span>    fujimori</span></span></code></pre></div>
+<p>Actors are grouped into eleven categories. Vladimiro Montesinos, the
+central figure of the transcripts, is kept in his own
+<code>montesinos</code> category rather than being grouped under
+<code>security</code>:</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -220,57 +223,68 @@ institutional role at the time of the recordings.</p>
 <col width="33%">
 </colgroup>
 <thead><tr class="header">
-<th>Type</th>
+<th>type</th>
 <th>Count</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>Security</code></td>
-<td>31</td>
+<td><code>security</code></td>
+<td>26</td>
 <td>Military and police officers</td>
 </tr>
 <tr class="even">
-<td><code>Congress</code></td>
+<td><code>congress</code></td>
 <td>25</td>
 <td>Members of Congress, including opposition members bribed to switch
 allegiance</td>
 </tr>
 <tr class="odd">
-<td><code>Judiciary</code></td>
-<td>18</td>
-<td>Judges, prosecutors, and members of the electoral tribunal</td>
-</tr>
-<tr class="even">
-<td><code>Media</code></td>
-<td>14</td>
-<td>Television channel and newspaper executives</td>
-</tr>
-<tr class="odd">
-<td><code>Businessperson</code></td>
-<td>12</td>
-<td>Private sector executives and financiers</td>
-</tr>
-<tr class="even">
-<td><code>Elected Official</code></td>
-<td>9</td>
-<td>Mayors, executives, and (non-Congressional) other elected
-officials</td>
-</tr>
-<tr class="odd">
-<td><code>Bureaucrat</code></td>
-<td>8</td>
+<td><code>bureaucrat</code></td>
+<td>15</td>
 <td>Senior civil servants and agency heads</td>
 </tr>
 <tr class="even">
-<td><code>Illicit</code></td>
-<td>5</td>
-<td>Individuals primarily associated with armed groups</td>
+<td><code>judiciary</code></td>
+<td>14</td>
+<td>Judges, prosecutors, and members of the electoral tribunal</td>
 </tr>
 <tr class="odd">
-<td><code>Foreign</code></td>
-<td>3</td>
+<td><code>foreign</code></td>
+<td>13</td>
 <td>Foreign officials and diplomats</td>
+</tr>
+<tr class="even">
+<td><code>media</code></td>
+<td>12</td>
+<td>Television channel and newspaper executives</td>
+</tr>
+<tr class="odd">
+<td><code>illicit</code></td>
+<td>8</td>
+<td>Individuals primarily associated with armed groups</td>
+</tr>
+<tr class="even">
+<td><code>businessperson</code></td>
+<td>5</td>
+<td>Private sector executives and financiers</td>
+</tr>
+<tr class="odd">
+<td><code>elected official</code></td>
+<td>5</td>
+<td>Mayors, executives, and (non-Congressional) other elected
+officials</td>
+</tr>
+<tr class="even">
+<td><code>montesinos</code></td>
+<td>1</td>
+<td>Vladimiro Montesinos, Head of the National Intelligence Service
+(SIN)</td>
+</tr>
+<tr class="odd">
+<td><code>unknown</code></td>
+<td>1</td>
+<td>Institutional role not recorded</td>
 </tr>
 </tbody>
 </table>
@@ -279,8 +293,8 @@ recorded are members of the security sector, congresspeople, and
 bureaucrats.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">actors</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">Type</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">Type</span>, <span class="va">n</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">type</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">type</span>, <span class="va">n</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#8B1A1A"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
@@ -383,7 +397,7 @@ campaign in 2000 and domestic security operations.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">topic_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"state_capture"</span>, <span class="st">"reelection"</span>, <span class="st">"media"</span>, <span class="st">"promotions"</span>, <span class="st">"foreign"</span>,</span>
-<span>  <span class="st">"ivcher"</span>, <span class="st">"canal4"</span>, <span class="st">"safety"</span>, <span class="st">"wiese"</span>, <span class="st">"lucchetti_factory"</span>,</span>
+<span>  <span class="st">"ivcher"</span>, <span class="st">"canal4"</span>, <span class="st">"security"</span>, <span class="st">"wiese"</span>, <span class="st">"lucchetti_factory"</span>,</span>
 <span>  <span class="st">"ecuador"</span>, <span class="st">"referendum"</span>, <span class="st">"municipal98"</span>, <span class="st">"miraflores"</span>, <span class="st">"public_officials"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -430,7 +444,7 @@ more than one topic.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

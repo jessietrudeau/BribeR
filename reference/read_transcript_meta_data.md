@@ -1,9 +1,9 @@
-# Read transcript-level metadata (n, date, speakers, duration, topics)
+# Read transcript-level metadata (id, date, speakers, duration, topics)
 
 Builds a tidy data frame of transcript metadata from bundled package
 data. Combines information from three internal sources:
 
-1.  **descriptions** (transcript identifiers, dates, topic flags),
+1.  **transcript_index** (transcript identifiers, dates, topic flags),
 
 2.  **speakers_per_transcript** (speaker roster per transcript), and
 
@@ -26,7 +26,7 @@ read_transcript_meta_data(quiet = TRUE)
 
 A tibble with one row per transcript and columns:
 
-- `n` (numeric): transcript identifier.
+- `id` (numeric): transcript identifier.
 
 - `date` (character): date associated with the transcript (or `NA` if
   absent).
@@ -42,14 +42,13 @@ A tibble with one row per transcript and columns:
 
 ## Details
 
-- **Transcript ID (`n`) and `date`:** Read from the bundled
-  `descriptions` dataset.
+- **Transcript ID (`id`) and `date`:** Read from the bundled
+  `transcript_index` dataset.
 
-- **Topics (`topics` list-column):** Columns in `descriptions` whose
-  names start with `topic_` are interpreted as topic flags. A topic is
-  considered present if the cell is "truthy" (e.g., `x`/`X`, non-empty
-  string, `1`, `TRUE`). Topic names are normalized by removing the
-  `topic_` prefix and replacing `_` with spaces.
+- **Topics (`topics` list-column):** Columns in `transcript_index` whose
+  names start with `topic_` are interpreted as topic flags (1/0
+  integers). Topic names are normalized by removing the `topic_` prefix
+  and replacing `_` with spaces.
 
 - **Speakers (`speakers` list-column):** Read from the bundled
   `speakers_per_transcript` dataset. Speaker columns are collapsed to a
@@ -72,13 +71,13 @@ A tibble with one row per transcript and columns:
 meta <- read_transcript_meta_data()
 head(meta)
 #> # A tibble: 6 × 5
-#>       n date      speakers   n_words topics   
-#>   <dbl> <chr>     <list>       <int> <list>   
-#> 1   104 7/1/2000  <chr [2]>     9289 <chr [2]>
-#> 2    19 4/21/1998 <chr [11]>    5693 <chr [2]>
-#> 3    11 2/10/1998 <chr [3]>     9420 <chr [1]>
-#> 4    12 2/10/1998 <chr [2]>     1283 <chr [1]>
-#> 5     5 1/8/1998  <chr [5]>     9391 <chr [2]>
-#> 6     7 1/15/1998 <chr [6]>    11146 <chr [3]>
+#>      id date       speakers  n_words topics   
+#>   <dbl> <chr>      <list>      <int> <list>   
+#> 1     1 1997-03-25 <chr [4]>   10375 <chr [2]>
+#> 2     2 1997-03-26 <chr [2]>    7120 <chr [3]>
+#> 3     3 1997-03-26 <chr [3]>    7006 <chr [3]>
+#> 4     4 1997-06-13 <chr [2]>     175 <chr [3]>
+#> 5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
+#> 6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
 # }
 ```

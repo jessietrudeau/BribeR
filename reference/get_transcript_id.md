@@ -53,25 +53,23 @@ head(ids)
 
 # Retrieve transcript IDs where Montesinos appears
 get_transcript_id(speaker = "montesinos")
-#>  [1]   5   6   7   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24
-#> [20]  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  44  45
-#> [39]  46  47  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67
-#> [58]  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86
-#> [77]  87  88  89  90  94  95  96  97  98 102 103 104
+#>  [1]   5   6   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24  25
+#> [20]  26  27  28  29  30  31  32  33  34  35  36  38  39  40  41  44  45  46  47
+#> [39]  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67  68  69
+#> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88
+#> [77]  89  90  94  95  96  97  98 102 103 104
 
 # Retrieve transcript IDs where either Kouri or Crousillat appears
 get_transcript_id(speaker = c("kouri", "crousillat"))
-#>  [1]  7 10 45 52 66 76 78 82 83 86 87
+#> Error: Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...
 
 # Retrieve transcript IDs about media or reelection
 get_transcript_id(topic = c("media", "reelection"))
-#>  [1]   4   5   6   7   8   9  16  21  24  25  26  30  31  32  33  34  35  39  40
-#> [20]  41  42  43  44  45  46  48  50  55  56  58  59  62  63  70  71  72  73  74
-#> [39]  75  77  78  79  80  81  82  83  85  86  87  88  90  94  95  97 102 103
+#>  [1]   4   5   6   8   9  16  21  24  25  26  30  31  32  33  34  35  39  40  41
+#> [20]  42  43  44  45  46  48  50  55  56  58  59  62  63  70  71  72  73  74  75
+#> [39]  77  78  79  80  81  82  83  85  86  87  88  90  94  95  97 102 103
 
 # Combine: transcripts with Kouri OR about media
 get_transcript_id(speaker = "kouri", topic = "media")
-#>  [1]   4   6   7   8   9  10  24  25  33  34  35  39  41  42  43  44  45  50  55
-#> [20]  56  58  59  62  70  71  72  73  74  75  76  78  79  82  83  86  87  88  90
-#> [39]  94  95  97 102 103
+#> Error: Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...
 ```

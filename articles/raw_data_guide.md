@@ -108,7 +108,7 @@ library(ggplot2)
 ## There are 101 transcripts in the dataset
 meta <- read_transcript_meta_data()
 nrow(meta)
-#> [1] 101
+#> [1] 99
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
@@ -119,7 +119,7 @@ approximately 8,500 words (approximately an hour-long conversation).
 
 summary(meta$n_words)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>     175    4544    8547    8946   11721   29161
+#>     175    4584    8547    8981   11758   29161
 
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
@@ -142,31 +142,35 @@ time of the recordings.
 
 ``` r
 
-head(actors[, c("speaker", "Position", "Type", "Party", "speaker_std")])
+head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 #> # A tibble: 6 × 5
-#>   speaker                         Position               Type  Party speaker_std
+#>   speaker                         position               type  party speaker_std
 #>   <chr>                           <chr>                  <chr> <chr> <chr>      
-#> 1 Vladimir Montesinos             Alberto Fujimori's Ch… Secu… NA    MONTESINOS 
-#> 2 Desconocido                     NA                     NA    NA    DESCONOCIDO
-#> 3 Alexander Martin Kouri Bumachar Elected Constituent C… Cong… Part… ALEX KOURI 
-#> 4 Lucchetti                       Company specialized i… Busi… NA    LUCCHETTI  
-#> 5 Carlos Eduardo Ferrero Costa    Congressman (1995-200… Cong… Camb… FERRERO    
-#> 6 Alberto Fujimori                President of Peru (19… Elec… NA    FUJIMORI
+#> 1 vladimir montesinos             Head of National Inte… mont… NA    montesinos 
+#> 2 desconocido                     NA                     NA    NA    desconocido
+#> 3 alexander martin kouri bumachar Elected Constituent C… cong… Part… alex kouri 
+#> 4 lucchetti                       Company specialized i… busi… NA    lucchetti  
+#> 5 carlos eduardo ferrero costa    Congressman (1995-200… cong… Camb… ferrero    
+#> 6 alberto fujimori                President of Peru (19… elec… NA    fujimori
 ```
 
-Actors are grouped into nine categories:
+Actors are grouped into eleven categories. Vladimiro Montesinos, the
+central figure of the transcripts, is kept in his own `montesinos`
+category rather than being grouped under `security`:
 
-| Type | Count | Description |
+| type | Count | Description |
 |----|----|----|
-| `Security` | 31 | Military and police officers |
-| `Congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
-| `Judiciary` | 18 | Judges, prosecutors, and members of the electoral tribunal |
-| `Media` | 14 | Television channel and newspaper executives |
-| `Businessperson` | 12 | Private sector executives and financiers |
-| `Elected Official` | 9 | Mayors, executives, and (non-Congressional) other elected officials |
-| `Bureaucrat` | 8 | Senior civil servants and agency heads |
-| `Illicit` | 5 | Individuals primarily associated with armed groups |
-| `Foreign` | 3 | Foreign officials and diplomats |
+| `security` | 26 | Military and police officers |
+| `congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
+| `bureaucrat` | 15 | Senior civil servants and agency heads |
+| `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunal |
+| `foreign` | 13 | Foreign officials and diplomats |
+| `media` | 12 | Television channel and newspaper executives |
+| `illicit` | 8 | Individuals primarily associated with armed groups |
+| `businessperson` | 5 | Private sector executives and financiers |
+| `elected official` | 5 | Mayors, executives, and (non-Congressional) other elected officials |
+| `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
+| `unknown` | 1 | Institutional role not recorded |
 
 This figure shows that the three most common types of actors to be
 recorded are members of the security sector, congresspeople, and
@@ -175,8 +179,8 @@ bureaucrats.
 ``` r
 
 actors |>
-  count(Type, sort = TRUE) |>
-  ggplot(aes(x = reorder(Type, n), y = n)) +
+  count(type, sort = TRUE) |>
+  ggplot(aes(x = reorder(type, n), y = n)) +
   geom_col(fill = "#8B1A1A") +
   coord_flip() +
   labs(
@@ -227,7 +231,7 @@ domestic security operations.
 
 topic_names <- c(
   "state_capture", "reelection", "media", "promotions", "foreign",
-  "ivcher", "canal4", "safety", "wiese", "lucchetti_factory",
+  "ivcher", "canal4", "security", "wiese", "lucchetti_factory",
   "ecuador", "referendum", "municipal98", "miraflores", "public_officials"
 )
 

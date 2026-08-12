@@ -17,17 +17,19 @@ A tibble with 125 rows and 6 variables:
 
   Full name of the individual.
 
-- Position:
+- position:
 
   Institutional role or title at the time of the recordings.
 
-- Type:
+- type:
 
-  Broad institutional category. One of `"Security"`, `"Congress"`,
-  `"Judiciary"`, `"Media"`, `"Businessperson"`, `"Elected Official"`,
-  `"Bureaucrat"`, `"Foreign"`, `"Illicit"`, or `"Unknown"`.
+  Broad institutional category (lowercase). One of `"montesinos"`
+  (Vladimiro Montesinos himself, kept separate from `"security"`),
+  `"security"`, `"congress"`, `"judiciary"`, `"media"`,
+  `"businessperson"`, `"elected official"`, `"bureaucrat"`, `"foreign"`,
+  `"illicit"`, or `"unknown"`.
 
-- Party:
+- party:
 
   Political party affiliation, where applicable.
 

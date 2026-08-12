@@ -23,7 +23,7 @@ speech turn within a transcript, with the speaker's words and metadata."></head>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/raw_data_guide.html">Raw Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/briber_data_guide.html">BribeR Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/using_briber.html">Using BribeR</a></li>
-    <li><a class="dropdown-item" href="../articles/visualizing_briber.html">Visualizing BribeR (Shiny)</a></li>
+    <li><a class="dropdown-item" href="../articles/transcript_network_app.html">Transcript Network App</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -60,7 +60,7 @@ speech turn within a transcript, with the speaker's words and metadata.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A tibble with 47,375 rows and 7 variables:</p><dl><dt>n</dt>
+    <p>A tibble with 46,597 rows and 6 variables:</p><dl><dt>id</dt>
 <dd><p>Numeric transcript identifier.</p></dd>
 
 <dt>row_id</dt>
@@ -69,17 +69,14 @@ speech turn within a transcript, with the speaker's words and metadata.</p>
 <dt>date</dt>
 <dd><p>Date of the recording (character).</p></dd>
 
+<dt>speaker_std</dt>
+<dd><p>Standardized speaker identifier (lowercase surname).</p></dd>
+
 <dt>speaker</dt>
 <dd><p>Raw speaker label as it appears in the original transcript.</p></dd>
 
 <dt>speech</dt>
 <dd><p>Text of the speaker's turn (in Spanish).</p></dd>
-
-<dt>speaker_std</dt>
-<dd><p>Standardized speaker identifier (uppercase surname).</p></dd>
-
-<dt>topic</dt>
-<dd><p>Primary topic tag assigned to the transcript.</p></dd>
 
 
 </dl></div>
@@ -98,7 +95,7 @@ compiled from the public Vladivideos archive.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

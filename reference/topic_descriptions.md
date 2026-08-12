@@ -16,7 +16,7 @@ A tibble with 15 rows and 2 variables:
 - topics:
 
   Topic identifier, matching the `topic_*` column names in
-  `descriptions` and `transcript_index`.
+  `transcript_index`.
 
 - descriptions:
 

@@ -12,9 +12,9 @@ compiled_transcripts
 
 ## Format
 
-A tibble with 47,375 rows and 7 variables:
+A tibble with 46,597 rows and 6 variables:
 
-- n:
+- id:
 
   Numeric transcript identifier.
 
@@ -26,6 +26,10 @@ A tibble with 47,375 rows and 7 variables:
 
   Date of the recording (character).
 
+- speaker_std:
+
+  Standardized speaker identifier (lowercase surname).
+
 - speaker:
 
   Raw speaker label as it appears in the original transcript.
@@ -33,14 +37,6 @@ A tibble with 47,375 rows and 7 variables:
 - speech:
 
   Text of the speaker's turn (in Spanish).
-
-- speaker_std:
-
-  Standardized speaker identifier (uppercase surname).
-
-- topic:
-
-  Primary topic tag assigned to the transcript.
 
 ## Source
 

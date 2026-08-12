@@ -36,7 +36,7 @@
 <li><a class="dropdown-item" href="../articles/raw_data_guide.html">Raw Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/briber_data_guide.html">BribeR Data Guide</a></li>
     <li><a class="dropdown-item" href="../articles/using_briber.html">Using BribeR</a></li>
-    <li><a class="dropdown-item" href="../articles/visualizing_briber.html">Visualizing BribeR (Shiny)</a></li>
+    <li><a class="dropdown-item" href="../articles/transcript_network_app.html">Transcript Network App</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -97,15 +97,14 @@ corresponds to one speech turn within a transcript.</p>
 <span></span>
 <span><span class="va">transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 47,375</span></span>
-<span><span class="co">#&gt; Columns: 7</span></span>
-<span><span class="co">#&gt; $ n           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1…</span></span>
+<span><span class="co">#&gt; Rows: 46,597</span></span>
+<span><span class="co">#&gt; Columns: 6</span></span>
+<span><span class="co">#&gt; $ id          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1…</span></span>
 <span><span class="co">#&gt; $ row_id      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>5<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>8<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>11<span style="color: #949494;">, </span>12<span style="color: #949494;">, </span>13<span style="color: #949494;">, </span>14<span style="color: #949494;">, </span>15<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>17<span style="color: #949494;">,</span>…</span></span>
 <span><span class="co">#&gt; $ date        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "3/25/1997"<span style="color: #949494;">, </span>"3/25/1997"<span style="color: #949494;">, </span>"3/25/1997"<span style="color: #949494;">, </span>"3/25/1997"<span style="color: #949494;">, </span>"3/25/…</span></span>
-<span><span class="co">#&gt; $ speaker     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "BACKGROUND"<span style="color: #949494;">, </span>"BACKGROUND"<span style="color: #949494;">, </span>"La señora"<span style="color: #949494;">, </span>"El señor Javier …</span></span>
-<span><span class="co">#&gt; $ speech      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "﻿Declaraciones de Víctor Andrés García Belaunde y Javier …</span></span>
-<span><span class="co">#&gt; $ speaker_std <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "BACKGROUND"<span style="color: #949494;">, </span>"BACKGROUND"<span style="color: #949494;">, </span>"ALVA"<span style="color: #949494;">, </span>"ALVA"<span style="color: #949494;">, </span>"LEWIS"<span style="color: #949494;">, </span>"ALVA…</span></span>
-<span><span class="co">#&gt; $ topic       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "topic_foreign"<span style="color: #949494;">, </span>"topic_foreign"<span style="color: #949494;">, </span>"topic_foreign"<span style="color: #949494;">, </span>"topic_…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ speaker_std <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "background"<span style="color: #949494;">, </span>"background"<span style="color: #949494;">, </span>"alva"<span style="color: #949494;">, </span>"alva"<span style="color: #949494;">, </span>"lewis"<span style="color: #949494;">, </span>"alva…</span></span>
+<span><span class="co">#&gt; $ speaker     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "background"<span style="color: #949494;">, </span>"background"<span style="color: #949494;">, </span>"la señora"<span style="color: #949494;">, </span>"el señor javier …</span></span>
+<span><span class="co">#&gt; $ speech      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "﻿Declaraciones de Víctor Andrés García Belaunde y Javier …</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th>Column</th>
@@ -143,39 +142,44 @@ corresponds to one speech turn within a transcript.</p>
 <td>character</td>
 <td>Speech text (Spanish)</td>
 </tr>
-<tr class="odd">
-<td><code>topic</code></td>
-<td>character</td>
-<td>Primary(?) topic tag for the transcript</td>
-</tr>
 </tbody>
 </table>
-<p><code>id</code>, <code>date</code>, and <code>topic</code> are
-transcript-level variables, while <code>row_id</code> corresponds to the
-within-conversation turn identifier, and <code>speaker_std</code> and
-<code>speaker</code> correspond to the standardized and unedited text
-label for the speaker, respectively. The <code>speech</code> variable is
-unedited and in its original Spanish-language format.</p>
+<p><code>id</code> and <code>date</code> are transcript-level variables,
+while <code>row_id</code> corresponds to the within-conversation turn
+identifier, and <code>speaker_std</code> and <code>speaker</code>
+correspond to the standardized (lowercase) and unedited text label for
+the speaker, respectively. The <code>speech</code> variable is unedited
+and in its original Spanish-language format.</p>
 </div>
 <div class="section level3">
 <h3 id="transcript_index">
 <code>transcript_index</code><a class="anchor" aria-label="anchor" href="#transcript_index"></a>
 </h3>
-<p>This wide-format file contains transcript-level metadata, including
-date of the recording, recording type (AUDIO OR VIDEO?), short English
-summaries, topic indicators, speaker indicators.</p>
+<p>This wide-format file contains one row per transcript, combining
+descriptive metadata with binary indicator columns for topics and
+speakers. It is the primary lookup table for filtering the corpus, and
+the single source of transcript-level metadata in
+<strong>BribeR</strong> — there is no separate <code>descriptions</code>
+dataset. Descriptive columns come first, followed by speaker/topic
+counts, followed by the <code>speaker_*</code> and <code>topic_*</code>
+indicator columns.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"date"</span>, <span class="st">"type"</span>, <span class="st">"summary"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
-<span><span class="co">#&gt;       n date      type  summary                                                 </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   104 7/1/2000  audio Montesinos convenes a meeting with police and military …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    19 4/21/1998 video This transcript covers General Barry McCaffrey’s third …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    11 2/10/1998 audio Montesinos and Lucchetti share lunch and discuss politi…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    12 2/10/1998 audio Montesinos and Lucchetti share lunch and discuss politi…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 1/8/1998  video Montesinos meets with Daniel Borobio and Sr. Gonzalo, a…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     7 1/15/1998 video Montesinos, Luz Salgado, and Absalón Vásquez discuss st…</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"file"</span>, <span class="st">"format"</span>, <span class="st">"date"</span>, <span class="st">"original_id"</span>, <span class="st">"type"</span>, <span class="st">"summary"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;      id file  format date       original_id type  summary                       </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 1.csv csv    1997-03-25 1014-1015   audio <span style="color: #949494;">"</span>In Florida, Javier Alva Orla…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 2.csv csv    1997-03-26 1016        video <span style="color: #949494;">"</span>Former Prime Minister Luis P…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 3.csv csv    1997-03-26 1017        video <span style="color: #949494;">"</span>Pablo Lupis Cid, manager of …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 4.csv csv    1997-06-13 s/n         video <span style="color: #949494;">"</span>This official propaganda vid…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 5.csv csv    1998-01-08 864         video <span style="color: #949494;">"</span>Montesinos meets with Daniel…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 6.csv csv    1998-01-12 1312        video <span style="color: #949494;">"</span>Montesinos records a prison …</span></span></code></pre></div>
 <table class="table">
+<colgroup>
+<col width="25%">
+<col width="12%">
+<col width="61%">
+</colgroup>
 <thead><tr class="header">
 <th>Column</th>
 <th>Type</th>
@@ -185,54 +189,89 @@ summaries, topic indicators, speaker indicators.</p>
 <tr class="odd">
 <td><code>id</code></td>
 <td>numeric</td>
-<td>Transcript identifier</td>
+<td>Transcript identifier (BribeR internal numbering)</td>
 </tr>
 <tr class="even">
-<td><code>id_raw</code></td>
-<td>numeric</td>
-<td>Source transcript identifier</td>
+<td><code>file</code></td>
+<td>character</td>
+<td>Source transcript filename (e.g. <code>"14.csv"</code>)</td>
 </tr>
 <tr class="odd">
-<td>….</td>
-<td>numeric</td>
-<td>FILL IN THE REST OF TABLE…</td>
+<td><code>format</code></td>
+<td>character</td>
+<td>File format of the source transcript (e.g. <code>"csv"</code>)</td>
 </tr>
 <tr class="even">
-<td>….</td>
-<td>numeric</td>
-<td>FILL IN THE REST OF TABLE…</td>
+<td><code>date</code></td>
+<td>date</td>
+<td>Recording date</td>
 </tr>
 <tr class="odd">
-<td>….</td>
-<td>numeric</td>
-<td>FILL IN THE REST OF TABLE…</td>
+<td><code>original_id</code></td>
+<td>character</td>
+<td>Original source archive identifier</td>
 </tr>
 <tr class="even">
-<td><code>topic_*</code></td>
-<td>numeric</td>
-<td>Topic indicators</td>
+<td><code>in_book</code></td>
+<td>integer</td>
+<td>1 if cited in published work, 0 otherwise</td>
+</tr>
+<tr class="odd">
+<td><code>in_online_archive</code></td>
+<td>integer</td>
+<td>1 if available in the online archive, 0 otherwise</td>
+</tr>
+<tr class="even">
+<td><code>type</code></td>
+<td>character</td>
+<td>Recording medium (<code>"audio"</code> or <code>"video"</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>summary</code></td>
+<td>character</td>
+<td>Plain-language English summary</td>
+</tr>
+<tr class="even">
+<td><code>speakers</code></td>
+<td>character</td>
+<td>Free-text description of participants</td>
+</tr>
+<tr class="odd">
+<td><code>speaker_count</code></td>
+<td>integer</td>
+<td>Total distinct speakers in the transcript</td>
+</tr>
+<tr class="even">
+<td><code>topic_count</code></td>
+<td>integer</td>
+<td>Total topics flagged for the transcript</td>
 </tr>
 <tr class="odd">
 <td><code>speaker_*</code></td>
-<td>numeric</td>
-<td>Speaker indicators</td>
+<td>integer</td>
+<td>Speaker indicators (1/0)</td>
+</tr>
+<tr class="even">
+<td><code>topic_*</code></td>
+<td>integer</td>
+<td>Topic indicators (1/0)</td>
 </tr>
 </tbody>
 </table>
-<p>The 15 <code>topic_*</code> and 125 <code>speaker_*</code> columns
+<p>The 15 <code>topic_*</code> and 113 <code>speaker_*</code> columns
 take on a value of 1 if the topic or speaker is present and a value of 0
 otherwise. They are designed for fast filtering for specific actors or
 topics without loading the full corpus.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^topic_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">descriptions</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> </span>
-<span><span class="co">#&gt;  [1] "topic_referendum"        "topic_ecuador"          </span></span>
-<span><span class="co">#&gt;  [3] "topic_lucchetti_factory" "topic_municipal98"      </span></span>
-<span><span class="co">#&gt;  [5] "topic_reelection"        "topic_miraflores"       </span></span>
-<span><span class="co">#&gt;  [7] "topic_canal4"            "topic_media"            </span></span>
-<span><span class="co">#&gt;  [9] "topic_promotions"        "topic_ivcher"           </span></span>
-<span><span class="co">#&gt; [11] "topic_foreign"           "topic_wiese"            </span></span>
-<span><span class="co">#&gt; [13] "topic_public_officials"  "topic_safety"           </span></span>
-<span><span class="co">#&gt; [15] "topic_state_capture"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^topic_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] "topic_count"             "topic_referendum"       </span></span>
+<span><span class="co">#&gt;  [3] "topic_ecuador"           "topic_lucchetti_factory"</span></span>
+<span><span class="co">#&gt;  [5] "topic_municipal98"       "topic_reelection"       </span></span>
+<span><span class="co">#&gt;  [7] "topic_miraflores"        "topic_canal4"           </span></span>
+<span><span class="co">#&gt;  [9] "topic_media"             "topic_promotions"       </span></span>
+<span><span class="co">#&gt; [11] "topic_ivcher"            "topic_foreign"          </span></span>
+<span><span class="co">#&gt; [13] "topic_wiese"             "topic_public_officials" </span></span>
+<span><span class="co">#&gt; [15] "topic_security"          "topic_state_capture"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="speakers_per_transcript">
@@ -247,19 +286,14 @@ speaking order (?).</p>
 <code class="sourceCode R"><span><span class="co"># Who was present in conversation 3? </span></span>
 <span><span class="va">speakers_per_transcript</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 20</span></span></span>
-<span><span class="co">#&gt;       n speakrer_std_1 speakrer_std_2 speakrer_std_3 speakrer_std_4</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   100 DE LOPEZ       SMITH          <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>            </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: speakrer_std_5 &lt;chr&gt;, speakrer_std_6 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   speakrer_std_7 &lt;chr&gt;, speakrer_std_8 &lt;chr&gt;, speakrer_std_9 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   speakrer_std_10 &lt;chr&gt;, speakrer_std_11 &lt;chr&gt;, speakrer_std_12 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   speakrer_std_13 &lt;chr&gt;, speakrer_std_14 &lt;chr&gt;, speakrer_std_15 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   speakrer_std_16 &lt;chr&gt;, speakrer_std_17 &lt;chr&gt;, speakrer_std_18 &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   speakrer_std_19 &lt;chr&gt;</span></span></span></code></pre></div>
-<p><strong>ANDRES: FIX THIS IN THE RAW DATA – Note: the column names
-contain a known typo (<code>speakrer</code> instead of
-<code>speaker</code>) preserved from the source data. The package
-handles this automatically in all functions.</strong></p>
+<span><span class="co">#&gt;      id speaker_std_1 speaker_std_2 speaker_std_3 speaker_std_4 speaker_std_5</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   100 de lopez      smith         <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>           </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: speaker_std_6 &lt;chr&gt;, speaker_std_7 &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_8 &lt;chr&gt;, speaker_std_9 &lt;chr&gt;, speaker_std_10 &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_11 &lt;chr&gt;, speaker_std_12 &lt;chr&gt;, speaker_std_13 &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_14 &lt;chr&gt;, speaker_std_15 &lt;chr&gt;, speaker_std_16 &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_17 &lt;chr&gt;, speaker_std_18 &lt;chr&gt;, speaker_std_19 &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="actors">
@@ -268,34 +302,35 @@ handles this automatically in all functions.</strong></p>
 <p>This file contains biographical and institutional metadata for 125
 individuals named in the transcripts.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speaker"</span>, <span class="st">"Position"</span>, <span class="st">"Type"</span>, <span class="st">"speaker_std"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speaker"</span>, <span class="st">"position"</span>, <span class="st">"type"</span>, <span class="st">"speaker_std"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
-<span><span class="co">#&gt;   speaker                         Position                     Type  speaker_std</span></span>
+<span><span class="co">#&gt;   speaker                         position                     type  speaker_std</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Vladimir Montesinos             Alberto Fujimori's Chief os… Secu… MONTESINOS </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Desconocido                     <span style="color: #BB0000;">NA</span>                           <span style="color: #BB0000;">NA</span>    DESCONOCIDO</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Alexander Martin Kouri Bumachar Elected Constituent Congres… Cong… ALEX KOURI </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lucchetti                       Company specialized in past… Busi… LUCCHETTI  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Carlos Eduardo Ferrero Costa    Congressman (1995-2000)      Cong… FERRERO    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Alberto Fujimori                President of Peru (1990-200… Elec… FUJIMORI</span></span></code></pre></div>
-<p>The <code>Type</code> column references the categories described in
-the Raw Data Guide: <code>Montesinos</code>, <code>Security</code>,
-<code>Congress</code>, <code>Judiciary</code>, <code>Media</code>,
-<code>Businessperson</code>, <code>Elected Official</code>,
-<code>Bureaucrat</code>, <code>Foreign</code>, and
-<code>Illicit</code>.</p>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> vladimir montesinos             Head of National Intelligen… mont… montesinos </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> desconocido                     <span style="color: #BB0000;">NA</span>                           <span style="color: #BB0000;">NA</span>    desconocido</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> alexander martin kouri bumachar Elected Constituent Congres… cong… alex kouri </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> lucchetti                       Company specialized in past… busi… lucchetti  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> carlos eduardo ferrero costa    Congressman (1995-2000)      cong… ferrero    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> alberto fujimori                President of Peru (1990-200… elec… fujimori</span></span></code></pre></div>
+<p>The <code>type</code> column references the categories described in
+the Raw Data Guide: <code>montesinos</code>, <code>security</code>,
+<code>congress</code>, <code>judiciary</code>, <code>media</code>,
+<code>businessperson</code>, <code>elected official</code>,
+<code>bureaucrat</code>, <code>foreign</code>, and <code>illicit</code>.
+Vladimiro Montesinos is kept in his own <code>montesinos</code> category
+rather than being grouped under <code>security</code>.</p>
 <p>For elected officials, the political party at the time of the
 recording is also included, <strong>CONSISTENT WITH V-DEM PARTY
 LABELS(?)</strong></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">actors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Type</span> <span class="op">==</span> <span class="st">"Congress"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speaker_std</span>, <span class="va">Type</span>, <span class="va">Party</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">actors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"congress"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speaker_std</span>, <span class="va">type</span>, <span class="va">party</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
-<span><span class="co">#&gt;   speaker_std Type     Party                          </span></span>
+<span><span class="co">#&gt;   speaker_std type     party                          </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ALEX KOURI  Congress Partido Popular Cristiano (PPC)</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> alex kouri  congress Partido Popular Cristiano (PPC)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -326,6 +361,11 @@ below shows which columns connect the datasets:</p>
 <td><code>actors</code></td>
 <td><code>speaker_std</code></td>
 </tr>
+<tr class="even">
+<td><code>transcript_index</code></td>
+<td><code>speakers_per_transcript</code></td>
+<td><code>id</code></td>
+</tr>
 </tbody>
 </table>
 <div class="section level3">
@@ -341,13 +381,13 @@ but given that many are alphanumeric identifiers,
 simplicity.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## id column, crossed with original id and source</span></span>
-<span><span class="va">descriptions</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">original_n</span>, <span class="va">in_book</span>, <span class="va">in_online_archive</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">transcript_index</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">original_id</span>, <span class="va">in_book</span>, <span class="va">in_online_archive</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;       n original_n in_book in_online_archive</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   104 353        x       <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
+<span><span class="co">#&gt;      id original_id in_book in_online_archive</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 1014-1015         1                 0</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="speaker_std">
@@ -361,14 +401,14 @@ lowercase identifier for each speaker, consistent across all
 transcripts. Use <code>speaker_std</code> rather than the raw
 <code>speaker</code> column for joins and filters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## add comment </span></span>
+<code class="sourceCode R"><span><span class="co"># Count Montesinos's speaking turns across all transcripts</span></span>
 <span><span class="va">transcripts</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speaker_std</span> <span class="op">==</span> <span class="st">"MONTESINOS"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speaker_std</span> <span class="op">==</span> <span class="st">"montesinos"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>n_turns <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 1</span></span></span>
 <span><span class="co">#&gt;   n_turns</span></span>
 <span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   <span style="text-decoration: underline;">16</span>609</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   <span style="text-decoration: underline;">16</span>335</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -378,9 +418,9 @@ transcripts. Use <code>speaker_std</code> rather than the raw
 can reference them by name after <code><a href="https://jessietrudeau.github.io/BribeR">library(BribeR)</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">compiled_transcripts</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 47375</span></span>
+<span><span class="co">#&gt; [1] 46597</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "speaker"     "Position"    "Type"        "Party"       "speaker_std"</span></span>
+<span><span class="co">#&gt; [1] "speaker"     "position"    "type"        "party"       "speaker_std"</span></span>
 <span><span class="co">#&gt; [6] "notes"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -394,7 +434,7 @@ can reference them by name after <code><a href="https://jessietrudeau.github.io/
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

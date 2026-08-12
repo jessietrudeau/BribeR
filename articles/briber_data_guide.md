@@ -20,79 +20,88 @@ library(dplyr)
 
 transcripts <- read_transcripts()
 glimpse(transcripts)
-#> Rows: 47,375
-#> Columns: 7
-#> $ n           <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+#> Rows: 46,597
+#> Columns: 6
+#> $ id          <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 #> $ row_id      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
 #> $ date        <chr> "3/25/1997", "3/25/1997", "3/25/1997", "3/25/1997", "3/25/…
-#> $ speaker     <chr> "BACKGROUND", "BACKGROUND", "La señora", "El señor Javier …
+#> $ speaker_std <chr> "background", "background", "alva", "alva", "lewis", "alva…
+#> $ speaker     <chr> "background", "background", "la señora", "el señor javier …
 #> $ speech      <chr> "﻿Declaraciones de Víctor Andrés García Belaunde y Javier …
-#> $ speaker_std <chr> "BACKGROUND", "BACKGROUND", "ALVA", "ALVA", "LEWIS", "ALVA…
-#> $ topic       <chr> "topic_foreign", "topic_foreign", "topic_foreign", "topic_…
 ```
 
-| Column        | Type      | Description                             |
-|---------------|-----------|-----------------------------------------|
-| `id`          | numeric   | Transcript identifier                   |
-| `row_id`      | numeric   | Row number within the transcript        |
-| `date`        | character | Recording date                          |
-| `speaker_std` | character | Standardized speaker identifier         |
-| `speaker`     | character | Raw speaker label from the source       |
-| `speech`      | character | Speech text (Spanish)                   |
-| `topic`       | character | Primary(?) topic tag for the transcript |
+| Column        | Type      | Description                       |
+|---------------|-----------|-----------------------------------|
+| `id`          | numeric   | Transcript identifier             |
+| `row_id`      | numeric   | Row number within the transcript  |
+| `date`        | character | Recording date                    |
+| `speaker_std` | character | Standardized speaker identifier   |
+| `speaker`     | character | Raw speaker label from the source |
+| `speech`      | character | Speech text (Spanish)             |
 
-`id`, `date`, and `topic` are transcript-level variables, while `row_id`
+`id` and `date` are transcript-level variables, while `row_id`
 corresponds to the within-conversation turn identifier, and
-`speaker_std` and `speaker` correspond to the standardized and unedited
-text label for the speaker, respectively. The `speech` variable is
-unedited and in its original Spanish-language format.
+`speaker_std` and `speaker` correspond to the standardized (lowercase)
+and unedited text label for the speaker, respectively. The `speech`
+variable is unedited and in its original Spanish-language format.
 
 ### `transcript_index`
 
-This wide-format file contains transcript-level metadata, including date
-of the recording, recording type (AUDIO OR VIDEO?), short English
-summaries, topic indicators, speaker indicators.
+This wide-format file contains one row per transcript, combining
+descriptive metadata with binary indicator columns for topics and
+speakers. It is the primary lookup table for filtering the corpus, and
+the single source of transcript-level metadata in **BribeR** — there is
+no separate `descriptions` dataset. Descriptive columns come first,
+followed by speaker/topic counts, followed by the `speaker_*` and
+`topic_*` indicator columns.
 
 ``` r
 
-head(descriptions[, c("n", "date", "type", "summary")])
-#> # A tibble: 6 × 4
-#>       n date      type  summary                                                 
-#>   <dbl> <chr>     <chr> <chr>                                                   
-#> 1   104 7/1/2000  audio Montesinos convenes a meeting with police and military …
-#> 2    19 4/21/1998 video This transcript covers General Barry McCaffrey’s third …
-#> 3    11 2/10/1998 audio Montesinos and Lucchetti share lunch and discuss politi…
-#> 4    12 2/10/1998 audio Montesinos and Lucchetti share lunch and discuss politi…
-#> 5     5 1/8/1998  video Montesinos meets with Daniel Borobio and Sr. Gonzalo, a…
-#> 6     7 1/15/1998 video Montesinos, Luz Salgado, and Absalón Vásquez discuss st…
+head(transcript_index[, c("id", "file", "format", "date", "original_id", "type", "summary")])
+#> # A tibble: 6 × 7
+#>      id file  format date       original_id type  summary                       
+#>   <int> <chr> <chr>  <date>     <chr>       <chr> <chr>                         
+#> 1     1 1.csv csv    1997-03-25 1014-1015   audio "In Florida, Javier Alva Orla…
+#> 2     2 2.csv csv    1997-03-26 1016        video "Former Prime Minister Luis P…
+#> 3     3 3.csv csv    1997-03-26 1017        video "Pablo Lupis Cid, manager of …
+#> 4     4 4.csv csv    1997-06-13 s/n         video "This official propaganda vid…
+#> 5     5 5.csv csv    1998-01-08 864         video "Montesinos meets with Daniel…
+#> 6     6 6.csv csv    1998-01-12 1312        video "Montesinos records a prison …
 ```
 
-| Column      | Type    | Description                  |
-|-------------|---------|------------------------------|
-| `id`        | numeric | Transcript identifier        |
-| `id_raw`    | numeric | Source transcript identifier |
-| ….          | numeric | FILL IN THE REST OF TABLE…   |
-| ….          | numeric | FILL IN THE REST OF TABLE…   |
-| ….          | numeric | FILL IN THE REST OF TABLE…   |
-| `topic_*`   | numeric | Topic indicators             |
-| `speaker_*` | numeric | Speaker indicators           |
+| Column | Type | Description |
+|----|----|----|
+| `id` | numeric | Transcript identifier (BribeR internal numbering) |
+| `file` | character | Source transcript filename (e.g. `"14.csv"`) |
+| `format` | character | File format of the source transcript (e.g. `"csv"`) |
+| `date` | date | Recording date |
+| `original_id` | character | Original source archive identifier |
+| `in_book` | integer | 1 if cited in published work, 0 otherwise |
+| `in_online_archive` | integer | 1 if available in the online archive, 0 otherwise |
+| `type` | character | Recording medium (`"audio"` or `"video"`) |
+| `summary` | character | Plain-language English summary |
+| `speakers` | character | Free-text description of participants |
+| `speaker_count` | integer | Total distinct speakers in the transcript |
+| `topic_count` | integer | Total topics flagged for the transcript |
+| `speaker_*` | integer | Speaker indicators (1/0) |
+| `topic_*` | integer | Topic indicators (1/0) |
 
-The 15 `topic_*` and 125 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 113 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
 
 ``` r
 
-names(descriptions)[grepl("^topic_", names(descriptions))] 
-#>  [1] "topic_referendum"        "topic_ecuador"          
-#>  [3] "topic_lucchetti_factory" "topic_municipal98"      
-#>  [5] "topic_reelection"        "topic_miraflores"       
-#>  [7] "topic_canal4"            "topic_media"            
-#>  [9] "topic_promotions"        "topic_ivcher"           
-#> [11] "topic_foreign"           "topic_wiese"            
-#> [13] "topic_public_officials"  "topic_safety"           
-#> [15] "topic_state_capture"
+names(transcript_index)[grepl("^topic_", names(transcript_index))]
+#>  [1] "topic_count"             "topic_referendum"       
+#>  [3] "topic_ecuador"           "topic_lucchetti_factory"
+#>  [5] "topic_municipal98"       "topic_reelection"       
+#>  [7] "topic_miraflores"        "topic_canal4"           
+#>  [9] "topic_media"             "topic_promotions"       
+#> [11] "topic_ivcher"            "topic_foreign"          
+#> [13] "topic_wiese"             "topic_public_officials" 
+#> [15] "topic_security"          "topic_state_capture"
 ```
 
 ### `speakers_per_transcript`
@@ -108,20 +117,15 @@ order (?).
 # Who was present in conversation 3? 
 speakers_per_transcript[3, ]
 #> # A tibble: 1 × 20
-#>       n speakrer_std_1 speakrer_std_2 speakrer_std_3 speakrer_std_4
-#>   <dbl> <chr>          <chr>          <chr>          <chr>         
-#> 1   100 DE LOPEZ       SMITH          NA             NA            
-#> # ℹ 15 more variables: speakrer_std_5 <chr>, speakrer_std_6 <chr>,
-#> #   speakrer_std_7 <chr>, speakrer_std_8 <chr>, speakrer_std_9 <chr>,
-#> #   speakrer_std_10 <chr>, speakrer_std_11 <chr>, speakrer_std_12 <chr>,
-#> #   speakrer_std_13 <chr>, speakrer_std_14 <chr>, speakrer_std_15 <chr>,
-#> #   speakrer_std_16 <chr>, speakrer_std_17 <chr>, speakrer_std_18 <chr>,
-#> #   speakrer_std_19 <chr>
+#>      id speaker_std_1 speaker_std_2 speaker_std_3 speaker_std_4 speaker_std_5
+#>   <dbl> <chr>         <chr>         <chr>         <chr>         <chr>        
+#> 1   100 de lopez      smith         NA            NA            NA           
+#> # ℹ 14 more variables: speaker_std_6 <chr>, speaker_std_7 <chr>,
+#> #   speaker_std_8 <chr>, speaker_std_9 <chr>, speaker_std_10 <chr>,
+#> #   speaker_std_11 <chr>, speaker_std_12 <chr>, speaker_std_13 <chr>,
+#> #   speaker_std_14 <chr>, speaker_std_15 <chr>, speaker_std_16 <chr>,
+#> #   speaker_std_17 <chr>, speaker_std_18 <chr>, speaker_std_19 <chr>
 ```
-
-**ANDRES: FIX THIS IN THE RAW DATA – Note: the column names contain a
-known typo (`speakrer` instead of `speaker`) preserved from the source
-data. The package handles this automatically in all functions.**
 
 ### `actors`
 
@@ -130,36 +134,37 @@ individuals named in the transcripts.
 
 ``` r
 
-head(actors[, c("speaker", "Position", "Type", "speaker_std")])
+head(actors[, c("speaker", "position", "type", "speaker_std")])
 #> # A tibble: 6 × 4
-#>   speaker                         Position                     Type  speaker_std
+#>   speaker                         position                     type  speaker_std
 #>   <chr>                           <chr>                        <chr> <chr>      
-#> 1 Vladimir Montesinos             Alberto Fujimori's Chief os… Secu… MONTESINOS 
-#> 2 Desconocido                     NA                           NA    DESCONOCIDO
-#> 3 Alexander Martin Kouri Bumachar Elected Constituent Congres… Cong… ALEX KOURI 
-#> 4 Lucchetti                       Company specialized in past… Busi… LUCCHETTI  
-#> 5 Carlos Eduardo Ferrero Costa    Congressman (1995-2000)      Cong… FERRERO    
-#> 6 Alberto Fujimori                President of Peru (1990-200… Elec… FUJIMORI
+#> 1 vladimir montesinos             Head of National Intelligen… mont… montesinos 
+#> 2 desconocido                     NA                           NA    desconocido
+#> 3 alexander martin kouri bumachar Elected Constituent Congres… cong… alex kouri 
+#> 4 lucchetti                       Company specialized in past… busi… lucchetti  
+#> 5 carlos eduardo ferrero costa    Congressman (1995-2000)      cong… ferrero    
+#> 6 alberto fujimori                President of Peru (1990-200… elec… fujimori
 ```
 
-The `Type` column references the categories described in the Raw Data
-Guide: `Montesinos`, `Security`, `Congress`, `Judiciary`, `Media`,
-`Businessperson`, `Elected Official`, `Bureaucrat`, `Foreign`, and
-`Illicit`.
+The `type` column references the categories described in the Raw Data
+Guide: `montesinos`, `security`, `congress`, `judiciary`, `media`,
+`businessperson`, `elected official`, `bureaucrat`, `foreign`, and
+`illicit`. Vladimiro Montesinos is kept in his own `montesinos` category
+rather than being grouped under `security`.
 
 For elected officials, the political party at the time of the recording
 is also included, **CONSISTENT WITH V-DEM PARTY LABELS(?)**
 
 ``` r
 
-actors %>% 
-  filter(Type == "Congress") %>% 
-  select(speaker_std, Type, Party) %>% 
+actors %>%
+  filter(type == "congress") %>%
+  select(speaker_std, type, party) %>%
   slice_head()
 #> # A tibble: 1 × 3
-#>   speaker_std Type     Party                          
+#>   speaker_std type     party                          
 #>   <chr>       <chr>    <chr>                          
-#> 1 ALEX KOURI  Congress Partido Popular Cristiano (PPC)
+#> 1 alex kouri  congress Partido Popular Cristiano (PPC)
 ```
 
 ## Linking datasets
@@ -173,6 +178,7 @@ connect the datasets:
 | `compiled_transcripts` | `transcript_index`        | `id`          |
 | `compiled_transcripts` | `speakers_per_transcript` | `id`          |
 | `compiled_transcripts` | `actors`                  | `speaker_std` |
+| `transcript_index`     | `speakers_per_transcript` | `id`          |
 
 ### `id`
 
@@ -186,13 +192,13 @@ simplicity.
 ``` r
 
 ## id column, crossed with original id and source
-descriptions %>% 
-  select(n, original_n, in_book, in_online_archive) %>% 
+transcript_index %>%
+  select(id, original_id, in_book, in_online_archive) %>%
   slice_head()
 #> # A tibble: 1 × 4
-#>       n original_n in_book in_online_archive
-#>   <dbl> <chr>      <chr>   <chr>            
-#> 1   104 353        x       NA
+#>      id original_id in_book in_online_archive
+#>   <int> <chr>         <int>             <int>
+#> 1     1 1014-1015         1                 0
 ```
 
 ### `speaker_std`
@@ -207,14 +213,14 @@ filters.
 
 ``` r
 
-## add comment 
+# Count Montesinos's speaking turns across all transcripts
 transcripts |>
-  filter(speaker_std == "MONTESINOS") |>
+  filter(speaker_std == "montesinos") |>
   summarise(n_turns = n())
 #> # A tibble: 1 × 1
 #>   n_turns
 #>     <int>
-#> 1   16609
+#> 1   16335
 ```
 
 ## Accessing data directly
@@ -226,8 +232,8 @@ reference them by name after
 ``` r
 
 nrow(compiled_transcripts)
-#> [1] 47375
+#> [1] 46597
 names(actors)
-#> [1] "speaker"     "Position"    "Type"        "Party"       "speaker_std"
+#> [1] "speaker"     "position"    "type"        "party"       "speaker_std"
 #> [6] "notes"
 ```

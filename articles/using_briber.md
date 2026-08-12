@@ -53,19 +53,19 @@ transcripts <- read_transcripts()
 
 # Additional variables
 colnames(transcripts)
-#> [1] "n"           "row_id"      "date"        "speaker"     "speech"     
-#> [6] "speaker_std" "topic"
+#> [1] "id"          "row_id"      "date"        "speaker_std" "speaker"    
+#> [6] "speech"
 
 head(transcripts)
-#> # A tibble: 6 × 7
-#>       n row_id date      speaker              speech           speaker_std topic
-#>   <dbl>  <int> <chr>     <chr>                <chr>            <chr>       <chr>
-#> 1     1      1 3/25/1997 BACKGROUND           ﻿Declaraciones …  BACKGROUND  topi…
-#> 2     1      2 3/25/1997 BACKGROUND           [La entrevista … BACKGROUND  topi…
-#> 3     1      3 3/25/1997 La señora            Levante su mano… ALVA        topi…
-#> 4     1      4 3/25/1997 El señor Javier Alva Sí.              ALVA        topi…
-#> 5     1      5 3/25/1997 El señor Neil Lewis  Señor Alva, mi … LEWIS       topi…
-#> 6     1      6 3/25/1997 El señor Javier Alva Javier Alva Orl… ALVA        topi…
+#> # A tibble: 6 × 6
+#>      id row_id date      speaker_std speaker              speech                
+#>   <dbl>  <int> <chr>     <chr>       <chr>                <chr>                 
+#> 1     1      1 3/25/1997 background  background           ﻿Declaraciones de Víc… 
+#> 2     1      2 3/25/1997 background  background           [La entrevista se rea…
+#> 3     1      3 3/25/1997 alva        la señora            Levante su mano derec…
+#> 4     1      4 3/25/1997 alva        el señor javier alva Sí.                   
+#> 5     1      5 3/25/1997 lewis       el señor neil lewis  Señor Alva, mi nombre…
+#> 6     1      6 3/25/1997 alva        el señor javier alva Javier Alva Orlandini.
 ```
 
 You can filter to one or more transcripts using their numeric IDs:
@@ -120,20 +120,20 @@ these speakers are present.
 # Transcripts featuring Montesinos
 montesinos_ids <- get_transcript_id(speaker = "montesinos")
 length(montesinos_ids)
-#> [1] 88
+#> [1] 86
 montesinos_ids
-#>  [1]   5   6   7   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24
-#> [20]  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  44  45
-#> [39]  46  47  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67
-#> [58]  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86
-#> [77]  87  88  89  90  94  95  96  97  98 102 103 104
+#>  [1]   5   6   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24  25
+#> [20]  26  27  28  29  30  31  32  33  34  35  36  38  39  40  41  44  45  46  47
+#> [39]  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67  68  69
+#> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88
+#> [77]  89  90  94  95  96  97  98 102 103 104
 
 # Transcripts featuring Alex Kouri
-kouri_ids <- get_transcript_id(speaker = "kouri")
+kouri_ids <- get_transcript_id(speaker = "alex kouri")
 length(kouri_ids)
-#> [1] 7
+#> [1] 9
 kouri_ids
-#> [1]  7 10 76 78 82 83 86
+#> [1] 10 38 39 41 76 78 82 83 86
 ```
 
 There are 125 valid speaker IDs that the `speaker_std` variable can take
@@ -151,15 +151,15 @@ returns transcript IDs where these topics are discussed.
 # Transcripts about media manipulation
 media_ids <- get_transcript_id(topic = "media")
 length(media_ids)
-#> [1] 38
+#> [1] 37
 media_ids
-#>  [1]   4   6   7   8   9  24  25  33  34  35  39  41  42  43  44  45  50  55  56
-#> [20]  58  59  62  70  71  72  73  74  75  79  86  87  88  90  94  95  97 102 103
+#>  [1]   4   6   8   9  24  25  33  34  35  39  41  42  43  44  45  50  55  56  58
+#> [20]  59  62  70  71  72  73  74  75  79  86  87  88  90  94  95  97 102 103
 
 # Transcripts about both/either media and reelection 
 media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
 length(media_reelection_ids)
-#> [1] 56
+#> [1] 55
 ```
 
 There are 15 valid topics, detailed in the BribeR Data Guide:
@@ -192,7 +192,7 @@ montesinos_media <- get_transcript_id(
   topic   = "media"
 )
 length(montesinos_media)
-#> [1] 92
+#> [1] 90
 ```
 
 ## Integrate with metadata
@@ -216,31 +216,31 @@ speakers.
 meta <- read_transcript_meta_data()
 head(meta)
 #> # A tibble: 6 × 5
-#>       n date      speakers   n_words topics   
-#>   <dbl> <chr>     <list>       <int> <list>   
-#> 1   104 7/1/2000  <chr [2]>     9289 <chr [2]>
-#> 2    19 4/21/1998 <chr [11]>    5693 <chr [2]>
-#> 3    11 2/10/1998 <chr [3]>     9420 <chr [1]>
-#> 4    12 2/10/1998 <chr [2]>     1283 <chr [1]>
-#> 5     5 1/8/1998  <chr [5]>     9391 <chr [2]>
-#> 6     7 1/15/1998 <chr [6]>    11146 <chr [3]>
+#>      id date       speakers  n_words topics   
+#>   <dbl> <chr>      <list>      <int> <list>   
+#> 1     1 1997-03-25 <chr [4]>   10375 <chr [2]>
+#> 2     2 1997-03-26 <chr [2]>    7120 <chr [3]>
+#> 3     3 1997-03-26 <chr [3]>    7006 <chr [3]>
+#> 4     4 1997-06-13 <chr [2]>     175 <chr [3]>
+#> 5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
+#> 6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
 
 # Get metadata for transcript 5
 read_transcript_meta_data(5)
-#> # A tibble: 101 × 5
-#>        n date      speakers   n_words topics   
-#>    <dbl> <chr>     <list>       <int> <list>   
-#>  1   104 7/1/2000  <chr [2]>     9289 <chr [2]>
-#>  2    19 4/21/1998 <chr [11]>    5693 <chr [2]>
-#>  3    11 2/10/1998 <chr [3]>     9420 <chr [1]>
-#>  4    12 2/10/1998 <chr [2]>     1283 <chr [1]>
-#>  5     5 1/8/1998  <chr [5]>     9391 <chr [2]>
-#>  6     7 1/15/1998 <chr [6]>    11146 <chr [3]>
-#>  7     9 1/23/1988 <chr [3]>    16843 <chr [2]>
-#>  8    10 1/28/1998 <chr [8]>    15704 <chr [1]>
-#>  9    17 4/14/1998 <chr [2]>    11547 <chr [1]>
-#> 10    22 5/5/1998  <chr [2]>     2219 <chr [1]>
-#> # ℹ 91 more rows
+#> # A tibble: 99 × 5
+#>       id date       speakers  n_words topics   
+#>    <dbl> <chr>      <list>      <int> <list>   
+#>  1     1 1997-03-25 <chr [4]>   10375 <chr [2]>
+#>  2     2 1997-03-26 <chr [2]>    7120 <chr [3]>
+#>  3     3 1997-03-26 <chr [3]>    7006 <chr [3]>
+#>  4     4 1997-06-13 <chr [2]>     175 <chr [3]>
+#>  5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
+#>  6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
+#>  7     8 1998-01-20 <chr [2]>    4895 <chr [3]>
+#>  8     9 1988-01-23 <chr [3]>   16843 <chr [3]>
+#>  9    10 1998-01-28 <chr [8]>   15704 <chr [2]>
+#> 10    11 1998-02-10 <chr [3]>    9420 <chr [2]>
+#> # ℹ 89 more rows
 ```
 
 ## Examples
@@ -279,7 +279,7 @@ media_transcripts |>
   summarise(total_words = sum(n_words, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(total_words)) |>
   ## drop the 'background' and 'desconocido' to focus on identifiable actors only
-  filter(speaker_std != "DESCONOCIDO" & speaker_std != "BACKGROUND") |> 
+  filter(speaker_std != "desconocido" & speaker_std != "background") |>
   head(10) |>
   ggplot(aes(x = reorder(speaker_std, total_words), y = total_words)) +
   geom_col(fill = "#8B1A1A") +
@@ -303,22 +303,22 @@ metadata.
 
 # Step 1: Left join media_transcripts with actor-level metadata from `actors`
 media_transcripts <- media_transcripts |>
-  left_join(actors |> select(speaker_std, Type, Position),
+  left_join(actors |> select(speaker_std, type, position),
     by = "speaker_std"
-  ) 
-#> Warning in left_join(media_transcripts, select(actors, speaker_std, Type, : Detected an unexpected many-to-many relationship between `x` and `y`.
+  )
+#> Warning in left_join(media_transcripts, select(actors, speaker_std, type, : Detected an unexpected many-to-many relationship between `x` and `y`.
 #> ℹ Row 11749 of `x` matches multiple rows in `y`.
 #> ℹ Row 1 of `y` matches multiple rows in `x`.
 #> ℹ If a many-to-many relationship is expected, set `relationship =
 #>   "many-to-many"` to silence this warning.
 
-## Step 2: Count words spoken in media_transcripts and group by type, summarize 
+## Step 2: Count words spoken in media_transcripts and group by type, summarize
 media_transcripts |>
   mutate(n_words = lengths(strsplit(speech, "\\s+"))) |>
-  group_by(Type) |>
+  group_by(type) |>
   summarise(total_words = sum(n_words, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(total_words)) |>
-  ggplot(aes(x = reorder(Type, total_words), y = total_words, fill = Type)) +
+  ggplot(aes(x = reorder(type, total_words), y = total_words, fill = type)) +
   coord_flip() +
   labs(
     title = "Words spoken in media-related transcripts, by actor type",
@@ -348,7 +348,7 @@ actor who appears in the transcript index:
 ``` r
 
 media_actors <- actors |>
-  filter(Type == "Media") |>
+  filter(type == "media") |>
   pull(speaker_std) |>
   tolower()
 
