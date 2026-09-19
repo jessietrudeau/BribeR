@@ -191,4 +191,4 @@ nrow(compiled_transcripts)
 names(actors)
 ```
 
-[^1]: We generate a new number within the BribeR package, see the [id](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html#id) subsection for more information.
+[^1]: We generate a new number within the BribeR package, see the  [id](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html#id) subsection for more information.
