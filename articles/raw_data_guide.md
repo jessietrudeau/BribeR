@@ -2,14 +2,12 @@
 
 ## About the Vladivideos
 
-(PICTURE)
-
-Between 1990 and 2000, Vladimiro Montesinos Torres — the head of Peru’s
-National Intelligence Service under President Alberto Fujimori —
-secretly recorded meetings in which he bribed politicians, judges,
-military officers, media executives, and businesspeople. Most of the
-aptly named *Vladivideo* footage (and subsequent transcripts included in
-this package) was covertly recorded from within Montesinos’ office,
+Between 1990 and 2000, Vladimiro Montesinos Torres—the head of Peru’s
+National Intelligence Service under President Alberto Fujimori—secretly
+recorded meetings in which he bribed politicians, judges, military
+officers, media executives, and businesspeople. Most of the aptly named
+*Vladivideo* footage (and subsequent transcripts included in this
+package) was covertly recorded from within Montesinos’ office,
 unbeknownst to his counterparts.
 
 Select recordings became public in 2000 and triggered the collapse of
@@ -17,7 +15,14 @@ the Fujimori government. The rest were made public in 2001 during
 Congressional investigations and criminal proceedings. The Fujimori
 presidency remains one of the most extensively documented cases of
 systemic corruption in Latin American history, thanks to the evidence
-from the *Vladivideos.*
+from the *Vladivideos,* such as the one shown below from the Peruvian
+Congressional Archives.
+
+[![Vladivideo
+069A.](https://img.youtube.com/vi/krW92zMwk7E/hqdefault.jpg)](https://www.youtube.com/watch?v=krW92zMwk7E)
+
+*Vladivideo 069A: October 14, 1998. Source:
+[LUM](https://lum.cultura.pe/cdi/video/reunion-de-jose-francisco-crousillat-y-vladimiro-montesinos).*
 
 The videos capture corruption across every major institution of the
 Peruvian state: legislators accepting cash to switch party allegiances,
@@ -27,7 +32,7 @@ judges confirming their availability to rule in Montesinos’s favor.
 
 See, for example, this exchange about consolidating power in the
 judicial branch between Montesinos and Alipio Montes de Oca, Supreme
-Court Judge (Transcript XX[^1], May 3, 1998). This exchange is printed
+Court Judge (Transcript 21[^1], May 3, 1998). This exchange is printed
 in English with Spanish original text in italics below.[^2]
 
 **MONTES DE OCA —** Okay, just say it.  
@@ -65,8 +70,8 @@ So we talk more directly here; we leave it that way (unintelligible).
 y que habíamos quedado te acuerdas (ininteligible). Entonces,
 conversamos más directos acá, quedamos así (ininteligible).*
 
-**BribeR** provides structured access to transcripts of 101 of these
-recordings, which contain 47,375 individual speech turns. The package
+**BribeR** provides structured access to transcripts of 99 of these
+recordings, which contain 46,597 individual speech turns. The package
 also includes relevant metadata about 125 recorded speakers and 15
 topics.
 
@@ -83,14 +88,15 @@ period after Fujimori’s successful bid for a second term through the
 final months before the regime’s collapse. Transcripts were collected
 from two main sources:
 
-- **LUM digital collections:** 62 transcripts accessed through the
+- **LUM digital collections:** 58 transcripts accessed through the
   [digital
   holdings](https://lum.cultura.pe/cdi/busqueda/colecciones?field_coleccion=55&field_palabra_clave%5B%5D=13462&field_year=)
-  of the *Lugar de la Memoria, la Tolerancia y la Inclusión* Social
+  of the *Lugar de la Memoria, la Tolerancia y la Inclusión Social*, an
+  entity that is part of the Peruvian National Ministry of Culture.
   (LUM).
-- **Congressional print volumes:** 39 transcripts from the six-volume
-  collection [*En la sala de la corrupción: Videos y audios de Vladimiro
-  Montesinos
+- **Congressional print volumes:** 41 additional transcripts from the
+  six-volume collection [*En la sala de la corrupción: Videos y audios
+  de Vladimiro Montesinos
   (1998–2000)*](https://books.google.com/books/about/En_la_sala_de_la_corrupci%C3%B3n.html?id=q7XHPgAACAAJ),
   edited by Antonio Zapata Velasco and published by the Fondo Editorial
   del Congreso del Perú. These volumes reproduce records originally made
@@ -105,7 +111,7 @@ library(BribeR)
 library(dplyr)
 library(ggplot2)
 
-## There are 101 transcripts in the dataset
+## There are 99 transcripts in the dataset
 meta <- read_transcript_meta_data()
 nrow(meta)
 #> [1] 99
@@ -154,22 +160,21 @@ head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 #> 6 alberto fujimori                President of Peru (19… elec… NA    fujimori
 ```
 
-Actors are grouped into eleven categories. Vladimiro Montesinos, the
-central figure of the transcripts, is kept in his own `montesinos`
-category rather than being grouped under `security`:
+Actors are grouped into eleven categories. Vladimiro Montesinosis in his
+own category:
 
 | type | Count | Description |
 |----|----|----|
+| `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
 | `security` | 26 | Military and police officers |
-| `congress` | 25 | Members of Congress, including opposition members bribed to switch allegiance |
+| `congress` | 25 | Members of Congress, including allies and opposition members bribed to switch allegiance |
 | `bureaucrat` | 15 | Senior civil servants and agency heads |
-| `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunal |
+| `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunals |
 | `foreign` | 13 | Foreign officials and diplomats |
 | `media` | 12 | Television channel and newspaper executives |
 | `illicit` | 8 | Individuals primarily associated with armed groups |
 | `businessperson` | 5 | Private sector executives and financiers |
 | `elected official` | 5 | Mayors, executives, and (non-Congressional) other elected officials |
-| `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
 | `unknown` | 1 | Institutional role not recorded |
 
 This figure shows that the three most common types of actors to be
@@ -196,7 +201,7 @@ actors |>
 Very few transcripts label a speaker as `DESCONOCIDO` (unidentified),
 but when a speaker is unidentified, they are often acting as a messenger
 and quickly exit, or are largely silent for the conversation except for
-salutations.
+salutations. **BribeR** classifies these individuals as `unknown`.
 
 ## Topics
 
@@ -210,11 +215,11 @@ topics include:
 | `media` | Bribery of television channels and newspapers |
 | `promotions` | Military and police promotions in exchange for loyalty |
 | `foreign` | Foreign policy and international relations |
-| `ivcher` | The case of Baruch Ivcher, a media owner stripped of citizenship |
-| `canal4` | Dealings with Canal 4 (RBC Televisión) |
+| `ivcher` | Baruch Ivcher, a media owner stripped of Peruvian citizenship after exposing corruption in the Fujimori regime |
+| `canal4` | Events surrounding Canal 4 (RBC Televisión), an opposition television network |
 | `security` | Domestic public security and anti-opposition suppression |
-| `wiese` | Wiese banking group |
-| `lucchetti_factory` | Lucchetti factory zoning controversy |
+| `wiese` | Wiese banking group, a financial partner of the regime |
+| `lucchetti_factory` | Lucchetti factory zoning and construction controversy |
 | `ecuador` | 1995 border conflict with Ecuador |
 | `referendum` | Presidental term limits referendum |
 | `municipal98` | 1998 municipal elections |
@@ -276,9 +281,9 @@ meta |>
 [^1]: Originally numbered Transcript 888 in the Congress of Peru’s
     archive.
 
-[^2]: All transcripts in the database are not translated from their
-    original Spanish version. This is translated just as an example for
-    readability in the vignette.
+[^2]: The transcripts in the **BribeR** database are not translated from
+    their original Spanish version. This is translated just as an
+    example for readability in the vignette.
 
 [^3]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
