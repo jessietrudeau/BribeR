@@ -69,9 +69,11 @@ is no separate <code>descriptions</code> dataset.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A tibble with 99 rows. Descriptive columns first, followed by
-speaker/topic counts, followed by the boolean (1/0) <code>speaker_*</code> and
-<code>topic_*</code> indicator columns:</p><dl><dt>id</dt>
+    <p>A tibble with 99 rows. Descriptive columns first, followed by the
+<code>n_speakers</code> and <code>n_topics</code> summary counts, followed by the boolean (1/0)
+<code>speaker_*</code> and <code>topic_*</code> indicator columns. The counts are deliberately
+named with an <code>n_</code> prefix so that they are not picked up by code selecting
+indicator columns with <code>speaker_</code> or <code>topic_</code>:</p><dl><dt>id</dt>
 <dd><p>Numeric transcript identifier (BribeR internal numbering).</p></dd>
 
 <dt>file</dt>
@@ -101,10 +103,10 @@ speaker/topic counts, followed by the boolean (1/0) <code>speaker_*</code> and
 <dt>speakers</dt>
 <dd><p>Free-text description of participants.</p></dd>
 
-<dt>speaker_count</dt>
+<dt>n_speakers</dt>
 <dd><p>Total number of distinct speakers in the transcript.</p></dd>
 
-<dt>topic_count</dt>
+<dt>n_topics</dt>
 <dd><p>Total number of topics flagged for the transcript.</p></dd>
 
 <dt>speaker_SURNAME</dt>

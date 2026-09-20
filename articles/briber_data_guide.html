@@ -242,12 +242,12 @@ below table.</p>
 <td>List of speaker names in the transcript</td>
 </tr>
 <tr class="odd">
-<td><code>speaker_count</code></td>
+<td><code>n_speakers</code></td>
 <td>integer</td>
 <td>Number of speakers in the transcript</td>
 </tr>
 <tr class="even">
-<td><code>topic_count</code></td>
+<td><code>n_topics</code></td>
 <td>integer</td>
 <td>Number of topics discussed in the transcript</td>
 </tr>
@@ -269,16 +269,15 @@ otherwise. They are designed for fast filtering for specific actors or
 topics without loading the full corpus.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 15 topics in the corpus</span></span>
-<span><span class="co"># topic_count sums the topics, isn't a distinct topic</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^topic_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> </span>
-<span><span class="co">#&gt;  [1] "topic_count"             "topic_referendum"       </span></span>
-<span><span class="co">#&gt;  [3] "topic_ecuador"           "topic_lucchetti_factory"</span></span>
-<span><span class="co">#&gt;  [5] "topic_municipal98"       "topic_reelection"       </span></span>
-<span><span class="co">#&gt;  [7] "topic_miraflores"        "topic_canal4"           </span></span>
-<span><span class="co">#&gt;  [9] "topic_media"             "topic_promotions"       </span></span>
-<span><span class="co">#&gt; [11] "topic_ivcher"            "topic_foreign"          </span></span>
-<span><span class="co">#&gt; [13] "topic_wiese"             "topic_public_officials" </span></span>
-<span><span class="co">#&gt; [15] "topic_security"          "topic_state_capture"</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"^topic_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] "topic_referendum"        "topic_ecuador"          </span></span>
+<span><span class="co">#&gt;  [3] "topic_lucchetti_factory" "topic_municipal98"      </span></span>
+<span><span class="co">#&gt;  [5] "topic_reelection"        "topic_miraflores"       </span></span>
+<span><span class="co">#&gt;  [7] "topic_canal4"            "topic_media"            </span></span>
+<span><span class="co">#&gt;  [9] "topic_promotions"        "topic_ivcher"           </span></span>
+<span><span class="co">#&gt; [11] "topic_foreign"           "topic_wiese"            </span></span>
+<span><span class="co">#&gt; [13] "topic_public_officials"  "topic_security"         </span></span>
+<span><span class="co">#&gt; [15] "topic_state_capture"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="speakers_per_transcript">

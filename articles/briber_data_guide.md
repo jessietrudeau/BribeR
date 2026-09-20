@@ -79,8 +79,8 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `type` | character | Recording medium (`"audio"` or `"video"`) |
 | `summary` | character | Transcript summary (in English, XXXX) |
 | `speakers` | character | List of speaker names in the transcript |
-| `speaker_count` | integer | Number of speakers in the transcript |
-| `topic_count` | integer | Number of topics discussed in the transcript |
+| `n_speakers` | integer | Number of speakers in the transcript |
+| `n_topics` | integer | Number of topics discussed in the transcript |
 | `speaker_*` | integer | Speaker indicators (1/0) |
 | `topic_*` | integer | Topic indicators (1/0) |
 
@@ -92,16 +92,15 @@ loading the full corpus.
 ``` r
 
 # 15 topics in the corpus
-# topic_count sums the topics, isn't a distinct topic
-names(transcript_index)[grepl("^topic_", names(transcript_index))] 
-#>  [1] "topic_count"             "topic_referendum"       
-#>  [3] "topic_ecuador"           "topic_lucchetti_factory"
-#>  [5] "topic_municipal98"       "topic_reelection"       
-#>  [7] "topic_miraflores"        "topic_canal4"           
-#>  [9] "topic_media"             "topic_promotions"       
-#> [11] "topic_ivcher"            "topic_foreign"          
-#> [13] "topic_wiese"             "topic_public_officials" 
-#> [15] "topic_security"          "topic_state_capture"
+names(transcript_index)[grepl("^topic_", names(transcript_index))]
+#>  [1] "topic_referendum"        "topic_ecuador"          
+#>  [3] "topic_lucchetti_factory" "topic_municipal98"      
+#>  [5] "topic_reelection"        "topic_miraflores"       
+#>  [7] "topic_canal4"            "topic_media"            
+#>  [9] "topic_promotions"        "topic_ivcher"           
+#> [11] "topic_foreign"           "topic_wiese"            
+#> [13] "topic_public_officials"  "topic_security"         
+#> [15] "topic_state_capture"
 ```
 
 ### `speakers_per_transcript`

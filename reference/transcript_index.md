@@ -14,9 +14,11 @@ transcript_index
 
 ## Format
 
-A tibble with 99 rows. Descriptive columns first, followed by
-speaker/topic counts, followed by the boolean (1/0) `speaker_*` and
-`topic_*` indicator columns:
+A tibble with 99 rows. Descriptive columns first, followed by the
+`n_speakers` and `n_topics` summary counts, followed by the boolean
+(1/0) `speaker_*` and `topic_*` indicator columns. The counts are
+deliberately named with an `n_` prefix so that they are not picked up by
+code selecting indicator columns with `speaker_` or `topic_`:
 
 - id:
 
@@ -58,11 +60,11 @@ speaker/topic counts, followed by the boolean (1/0) `speaker_*` and
 
   Free-text description of participants.
 
-- speaker_count:
+- n_speakers:
 
   Total number of distinct speakers in the transcript.
 
-- topic_count:
+- n_topics:
 
   Total number of topics flagged for the transcript.
 
