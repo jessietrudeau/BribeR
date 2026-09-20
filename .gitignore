@@ -4,3 +4,8 @@
 .Ruserdata
 *.Rcheck
 **/.DS_Store
+
+# pkgdown build output. The site is built from README.md, vignettes/, man/ and
+# _pkgdown.yml by .github/workflows/pkgdown.yaml and deployed to gh-pages.
+# Never edit files in docs/ directly -- the CI build overwrites them.
+/docs/

@@ -1,15 +1,21 @@
-# BribeR <img src="man/figures/montesinos.png" align="right" height="138" alt="Montesinos" />
+# BribeR
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/BribeR)](https://CRAN.R-project.org/package=BribeR)
 [![R-CMD-check](https://github.com/jessietrudeau/BribeR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jessietrudeau/BribeR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**{BribeR}** is an R package for accessing and analyzing text transcript data from the *Vladivideos,* covert recordings documenting bribery and corruption during Alberto Fujimori's presidency in Peru (1990-2000). 
+**BribeR** is an R package for accessing and analyzing text transcript data from the *Vladivideos,* covert recordings documenting bribery and corruption during Alberto Fujimori's presidency in Peru (1990-2000). 
 
-This package provides user-friendly access to a large digital archive of *Vladivideo* transcripts and metadata, including data about 125 individual speakers in the files and 15 topics of importance during the Fujimori presidency.
+This package provides user-friendly access to a large digital archive of *Vladivideo* transcripts and metadata, including data about 125 individual speakers in the files and 15 expert-coded topics of importance during the Fujimori presidency.
 
-(PICTURE) 
+<p align="center">
+  <img src="man/figures/network_viz.png" width="60%" alt="Network of speakers recorded in the Vladivideo files, with Montesinos at the center" />
+</p>
+
+<p align="center">Speakers recorded in the <em>Vladivideo</em> files, with Montesinos in the center.
+See <a href="https://jessietrudeau.com/BribeR/articles/transcript_network_app.html" target="_blank">Network Visualization</a>
+for more details.</p>
 
 ---
 
@@ -34,7 +40,7 @@ This package provides three families of functions to access, organize, and analy
 
 **1. Read transcripts**
 
-These functions load transcript data as tibbles(?) or load original source .csv files. 
+These functions load transcript data as tibbles or load original source .csv files. 
 
 **2. Find transcripts**
 
@@ -48,7 +54,7 @@ These functions allow the user to find metadata and combine it with transcripts 
 
 ## Basic Usage
 
-The syntax of `BribeR` is designed to help users easily find and download transcripts relevant to their interest. For example, a user interested in obtaining transcript text data and metadata about all conversations where media manipulation would run the following lines of code: 
+The syntax of `BribeR` is designed to help users easily find and download transcripts relevant to their interest. For example, a user interested in obtaining transcript text data and metadata about all conversations involving **media manipulation** would run the following lines of code: 
 
 ```r
 # Load data 
@@ -72,10 +78,10 @@ BribeR includes four datasets:
 
 | Dataset | Description |
 |---|---|
-| `compiled_transcripts` | Full text corpus: 47,375 speech turns across 101 transcripts |
-| `transcript_index` | Wide-format transcript-level metadata with dates and summaries, and searchable by speaker and topic |
+| `compiled_transcripts` | Full text corpus: 46,597 speech turns across 99 transcripts |
+| `transcript_index` | Wide-format transcript-level metadata, including dates, recording format, summaries, topics, and speakers present |
 | `speakers_per_transcript` | Speaker roster per transcript |
-| `actors` | actor-level metadata, including industry and a short description | 
+| `actors` | Actor-level metadata | 
 
 A full description of the raw data is in the 
 <a href="https://jessietrudeau.com/BribeR/articles/raw_data_guide.html" target="_blank">Raw Data Guide</a>, as well as a description of additional actor- and topic-level metadata accessible in **BribeR.** A full description of the datasets included in the package is in the
