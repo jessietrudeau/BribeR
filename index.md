@@ -1,15 +1,21 @@
-# BribeR ![Montesinos](reference/figures/montesinos.png)
+# BribeR
 
-**{BribeR}** is an R package for accessing and analyzing text transcript
+**BribeR** is an R package for accessing and analyzing text transcript
 data from the *Vladivideos,* covert recordings documenting bribery and
 corruption during Alberto Fujimori’s presidency in Peru (1990-2000).
 
 This package provides user-friendly access to a large digital archive of
 *Vladivideo* transcripts and metadata, including data about 125
-individual speakers in the files and 15 topics of importance during the
-Fujimori presidency.
+individual speakers in the files and 15 expert-coded topics of
+importance during the Fujimori presidency.
 
-(PICTURE)
+![Network of speakers recorded in the Vladivideo files, with Montesinos
+at the center](reference/figures/network_viz.png)
+
+Speakers recorded in the *Vladivideo* files, with Montesinos in the
+center. See [Network
+Visualization](https://jessietrudeau.com/BribeR/articles/transcript_network_app.html)
+for more details.
 
 ------------------------------------------------------------------------
 
@@ -39,8 +45,8 @@ Guide](https://jessietrudeau.com/BribeR/articles/using_briber.html).
 
 **1. Read transcripts**
 
-These functions load transcript data as tibbles(?) or load original
-source .csv files.
+These functions load transcript data as tibbles or load original source
+.csv files.
 
 **2. Find transcripts**
 
@@ -59,8 +65,8 @@ transcripts or their speakers.
 The syntax of `BribeR` is designed to help users easily find and
 download transcripts relevant to their interest. For example, a user
 interested in obtaining transcript text data and metadata about all
-conversations where media manipulation would run the following lines of
-code:
+conversations involving **media manipulation** would run the following
+lines of code:
 
 ``` r
 
@@ -85,10 +91,10 @@ BribeR includes four datasets:
 
 | Dataset | Description |
 |----|----|
-| `compiled_transcripts` | Full text corpus: 47,375 speech turns across 101 transcripts |
-| `transcript_index` | Wide-format transcript-level metadata with dates and summaries, and searchable by speaker and topic |
+| `compiled_transcripts` | Full text corpus: 46,597 speech turns across 99 transcripts |
+| `transcript_index` | Wide-format transcript-level metadata, including dates, recording format, summaries, topics, and speakers present |
 | `speakers_per_transcript` | Speaker roster per transcript |
-| `actors` | actor-level metadata, including industry and a short description |
+| `actors` | Actor-level metadata |
 
 A full description of the raw data is in the [Raw Data
 Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html),
