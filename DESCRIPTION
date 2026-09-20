@@ -15,15 +15,15 @@ Description: Provides access to and tools for analyzing the 'Vladivideos'
 URL: https://jessietrudeau.github.io/BribeR, https://github.com/jessietrudeau/BribeR
 BugReports: https://github.com/jessietrudeau/BribeR/issues
 License: MIT + file LICENSE
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.1.0)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Imports:
-    dplyr,
+    dplyr (>= 1.1.0),
     fs,
     purrr,
-    readr,
+    readr (>= 2.0.0),
     shiny,
     stringr,
     tibble,

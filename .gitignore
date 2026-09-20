@@ -5,6 +5,11 @@
 *.Rcheck
 **/.DS_Store
 
+# macOS custom folder icons, created by Finder and Dropbox. The real name is
+# "Icon" plus a trailing carriage return, which git status hides and R CMD
+# check rejects as a non-portable file name, so match it with a wildcard.
+Icon?
+
 # pkgdown build output. The site is built from README.md, vignettes/, man/ and
 # _pkgdown.yml by .github/workflows/pkgdown.yaml and deployed to gh-pages.
 # Never edit files in docs/ directly -- the CI build overwrites them.
