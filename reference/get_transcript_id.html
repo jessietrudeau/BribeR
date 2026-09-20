@@ -70,27 +70,29 @@ the bundled <code>transcript_index</code> dataset.</p>
 
 <dl><dt id="arg-speaker">speaker<a class="anchor" aria-label="anchor" href="#arg-speaker"></a></dt>
 <dd><p>Optional character vector of one or more standardized speaker
-names (e.g., <code>"montesinos"</code>, <code>c("kouri", "crousillat")</code>). If provided,
-transcripts where any of these speakers are present will be included.</p></dd>
+names (e.g., <code>"montesinos"</code>, <code>c("alex kouri", "crousillat")</code>). If provided,
+only transcripts where all of these speakers are present are included.</p></dd>
 
 
 <dt id="arg-topic">topic<a class="anchor" aria-label="anchor" href="#arg-topic"></a></dt>
 <dd><p>Optional character vector of one or more topic names (e.g.,
 <code>"media"</code>, <code>c("reelection", "state_capture")</code>). The <code>topic_</code> prefix is
-added automatically if not included. Transcripts where any of these topics
-are flagged will be included.</p></dd>
+added automatically if not included. Only transcripts where all of these
+topics are flagged are included.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A sorted numeric vector of matching transcript IDs.</p>
+    <p>A sorted numeric vector of matching transcript IDs, or <code>numeric(0)</code>
+if no transcript satisfies every filter.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>When multiple speakers and/or topics are provided, all filters are
-combined with OR logic: a transcript is included if <strong>any</strong> of the
-specified speakers appear in it <strong>or</strong> <strong>any</strong> of the specified topics
-are flagged.</p>
+combined with AND logic: a transcript is included only if <strong>every</strong>
+specified speaker appears in it <strong>and</strong> <strong>every</strong> specified topic is
+flagged. Requesting a combination that never co-occurs returns an empty
+vector.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -112,19 +114,17 @@ are flagged.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [77]  89  90  94  95  96  97  98 102 103 104</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Retrieve transcript IDs where either Kouri or Crousillat appears</span></span></span>
-<span class="r-in"><span><span class="fu">get_transcript_id</span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kouri"</span>, <span class="st">"crousillat"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...</span>
+<span class="r-in"><span><span class="co"># Retrieve transcript IDs where both Alex Kouri and Crousillat appear</span></span></span>
+<span class="r-in"><span><span class="fu">get_transcript_id</span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alex kouri"</span>, <span class="st">"crousillat"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 76 82</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Retrieve transcript IDs about media or reelection</span></span></span>
+<span class="r-in"><span><span class="co"># Retrieve transcript IDs about both media and reelection</span></span></span>
 <span class="r-in"><span><span class="fu">get_transcript_id</span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]   4   5   6   8   9  16  21  24  25  26  30  31  32  33  34  35  39  40  41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20]  42  43  44  45  46  48  50  55  56  58  59  62  63  70  71  72  73  74  75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39]  77  78  79  80  81  82  83  85  86  87  88  90  94  95  97 102 103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  35  39  62  79  87  88  97 103</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Combine: transcripts with Kouri OR about media</span></span></span>
-<span class="r-in"><span><span class="fu">get_transcript_id</span><span class="op">(</span>speaker <span class="op">=</span> <span class="st">"kouri"</span>, topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...</span>
+<span class="r-in"><span><span class="co"># Combine: transcripts with Alex Kouri that are also about media</span></span></span>
+<span class="r-in"><span><span class="fu">get_transcript_id</span><span class="op">(</span>speaker <span class="op">=</span> <span class="st">"alex kouri"</span>, topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 39 41 86</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

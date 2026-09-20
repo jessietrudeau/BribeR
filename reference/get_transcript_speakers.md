@@ -22,8 +22,8 @@ get_transcript_speakers(n = NULL, topic = NULL)
 
   Optional character vector of one or more topic names (e.g., `"media"`,
   `c("reelection", "state_capture")`). The `topic_` prefix is added
-  automatically if not included. Transcripts where any of these topics
-  are flagged will be included.
+  automatically if not included. Only transcripts where all of these
+  topics are flagged are included.
 
 ## Value
 
@@ -36,11 +36,12 @@ A tibble with columns:
 
 ## Details
 
-When both `n` and `topic` are provided, they are combined with AND
-logic: only transcripts that match the specified IDs **and** have the
-specified topics are included. When only one filter is provided, it is
-applied alone. When neither is provided, all speakers across all
-transcripts are returned.
+All filters are combined with AND logic: a transcript contributes
+speakers only if it matches the specified IDs **and** has **every**
+specified topic flagged. When only one filter is provided, it is applied
+alone. When neither is provided, all speakers across all transcripts are
+returned. Requesting a combination that never co-occurs returns a
+zero-row tibble.
 
 ## See also
 
@@ -96,8 +97,37 @@ get_transcript_speakers(topic = "media")
 #> 10 chirinos      <dbl [1]>  
 #> # ℹ 41 more rows
 
-# Get speakers from transcript 1 that is also about media
-get_transcript_speakers(n = 1, topic = "media")
-#> # A tibble: 0 × 2
-#> # ℹ 2 variables: speaker_std <chr>, transcripts <list>
+# Get speakers from transcripts about both media and reelection
+get_transcript_speakers(topic = c("media", "reelection"))
+#> # A tibble: 20 × 2
+#>    speaker_std       transcripts
+#>    <chr>             <list>     
+#>  1 alberto kouri     <dbl [1]>  
+#>  2 alex kouri        <dbl [1]>  
+#>  3 arce              <dbl [2]>  
+#>  4 bello vazquez     <dbl [1]>  
+#>  5 bringas           <dbl [1]>  
+#>  6 chirinos          <dbl [1]>  
+#>  7 crousillat        <dbl [1]>  
+#>  8 delgado parker    <dbl [1]>  
+#>  9 doufour           <dbl [1]>  
+#> 10 hernandez canelo  <dbl [2]>  
+#> 11 ibarcena          <dbl [2]>  
+#> 12 joy way           <dbl [1]>  
+#> 13 locutor           <dbl [1]>  
+#> 14 manuel lopez      <dbl [1]>  
+#> 15 montes de oca     <dbl [1]>  
+#> 16 montesinos        <dbl [8]>  
+#> 17 romero seminario  <dbl [1]>  
+#> 18 serpa             <dbl [1]>  
+#> 19 tudela            <dbl [1]>  
+#> 20 villanueva ruesta <dbl [1]>  
+
+# Get speakers from transcript 4, which is also about media
+get_transcript_speakers(n = 4, topic = "media")
+#> # A tibble: 2 × 2
+#>   speaker_std transcripts
+#>   <chr>       <list>     
+#> 1 locutor     <dbl [1]>  
+#> 2 moncayo     <dbl [1]>  
 ```

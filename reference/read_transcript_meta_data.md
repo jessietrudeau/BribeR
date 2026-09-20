@@ -13,10 +13,17 @@ data. Combines information from three internal sources:
 ## Usage
 
 ``` r
-read_transcript_meta_data(quiet = TRUE)
+read_transcript_meta_data(id = NULL, quiet = TRUE)
 ```
 
 ## Arguments
+
+- id:
+
+  Optional numeric vector of transcript IDs to return metadata for
+  (e.g., `5`, or `c(5, 12, 47)`). If `NULL` (the default), metadata for
+  every transcript is returned. IDs with no matching transcript are
+  dropped with a warning naming them.
 
 - quiet:
 
@@ -79,5 +86,21 @@ head(meta)
 #> 4     4 1997-06-13 <chr [2]>     175 <chr [3]>
 #> 5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
 #> 6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
+
+# Metadata for a single transcript
+read_transcript_meta_data(5)
+#> # A tibble: 1 × 5
+#>      id date       speakers  n_words topics   
+#>   <dbl> <chr>      <list>      <int> <list>   
+#> 1     5 1998-01-08 <chr [5]>    9391 <chr [3]>
+
+# Metadata for several transcripts
+read_transcript_meta_data(c(5, 12, 47))
+#> # A tibble: 3 × 5
+#>      id date       speakers  n_words topics   
+#>   <dbl> <chr>      <list>      <int> <list>   
+#> 1     5 1998-01-08 <chr [5]>    9391 <chr [3]>
+#> 2    12 1998-02-10 <chr [2]>    1283 <chr [2]>
+#> 3    47 1998-11-23 <chr [2]>   15941 <chr [4]>
 # }
 ```

@@ -132,6 +132,14 @@ length(kouri_ids)
 #> [1] 9
 kouri_ids
 #> [1] 10 38 39 41 76 78 82 83 86
+
+# Transcripts featuring both Alex Kouri and Crousillat
+# (a TV producer with America Television)
+kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat"))
+length(kouri_crousillat_ids)
+#> [1] 2
+kouri_crousillat_ids
+#> [1] 76 82
 ```
 
 There are 125 valid speaker IDs that the `speaker_std` variable can take
@@ -157,7 +165,7 @@ media_ids
 # Transcripts about BOTH media and reelection 
 media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
 length(media_reelection_ids)
-#> [1] 55
+#> [1] 8
 ```
 
 There are 15 valid topics, listed in the [Raw Data
@@ -171,15 +179,15 @@ speaker(s) are present and topic is mentioned.
 
 ``` r
 
-# Find transcripts about ecuador  
-ecuador_ids <- get_transcript_id(topic = "ecuador")
-length(ecuador_ids)
-#> [1] 7
+# Find transcripts about media
+media_ids <- get_transcript_id(topic = "media")
+length(media_ids)
+#> [1] 37
 
-# Find transcripts about ecuador where a Sendero Luminoso (armed group) leader is present 
-ecuador_morote_ids <- get_transcript_id(topic = "ecuador", speaker = "morote")
-length(ecuador_morote_ids)
-#> [1] 8
+# Find transcripts about media where a television producer is present
+media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat")
+length(media_crousillat_ids)
+#> [1] 2
 ```
 
 ## Integrate with metadata
@@ -209,22 +217,12 @@ head(meta)
 #> 5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
 #> 6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
 
-# Get metadata for transcript 5 - THIS DOESN'T WORK
+# Get metadata for transcript 5
 read_transcript_meta_data(5)
-#> # A tibble: 99 × 5
-#>       id date       speakers  n_words topics   
-#>    <dbl> <chr>      <list>      <int> <list>   
-#>  1     1 1997-03-25 <chr [4]>   10375 <chr [2]>
-#>  2     2 1997-03-26 <chr [2]>    7120 <chr [3]>
-#>  3     3 1997-03-26 <chr [3]>    7006 <chr [3]>
-#>  4     4 1997-06-13 <chr [2]>     175 <chr [3]>
-#>  5     5 1998-01-08 <chr [5]>    9391 <chr [3]>
-#>  6     6 1998-01-12 <chr [2]>   13035 <chr [3]>
-#>  7     8 1998-01-20 <chr [2]>    4895 <chr [3]>
-#>  8     9 1988-01-23 <chr [3]>   16843 <chr [3]>
-#>  9    10 1998-01-28 <chr [8]>   15704 <chr [2]>
-#> 10    11 1998-02-10 <chr [3]>    9420 <chr [2]>
-#> # ℹ 89 more rows
+#> # A tibble: 1 × 5
+#>      id date       speakers  n_words topics   
+#>   <dbl> <chr>      <list>      <int> <list>   
+#> 1     5 1998-01-08 <chr [5]>    9391 <chr [3]>
 ```
 
 ## Examples

@@ -16,26 +16,28 @@ get_transcript_id(speaker = NULL, topic = NULL)
 - speaker:
 
   Optional character vector of one or more standardized speaker names
-  (e.g., `"montesinos"`, `c("kouri", "crousillat")`). If provided,
-  transcripts where any of these speakers are present will be included.
+  (e.g., `"montesinos"`, `c("alex kouri", "crousillat")`). If provided,
+  only transcripts where all of these speakers are present are included.
 
 - topic:
 
   Optional character vector of one or more topic names (e.g., `"media"`,
   `c("reelection", "state_capture")`). The `topic_` prefix is added
-  automatically if not included. Transcripts where any of these topics
-  are flagged will be included.
+  automatically if not included. Only transcripts where all of these
+  topics are flagged are included.
 
 ## Value
 
-A sorted numeric vector of matching transcript IDs.
+A sorted numeric vector of matching transcript IDs, or `numeric(0)` if
+no transcript satisfies every filter.
 
 ## Details
 
 When multiple speakers and/or topics are provided, all filters are
-combined with OR logic: a transcript is included if **any** of the
-specified speakers appear in it **or** **any** of the specified topics
-are flagged.
+combined with AND logic: a transcript is included only if **every**
+specified speaker appears in it **and** **every** specified topic is
+flagged. Requesting a combination that never co-occurs returns an empty
+vector.
 
 ## See also
 
@@ -59,17 +61,15 @@ get_transcript_id(speaker = "montesinos")
 #> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88
 #> [77]  89  90  94  95  96  97  98 102 103 104
 
-# Retrieve transcript IDs where either Kouri or Crousillat appears
-get_transcript_id(speaker = c("kouri", "crousillat"))
-#> Error: Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...
+# Retrieve transcript IDs where both Alex Kouri and Crousillat appear
+get_transcript_id(speaker = c("alex kouri", "crousillat"))
+#> [1] 76 82
 
-# Retrieve transcript IDs about media or reelection
+# Retrieve transcript IDs about both media and reelection
 get_transcript_id(topic = c("media", "reelection"))
-#>  [1]   4   5   6   8   9  16  21  24  25  26  30  31  32  33  34  35  39  40  41
-#> [20]  42  43  44  45  46  48  50  55  56  58  59  62  63  70  71  72  73  74  75
-#> [39]  77  78  79  80  81  82  83  85  86  87  88  90  94  95  97 102 103
+#> [1]  35  39  62  79  87  88  97 103
 
-# Combine: transcripts with Kouri OR about media
-get_transcript_id(speaker = "kouri", topic = "media")
-#> Error: Speaker(s) not found in transcript_index: kouri. Available speakers include: count, alva, lewis, burnet, garcia, alex kouri, ibarcena, montesinos, serpa, santander, ...
+# Combine: transcripts with Alex Kouri that are also about media
+get_transcript_id(speaker = "alex kouri", topic = "media")
+#> [1] 39 41 86
 ```
