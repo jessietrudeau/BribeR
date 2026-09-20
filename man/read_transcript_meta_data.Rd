@@ -4,9 +4,14 @@
 \alias{read_transcript_meta_data}
 \title{Read transcript-level metadata (id, date, speakers, duration, topics)}
 \usage{
-read_transcript_meta_data(quiet = TRUE)
+read_transcript_meta_data(id = NULL, quiet = TRUE)
 }
 \arguments{
+\item{id}{Optional numeric vector of transcript IDs to return metadata for
+(e.g., \code{5}, or \code{c(5, 12, 47)}). If \code{NULL} (the default), metadata for every
+transcript is returned. IDs with no matching transcript are dropped with a
+warning naming them.}
+
 \item{quiet}{Logical; if \code{FALSE}, prints progress messages. Default \code{TRUE}.}
 }
 \value{
@@ -45,6 +50,12 @@ summing whitespace-delimited tokens in the \code{speech} column for each unique 
 # Load metadata for all transcripts
 meta <- read_transcript_meta_data()
 head(meta)
+
+# Metadata for a single transcript
+read_transcript_meta_data(5)
+
+# Metadata for several transcripts
+read_transcript_meta_data(c(5, 12, 47))
 }
 
 }

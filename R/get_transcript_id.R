@@ -6,19 +6,21 @@
 #' the bundled `transcript_index` dataset.
 #'
 #' When multiple speakers and/or topics are provided, all filters are
-#' combined with OR logic: a transcript is included if **any** of the
-#' specified speakers appear in it **or** **any** of the specified topics
-#' are flagged.
+#' combined with AND logic: a transcript is included only if **every**
+#' specified speaker appears in it **and** **every** specified topic is
+#' flagged. Requesting a combination that never co-occurs returns an empty
+#' vector.
 #'
 #' @param speaker Optional character vector of one or more standardized speaker
-#'   names (e.g., `"montesinos"`, `c("kouri", "crousillat")`). If provided,
-#'   transcripts where any of these speakers are present will be included.
+#'   names (e.g., `"montesinos"`, `c("alex kouri", "crousillat")`). If provided,
+#'   only transcripts where all of these speakers are present are included.
 #' @param topic Optional character vector of one or more topic names (e.g.,
 #'   `"media"`, `c("reelection", "state_capture")`). The `topic_` prefix is
-#'   added automatically if not included. Transcripts where any of these topics
-#'   are flagged will be included.
+#'   added automatically if not included. Only transcripts where all of these
+#'   topics are flagged are included.
 #'
-#' @return A sorted numeric vector of matching transcript IDs.
+#' @return A sorted numeric vector of matching transcript IDs, or `numeric(0)`
+#'   if no transcript satisfies every filter.
 #'
 #' @examples
 #' # Retrieve all available transcript IDs
@@ -28,14 +30,14 @@
 #' # Retrieve transcript IDs where Montesinos appears
 #' get_transcript_id(speaker = "montesinos")
 #'
-#' # Retrieve transcript IDs where either Kouri or Crousillat appears
-#' get_transcript_id(speaker = c("kouri", "crousillat"))
+#' # Retrieve transcript IDs where both Alex Kouri and Crousillat appear
+#' get_transcript_id(speaker = c("alex kouri", "crousillat"))
 #'
-#' # Retrieve transcript IDs about media or reelection
+#' # Retrieve transcript IDs about both media and reelection
 #' get_transcript_id(topic = c("media", "reelection"))
 #'
-#' # Combine: transcripts with Kouri OR about media
-#' get_transcript_id(speaker = "kouri", topic = "media")
+#' # Combine: transcripts with Alex Kouri that are also about media
+#' get_transcript_id(speaker = "alex kouri", topic = "media")
 #'
 #' @seealso [read_transcripts()], [get_transcripts_raw()], [get_transcript_speakers()]
 #' @export
@@ -64,8 +66,10 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
   # Restrict to IDs that exist in the transcripts
   index <- index[index$id %in% all_ids, ]
 
-  # Collect matching row indices (OR across all filters)
-  matched <- logical(nrow(index))
+  # Collect matching row indices (AND across all filters). Starts all TRUE and
+  # narrows with each condition, so a transcript survives only if it satisfies
+  # every speaker and every topic requested.
+  matched <- rep(TRUE, nrow(index))
 
   # Match speakers
   if (!is.null(speaker)) {
@@ -86,7 +90,7 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
     }
 
     for (sc in speaker_cols) {
-      matched <- matched | (!is.na(index[[sc]]) & index[[sc]] != 0)
+      matched <- matched & (!is.na(index[[sc]]) & index[[sc]] != 0)
     }
   }
 
@@ -108,7 +112,7 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
     }
 
     for (tc in topic_cols) {
-      matched <- matched | (!is.na(index[[tc]]) & index[[tc]] != 0)
+      matched <- matched & (!is.na(index[[tc]]) & index[[tc]] != 0)
     }
   }
 

@@ -5,17 +5,18 @@
 #' appears. Optionally filters to only transcripts matching specific IDs and/or
 #' topics.
 #'
-#' When both `n` and `topic` are provided, they are combined with AND logic:
-#' only transcripts that match the specified IDs **and** have the specified
-#' topics are included. When only one filter is provided, it is applied alone.
-#' When neither is provided, all speakers across all transcripts are returned.
+#' All filters are combined with AND logic: a transcript contributes speakers
+#' only if it matches the specified IDs **and** has **every** specified topic
+#' flagged. When only one filter is provided, it is applied alone. When neither
+#' is provided, all speakers across all transcripts are returned. Requesting a
+#' combination that never co-occurs returns a zero-row tibble.
 #'
 #' @param n Optional numeric vector of transcript IDs to restrict results to
 #'   (e.g., `1`, `c(1, 5, 10)`).
 #' @param topic Optional character vector of one or more topic names (e.g.,
 #'   `"media"`, `c("reelection", "state_capture")`). The `topic_` prefix is
-#'   added automatically if not included. Transcripts where any of these topics
-#'   are flagged will be included.
+#'   added automatically if not included. Only transcripts where all of these
+#'   topics are flagged are included.
 #'
 #' @return A tibble with columns:
 #'   - `speaker_std` (character): standardized speaker identifier
@@ -32,8 +33,11 @@
 #' # Get speakers from transcripts about media
 #' get_transcript_speakers(topic = "media")
 #'
-#' # Get speakers from transcript 1 that is also about media
-#' get_transcript_speakers(n = 1, topic = "media")
+#' # Get speakers from transcripts about both media and reelection
+#' get_transcript_speakers(topic = c("media", "reelection"))
+#'
+#' # Get speakers from transcript 4, which is also about media
+#' get_transcript_speakers(n = 4, topic = "media")
 #'
 #' @seealso [read_transcripts()], [get_transcript_id()], [get_transcripts_raw()]
 #' @export
@@ -98,9 +102,12 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
       )
     }
 
-    matched <- logical(nrow(index))
+    # AND across topics: start all TRUE and narrow with each one, so a
+    # transcript survives only if every requested topic is flagged. Matches the
+    # semantics of get_transcript_id().
+    matched <- rep(TRUE, nrow(index))
     for (tc in topic_cols) {
-      matched <- matched | (!is.na(index[[tc]]) & index[[tc]] != 0)
+      matched <- matched & (!is.na(index[[tc]]) & index[[tc]] != 0)
     }
     topic_ids <- as.numeric(index$id[matched])
     keep_ids <- intersect(keep_ids, topic_ids)

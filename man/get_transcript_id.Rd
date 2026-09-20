@@ -8,16 +8,17 @@ get_transcript_id(speaker = NULL, topic = NULL)
 }
 \arguments{
 \item{speaker}{Optional character vector of one or more standardized speaker
-names (e.g., \code{"montesinos"}, \code{c("kouri", "crousillat")}). If provided,
-transcripts where any of these speakers are present will be included.}
+names (e.g., \code{"montesinos"}, \code{c("alex kouri", "crousillat")}). If provided,
+only transcripts where all of these speakers are present are included.}
 
 \item{topic}{Optional character vector of one or more topic names (e.g.,
 \code{"media"}, \code{c("reelection", "state_capture")}). The \code{topic_} prefix is
-added automatically if not included. Transcripts where any of these topics
-are flagged will be included.}
+added automatically if not included. Only transcripts where all of these
+topics are flagged are included.}
 }
 \value{
-A sorted numeric vector of matching transcript IDs.
+A sorted numeric vector of matching transcript IDs, or \code{numeric(0)}
+if no transcript satisfies every filter.
 }
 \description{
 Returns all available transcript IDs (the unique values of \code{n}) from the
@@ -27,9 +28,10 @@ the bundled \code{transcript_index} dataset.
 }
 \details{
 When multiple speakers and/or topics are provided, all filters are
-combined with OR logic: a transcript is included if \strong{any} of the
-specified speakers appear in it \strong{or} \strong{any} of the specified topics
-are flagged.
+combined with AND logic: a transcript is included only if \strong{every}
+specified speaker appears in it \strong{and} \strong{every} specified topic is
+flagged. Requesting a combination that never co-occurs returns an empty
+vector.
 }
 \examples{
 # Retrieve all available transcript IDs
@@ -39,14 +41,14 @@ head(ids)
 # Retrieve transcript IDs where Montesinos appears
 get_transcript_id(speaker = "montesinos")
 
-# Retrieve transcript IDs where either Kouri or Crousillat appears
-get_transcript_id(speaker = c("kouri", "crousillat"))
+# Retrieve transcript IDs where both Alex Kouri and Crousillat appear
+get_transcript_id(speaker = c("alex kouri", "crousillat"))
 
-# Retrieve transcript IDs about media or reelection
+# Retrieve transcript IDs about both media and reelection
 get_transcript_id(topic = c("media", "reelection"))
 
-# Combine: transcripts with Kouri OR about media
-get_transcript_id(speaker = "kouri", topic = "media")
+# Combine: transcripts with Alex Kouri that are also about media
+get_transcript_id(speaker = "alex kouri", topic = "media")
 
 }
 \seealso{

@@ -25,26 +25,43 @@ test_that("get_transcript_id filters by topic", {
   expect_true(all(ids %in% all_ids))
 })
 
-test_that("get_transcript_id accepts multiple speakers (OR logic)", {
+test_that("get_transcript_id narrows across multiple speakers (AND logic)", {
   ids_single <- get_transcript_id(speaker = "crousillat")
   ids_multi  <- get_transcript_id(speaker = c("crousillat", "montesinos"))
-  expect_true(length(ids_multi) >= length(ids_single))
+
+  # AND means the combined result is a subset of either filter alone
+  expect_true(length(ids_multi) <= length(ids_single))
+  expect_true(all(ids_multi %in% ids_single))
 })
 
-test_that("get_transcript_id accepts multiple topics (OR logic)", {
-  ids_single <- get_transcript_id(topic = "media")
-  ids_multi  <- get_transcript_id(topic = c("media", "reelection"))
-  expect_true(length(ids_multi) >= length(ids_single))
+test_that("get_transcript_id narrows across multiple topics (AND logic)", {
+  ids_media      <- get_transcript_id(topic = "media")
+  ids_reelection <- get_transcript_id(topic = "reelection")
+  ids_both       <- get_transcript_id(topic = c("media", "reelection"))
+
+  expect_true(all(ids_both %in% ids_media))
+  expect_true(all(ids_both %in% ids_reelection))
+  # Pin the exact overlap so the semantics cannot silently flip back to OR
+  expect_equal(length(ids_media), 37)
+  expect_equal(length(ids_reelection), 26)
+  expect_equal(length(ids_both), 8)
 })
 
-test_that("get_transcript_id combines speaker and topic with OR", {
+test_that("get_transcript_id combines speaker and topic with AND", {
   ids_speaker <- get_transcript_id(speaker = "crousillat")
   ids_topic   <- get_transcript_id(topic = "media")
   ids_both    <- get_transcript_id(speaker = "crousillat", topic = "media")
 
-  # OR means combined should be at least as large as either alone
-  expect_true(length(ids_both) >= length(ids_speaker))
-  expect_true(length(ids_both) >= length(ids_topic))
+  expect_true(all(ids_both %in% ids_speaker))
+  expect_true(all(ids_both %in% ids_topic))
+  expect_equal(length(ids_both), 2)
+})
+
+test_that("get_transcript_id returns an empty vector when filters never co-occur", {
+  # Morote appears only in transcript 81; no Ecuador transcript includes him
+  ids <- get_transcript_id(topic = "ecuador", speaker = "morote")
+  expect_type(ids, "double")
+  expect_length(ids, 0)
 })
 
 test_that("get_transcript_id errors on invalid speaker", {

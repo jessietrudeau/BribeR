@@ -102,6 +102,12 @@ montesinos_ids
 kouri_ids <- get_transcript_id(speaker = "alex kouri")
 length(kouri_ids)
 kouri_ids
+
+# Transcripts featuring both Alex Kouri and Crousillat
+# (a TV producer with America Television)
+kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat"))
+length(kouri_crousillat_ids)
+kouri_crousillat_ids
 ```
 
 There are 125 valid speaker IDs that the `speaker_std` variable can take on, listed in the `actors` dataset.
@@ -130,13 +136,13 @@ There are 15 valid topics, listed in the [Raw Data Guide](https://jessietrudeau.
 Finally, users can filter transcripts by actor and topic. This function uses AND logic and returns transcript IDs where both the selected speaker(s) are present and topic is mentioned.
 
 ```{r}
-# Find transcripts about ecuador  
-ecuador_ids <- get_transcript_id(topic = "ecuador")
-length(ecuador_ids)
+# Find transcripts about media
+media_ids <- get_transcript_id(topic = "media")
+length(media_ids)
 
-# Find transcripts about ecuador where a Sendero Luminoso (armed group) leader is present 
-ecuador_morote_ids <- get_transcript_id(topic = "ecuador", speaker = "morote")
-length(ecuador_morote_ids)
+# Find transcripts about media where a television producer is present
+media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat")
+length(media_crousillat_ids)
 
 ```
 
@@ -152,7 +158,7 @@ When left blank, it returns the metadata for every transcript in the corpus, but
 meta <- read_transcript_meta_data()
 head(meta)
 
-# Get metadata for transcript 5 - THIS DOESN'T WORK
+# Get metadata for transcript 5
 read_transcript_meta_data(5)
 ```
 

@@ -17,6 +17,10 @@
 #' - **Duration (`n_words`):** Computed from the bundled `compiled_transcripts` dataset by
 #'   summing whitespace-delimited tokens in the `speech` column for each unique transcript `n`.
 #'
+#' @param id Optional numeric vector of transcript IDs to return metadata for
+#'   (e.g., `5`, or `c(5, 12, 47)`). If `NULL` (the default), metadata for every
+#'   transcript is returned. IDs with no matching transcript are dropped with a
+#'   warning naming them.
 #' @param quiet Logical; if `FALSE`, prints progress messages. Default `TRUE`.
 #'
 #' @return
@@ -32,19 +36,29 @@
 #' # Load metadata for all transcripts
 #' meta <- read_transcript_meta_data()
 #' head(meta)
+#'
+#' # Metadata for a single transcript
+#' read_transcript_meta_data(5)
+#'
+#' # Metadata for several transcripts
+#' read_transcript_meta_data(c(5, 12, 47))
 #' }
 #'
 #' @seealso [read_transcripts()], [get_transcript_speakers()]
 #' @export
-read_transcript_meta_data <- function(quiet = TRUE) {
+read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
 
   # --- helper: detect truthy topic flags
+  # Guards on length: when `id` matches no transcripts, dplyr evaluates the
+  # rowwise topic expression below on a zero-row slice, and the flag columns
+  # arrive empty rather than as a single value.
   .is_topic_marked <- function(x) {
+    if (length(x) != 1) return(FALSE)
     if (is.logical(x)) return(isTRUE(x))
-    if (is.numeric(x)) return(!is.na(x) && x != 0)
+    if (is.numeric(x)) return(isTRUE(!is.na(x) && x != 0))
     if (is.character(x)) {
       v <- tolower(trimws(x))
-      return(!is.na(v) && nzchar(v) && !v %in% c("0", "false", "no", "na", "n/a"))
+      return(isTRUE(!is.na(v) && nzchar(v) && !v %in% c("0", "false", "no", "na", "n/a")))
     }
     FALSE
   }
@@ -75,6 +89,35 @@ read_transcript_meta_data <- function(quiet = TRUE) {
   # --- drop transcript IDs that have no actual transcript data
   valid_ids <- unique(as.character(transcripts$id))
   desc <- dplyr::filter(desc, .data$id %in% valid_ids)
+
+  # --- optionally restrict to the transcript IDs the caller asked for.
+  # Done before the speaker pivot and word count below so that requesting a
+  # single transcript does not summarise the whole corpus.
+  if (!is.null(id)) {
+    requested <- suppressWarnings(as.numeric(id))
+    if (anyNA(requested)) {
+      stop(
+        "`id` must be numeric transcript IDs; could not interpret: ",
+        paste(unique(as.character(id)[is.na(requested)]), collapse = ", "), ".",
+        call. = FALSE
+      )
+    }
+    requested <- unique(requested)
+
+    # Warn about IDs with no transcript, then keep the ones that do exist.
+    missing_ids <- setdiff(requested, suppressWarnings(as.numeric(desc$id)))
+    if (length(missing_ids) > 0) {
+      warning(
+        "Transcript ID(s) not found: ",
+        paste(sort(missing_ids), collapse = ", "),
+        call. = FALSE
+      )
+    }
+
+    desc        <- dplyr::filter(desc,        as.numeric(.data$id) %in% requested)
+    spt         <- dplyr::filter(spt,         as.numeric(.data$id) %in% requested)
+    transcripts <- dplyr::filter(transcripts, as.numeric(.data$id) %in% requested)
+  }
 
   # --- speakers: wide -> long -> list-column
   spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)

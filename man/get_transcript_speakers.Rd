@@ -12,8 +12,8 @@ get_transcript_speakers(n = NULL, topic = NULL)
 
 \item{topic}{Optional character vector of one or more topic names (e.g.,
 \code{"media"}, \code{c("reelection", "state_capture")}). The \code{topic_} prefix is
-added automatically if not included. Transcripts where any of these topics
-are flagged will be included.}
+added automatically if not included. Only transcripts where all of these
+topics are flagged are included.}
 }
 \value{
 A tibble with columns:
@@ -29,10 +29,11 @@ appears. Optionally filters to only transcripts matching specific IDs and/or
 topics.
 }
 \details{
-When both \code{n} and \code{topic} are provided, they are combined with AND logic:
-only transcripts that match the specified IDs \strong{and} have the specified
-topics are included. When only one filter is provided, it is applied alone.
-When neither is provided, all speakers across all transcripts are returned.
+All filters are combined with AND logic: a transcript contributes speakers
+only if it matches the specified IDs \strong{and} has \strong{every} specified topic
+flagged. When only one filter is provided, it is applied alone. When neither
+is provided, all speakers across all transcripts are returned. Requesting a
+combination that never co-occurs returns a zero-row tibble.
 }
 \examples{
 # Get all speakers and their transcript appearances
@@ -45,8 +46,11 @@ get_transcript_speakers(n = c(1, 5))
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
 
-# Get speakers from transcript 1 that is also about media
-get_transcript_speakers(n = 1, topic = "media")
+# Get speakers from transcripts about both media and reelection
+get_transcript_speakers(topic = c("media", "reelection"))
+
+# Get speakers from transcript 4, which is also about media
+get_transcript_speakers(n = 4, topic = "media")
 
 }
 \seealso{

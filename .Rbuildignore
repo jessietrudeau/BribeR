@@ -8,3 +8,4 @@
 ^git$
 ^CODE_OF_CONDUCT\.md$
 ^.*\.icloud$
+^Icon
