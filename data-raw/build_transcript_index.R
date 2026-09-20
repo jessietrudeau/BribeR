@@ -225,9 +225,9 @@ if (length(topic_cols_present) > 0) {
 # ---- add summary counts ----
 transcript_index <- transcript_index %>%
   mutate(
-    topic_count   = if (length(topic_cols_present) > 0)
+    n_topics   = if (length(topic_cols_present) > 0)
       rowSums(across(all_of(topic_cols_present)), na.rm = TRUE) else NA_integer_,
-    speaker_count = if (length(speaker_cols_present) > 0)
+    n_speakers = if (length(speaker_cols_present) > 0)
       rowSums(across(all_of(speaker_cols_present)), na.rm = TRUE) else NA_integer_
   )
 
@@ -239,9 +239,9 @@ transcript_index <- transcript_index %>%
     "in_online_archive", "type", "summary", "speakers"),
   names(transcript_index)
 )
-.cnt_cols <- intersect(c("speaker_count", "topic_count"), names(transcript_index))
-.s_cols   <- setdiff(grep("^speaker_", names(transcript_index), value = TRUE), "speaker_count")
-.t_cols   <- setdiff(grep("^topic_",   names(transcript_index), value = TRUE), "topic_count")
+.cnt_cols <- intersect(c("n_speakers", "n_topics"), names(transcript_index))
+.s_cols   <- grep("^speaker_", names(transcript_index), value = TRUE)
+.t_cols   <- grep("^topic_",   names(transcript_index), value = TRUE)
 
 transcript_index <- transcript_index %>%
   select(all_of(c(.desc_cols, .cnt_cols, .s_cols, .t_cols))) %>%

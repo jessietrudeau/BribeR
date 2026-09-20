@@ -72,6 +72,14 @@ test_that("read_transcript_meta_data returns a well-formed empty tibble for unkn
   expect_true(all(c("id", "date", "speakers", "n_words", "topics") %in% names(none)))
 })
 
+test_that("read_transcript_meta_data returns only real topic names", {
+  meta <- read_transcript_meta_data()
+  topic_names <- gsub("_", " ", sub("^topic_", "",
+    grep("^topic_", names(transcript_index), value = TRUE)))
+
+  expect_true(all(unlist(meta$topics) %in% topic_names))
+})
+
 test_that("read_transcript_meta_data errors on non-numeric IDs", {
   expect_error(read_transcript_meta_data("media"), "must be numeric transcript IDs")
   expect_error(read_transcript_meta_data(NA), "must be numeric transcript IDs")

@@ -25,9 +25,11 @@
 #' is the single source of transcript-level metadata for the package; there
 #' is no separate `descriptions` dataset.
 #'
-#' @format A tibble with 99 rows. Descriptive columns first, followed by
-#'   speaker/topic counts, followed by the boolean (1/0) `speaker_*` and
-#'   `topic_*` indicator columns:
+#' @format A tibble with 99 rows. Descriptive columns first, followed by the
+#'   `n_speakers` and `n_topics` summary counts, followed by the boolean (1/0)
+#'   `speaker_*` and `topic_*` indicator columns. The counts are deliberately
+#'   named with an `n_` prefix so that they are not picked up by code selecting
+#'   indicator columns with `speaker_` or `topic_`:
 #' \describe{
 #'   \item{id}{Numeric transcript identifier (BribeR internal numbering).}
 #'   \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
@@ -39,8 +41,8 @@
 #'   \item{type}{Recording medium (\code{"audio"} or \code{"video"}).}
 #'   \item{summary}{Plain-language English summary of the transcript content.}
 #'   \item{speakers}{Free-text description of participants.}
-#'   \item{speaker_count}{Total number of distinct speakers in the transcript.}
-#'   \item{topic_count}{Total number of topics flagged for the transcript.}
+#'   \item{n_speakers}{Total number of distinct speakers in the transcript.}
+#'   \item{n_topics}{Total number of topics flagged for the transcript.}
 #'   \item{speaker_SURNAME}{Integer indicator (1/0) for each standardized
 #'     speaker. One column per unique speaker, named \code{speaker_} followed
 #'     by the speaker's standardized surname.}

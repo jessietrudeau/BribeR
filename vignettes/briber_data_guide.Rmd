@@ -74,8 +74,8 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `type`               | character | Recording medium (`"audio"` or `"video"`)          |
 | `summary`            | character | Transcript summary (in English, XXXX)                     |
 | `speakers`           | character | List of speaker names in the transcript              |
-| `speaker_count`      | integer   | Number of speakers in the transcript          |
-| `topic_count`        | integer   | Number of topics discussed in the transcript            |
+| `n_speakers`         | integer   | Number of speakers in the transcript          |
+| `n_topics`           | integer   | Number of topics discussed in the transcript            |
 | `speaker_*`          | integer   | Speaker indicators (1/0)                           |
 | `topic_*`            | integer   | Topic indicators (1/0)                             |
 
@@ -86,8 +86,7 @@ loading the full corpus.
 
 ```{r topic-flags}
 # 15 topics in the corpus
-# topic_count sums the topics, isn't a distinct topic
-names(transcript_index)[grepl("^topic_", names(transcript_index))] 
+names(transcript_index)[grepl("^topic_", names(transcript_index))]
 ```
 
 ## `speakers_per_transcript`
