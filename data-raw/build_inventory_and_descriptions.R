@@ -1,6 +1,6 @@
 # data-raw/build_inventory_descriptions.R
 # ---- setup ----
-required_pkgs <- c("readr", "fs")
+required_pkgs <- c("readr", "fs", "stringi")
 to_install <- setdiff(required_pkgs, rownames(installed.packages()))
 if (length(to_install)) install.packages(to_install, repos = "https://cloud.r-project.org")
 library(readr)
@@ -129,7 +129,7 @@ object_names <- make.unique(proposed_names, sep = "_")
 # Datasets intentionally not produced as standalone .rda files. "descriptions"
 # is folded directly into `transcript_index` by build_transcript_index.R
 # instead of being shipped as its own dataset.
-EXCLUDE_OBJECTS <- c("descriptions")
+EXCLUDE_OBJECTS <- c("descriptions", "actors_description")
 keep <- !object_names %in% EXCLUDE_OBJECTS
 csv_paths    <- csv_paths[keep]
 object_names <- object_names[keep]
@@ -145,5 +145,35 @@ print(mapping, row.names = FALSE)
 # save each CSV as its own .rda
 invisible(mapply(.save_one_csv_as_rda, csv_paths, object_names))
 message(sprintf("Done. %d datasets written to '%s/'.", length(csv_paths), OUTPUT_DIR))
+
+# ---- flag which actors are recorded speaking ----
+# is_speaker is 1 when the actor's speaker_std appears at least once in the
+# transcript files and 0 otherwise. Identifiers are lowercased and stripped of
+# diacritics to match how build_transcripts_detailed.R stores speaker_std.
+TRANSCRIPTS_DIR <- "inst/data-raw/transcripts"
+
+.norm_speaker <- function(x) {
+  stringi::stri_trans_general(tolower(trimws(as.character(x))), "Latin-ASCII")
+}
+
+transcript_files <- list.files(TRANSCRIPTS_DIR, pattern = "\\.csv$", full.names = TRUE)
+if (length(transcript_files) == 0L) {
+  stop(sprintf("No transcript CSVs found in %s", TRANSCRIPTS_DIR))
+}
+
+speaking <- unique(unlist(lapply(transcript_files, function(p) {
+  df <- readr::read_csv(p, show_col_types = FALSE, progress = FALSE)
+  if (!"speaker_std" %in% names(df)) return(character(0))
+  .norm_speaker(df$speaker_std)
+})))
+speaking <- speaking[!is.na(speaking) & nzchar(speaking)]
+
+actors_path <- file.path(OUTPUT_DIR, "actors.rda")
+load(actors_path)
+actors$is_speaker <- as.integer(.norm_speaker(actors$speaker_std) %in% speaking)
+save(actors, file = actors_path, compress = "xz")
+
+message(sprintf("Flagged is_speaker = 1 for %d of %d actors.",
+                sum(actors$is_speaker), nrow(actors)))
 
 

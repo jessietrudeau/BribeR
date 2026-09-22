@@ -7,7 +7,7 @@
 
 **BribeR** is an R package for accessing and analyzing text transcript data from the *Vladivideos,* covert recordings documenting bribery and corruption during Alberto Fujimori's presidency in Peru (1990-2000). 
 
-This package provides user-friendly access to a large digital archive of *Vladivideo* transcripts and metadata, including data about 125 individual speakers in the files and 15 expert-coded topics of importance during the Fujimori presidency.
+This package provides user-friendly access to a large digital archive of *Vladivideo* transcripts and metadata, including data about 118 individuals named in the files and 15 expert-coded topics of importance during the Fujimori presidency.
 
 <p align="center">
   <img src="man/figures/network_viz.png" width="60%" alt="Network of speakers recorded in the Vladivideo files, with Montesinos at the center" />
@@ -74,7 +74,7 @@ media_transcripts <- read_transcripts(media_ids)
 
 ## Datasets
 
-BribeR includes four datasets:  
+BribeR includes four searchable datasets:  
 
 | Dataset | Description |
 |---|---|

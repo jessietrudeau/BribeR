@@ -110,7 +110,7 @@ length(kouri_crousillat_ids)
 kouri_crousillat_ids
 ```
 
-There are 125 valid speaker IDs that the `speaker_std` variable can take on, listed in the `actors` dataset.
+There are 108 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 118 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
 
 
 ## By topic 

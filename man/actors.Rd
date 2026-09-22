@@ -5,7 +5,7 @@
 \alias{actors}
 \title{Actor Roster}
 \format{
-A tibble with 125 rows and 6 variables:
+A tibble with 118 rows and 7 variables:
 \describe{
 \item{speaker}{Full name of the individual.}
 \item{position}{Institutional role or title at the time of the recordings.}
@@ -19,6 +19,10 @@ A tibble with 125 rows and 6 variables:
 \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
 column in the transcripts corpus.}
 \item{notes}{Additional notes on the individual.}
+\item{is_speaker}{Integer indicator: 1 if the individual has at least one
+speech turn in the transcript corpus, 0 if they are named in the archive
+but never recorded speaking. Only individuals with \code{is_speaker == 1}
+can be used to filter with \code{\link{get_transcript_id}}.}
 }
 }
 \source{

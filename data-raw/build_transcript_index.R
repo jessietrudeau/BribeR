@@ -4,7 +4,7 @@
 # ======================================================================
 
 # ---- setup ----
-required_pkgs <- c("fs", "dplyr", "stringr", "tools", "readr", "purrr", "lubridate", "tidyr")
+required_pkgs <- c("fs", "dplyr", "stringr", "tools", "readr", "purrr", "lubridate", "tidyr", "stringi")
 to_install <- setdiff(required_pkgs, rownames(installed.packages()))
 if (length(to_install)) install.packages(to_install, repos = "https://cloud.r-project.org")
 
@@ -16,6 +16,13 @@ library(readr)
 library(purrr)
 library(lubridate)
 library(tidyr)
+
+# Speaker identifiers are matched lowercased, whitespace-squished and stripped
+# of diacritics, so that the roster, the transcripts and actors.csv all resolve
+# to the same key.
+.norm_key <- function(x) {
+  stringi::stri_trans_general(str_to_lower(str_squish(str_trim(as.character(x)))), "Latin-ASCII")
+}
 
 # ---- configuration ----
 transcripts_candidates <- c(
@@ -138,9 +145,27 @@ speaker_table <- speakers_df %>%
   filter(!is.na(speaker_std), speaker_std != "") %>%
   mutate(
     n = as.integer(n),
-    speaker_key = str_to_lower(str_squish(str_trim(speaker_std)))
+    speaker_key = .norm_key(speaker_std)
   ) %>%
   distinct(n, speaker_key)
+
+# A speaker counts as present in a transcript if the roster above lists them or
+# the transcript attributes at least one turn to them. The roster and the
+# dialogue disagree for some transcripts, so presence is the union of the two.
+dialogue_table <- map_dfr(files, function(path) {
+  df <- read_csv(path, show_col_types = FALSE, progress = FALSE)
+  if (!"speaker_std" %in% names(df)) {
+    return(tibble(n = integer(), speaker_key = character()))
+  }
+  tibble(
+    n = as.integer(tools::file_path_sans_ext(path_file(path))),
+    speaker_key = .norm_key(df$speaker_std)
+  )
+}) %>%
+  filter(!is.na(speaker_key), speaker_key != "") %>%
+  distinct(n, speaker_key)
+
+speaker_table <- distinct(bind_rows(speaker_table, dialogue_table))
 
 # Build binary matrix of speaker presence per transcript
 speaker_matrix <- speaker_table %>%
@@ -175,7 +200,7 @@ if (!is.na(actor_path)) {
   actors_df <- read_csv(actor_path, show_col_types = FALSE)
   valid_speakers <- actors_df %>%
     filter(!is.na(speaker_std)) %>%
-    mutate(speaker_key = str_to_lower(str_squish(str_trim(speaker_std)))) %>%
+    mutate(speaker_key = .norm_key(speaker_std)) %>%
     pull(speaker_key) %>%
     unique()
 } else {

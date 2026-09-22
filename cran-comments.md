@@ -7,10 +7,10 @@
 **New submission**
 This is a new CRAN submission.
 
-**Installed package size (10.1 MB)**
-The package includes 101 raw transcript CSV files in `inst/data-raw/transcripts/`
-(7.1 MB) that are required for the `get_transcripts_raw()` function, plus
-compiled datasets in `data/` (2.0 MB). The data are the primary value of the
+**Installed package size (10.7 MB)**
+The package includes 99 raw transcript CSV files in `inst/data-raw/transcripts/`
+(7.0 MB) that are required for the `get_transcripts_raw()` function, plus
+compiled datasets in `data/` (1.9 MB). The data are the primary value of the
 package — they represent a unique corpus of corruption transcripts not
 available elsewhere in a structured, machine-readable form.
 

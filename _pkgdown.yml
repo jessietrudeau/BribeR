@@ -62,7 +62,6 @@ reference:
     desc: "Functions and data files for Shiny network visualization."
     contents:
       - run_transcript_network_app
-      - actors_description
       - topic_descriptions
 
 

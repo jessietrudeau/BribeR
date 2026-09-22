@@ -1,6 +1,6 @@
 
 # ---- setup ----
-required_pkgs <- c("dplyr", "readr", "stringr", "purrr")
+required_pkgs <- c("dplyr", "readr", "stringr", "purrr", "stringi")
 to_install <- setdiff(required_pkgs, rownames(installed.packages()))
 if (length(to_install)) install.packages(to_install, repos = "https://cloud.r-project.org")
 
@@ -39,8 +39,14 @@ compiled_transcripts <- all_transcripts %>%
   left_join(descriptions, by = "id")
 
 # ---- lowercase speaker columns ----
+# speaker_std is additionally stripped of diacritics, so that one person has a
+# single identifier across transcripts. `speaker` keeps the accents as written
+# in the source transcript.
 compiled_transcripts <- compiled_transcripts %>%
-  mutate(across(any_of(c("speaker", "speaker_std")), tolower))
+  mutate(
+    across(any_of(c("speaker", "speaker_std")), tolower),
+    speaker_std = stringi::stri_trans_general(speaker_std, "Latin-ASCII")
+  )
 
 # ---- order columns (speaker_std before the speech text; see briber_data_guide) ----
 compiled_transcripts <- compiled_transcripts %>%

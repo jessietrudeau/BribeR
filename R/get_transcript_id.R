@@ -79,14 +79,35 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
     missing <- speaker_cols[!speaker_cols %in% names(index)]
     if (length(missing) > 0) {
       available_names <- sub("^speaker_", "", available_speakers)
-      stop(
-        "Speaker(s) not found in transcript_index: ",
-        paste(sub("^speaker_", "", missing), collapse = ", "), ". ",
-        "Available speakers include: ",
-        paste(utils::head(available_names, 10), collapse = ", "),
-        if (length(available_names) > 10) ", ..." else "",
-        call. = FALSE
-      )
+      missing_names <- sub("^speaker_", "", missing)
+
+      # Separate names that are in the actors roster but never recorded
+      # speaking from names that are not in the roster at all, so the message
+      # says which of the two problems the caller has.
+      env3 <- new.env(parent = emptyenv())
+      utils::data("actors", package = "BribeR", envir = env3)
+      silent <- env3$actors$speaker_std[env3$actors$is_speaker == 0]
+      in_roster <- missing_names[missing_names %in% silent]
+      unknown   <- setdiff(missing_names, in_roster)
+
+      msg <- character(0)
+      if (length(in_roster) > 0) {
+        msg <- c(msg, paste0(
+          "Speaker(s) listed in `actors` but never recorded speaking: ",
+          paste(in_roster, collapse = ", "),
+          ". These have no transcripts to filter on."
+        ))
+      }
+      if (length(unknown) > 0) {
+        msg <- c(msg, paste0(
+          "Speaker(s) not found in transcript_index: ",
+          paste(unknown, collapse = ", "), ". ",
+          "Available speakers include: ",
+          paste(utils::head(available_names, 10), collapse = ", "),
+          if (length(available_names) > 10) ", ..." else ""
+        ))
+      }
+      stop(paste(msg, collapse = " "), call. = FALSE)
     }
 
     for (sc in speaker_cols) {

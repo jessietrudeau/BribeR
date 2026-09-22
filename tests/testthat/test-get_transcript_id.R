@@ -71,6 +71,24 @@ test_that("get_transcript_id errors on invalid speaker", {
   )
 })
 
+test_that("get_transcript_id distinguishes silent actors from unknown names", {
+  # valenzuela is in `actors` with is_speaker == 0
+  expect_error(
+    get_transcript_id(speaker = "valenzuela"),
+    "listed in `actors` but never recorded speaking"
+  )
+  expect_error(
+    get_transcript_id(speaker = "nonexistent_person_xyz"),
+    "not found in transcript_index"
+  )
+})
+
+test_that("get_transcript_id can filter on desconocido", {
+  ids <- get_transcript_id(speaker = "desconocido")
+  expect_type(ids, "double")
+  expect_gt(length(ids), 0)
+})
+
 test_that("get_transcript_id errors on invalid topic", {
   expect_error(
     get_transcript_id(topic = "nonexistent_topic_xyz"),
