@@ -45,7 +45,5 @@ Functions and data files for Shiny network visualization.
 
 - [`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md)
   : Run the Transcript-Topic-Speaker Shiny app
-- [`actors_description`](https://jessietrudeau.github.io/BribeR/reference/actors_description.md)
-  : Actor Descriptions
 - [`topic_descriptions`](https://jessietrudeau.github.io/BribeR/reference/topic_descriptions.md)
   : Topic Descriptions

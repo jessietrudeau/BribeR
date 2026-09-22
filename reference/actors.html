@@ -60,7 +60,7 @@ Vladivideos transcripts.</p>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A tibble with 125 rows and 6 variables:</p><dl><dt>speaker</dt>
+    <p>A tibble with 118 rows and 7 variables:</p><dl><dt>speaker</dt>
 <dd><p>Full name of the individual.</p></dd>
 
 <dt>position</dt>
@@ -83,6 +83,12 @@ column in the transcripts corpus.</p></dd>
 
 <dt>notes</dt>
 <dd><p>Additional notes on the individual.</p></dd>
+
+<dt>is_speaker</dt>
+<dd><p>Integer indicator: 1 if the individual has at least one
+speech turn in the transcript corpus, 0 if they are named in the archive
+but never recorded speaking. Only individuals with <code>is_speaker == 1</code>
+can be used to filter with <code><a href="get_transcript_id.html">get_transcript_id</a></code>.</p></dd>
 
 
 </dl></div>

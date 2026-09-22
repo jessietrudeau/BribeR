@@ -195,8 +195,10 @@ these speakers are present.</p>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="va">kouri_crousillat_ids</span></span>
 <span><span class="co">#&gt; [1] 76 82</span></span></code></pre></div>
-<p>There are 125 valid speaker IDs that the <code>speaker_std</code>
-variable can take on, listed in the <code>actors</code> dataset.</p>
+<p>There are 108 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
+filter on. The <code>actors</code> dataset lists 118 individuals in
+total; those with <code>is_speaker == 1</code> are the ones recorded
+speaking in the corpus.</p>
 </div>
 <div class="section level3">
 <h3 id="by-topic">By topic<a class="anchor" aria-label="anchor" href="#by-topic"></a>
@@ -319,11 +321,6 @@ with the actor-level metadata.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">actors</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speaker_std</span>, <span class="va">type</span>, <span class="va">position</span><span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="st">"speaker_std"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in left_join(media_transcripts, select(actors, speaker_std, type, : Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 11749 of `x` matches multiple rows in `y`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 1 of `y` matches multiple rows in `x`.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> If a many-to-many relationship is expected, set `relationship =</span></span>
-<span><span class="co">#&gt;   "many-to-many"` to silence this warning.</span></span>
 <span></span>
 <span><span class="co">## Step 2: Count words spoken in media_transcripts and group by type, summarize</span></span>
 <span><span class="va">media_transcripts</span> <span class="op">|&gt;</span></span>

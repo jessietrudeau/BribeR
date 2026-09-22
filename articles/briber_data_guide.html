@@ -263,7 +263,7 @@ below table.</p>
 </tr>
 </tbody>
 </table>
-<p>The 15 <code>topic_*</code> and 125 <code>speaker_*</code> columns
+<p>The 15 <code>topic_*</code> and 108 <code>speaker_*</code> columns
 take on a value of 1 if the topic or speaker is present and a value of 0
 otherwise. They are designed for fast filtering for specific actors or
 topics without loading the full corpus.</p>
@@ -309,20 +309,20 @@ maximum of 19.</p>
 <h3 id="actors">
 <code>actors</code><a class="anchor" aria-label="anchor" href="#actors"></a>
 </h3>
-<p>This file contains biographical and institutional metadata for 125
+<p>This file contains biographical and institutional metadata for 118
 individuals named in the transcripts. The variable names are shown in
 the below table.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   speaker                         position         type  party speaker_std notes</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> vladimir montesinos             Head of Nationa… mont… <span style="color: #BB0000;">NA</span>    montesinos   <span style="color: #BB0000;">NA</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> desconocido                     <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    desconocido  <span style="color: #BB0000;">NA</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> alexander martin kouri bumachar Elected Constit… cong… Part… alex kouri   <span style="color: #BB0000;">NA</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> lucchetti                       Company special… busi… <span style="color: #BB0000;">NA</span>    lucchetti   <span style="color: #949494;">"</span>Luc…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> carlos eduardo ferrero costa    Congressman (19… cong… Camb… ferrero     <span style="color: #949494;">"</span>Mul…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> alberto fujimori                President of Pe… elec… <span style="color: #BB0000;">NA</span>    fujimori     <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;   speaker                      position type  party speaker_std notes is_speaker</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> vladimir montesinos          Head of… mont… <span style="color: #BB0000;">NA</span>    montesinos   <span style="color: #BB0000;">NA</span>            1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> desconocido                  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    desconocido  <span style="color: #BB0000;">NA</span>            1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> alexander martin kouri buma… Elected… cong… Part… alex kouri   <span style="color: #BB0000;">NA</span>            1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> lucchetti                    Company… busi… <span style="color: #BB0000;">NA</span>    lucchetti   <span style="color: #949494;">"</span>Luc…          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> carlos eduardo ferrero costa Congres… cong… Camb… ferrero     <span style="color: #949494;">"</span>Mul…          1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> alberto fujimori             Preside… elec… <span style="color: #BB0000;">NA</span>    fujimori     <span style="color: #BB0000;">NA</span>            1</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="25%">
@@ -371,6 +371,15 @@ party labels)</td>
 <td><code>notes</code></td>
 <td>character</td>
 <td>Miscellaneous notes for actors that were difficult to identify</td>
+</tr>
+<tr class="odd">
+<td><code>is_speaker</code></td>
+<td>integer</td>
+<td>1 if the individual has at least one speech turn in the corpus, 0 if
+they are named in the archive but never recorded speaking. Only those
+with <code>is_speaker == 1</code> can be filtered with
+<code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code>
+</td>
 </tr>
 </tbody>
 </table>
@@ -478,7 +487,7 @@ can reference them by name after <code><a href="https://jessietrudeau.github.io/
 <span><span class="co">#&gt; [1] 46597</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "speaker"     "position"    "type"        "party"       "speaker_std"</span></span>
-<span><span class="co">#&gt; [6] "notes"</span></span></code></pre></div>
+<span><span class="co">#&gt; [6] "notes"       "is_speaker"</span></span></code></pre></div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

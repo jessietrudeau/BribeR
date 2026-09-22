@@ -11,7 +11,7 @@ actors
 
 ## Format
 
-A tibble with 125 rows and 6 variables:
+A tibble with 118 rows and 7 variables:
 
 - speaker:
 
@@ -41,6 +41,14 @@ A tibble with 125 rows and 6 variables:
 - notes:
 
   Additional notes on the individual.
+
+- is_speaker:
+
+  Integer indicator: 1 if the individual has at least one speech turn in
+  the transcript corpus, 0 if they are named in the archive but never
+  recorded speaking. Only individuals with `is_speaker == 1` can be used
+  to filter with
+  [`get_transcript_id`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md).
 
 ## Source
 

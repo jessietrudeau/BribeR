@@ -84,7 +84,7 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `speaker_*` | integer | Speaker indicators (1/0) |
 | `topic_*` | integer | Topic indicators (1/0) |
 
-The 15 `topic_*` and 125 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 108 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
@@ -132,22 +132,22 @@ speakers_per_transcript %>%
 
 ### `actors`
 
-This file contains biographical and institutional metadata for 125
+This file contains biographical and institutional metadata for 118
 individuals named in the transcripts. The variable names are shown in
 the below table.
 
 ``` r
 
 head(actors)
-#> # A tibble: 6 × 6
-#>   speaker                         position         type  party speaker_std notes
-#>   <chr>                           <chr>            <chr> <chr> <chr>       <chr>
-#> 1 vladimir montesinos             Head of Nationa… mont… NA    montesinos   NA  
-#> 2 desconocido                     NA               NA    NA    desconocido  NA  
-#> 3 alexander martin kouri bumachar Elected Constit… cong… Part… alex kouri   NA  
-#> 4 lucchetti                       Company special… busi… NA    lucchetti   "Luc…
-#> 5 carlos eduardo ferrero costa    Congressman (19… cong… Camb… ferrero     "Mul…
-#> 6 alberto fujimori                President of Pe… elec… NA    fujimori     NA
+#> # A tibble: 6 × 7
+#>   speaker                      position type  party speaker_std notes is_speaker
+#>   <chr>                        <chr>    <chr> <chr> <chr>       <chr>      <int>
+#> 1 vladimir montesinos          Head of… mont… NA    montesinos   NA            1
+#> 2 desconocido                  NA       NA    NA    desconocido  NA            1
+#> 3 alexander martin kouri buma… Elected… cong… Part… alex kouri   NA            1
+#> 4 lucchetti                    Company… busi… NA    lucchetti   "Luc…          1
+#> 5 carlos eduardo ferrero costa Congres… cong… Camb… ferrero     "Mul…          1
+#> 6 alberto fujimori             Preside… elec… NA    fujimori     NA            1
 ```
 
 | Column | Type | Description |
@@ -158,6 +158,7 @@ head(actors)
 | `type` | charater | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`,`illicit`, and unknown (`NA`). |
 | `party` | character | For elected officials, the political party at the time of the recording (consistent with [V-Dem](https://www.v-dem.net/) party labels) |
 | `notes` | character | Miscellaneous notes for actors that were difficult to identify |
+| `is_speaker` | integer | 1 if the individual has at least one speech turn in the corpus, 0 if they are named in the archive but never recorded speaking. Only those with `is_speaker == 1` can be filtered with [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md) |
 
 For example, the file contains this biographical information about some
 of the speakers from Fujimori’s party:
@@ -244,7 +245,7 @@ nrow(compiled_transcripts)
 #> [1] 46597
 names(actors)
 #> [1] "speaker"     "position"    "type"        "party"       "speaker_std"
-#> [6] "notes"
+#> [6] "notes"       "is_speaker"
 ```
 
 [^1]: We generate a new number within the BribeR package, see the

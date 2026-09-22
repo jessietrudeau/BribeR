@@ -142,8 +142,11 @@ kouri_crousillat_ids
 #> [1] 76 82
 ```
 
-There are 125 valid speaker IDs that the `speaker_std` variable can take
-on, listed in the `actors` dataset.
+There are 108 speaker IDs that
+[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+can filter on. The `actors` dataset lists 118 individuals in total;
+those with `is_speaker == 1` are the ones recorded speaking in the
+corpus.
 
 ### By topic
 
@@ -280,11 +283,6 @@ media_transcripts <- media_transcripts |>
   left_join(actors |> select(speaker_std, type, position),
     by = "speaker_std"
   )
-#> Warning in left_join(media_transcripts, select(actors, speaker_std, type, : Detected an unexpected many-to-many relationship between `x` and `y`.
-#> ℹ Row 11749 of `x` matches multiple rows in `y`.
-#> ℹ Row 1 of `y` matches multiple rows in `x`.
-#> ℹ If a many-to-many relationship is expected, set `relationship =
-#>   "many-to-many"` to silence this warning.
 
 ## Step 2: Count words spoken in media_transcripts and group by type, summarize
 media_transcripts |>

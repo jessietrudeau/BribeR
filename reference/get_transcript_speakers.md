@@ -89,7 +89,7 @@ get_transcript_speakers(topic = "media")
 #>  2 alex kouri    <dbl [3]>  
 #>  3 arancibia     <dbl [1]>  
 #>  4 arce          <dbl [2]>  
-#>  5 bello vazquez <dbl [1]>  
+#>  5 bello vasquez <dbl [1]>  
 #>  6 borobio       <dbl [3]>  
 #>  7 bringas       <dbl [1]>  
 #>  8 calmell       <dbl [4]>  
@@ -105,7 +105,7 @@ get_transcript_speakers(topic = c("media", "reelection"))
 #>  1 alberto kouri     <dbl [1]>  
 #>  2 alex kouri        <dbl [1]>  
 #>  3 arce              <dbl [2]>  
-#>  4 bello vazquez     <dbl [1]>  
+#>  4 bello vasquez     <dbl [1]>  
 #>  5 bringas           <dbl [1]>  
 #>  6 chirinos          <dbl [1]>  
 #>  7 crousillat        <dbl [1]>  
@@ -115,7 +115,7 @@ get_transcript_speakers(topic = c("media", "reelection"))
 #> 11 ibarcena          <dbl [2]>  
 #> 12 joy way           <dbl [1]>  
 #> 13 locutor           <dbl [1]>  
-#> 14 manuel lopez      <dbl [1]>  
+#> 14 lopez             <dbl [1]>  
 #> 15 montes de oca     <dbl [1]>  
 #> 16 montesinos        <dbl [8]>  
 #> 17 romero seminario  <dbl [1]>  

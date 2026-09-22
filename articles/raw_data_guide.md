@@ -72,7 +72,7 @@ conversamos más directos acá, quedamos así (ininteligible).*
 
 **BribeR** provides structured access to transcripts of 99 of these
 recordings, which contain 46,597 individual speech turns. The package
-also includes relevant metadata about 125 recorded speakers and 15
+also includes relevant metadata about 118 named individuals and 15
 topics.
 
 This page introduces the raw data, highlighting how it is organized at
@@ -141,7 +141,7 @@ ggplot(meta, aes(x = n_words)) +
 
 ## Actors
 
-Users can access biographical and institutional metadata for the 125
+Users can access biographical and institutional metadata for the 118
 individuals named in the Vladivideos transcripts through the `actors`
 dataset. Each person is classified by their institutional role at the
 time of the recordings.
@@ -166,13 +166,13 @@ own category:
 | type | Count | Description |
 |----|----|----|
 | `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
-| `security` | 26 | Military and police officers |
+| `security` | 20 | Military and police officers |
 | `congress` | 25 | Members of Congress, including allies and opposition members bribed to switch allegiance |
 | `bureaucrat` | 15 | Senior civil servants and agency heads |
 | `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunals |
 | `foreign` | 13 | Foreign officials and diplomats |
 | `media` | 12 | Television channel and newspaper executives |
-| `illicit` | 8 | Individuals primarily associated with armed groups |
+| `illicit` | 7 | Individuals primarily associated with armed groups |
 | `businessperson` | 5 | Private sector executives and financiers |
 | `elected official` | 5 | Mayors, executives, and (non-Congressional) other elected officials |
 | `unknown` | 1 | Institutional role not recorded |
