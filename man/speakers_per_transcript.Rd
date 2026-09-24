@@ -5,11 +5,11 @@
 \alias{speakers_per_transcript}
 \title{Speakers Per Transcript}
 \format{
-A tibble with 101 rows and 20 variables:
+A tibble with 99 rows and 23 variables:
 \describe{
 \item{id}{Numeric transcript identifier.}
-\item{speaker_std_1 ... speaker_std_19}{Standardized speaker identifier
-for the 1st through 19th speaker slot. \code{NA} if the slot is unused
+\item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier
+for the 1st through 22nd speaker slot. \code{NA} if the slot is unused
 for that transcript.}
 }
 }
@@ -20,7 +20,7 @@ Derived from the Vladivideos transcripts.
 speakers_per_transcript
 }
 \description{
-A wide-format table listing the standardized speaker identifiers present in
+A wide-format table listing the standardized speaker identifiers recorded speaking in
 each transcript, with one row per transcript and one column per speaker slot.
 }
 \keyword{datasets}

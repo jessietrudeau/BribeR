@@ -26,8 +26,8 @@ test_that("get_transcript_id filters by topic", {
 })
 
 test_that("get_transcript_id narrows across multiple speakers (AND logic)", {
-  ids_single <- get_transcript_id(speaker = "crousillat")
-  ids_multi  <- get_transcript_id(speaker = c("crousillat", "montesinos"))
+  ids_single <- get_transcript_id(speaker = "crousillat carreno")
+  ids_multi  <- get_transcript_id(speaker = c("crousillat carreno", "montesinos"))
 
   # AND means the combined result is a subset of either filter alone
   expect_true(length(ids_multi) <= length(ids_single))
@@ -48,9 +48,9 @@ test_that("get_transcript_id narrows across multiple topics (AND logic)", {
 })
 
 test_that("get_transcript_id combines speaker and topic with AND", {
-  ids_speaker <- get_transcript_id(speaker = "crousillat")
+  ids_speaker <- get_transcript_id(speaker = "crousillat carreno")
   ids_topic   <- get_transcript_id(topic = "media")
-  ids_both    <- get_transcript_id(speaker = "crousillat", topic = "media")
+  ids_both    <- get_transcript_id(speaker = "crousillat carreno", topic = "media")
 
   expect_true(all(ids_both %in% ids_speaker))
   expect_true(all(ids_both %in% ids_topic))

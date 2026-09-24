@@ -12,7 +12,7 @@
 #' vector.
 #'
 #' @param speaker Optional character vector of one or more standardized speaker
-#'   names (e.g., `"montesinos"`, `c("alex kouri", "crousillat")`). If provided,
+#'   names (e.g., `"montesinos"`, `c("alex kouri", "crousillat carreno")`). If provided,
 #'   only transcripts where all of these speakers are present are included.
 #' @param topic Optional character vector of one or more topic names (e.g.,
 #'   `"media"`, `c("reelection", "state_capture")`). The `topic_` prefix is
@@ -30,8 +30,8 @@
 #' # Retrieve transcript IDs where Montesinos appears
 #' get_transcript_id(speaker = "montesinos")
 #'
-#' # Retrieve transcript IDs where both Alex Kouri and Crousillat appear
-#' get_transcript_id(speaker = c("alex kouri", "crousillat"))
+#' # Retrieve transcript IDs where both Alex Kouri and Crousillat Carreno appear
+#' get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
 #'
 #' # Retrieve transcript IDs about both media and reelection
 #' get_transcript_id(topic = c("media", "reelection"))

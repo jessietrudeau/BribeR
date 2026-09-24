@@ -3,7 +3,7 @@
 #' The main corpus of the Vladivideos recordings. Each row represents a single
 #' speech turn within a transcript, with the speaker's words and metadata.
 #'
-#' @format A tibble with 46,597 rows and 6 variables:
+#' @format A tibble with 46,936 rows and 6 variables:
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
 #'   \item{row_id}{Row number within the transcript.}
@@ -58,14 +58,14 @@
 
 #' Speakers Per Transcript
 #'
-#' A wide-format table listing the standardized speaker identifiers present in
+#' A wide-format table listing the standardized speaker identifiers recorded speaking in
 #' each transcript, with one row per transcript and one column per speaker slot.
 #'
-#' @format A tibble with 101 rows and 20 variables:
+#' @format A tibble with 99 rows and 23 variables:
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
-#'   \item{speaker_std_1 ... speaker_std_19}{Standardized speaker identifier
-#'     for the 1st through 19th speaker slot. \code{NA} if the slot is unused
+#'   \item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier
+#'     for the 1st through 22nd speaker slot. \code{NA} if the slot is unused
 #'     for that transcript.}
 #' }
 #' @source Derived from the Vladivideos transcripts.
@@ -80,6 +80,8 @@
 #' @format A tibble with 118 rows and 7 variables:
 #' \describe{
 #'   \item{speaker}{Full name of the individual.}
+#'   \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
+#'     column in the transcripts corpus.}
 #'   \item{position}{Institutional role or title at the time of the recordings.}
 #'   \item{type}{Broad institutional category (lowercase). One of
 #'     \code{"montesinos"} (Vladimiro Montesinos himself, kept separate from
@@ -87,9 +89,10 @@
 #'     \code{"judiciary"}, \code{"media"}, \code{"businessperson"},
 #'     \code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
 #'     \code{"illicit"}, or \code{"unknown"}.}
-#'   \item{party}{Political party affiliation, where applicable.}
-#'   \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
-#'     column in the transcripts corpus.}
+#'   \item{party}{Political party affiliation for elected officials, \code{NA}
+#'     otherwise. Given as the V-Party abbreviation (\code{v2pashname}) for
+#'     Peru: \code{"NM"}, \code{"PAP"}, \code{"RN"}, \code{"PP"},
+#'     \code{"PPC"}, \code{"FIM"} or \code{"AP"}.}
 #'   \item{notes}{Additional notes on the individual.}
 #'   \item{is_speaker}{Integer indicator: 1 if the individual has at least one
 #'     speech turn in the transcript corpus, 0 if they are named in the archive

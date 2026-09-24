@@ -5,7 +5,7 @@
 \alias{compiled_transcripts}
 \title{Vladivideos Detailed Transcripts}
 \format{
-A tibble with 46,597 rows and 6 variables:
+A tibble with 46,936 rows and 6 variables:
 \describe{
 \item{id}{Numeric transcript identifier.}
 \item{row_id}{Row number within the transcript.}

@@ -8,7 +8,7 @@ get_transcript_id(speaker = NULL, topic = NULL)
 }
 \arguments{
 \item{speaker}{Optional character vector of one or more standardized speaker
-names (e.g., \code{"montesinos"}, \code{c("alex kouri", "crousillat")}). If provided,
+names (e.g., \code{"montesinos"}, \code{c("alex kouri", "crousillat carreno")}). If provided,
 only transcripts where all of these speakers are present are included.}
 
 \item{topic}{Optional character vector of one or more topic names (e.g.,
@@ -41,8 +41,8 @@ head(ids)
 # Retrieve transcript IDs where Montesinos appears
 get_transcript_id(speaker = "montesinos")
 
-# Retrieve transcript IDs where both Alex Kouri and Crousillat appear
-get_transcript_id(speaker = c("alex kouri", "crousillat"))
+# Retrieve transcript IDs where both Alex Kouri and Crousillat Carreno appear
+get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
 
 # Retrieve transcript IDs about both media and reelection
 get_transcript_id(topic = c("media", "reelection"))

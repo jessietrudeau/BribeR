@@ -31,8 +31,7 @@ RENAME_COLS <- list(
 # (Optional) Replace a value in a specific column per object. Each object
 # maps to a list of one or more list(col=, old=, new=) substitutions:
 RENAME_VALUES <- list(
-  "topic_descriptions" = list(list(col = "topics", old = "topic_safety", new = "topic_security")),
-  "actors"              = list(list(col = "type", old = "Illict", new = "Illicit"))
+  "topic_descriptions" = list(list(col = "topics", old = "topic_safety", new = "topic_security"))
 )
 
 # (Optional) Pattern-based column rename per object (fixed string, not regex):

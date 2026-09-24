@@ -8,6 +8,8 @@
 A tibble with 118 rows and 7 variables:
 \describe{
 \item{speaker}{Full name of the individual.}
+\item{speaker_std}{Standardized identifier matching the \code{speaker_std}
+column in the transcripts corpus.}
 \item{position}{Institutional role or title at the time of the recordings.}
 \item{type}{Broad institutional category (lowercase). One of
 \code{"montesinos"} (Vladimiro Montesinos himself, kept separate from
@@ -15,9 +17,10 @@ A tibble with 118 rows and 7 variables:
 \code{"judiciary"}, \code{"media"}, \code{"businessperson"},
 \code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
 \code{"illicit"}, or \code{"unknown"}.}
-\item{party}{Political party affiliation, where applicable.}
-\item{speaker_std}{Standardized identifier matching the \code{speaker_std}
-column in the transcripts corpus.}
+\item{party}{Political party affiliation for elected officials, \code{NA}
+otherwise. Given as the V-Party abbreviation (\code{v2pashname}) for
+Peru: \code{"NM"}, \code{"PAP"}, \code{"RN"}, \code{"PP"},
+\code{"PPC"}, \code{"FIM"} or \code{"AP"}.}
 \item{notes}{Additional notes on the individual.}
 \item{is_speaker}{Integer indicator: 1 if the individual has at least one
 speech turn in the transcript corpus, 0 if they are named in the archive

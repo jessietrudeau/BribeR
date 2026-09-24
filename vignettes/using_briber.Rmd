@@ -103,14 +103,14 @@ kouri_ids <- get_transcript_id(speaker = "alex kouri")
 length(kouri_ids)
 kouri_ids
 
-# Transcripts featuring both Alex Kouri and Crousillat
+# Transcripts featuring both Alex Kouri and Crousillat Carreno
 # (a TV producer with America Television)
-kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat"))
+kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
 length(kouri_crousillat_ids)
 kouri_crousillat_ids
 ```
 
-There are 108 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 118 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
+There are 147 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 157 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
 
 
 ## By topic 
@@ -141,7 +141,7 @@ media_ids <- get_transcript_id(topic = "media")
 length(media_ids)
 
 # Find transcripts about media where a television producer is present
-media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat")
+media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat carreno")
 length(media_crousillat_ids)
 
 ```
