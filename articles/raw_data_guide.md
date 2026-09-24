@@ -71,8 +71,8 @@ y que habíamos quedado te acuerdas (ininteligible). Entonces,
 conversamos más directos acá, quedamos así (ininteligible).*
 
 **BribeR** provides structured access to transcripts of 99 of these
-recordings, which contain 46,597 individual speech turns. The package
-also includes relevant metadata about 118 named individuals and 15
+recordings, which contain 46,936 individual speech turns. The package
+also includes relevant metadata about 157 named individuals and 15
 topics.
 
 This page introduces the raw data, highlighting how it is organized at
@@ -125,7 +125,7 @@ approximately 8,500 words (approximately an hour-long conversation).
 
 summary(meta$n_words)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>     175    4584    8547    8981   11758   29161
+#>     175    4584    8547    8968   11758   29096
 
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
@@ -141,7 +141,7 @@ ggplot(meta, aes(x = n_words)) +
 
 ## Actors
 
-Users can access biographical and institutional metadata for the 118
+Users can access biographical and institutional metadata for the 157
 individuals named in the Vladivideos transcripts through the `actors`
 dataset. Each person is classified by their institutional role at the
 time of the recordings.
@@ -154,9 +154,9 @@ head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 #>   <chr>                           <chr>                  <chr> <chr> <chr>      
 #> 1 vladimir montesinos             Head of National Inte… mont… NA    montesinos 
 #> 2 desconocido                     NA                     NA    NA    desconocido
-#> 3 alexander martin kouri bumachar Elected Constituent C… cong… Part… alex kouri 
-#> 4 lucchetti                       Company specialized i… busi… NA    lucchetti  
-#> 5 carlos eduardo ferrero costa    Congressman (1995-200… cong… Camb… ferrero    
+#> 3 alexander martin kouri bumachar Congressman (1992-199… cong… PPC   alex kouri 
+#> 4 representante de lucchetti      Representative of the… busi… NA    lucchetti  
+#> 5 carlos eduardo ferrero costa    Congressman (1995-200… cong… NM    ferrero    
 #> 6 alberto fujimori                President of Peru (19… elec… NA    fujimori
 ```
 
@@ -198,10 +198,15 @@ actors |>
 
 ![](raw_data_guide_files/figure-html/type-bar-1.png)
 
-Very few transcripts label a speaker as `DESCONOCIDO` (unidentified),
-but when a speaker is unidentified, they are often acting as a messenger
-and quickly exit, or are largely silent for the conversation except for
-salutations. **BribeR** classifies these individuals as `unknown`.
+About 12% of all speech turns – 5,636 turns across 69 of the 99
+transcripts – carry the speaker identifier `desconocido` (unidentified).
+**This is a placeholder, not a person.** It collects every speaker the
+transcribers could not name, so turns sharing this identifier are
+generally spoken by different people and it should not be treated as a
+single actor in any analysis. Unidentified speakers are often messengers
+who quickly exit, aides, or people who stay largely silent apart from
+salutations; in many cases the original label was simply `El señor` with
+no name attached.
 
 ## Topics
 

@@ -62,7 +62,7 @@ head(transcripts)
 #>   <dbl>  <int> <chr>     <chr>       <chr>                <chr>                 
 #> 1     1      1 3/25/1997 background  background           ﻿Declaraciones de Víc… 
 #> 2     1      2 3/25/1997 background  background           [La entrevista se rea…
-#> 3     1      3 3/25/1997 alva        la señora            Levante su mano derec…
+#> 3     1      3 3/25/1997 desconocido la señora            Levante su mano derec…
 #> 4     1      4 3/25/1997 alva        el señor javier alva Sí.                   
 #> 5     1      5 3/25/1997 lewis       el señor neil lewis  Señor Alva, mi nombre…
 #> 6     1      6 3/25/1997 alva        el señor javier alva Javier Alva Orlandini.
@@ -80,7 +80,7 @@ nrow(t1)
 # Select multiple transcripts 
 t_sub <- read_transcripts(transcripts = c(5, 12, 47))
 nrow(t_sub)
-#> [1] 1324
+#> [1] 1326
 ```
 
 ### Read raw transcript data
@@ -129,22 +129,22 @@ montesinos_ids
 # Transcripts featuring Alex Kouri
 kouri_ids <- get_transcript_id(speaker = "alex kouri")
 length(kouri_ids)
-#> [1] 9
+#> [1] 7
 kouri_ids
-#> [1] 10 38 39 41 76 78 82 83 86
+#> [1] 10 38 39 41 82 83 86
 
-# Transcripts featuring both Alex Kouri and Crousillat
+# Transcripts featuring both Alex Kouri and Crousillat Carreno
 # (a TV producer with America Television)
-kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat"))
+kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
 length(kouri_crousillat_ids)
-#> [1] 2
+#> [1] 1
 kouri_crousillat_ids
-#> [1] 76 82
+#> [1] 82
 ```
 
-There are 108 speaker IDs that
+There are 147 speaker IDs that
 [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
-can filter on. The `actors` dataset lists 118 individuals in total;
+can filter on. The `actors` dataset lists 157 individuals in total;
 those with `is_speaker == 1` are the ones recorded speaking in the
 corpus.
 
@@ -188,7 +188,7 @@ length(media_ids)
 #> [1] 37
 
 # Find transcripts about media where a television producer is present
-media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat")
+media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat carreno")
 length(media_crousillat_ids)
 #> [1] 2
 ```
@@ -213,11 +213,11 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     1 1997-03-25 <chr [4]>   10375 <chr [1]>
-#> 2     2 1997-03-26 <chr [2]>    7120 <chr [2]>
-#> 3     3 1997-03-26 <chr [3]>    7006 <chr [2]>
+#> 1     1 1997-03-25 <chr [5]>   10375 <chr [1]>
+#> 2     2 1997-03-26 <chr [3]>    7120 <chr [2]>
+#> 3     3 1997-03-26 <chr [4]>    7006 <chr [2]>
 #> 4     4 1997-06-13 <chr [2]>     175 <chr [2]>
-#> 5     5 1998-01-08 <chr [5]>    9391 <chr [2]>
+#> 5     5 1998-01-08 <chr [5]>    9384 <chr [2]>
 #> 6     6 1998-01-12 <chr [2]>   13035 <chr [2]>
 
 # Get metadata for transcript 5
@@ -225,7 +225,7 @@ read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9391 <chr [2]>
+#> 1     5 1998-01-08 <chr [5]>    9384 <chr [2]>
 ```
 
 ## Examples
@@ -318,9 +318,14 @@ media_actors <- actors |>
   filter(type == "media") |>
   pull(speaker_std) 
 media_actors
-#>  [1] "valenzuela"     "vera"           "hildebrant"     "iberico"       
-#>  [5] "crousillat"     "delgado parker" "locutor"        "schutz"        
-#>  [9] "silva"          "ricketts"       "vera abad"      "perez"
+#>  [1] "valenzuela"              "vera"                   
+#>  [3] "hildebrant"              "iberico"                
+#>  [5] "crousillat carreno"      "genaro delgado parker"  
+#>  [7] "locutor"                 "schutz"                 
+#>  [9] "silva"                   "ricketts"               
+#> [11] "vera abad"               "perez"                  
+#> [13] "crousillat lopez torres" "manuel delgado parker"  
+#> [15] "valcarcel"               "winter zuzunaga"
 
 
 # Step 2: Filter for transcripts where media actors are present

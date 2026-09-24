@@ -16,8 +16,9 @@ get_transcript_id(speaker = NULL, topic = NULL)
 - speaker:
 
   Optional character vector of one or more standardized speaker names
-  (e.g., `"montesinos"`, `c("alex kouri", "crousillat")`). If provided,
-  only transcripts where all of these speakers are present are included.
+  (e.g., `"montesinos"`, `c("alex kouri", "crousillat carreno")`). If
+  provided, only transcripts where all of these speakers are present are
+  included.
 
 - topic:
 
@@ -61,9 +62,9 @@ get_transcript_id(speaker = "montesinos")
 #> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88
 #> [77]  89  90  94  95  96  97  98 102 103 104
 
-# Retrieve transcript IDs where both Alex Kouri and Crousillat appear
-get_transcript_id(speaker = c("alex kouri", "crousillat"))
-#> [1] 76 82
+# Retrieve transcript IDs where both Alex Kouri and Crousillat Carreno appear
+get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
+#> [1] 82
 
 # Retrieve transcript IDs about both media and reelection
 get_transcript_id(topic = c("media", "reelection"))

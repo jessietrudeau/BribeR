@@ -17,6 +17,11 @@ A tibble with 118 rows and 7 variables:
 
   Full name of the individual.
 
+- speaker_std:
+
+  Standardized identifier matching the `speaker_std` column in the
+  transcripts corpus.
+
 - position:
 
   Institutional role or title at the time of the recordings.
@@ -31,12 +36,9 @@ A tibble with 118 rows and 7 variables:
 
 - party:
 
-  Political party affiliation, where applicable.
-
-- speaker_std:
-
-  Standardized identifier matching the `speaker_std` column in the
-  transcripts corpus.
+  Political party affiliation for elected officials, `NA` otherwise.
+  Given as the V-Party abbreviation (`v2pashname`) for Peru: `"NM"`,
+  `"PAP"`, `"RN"`, `"PP"`, `"PPC"`, `"FIM"` or `"AP"`.
 
 - notes:
 

@@ -80,11 +80,11 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     1 1997-03-25 <chr [4]>   10375 <chr [1]>
-#> 2     2 1997-03-26 <chr [2]>    7120 <chr [2]>
-#> 3     3 1997-03-26 <chr [3]>    7006 <chr [2]>
+#> 1     1 1997-03-25 <chr [5]>   10375 <chr [1]>
+#> 2     2 1997-03-26 <chr [3]>    7120 <chr [2]>
+#> 3     3 1997-03-26 <chr [4]>    7006 <chr [2]>
 #> 4     4 1997-06-13 <chr [2]>     175 <chr [2]>
-#> 5     5 1998-01-08 <chr [5]>    9391 <chr [2]>
+#> 5     5 1998-01-08 <chr [5]>    9384 <chr [2]>
 #> 6     6 1998-01-12 <chr [2]>   13035 <chr [2]>
 
 # Metadata for a single transcript
@@ -92,15 +92,15 @@ read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9391 <chr [2]>
+#> 1     5 1998-01-08 <chr [5]>    9384 <chr [2]>
 
 # Metadata for several transcripts
 read_transcript_meta_data(c(5, 12, 47))
 #> # A tibble: 3 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9391 <chr [2]>
-#> 2    12 1998-02-10 <chr [2]>    1283 <chr [1]>
-#> 3    47 1998-11-23 <chr [2]>   15941 <chr [3]>
+#> 1     5 1998-01-08 <chr [5]>    9384 <chr [2]>
+#> 2    12 1998-02-10 <chr [2]>    1298 <chr [1]>
+#> 3    47 1998-11-23 <chr [4]>   15941 <chr [3]>
 # }
 ```

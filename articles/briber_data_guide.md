@@ -20,12 +20,12 @@ library(dplyr)
 
 transcripts <- read_transcripts()
 glimpse(transcripts)
-#> Rows: 46,597
+#> Rows: 46,936
 #> Columns: 6
 #> $ id          <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 #> $ row_id      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
 #> $ date        <chr> "3/25/1997", "3/25/1997", "3/25/1997", "3/25/1997", "3/25/…
-#> $ speaker_std <chr> "background", "background", "alva", "alva", "lewis", "alva…
+#> $ speaker_std <chr> "background", "background", "desconocido", "alva", "lewis"…
 #> $ speaker     <chr> "background", "background", "la señora", "el señor javier …
 #> $ speech      <chr> "﻿Declaraciones de Víctor Andrés García Belaunde y Javier …
 ```
@@ -84,7 +84,7 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `speaker_*` | integer | Speaker indicators (1/0) |
 | `topic_*` | integer | Topic indicators (1/0) |
 
-The 15 `topic_*` and 108 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 147 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
@@ -117,22 +117,23 @@ order. There is a minimum of 1 speaker per conversation and a maximum of
 # Who was present in the first three conversations?
 speakers_per_transcript %>% 
   slice(1:3)
-#> # A tibble: 3 × 20
+#> # A tibble: 3 × 23
 #>      id speaker_std_1 speaker_std_2 speaker_std_3 speaker_std_4 speaker_std_5
 #>   <dbl> <chr>         <chr>         <chr>         <chr>         <chr>        
-#> 1     1 alva          lewis         burnet        garcia        NA           
-#> 2    10 alex kouri    ibarcena      montesinos    serpa         santander    
-#> 3   100 de lopez      smith         NA            NA            NA           
-#> # ℹ 14 more variables: speaker_std_6 <chr>, speaker_std_7 <chr>,
+#> 1     1 garcia        burnet        lewis         alva          desconocido  
+#> 2     2 percovich     desconocido   lewis         NA            NA           
+#> 3     3 lupis         burnei        lewis         desconocido   NA           
+#> # ℹ 17 more variables: speaker_std_6 <chr>, speaker_std_7 <chr>,
 #> #   speaker_std_8 <chr>, speaker_std_9 <chr>, speaker_std_10 <chr>,
 #> #   speaker_std_11 <chr>, speaker_std_12 <chr>, speaker_std_13 <chr>,
 #> #   speaker_std_14 <chr>, speaker_std_15 <chr>, speaker_std_16 <chr>,
-#> #   speaker_std_17 <chr>, speaker_std_18 <chr>, speaker_std_19 <chr>
+#> #   speaker_std_17 <chr>, speaker_std_18 <chr>, speaker_std_19 <chr>,
+#> #   speaker_std_20 <chr>, speaker_std_21 <chr>, speaker_std_22 <chr>
 ```
 
 ### `actors`
 
-This file contains biographical and institutional metadata for 118
+This file contains biographical and institutional metadata for 157
 individuals named in the transcripts. The variable names are shown in
 the below table.
 
@@ -140,14 +141,14 @@ the below table.
 
 head(actors)
 #> # A tibble: 6 × 7
-#>   speaker                      position type  party speaker_std notes is_speaker
-#>   <chr>                        <chr>    <chr> <chr> <chr>       <chr>      <int>
-#> 1 vladimir montesinos          Head of… mont… NA    montesinos   NA            1
-#> 2 desconocido                  NA       NA    NA    desconocido  NA            1
-#> 3 alexander martin kouri buma… Elected… cong… Part… alex kouri   NA            1
-#> 4 lucchetti                    Company… busi… NA    lucchetti   "Luc…          1
-#> 5 carlos eduardo ferrero costa Congres… cong… Camb… ferrero     "Mul…          1
-#> 6 alberto fujimori             Preside… elec… NA    fujimori     NA            1
+#>   speaker                      speaker_std position type  party notes is_speaker
+#>   <chr>                        <chr>       <chr>    <chr> <chr> <chr>      <int>
+#> 1 vladimir montesinos          montesinos  Head of… mont… NA    NA             1
+#> 2 desconocido                  desconocido NA       NA    NA    NA             1
+#> 3 alexander martin kouri buma… alex kouri  Congres… cong… PPC   NA             1
+#> 4 representante de lucchetti   lucchetti   Represe… busi… NA    The …          1
+#> 5 carlos eduardo ferrero costa ferrero     Congres… cong… NM    Mult…          1
+#> 6 alberto fujimori             fujimori    Preside… elec… NA    NA             1
 ```
 
 | Column | Type | Description |
@@ -156,7 +157,7 @@ head(actors)
 | `speaker_std` | character | Standardized speaker identifier |
 | `position` | character | Short description of the speaker’s position |
 | `type` | charater | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`,`illicit`, and unknown (`NA`). |
-| `party` | character | For elected officials, the political party at the time of the recording (consistent with [V-Dem](https://www.v-dem.net/) party labels) |
+| `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
 | `notes` | character | Miscellaneous notes for actors that were difficult to identify |
 | `is_speaker` | integer | 1 if the individual has at least one speech turn in the corpus, 0 if they are named in the archive but never recorded speaking. Only those with `is_speaker == 1` can be filtered with [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md) |
 
@@ -170,11 +171,11 @@ actors %>%
   select(speaker, speaker_std, position, type, party) %>% 
   slice(3:5)
 #> # A tibble: 3 × 5
-#>   speaker               speaker_std position              type     party        
-#>   <chr>                 <chr>       <chr>                 <chr>    <chr>        
-#> 1 rafael urrelo guerra  urrelo      Congressman 1995-2000 congress Cambio 90_Nu…
-#> 2 carlos blanco oropeza blanco      Congressman 1995-2000 congress Cambio 90_Nu…
-#> 3 jorge trelles montero trelles     Congressman 1995-2000 congress Cambio 90_Nu…
+#>   speaker               speaker_std position              type     party
+#>   <chr>                 <chr>       <chr>                 <chr>    <chr>
+#> 1 rafael urrelo guerra  urrelo      Congressman 1995-2000 congress NM   
+#> 2 carlos blanco oropeza blanco      Congressman 1995-2000 congress NM   
+#> 3 jorge trelles montero trelles     Congressman 1995-2000 congress NM
 ```
 
 ## Linking datasets
@@ -230,7 +231,7 @@ transcripts |>
 #> # A tibble: 1 × 1
 #>   n_turns
 #>     <int>
-#> 1   16335
+#> 1   16561
 ```
 
 ## Accessing data directly
@@ -242,12 +243,16 @@ reference them by name after
 ``` r
 
 nrow(compiled_transcripts)
-#> [1] 46597
+#> [1] 46936
 names(actors)
-#> [1] "speaker"     "position"    "type"        "party"       "speaker_std"
+#> [1] "speaker"     "speaker_std" "position"    "type"        "party"      
 #> [6] "notes"       "is_speaker"
 ```
 
 [^1]: We generate a new number within the BribeR package, see the
     [id](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html#id)
     subsection for more information.
+
+[^2]: The party codes match `v2pashname`, the party abbreviation
+    variable for Peru in the V-Party dataset: `NM`, `PAP`, `RN`, `PP`,
+    `PPC`, `FIM` and `AP`.
