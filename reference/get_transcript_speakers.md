@@ -66,16 +66,19 @@ head(speakers)
 #> 6 americano        <dbl [2]>  
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(1, 5))
-#> Warning: Transcript ID(s) not found: 1
-#> # A tibble: 5 × 2
+get_transcript_speakers(n = c(5, 10))
+#> # A tibble: 9 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     
-#> 1 borobio     <dbl [1]>  
-#> 2 desconocido <dbl [1]>  
-#> 3 menendez    <dbl [1]>  
-#> 4 montesinos  <dbl [1]>  
-#> 5 solis       <dbl [1]>  
+#> 1 alex kouri  <dbl [1]>  
+#> 2 borobio     <dbl [1]>  
+#> 3 colunge     <dbl [1]>  
+#> 4 desconocido <dbl [2]>  
+#> 5 huaman      <dbl [1]>  
+#> 6 ibarcena    <dbl [1]>  
+#> 7 menendez    <dbl [1]>  
+#> 8 montesinos  <dbl [2]>  
+#> 9 solis       <dbl [1]>  
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")

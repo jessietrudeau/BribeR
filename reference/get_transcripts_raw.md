@@ -46,10 +46,9 @@ transcript ID.
 all_transcripts <- get_transcripts_raw()
 
 # Load a specific transcript by ID
-t3 <- get_transcripts_raw(n = 3)
-#> Error: No matching transcripts found for IDs: 3
+t5 <- get_transcripts_raw(n = 5)
 
 # Load multiple transcripts and combine them
-subset_combined <- get_transcripts_raw(n = c(3, 19, 104), combine = TRUE)
+subset_combined <- get_transcripts_raw(n = c(5, 19, 104), combine = TRUE)
 # }
 ```

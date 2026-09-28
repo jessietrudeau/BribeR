@@ -44,9 +44,8 @@ head(all)
 #> 6    10      6 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Con m…
 
 # Load only transcript 1
-t1 <- read_transcripts(transcripts = 1)
-#> Warning: No transcripts found matching IDs: 1
+t5 <- read_transcripts(transcripts = 5)
 
 # Load transcripts 5, 7, and 13
-subset <- read_transcripts(transcripts = c(5, 7, 13))
+subset <- read_transcripts(transcripts = c(5, 13, 19))
 ```
