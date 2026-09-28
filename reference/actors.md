@@ -32,7 +32,8 @@ A tibble with 140 rows and 6 variables:
   (Vladimiro Montesinos himself, kept separate from `"security"`),
   `"security"`, `"congress"`, `"judiciary"`, `"media"`,
   `"businessperson"`, `"elected official"`, `"bureaucrat"`, `"foreign"`,
-  `"illicit"`, or `"unknown"`.
+  `"illicit"`, or `"other"` (private individuals with no institutional
+  role, including the `"desconocido"` placeholder).
 
 - party:
 

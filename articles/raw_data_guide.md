@@ -152,12 +152,12 @@ head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 #> # A tibble: 6 × 5
 #>   speaker                         position               type  party speaker_std
 #>   <chr>                           <chr>                  <chr> <chr> <chr>      
-#> 1 vladimir montesinos             Head of National Inte… mont… NA    montesinos 
-#> 2 desconocido                     NA                     NA    NA    desconocido
+#> 1 vladimiro montesinos            Chief Advisor to the … mont… NA    montesinos 
+#> 2 desconocido                     Placeholder for any u… other NA    desconocido
 #> 3 alexander martin kouri bumachar Congressman (1992-199… cong… PPC   alex kouri 
 #> 4 representante de lucchetti      Representative of the… busi… NA    lucchetti  
-#> 5 carlos eduardo ferrero costa    Congressman (1995-200… cong… NM    ferrero    
-#> 6 alberto fujimori                President of Peru (19… elec… NA    fujimori
+#> 5 eduardo ferrero costa           Minister of Foreign A… bure… NA    eduardo fe…
+#> 6 carlos ferrero costa            Constituent Congressm… cong… NM    carlos fer…
 ```
 
 Actors are grouped into eleven categories. Vladimiro Montesinosis in his
@@ -165,17 +165,17 @@ own category:
 
 | type | Count | Description |
 |----|----|----|
-| `montesinos` | 1 | Vladimiro Montesinos, Head of the National Intelligence Service (SIN) |
-| `security` | 20 | Military and police officers |
-| `congress` | 25 | Members of Congress, including allies and opposition members bribed to switch allegiance |
-| `bureaucrat` | 15 | Senior civil servants and agency heads |
-| `judiciary` | 14 | Judges, prosecutors, and members of the electoral tribunals |
-| `foreign` | 13 | Foreign officials and diplomats |
-| `media` | 12 | Television channel and newspaper executives |
-| `illicit` | 7 | Individuals primarily associated with armed groups |
-| `businessperson` | 5 | Private sector executives and financiers |
-| `elected official` | 5 | Mayors, executives, and (non-Congressional) other elected officials |
-| `unknown` | 1 | Institutional role not recorded |
+| `montesinos` | 1 | Vladimiro Montesinos, Chief Advisor to the National Intelligence Service (SIN) |
+| `security` | 37 | Military and police officers |
+| `congress` | 19 | Members of Congress, including allies and opposition members bribed to switch allegiance |
+| `bureaucrat` | 20 | Senior civil servants and agency heads |
+| `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
+| `foreign` | 11 | Foreign officials and diplomats |
+| `media` | 13 | Television channel and newspaper executives |
+| `other` | 18 | Private individuals with no institutional role |
+| `illicit` | 5 | Individuals primarily associated with armed groups |
+| `businessperson` | 3 | Private sector executives and financiers |
+| `elected official` | 4 | Mayors, executives, and (non-Congressional) other elected officials |
 
 This figure shows that the three most common types of actors to be
 recorded are members of the security sector, congresspeople, and

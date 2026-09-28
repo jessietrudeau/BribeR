@@ -141,14 +141,14 @@ shown in the below table.
 
 head(actors)
 #> # A tibble: 6 × 6
-#>   speaker                         speaker_std position         type  party notes
-#>   <chr>                           <chr>       <chr>            <chr> <chr> <chr>
-#> 1 vladimir montesinos             montesinos  Head of Nationa… mont… NA    NA   
-#> 2 desconocido                     desconocido NA               NA    NA    NA   
-#> 3 alexander martin kouri bumachar alex kouri  Congressman (19… cong… PPC   NA   
-#> 4 representante de lucchetti      lucchetti   Representative … busi… NA    The …
-#> 5 carlos eduardo ferrero costa    ferrero     Congressman (19… cong… NM    Mult…
-#> 6 alberto fujimori                fujimori    President of Pe… elec… NA    NA
+#>   speaker                         speaker_std     position     type  party notes
+#>   <chr>                           <chr>           <chr>        <chr> <chr> <chr>
+#> 1 vladimiro montesinos            montesinos      Chief Advis… mont… NA    NA   
+#> 2 desconocido                     desconocido     Placeholder… other NA    NA   
+#> 3 alexander martin kouri bumachar alex kouri      Congressman… cong… PPC   NA   
+#> 4 representante de lucchetti      lucchetti       Representat… busi… NA    The …
+#> 5 eduardo ferrero costa           eduardo ferrero Minister of… bure… NA    Brot…
+#> 6 carlos ferrero costa            carlos ferrero  Constituent… cong… NM    Brot…
 ```
 
 | Column | Type | Description |
@@ -156,7 +156,7 @@ head(actors)
 | `speaker` | character | Speaker’s full name |
 | `speaker_std` | character | Standardized speaker identifier |
 | `position` | character | Short description of the speaker’s position |
-| `type` | charater | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`,`illicit`, and unknown (`NA`). |
+| `type` | character | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit` and `other`. |
 | `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
 | `notes` | character | Miscellaneous notes for actors that were difficult to identify |
 
@@ -170,11 +170,11 @@ actors %>%
   select(speaker, speaker_std, position, type, party) %>% 
   slice(3:5)
 #> # A tibble: 3 × 5
-#>   speaker               speaker_std position              type     party
-#>   <chr>                 <chr>       <chr>                 <chr>    <chr>
-#> 1 carlos blanco oropeza blanco      Congressman 1995-2000 congress NM   
-#> 2 jorge trelles montero trelles     Congressman 1995-2000 congress NM   
-#> 3 eduardo pando pacheco pando       Congressman 1995-2000 congress NM
+#>   speaker               speaker_std position                type     party
+#>   <chr>                 <chr>       <chr>                   <chr>    <chr>
+#> 1 carlos blanco oropeza blanco      Congressman (1995-2000) congress NM   
+#> 2 jorge trelles montero trelles     Congressman (1995-2000) congress NM   
+#> 3 eduardo pando pacheco pando       Congressman (1995-2000) congress NM
 ```
 
 ## Linking datasets

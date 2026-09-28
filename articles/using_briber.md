@@ -312,7 +312,7 @@ media_actors <- actors |>
 media_actors
 #>  [1] "vera"                    "crousillat carreno"     
 #>  [3] "genaro delgado parker"   "locutor"                
-#>  [5] "schutz"                  "silva"                  
+#>  [5] "schutz"                  "calmell"                
 #>  [7] "ricketts"                "vera abad"              
 #>  [9] "perez"                   "crousillat lopez torres"
 #> [11] "manuel delgado parker"   "valcarcel"              

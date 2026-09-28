@@ -63,7 +63,7 @@ head(speakers)
 #> 3 alberto kouri    <dbl [1]>  
 #> 4 alex kouri       <dbl [7]>  
 #> 5 alvarado cabrera <dbl [1]>  
-#> 6 americano        <dbl [2]>  
+#> 6 americano        <dbl [1]>  
 
 # Get speakers from specific transcripts
 get_transcript_speakers(n = c(5, 10))
@@ -82,20 +82,20 @@ get_transcript_speakers(n = c(5, 10))
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
-#> # A tibble: 47 × 2
-#>    speaker_std   transcripts
-#>    <chr>         <list>     
-#>  1 alberto kouri <dbl [1]>  
-#>  2 alex kouri    <dbl [3]>  
-#>  3 arancibia     <dbl [1]>  
-#>  4 bello vasquez <dbl [1]>  
-#>  5 bolona        <dbl [1]>  
-#>  6 borobio       <dbl [3]>  
-#>  7 bringas       <dbl [1]>  
-#>  8 calmell       <dbl [4]>  
-#>  9 cesar         <dbl [1]>  
-#> 10 chirinos      <dbl [1]>  
-#> # ℹ 37 more rows
+#> # A tibble: 48 × 2
+#>    speaker_std    transcripts
+#>    <chr>          <list>     
+#>  1 alberto kouri  <dbl [1]>  
+#>  2 alex kouri     <dbl [3]>  
+#>  3 arancibia      <dbl [1]>  
+#>  4 bello vasquez  <dbl [1]>  
+#>  5 bolona         <dbl [1]>  
+#>  6 borobio        <dbl [3]>  
+#>  7 bringas        <dbl [1]>  
+#>  8 calmell        <dbl [4]>  
+#>  9 carlos ferrero <dbl [1]>  
+#> 10 cesar          <dbl [1]>  
+#> # ℹ 38 more rows
 
 # Get speakers from transcripts about both media and reelection
 get_transcript_speakers(topic = c("media", "reelection"))

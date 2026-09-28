@@ -111,7 +111,7 @@ combination that never co-occurs returns a zero-row tibble.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> alberto kouri    <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> alex kouri       <span style="color: #949494;">&lt;dbl [7]&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> alvarado cabrera <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> americano        <span style="color: #949494;">&lt;dbl [2]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> americano        <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get speakers from specific transcripts</span></span></span>
 <span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -130,20 +130,20 @@ combination that never co-occurs returns a zero-row tibble.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get speakers from transcripts about media</span></span></span>
 <span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 47 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    speaker_std   transcripts</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> alberto kouri <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> alex kouri    <span style="color: #949494;">&lt;dbl [3]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> arancibia     <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> bello vasquez <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> bolona        <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> borobio       <span style="color: #949494;">&lt;dbl [3]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> bringas       <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> calmell       <span style="color: #949494;">&lt;dbl [4]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> cesar         <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> chirinos      <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 37 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 48 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    speaker_std    transcripts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> alberto kouri  <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> alex kouri     <span style="color: #949494;">&lt;dbl [3]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> arancibia      <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> bello vasquez  <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> bolona         <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> borobio        <span style="color: #949494;">&lt;dbl [3]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> bringas        <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> calmell        <span style="color: #949494;">&lt;dbl [4]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> carlos ferrero <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> cesar          <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 38 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get speakers from transcripts about both media and reelection</span></span></span>
 <span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span></span>
