@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```
 
 
-**BribeR** provides structured, full-text access to 99 *Vladivideo* transcripts, along with metadata about the conversations, speakers, and topics. This vignette introduces the three main families of functions (below) and provides user-friendly examples for how to use **BribeR.**
+**BribeR** provides structured, full-text access to 96 *Vladivideo* transcripts, along with metadata about the conversations, speakers, and topics. This vignette introduces the three main families of functions (below) and provides user-friendly examples for how to use **BribeR.**
 
 **1. Read transcripts**
 
@@ -39,7 +39,7 @@ install.packages("BribeR")
 remotes::install_github("jessietrudeau/BribeR")
 ```
 
-```{r load}
+```{r load, message=FALSE, warning=FALSE}
 # Load packages
 library(BribeR)
 library(dplyr)
@@ -110,7 +110,7 @@ length(kouri_crousillat_ids)
 kouri_crousillat_ids
 ```
 
-There are 147 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 157 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
+There are 140 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 150 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
 
 
 ## By topic 
@@ -172,7 +172,7 @@ The two below examples demonstrate how the **BribeR** functions and data can be 
 
 Say that we are interested in how Montesinos and his counterparts talk about a commonly discussed topic, media manipulation. First, we start by selecting the conversations about media manipulation and counting which actors speak the most during these conversations: 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(ggplot2)
 
 # Step 1: find transcript IDs about media 

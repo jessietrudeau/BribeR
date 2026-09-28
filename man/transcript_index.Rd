@@ -5,7 +5,7 @@
 \alias{transcript_index}
 \title{Transcript Index}
 \format{
-A tibble with 99 rows. Descriptive columns first, followed by the
+A tibble with 96 rows. Descriptive columns first, followed by the
 \code{n_speakers} and \code{n_topics} summary counts, followed by the boolean (1/0)
 \verb{speaker_*} and \verb{topic_*} indicator columns. The counts are deliberately
 named with an \code{n_} prefix so that they are not picked up by code selecting

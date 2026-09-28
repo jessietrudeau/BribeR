@@ -28,26 +28,26 @@ test_that("read_transcript_meta_data quiet = FALSE prints a message", {
 })
 
 test_that("read_transcript_meta_data filters to a single transcript ID", {
-  one <- read_transcript_meta_data(1)
+  one <- read_transcript_meta_data(5)
   expect_equal(nrow(one), 1)
-  expect_equal(one$id, 1)
+  expect_equal(one$id, 5)
 })
 
 test_that("read_transcript_meta_data filters to multiple transcript IDs", {
-  some <- read_transcript_meta_data(c(1, 2))
+  some <- read_transcript_meta_data(c(5, 6))
   expect_equal(nrow(some), 2)
-  expect_setequal(some$id, c(1, 2))
+  expect_setequal(some$id, c(5, 6))
 })
 
 test_that("read_transcript_meta_data returns every transcript by default", {
   all_meta <- read_transcript_meta_data()
-  one      <- read_transcript_meta_data(1)
+  one      <- read_transcript_meta_data(5)
   expect_gt(nrow(all_meta), nrow(one))
 })
 
 test_that("read_transcript_meta_data filtered columns match the unfiltered ones", {
   expect_equal(
-    names(read_transcript_meta_data(1)),
+    names(read_transcript_meta_data(5)),
     names(read_transcript_meta_data())
   )
 })
@@ -60,9 +60,9 @@ test_that("read_transcript_meta_data warns about IDs with no transcript", {
 })
 
 test_that("read_transcript_meta_data keeps found IDs and drops missing ones", {
-  mixed <- suppressWarnings(read_transcript_meta_data(c(1, 99999)))
+  mixed <- suppressWarnings(read_transcript_meta_data(c(5, 99999)))
   expect_equal(nrow(mixed), 1)
-  expect_equal(mixed$id, 1)
+  expect_equal(mixed$id, 5)
 })
 
 test_that("read_transcript_meta_data returns a well-formed empty tibble for unknown IDs", {

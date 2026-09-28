@@ -25,21 +25,21 @@ test_that("get_transcript_speakers results are sorted by speaker_std", {
 })
 
 test_that("get_transcript_speakers filters to a single transcript ID", {
-  one <- get_transcript_speakers(n = 1)
+  one <- get_transcript_speakers(n = 5)
   expect_gt(nrow(one), 0)
-  # every speaker returned should be attached only to transcript 1
-  expect_true(all(vapply(one$transcripts, function(x) identical(x, 1), logical(1))))
+  # every speaker returned should be attached only to transcript 5
+  expect_true(all(vapply(one$transcripts, function(x) identical(x, 5), logical(1))))
 })
 
 test_that("get_transcript_speakers filters to multiple transcript IDs", {
-  some <- get_transcript_speakers(n = c(1, 2))
+  some <- get_transcript_speakers(n = c(5, 6))
   expect_gt(nrow(some), 0)
-  expect_true(all(unlist(some$transcripts) %in% c(1, 2)))
+  expect_true(all(unlist(some$transcripts) %in% c(5, 6)))
 })
 
 test_that("get_transcript_speakers filtering by n is a subset of everything", {
   all_speakers <- get_transcript_speakers()
-  one          <- get_transcript_speakers(n = 1)
+  one          <- get_transcript_speakers(n = 5)
   expect_true(all(one$speaker_std %in% all_speakers$speaker_std))
   expect_lt(nrow(one), nrow(all_speakers))
 })
@@ -66,7 +66,7 @@ test_that("get_transcript_speakers narrows across multiple topics (AND logic)", 
 test_that("get_transcript_speakers combines n and topic with AND", {
   # transcript 4 is flagged for media, transcript 1 is not
   hit  <- get_transcript_speakers(n = 4, topic = "media")
-  miss <- get_transcript_speakers(n = 1, topic = "media")
+  miss <- get_transcript_speakers(n = 5, topic = "media")
 
   expect_gt(nrow(hit), 0)
   expect_true(all(unlist(hit$transcripts) == 4))
@@ -74,7 +74,7 @@ test_that("get_transcript_speakers combines n and topic with AND", {
 })
 
 test_that("get_transcript_speakers returns a well-formed empty tibble", {
-  none <- get_transcript_speakers(n = 1, topic = "media")
+  none <- get_transcript_speakers(n = 5, topic = "media")
   expect_s3_class(none, "tbl_df")
   expect_equal(nrow(none), 0)
   expect_true(all(c("speaker_std", "transcripts") %in% names(none)))
