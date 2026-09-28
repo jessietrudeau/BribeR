@@ -41,7 +41,7 @@ speakers <- get_transcript_speakers()
 head(speakers)
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(1, 5))
+get_transcript_speakers(n = c(5, 10))
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")

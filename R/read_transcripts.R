@@ -15,10 +15,10 @@
 #' head(all)
 #'
 #' # Load only transcript 1
-#' t1 <- read_transcripts(transcripts = 1)
+#' t5 <- read_transcripts(transcripts = 5)
 #'
 #' # Load transcripts 5, 7, and 13
-#' subset <- read_transcripts(transcripts = c(5, 7, 13))
+#' subset <- read_transcripts(transcripts = c(5, 13, 19))
 #'
 #' @seealso [get_transcripts_raw()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
