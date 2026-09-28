@@ -1,6 +1,6 @@
 # Using BribeR
 
-**BribeR** provides structured, full-text access to 99 *Vladivideo*
+**BribeR** provides structured, full-text access to 96 *Vladivideo*
 transcripts, along with metadata about the conversations, speakers, and
 topics. This vignette introduces the three main families of functions
 (below) and provides user-friendly examples for how to use **BribeR.**
@@ -27,14 +27,6 @@ remotes::install_github("jessietrudeau/BribeR")
 # Load packages
 library(BribeR)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 ```
 
 ## Read transcripts
@@ -58,14 +50,14 @@ colnames(transcripts)
 
 head(transcripts)
 #> # A tibble: 6 × 6
-#>      id row_id date      speaker_std speaker              speech                
-#>   <dbl>  <int> <chr>     <chr>       <chr>                <chr>                 
-#> 1     1      1 3/25/1997 background  background           ﻿Declaraciones de Víc… 
-#> 2     1      2 3/25/1997 background  background           [La entrevista se rea…
-#> 3     1      3 3/25/1997 desconocido la señora            Levante su mano derec…
-#> 4     1      4 3/25/1997 alva        el señor javier alva Sí.                   
-#> 5     1      5 3/25/1997 lewis       el señor neil lewis  Señor Alva, mi nombre…
-#> 6     1      6 3/25/1997 alva        el señor javier alva Javier Alva Orlandini.
+#>      id row_id date      speaker_std speaker                              speech
+#>   <dbl>  <int> <chr>     <chr>       <chr>                                <chr> 
+#> 1    10      1 1/28/1998 background  background                           Depar…
+#> 2    10      2 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Tú lo…
+#> 3    10      3 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…
+#> 4    10      4 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Me pa…
+#> 5    10      5 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…
+#> 6    10      6 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Con m…
 ```
 
 You can filter to one or more transcripts using their numeric IDs:
@@ -74,8 +66,10 @@ You can filter to one or more transcripts using their numeric IDs:
 
 # Select first transcript
 t1 <- read_transcripts(transcripts = 1)
+#> Warning in read_transcripts(transcripts = 1): No transcripts found matching
+#> IDs: 1
 nrow(t1)
-#> [1] 697
+#> [1] 0
 
 # Select multiple transcripts 
 t_sub <- read_transcripts(transcripts = c(5, 12, 47))
@@ -142,9 +136,9 @@ kouri_crousillat_ids
 #> [1] 82
 ```
 
-There are 147 speaker IDs that
+There are 140 speaker IDs that
 [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
-can filter on. The `actors` dataset lists 157 individuals in total;
+can filter on. The `actors` dataset lists 150 individuals in total;
 those with `is_speaker == 1` are the ones recorded speaking in the
 corpus.
 
@@ -213,12 +207,12 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     1 1997-03-25 <chr [5]>   10375 <chr [1]>
-#> 2     2 1997-03-26 <chr [3]>    7120 <chr [2]>
-#> 3     3 1997-03-26 <chr [4]>    7006 <chr [2]>
-#> 4     4 1997-06-13 <chr [2]>     175 <chr [2]>
-#> 5     5 1998-01-08 <chr [5]>    9384 <chr [2]>
-#> 6     6 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 1     4 1997-06-13 <chr [2]>     175 <chr [2]>
+#> 2     5 1998-01-08 <chr [5]>    9384 <chr [2]>
+#> 3     6 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 4     8 1998-01-20 <chr [3]>    4895 <chr [2]>
+#> 5     9 1998-01-23 <chr [3]>   16803 <chr [2]>
+#> 6    10 1998-01-28 <chr [6]>   15535 <chr [1]>
 
 # Get metadata for transcript 5
 read_transcript_meta_data(5)

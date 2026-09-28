@@ -70,9 +70,9 @@ So we talk more directly here; we leave it that way (unintelligible).
 y que habíamos quedado te acuerdas (ininteligible). Entonces,
 conversamos más directos acá, quedamos así (ininteligible).*
 
-**BribeR** provides structured access to transcripts of 99 of these
-recordings, which contain 46,936 individual speech turns. The package
-also includes relevant metadata about 157 named individuals and 15
+**BribeR** provides structured access to transcripts of 96 of these
+recordings, which contain 45,342 individual speech turns. The package
+also includes relevant metadata about 150 named individuals and 15
 topics.
 
 This page introduces the raw data, highlighting how it is organized at
@@ -111,10 +111,10 @@ library(BribeR)
 library(dplyr)
 library(ggplot2)
 
-## There are 99 transcripts in the dataset
+## There are 96 transcripts in the dataset
 meta <- read_transcript_meta_data()
 nrow(meta)
-#> [1] 99
+#> [1] 96
 ```
 
 Transcripts range from brief exchanges of a few hundred words to lengthy
@@ -125,7 +125,7 @@ approximately 8,500 words (approximately an hour-long conversation).
 
 summary(meta$n_words)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>     175    4584    8547    8968   11758   29096
+#>     175    4529    8588    8993   11826   29096
 
 ggplot(meta, aes(x = n_words)) +
   geom_histogram(bins = 25, fill = "#8B1A1A", color = "white") +
@@ -141,7 +141,7 @@ ggplot(meta, aes(x = n_words)) +
 
 ## Actors
 
-Users can access biographical and institutional metadata for the 157
+Users can access biographical and institutional metadata for the 150
 individuals named in the Vladivideos transcripts through the `actors`
 dataset. Each person is classified by their institutional role at the
 time of the recordings.
@@ -198,7 +198,7 @@ actors |>
 
 ![](raw_data_guide_files/figure-html/type-bar-1.png)
 
-About 12% of all speech turns – 5,636 turns across 69 of the 99
+About 12% of all speech turns – 5,291 turns across 66 of the 96
 transcripts – carry the speaker identifier `desconocido` (unidentified).
 **This is a placeholder, not a person.** It collects every speaker the
 transcribers could not name, so turns sharing this identifier are

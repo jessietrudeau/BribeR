@@ -80,12 +80,12 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     1 1997-03-25 <chr [5]>   10375 <chr [1]>
-#> 2     2 1997-03-26 <chr [3]>    7120 <chr [2]>
-#> 3     3 1997-03-26 <chr [4]>    7006 <chr [2]>
-#> 4     4 1997-06-13 <chr [2]>     175 <chr [2]>
-#> 5     5 1998-01-08 <chr [5]>    9384 <chr [2]>
-#> 6     6 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 1     4 1997-06-13 <chr [2]>     175 <chr [2]>
+#> 2     5 1998-01-08 <chr [5]>    9384 <chr [2]>
+#> 3     6 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 4     8 1998-01-20 <chr [3]>    4895 <chr [2]>
+#> 5     9 1998-01-23 <chr [3]>   16803 <chr [2]>
+#> 6    10 1998-01-28 <chr [6]>   15535 <chr [1]>
 
 # Metadata for a single transcript
 read_transcript_meta_data(5)

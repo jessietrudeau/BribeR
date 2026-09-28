@@ -9,7 +9,7 @@ what each dataset contains and how to combine them.
 
 ### `compiled_transcripts`
 
-This is the main dataset, containing every spoken line from all 99
+This is the main dataset, containing every spoken line from all 96
 transcripts, indexed by transcript number.[^1] Each row corresponds to
 one speech turn within a transcript.
 
@@ -20,14 +20,14 @@ library(dplyr)
 
 transcripts <- read_transcripts()
 glimpse(transcripts)
-#> Rows: 46,936
+#> Rows: 45,342
 #> Columns: 6
-#> $ id          <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+#> $ id          <dbl> 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10…
 #> $ row_id      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
-#> $ date        <chr> "3/25/1997", "3/25/1997", "3/25/1997", "3/25/1997", "3/25/…
-#> $ speaker_std <chr> "background", "background", "desconocido", "alva", "lewis"…
-#> $ speaker     <chr> "background", "background", "la señora", "el señor javier …
-#> $ speech      <chr> "﻿Declaraciones de Víctor Andrés García Belaunde y Javier …
+#> $ date        <chr> "1/28/1998", "1/28/1998", "1/28/1998", "1/28/1998", "1/28/…
+#> $ speaker_std <chr> "background", "alex kouri", "ibarcena", "alex kouri", "iba…
+#> $ speaker     <chr> "background", "el señor kouri bumachar, alexander.—", "el …
+#> $ speech      <chr> "Departamento de Transcripciones CONGRESO DE LA REPÚBLICA …
 ```
 
 | Column        | Type      | Description                            |
@@ -57,14 +57,14 @@ variable descriptions are shown in the below table.
 
 head(transcript_index[, c("id", "file", "format", "date", "original_id", "type", "summary")])
 #> # A tibble: 6 × 7
-#>      id file  format date       original_id type  summary                       
-#>   <int> <chr> <chr>  <date>     <chr>       <chr> <chr>                         
-#> 1     1 1.csv csv    1997-03-25 1014-1015   audio "In Florida, Javier Alva Orla…
-#> 2     2 2.csv csv    1997-03-26 1016        video "Former Prime Minister Luis P…
-#> 3     3 3.csv csv    1997-03-26 1017        video "Pablo Lupis Cid, manager of …
-#> 4     4 4.csv csv    1997-06-13 s/n         video "This official propaganda vid…
-#> 5     5 5.csv csv    1998-01-08 864         video "Montesinos meets with Daniel…
-#> 6     6 6.csv csv    1998-01-12 1312        video "Montesinos records a prison …
+#>      id file   format date       original_id type  summary                      
+#>   <int> <chr>  <chr>  <date>     <chr>       <chr> <chr>                        
+#> 1     4 4.csv  csv    1997-06-13 s/n         video Official Ministry of Defence…
+#> 2     5 5.csv  csv    1998-01-08 864         video Montesinos meets Daniel Boro…
+#> 3     6 6.csv  csv    1998-01-12 1312        video The journalist Patricio Rick…
+#> 4     8 8.csv  csv    1998-01-20 896         audio Montesinos meets with busine…
+#> 5     9 9.csv  csv    1998-01-23 869         video Montesinos and Foreign Minis…
+#> 6    10 10.csv csv    1998-01-28 872         video Montesinos reviews Alexander…
 ```
 
 | Column | Type | Description |
@@ -84,7 +84,7 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `speaker_*` | integer | Speaker indicators (1/0) |
 | `topic_*` | integer | Topic indicators (1/0) |
 
-The 15 `topic_*` and 147 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 140 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
@@ -120,9 +120,9 @@ speakers_per_transcript %>%
 #> # A tibble: 3 × 23
 #>      id speaker_std_1 speaker_std_2 speaker_std_3 speaker_std_4 speaker_std_5
 #>   <dbl> <chr>         <chr>         <chr>         <chr>         <chr>        
-#> 1     1 garcia        burnet        lewis         alva          desconocido  
-#> 2     2 percovich     desconocido   lewis         NA            NA           
-#> 3     3 lupis         burnei        lewis         desconocido   NA           
+#> 1     4 locutor       moncayo       NA            NA            NA           
+#> 2     5 montesinos    menendez      borobio       desconocido   solis        
+#> 3     6 montesinos    ricketts      NA            NA            NA           
 #> # ℹ 17 more variables: speaker_std_6 <chr>, speaker_std_7 <chr>,
 #> #   speaker_std_8 <chr>, speaker_std_9 <chr>, speaker_std_10 <chr>,
 #> #   speaker_std_11 <chr>, speaker_std_12 <chr>, speaker_std_13 <chr>,
@@ -133,7 +133,7 @@ speakers_per_transcript %>%
 
 ### `actors`
 
-This file contains biographical and institutional metadata for 157
+This file contains biographical and institutional metadata for 150
 individuals named in the transcripts. The variable names are shown in
 the below table.
 
@@ -209,7 +209,7 @@ transcript_index %>%
 #> # A tibble: 1 × 4
 #>      id original_id in_book in_online_archive
 #>   <int> <chr>         <int>             <int>
-#> 1     1 1014-1015         1                 0
+#> 1     4 s/n               1                 0
 ```
 
 ### `speaker_std`
@@ -243,7 +243,7 @@ reference them by name after
 ``` r
 
 nrow(compiled_transcripts)
-#> [1] 46936
+#> [1] 45342
 names(actors)
 #> [1] "speaker"     "speaker_std" "position"    "type"        "party"      
 #> [6] "notes"       "is_speaker"

@@ -62,23 +62,20 @@ head(speakers)
 #> 2 albarracin       <dbl [2]>  
 #> 3 alberto kouri    <dbl [1]>  
 #> 4 alex kouri       <dbl [7]>  
-#> 5 alva             <dbl [1]>  
-#> 6 alvarado cabrera <dbl [1]>  
+#> 5 alvarado cabrera <dbl [1]>  
+#> 6 americano        <dbl [2]>  
 
 # Get speakers from specific transcripts
 get_transcript_speakers(n = c(1, 5))
-#> # A tibble: 9 × 2
+#> Warning: Transcript ID(s) not found: 1
+#> # A tibble: 5 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     
-#> 1 alva        <dbl [1]>  
-#> 2 borobio     <dbl [1]>  
-#> 3 burnet      <dbl [1]>  
-#> 4 desconocido <dbl [2]>  
-#> 5 garcia      <dbl [1]>  
-#> 6 lewis       <dbl [1]>  
-#> 7 menendez    <dbl [1]>  
-#> 8 montesinos  <dbl [1]>  
-#> 9 solis       <dbl [1]>  
+#> 1 borobio     <dbl [1]>  
+#> 2 desconocido <dbl [1]>  
+#> 3 menendez    <dbl [1]>  
+#> 4 montesinos  <dbl [1]>  
+#> 5 solis       <dbl [1]>  
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")

@@ -52,7 +52,7 @@ vector.
 # Retrieve all available transcript IDs
 ids <- get_transcript_id()
 head(ids)
-#> [1] 1 2 3 4 5 6
+#> [1]  4  5  6  8  9 10
 
 # Retrieve transcript IDs where Montesinos appears
 get_transcript_id(speaker = "montesinos")

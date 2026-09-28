@@ -12,7 +12,7 @@ compiled_transcripts
 
 ## Format
 
-A tibble with 46,936 rows and 6 variables:
+A tibble with 45,342 rows and 6 variables:
 
 - id:
 
