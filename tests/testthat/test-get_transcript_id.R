@@ -71,11 +71,12 @@ test_that("get_transcript_id errors on invalid speaker", {
   )
 })
 
-test_that("get_transcript_id distinguishes silent actors from unknown names", {
-  # valenzuela is in `actors` with is_speaker == 0
+test_that("get_transcript_id rejects names that never speak", {
+  # valenzuela is named in the transcripts but never speaks, so she is not in
+  # `actors` and there is no speaker column to filter on
   expect_error(
     get_transcript_id(speaker = "valenzuela"),
-    "listed in `actors` but never recorded speaking"
+    "not found in transcript_index"
   )
   expect_error(
     get_transcript_id(speaker = "nonexistent_person_xyz"),

@@ -109,8 +109,8 @@ conversamos más directos acá, quedamos así (ininteligible).*
 
 **BribeR** provides structured access to transcripts of 96 of these
 recordings, which contain 45,342 individual speech turns. The package
-also includes relevant metadata about 150 named individuals and 15
-topics.
+also includes relevant metadata about the 140 individuals recorded
+speaking and 15 topics.
 
 This page introduces the raw data, highlighting how it is organized at
 the transcript-, actor-, and topic-level. This page uses some of the
@@ -170,9 +170,9 @@ ggplot(meta, aes(x = n_words)) +
 
 # Actors
 
-Users can access biographical and institutional metadata for the 150
-individuals named in the Vladivideos transcripts through the `actors`
-dataset. Each person is classified by their institutional role at the
+Users can access biographical and institutional metadata for the 140
+individuals recorded speaking in the Vladivideos transcripts through the
+`actors` dataset. Each person is classified by their institutional role at the
 time of the recordings.
 
 ```{r actors-load, message=FALSE}

@@ -110,7 +110,7 @@ length(kouri_crousillat_ids)
 kouri_crousillat_ids
 ```
 
-There are 140 speaker IDs that `get_transcript_id()` can filter on. The `actors` dataset lists 150 individuals in total; those with `is_speaker == 1` are the ones recorded speaking in the corpus.
+There are 140 speaker IDs that `get_transcript_id()` can filter on, one for each individual in the `actors` dataset.
 
 
 ## By topic 

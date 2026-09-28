@@ -145,9 +145,9 @@ print(mapping, row.names = FALSE)
 invisible(mapply(.save_one_csv_as_rda, csv_paths, object_names))
 message(sprintf("Done. %d datasets written to '%s/'.", length(csv_paths), OUTPUT_DIR))
 
-# ---- flag which actors are recorded speaking ----
-# is_speaker is 1 when the actor's speaker_std appears at least once in the
-# transcript files and 0 otherwise. Identifiers are lowercased and stripped of
+# ---- verify every actor is recorded speaking ----
+# `actors` is a speakers-only roster, so every speaker_std must appear at least
+# once in the transcript files. Identifiers are lowercased and stripped of
 # diacritics to match how build_transcripts_detailed.R stores speaker_std.
 TRANSCRIPTS_DIR <- "inst/data-raw/transcripts"
 
@@ -167,12 +167,13 @@ speaking <- unique(unlist(lapply(transcript_files, function(p) {
 })))
 speaking <- speaking[!is.na(speaking) & nzchar(speaking)]
 
-actors_path <- file.path(OUTPUT_DIR, "actors.rda")
-load(actors_path)
-actors$is_speaker <- as.integer(.norm_speaker(actors$speaker_std) %in% speaking)
-save(actors, file = actors_path, compress = "xz")
+load(file.path(OUTPUT_DIR, "actors.rda"))
+silent <- actors$speaker_std[!.norm_speaker(actors$speaker_std) %in% speaking]
+if (length(silent) > 0) {
+  stop(sprintf("actors.csv lists %d individual(s) who never speak: %s",
+               length(silent), paste(silent, collapse = ", ")))
+}
 
-message(sprintf("Flagged is_speaker = 1 for %d of %d actors.",
-                sum(actors$is_speaker), nrow(actors)))
+message(sprintf("All %d actors are recorded speaking.", nrow(actors)))
 
 

@@ -5,7 +5,7 @@
 \alias{actors}
 \title{Actor Roster}
 \format{
-A tibble with 118 rows and 7 variables:
+A tibble with 140 rows and 6 variables:
 \describe{
 \item{speaker}{Full name of the individual.}
 \item{speaker_std}{Standardized identifier matching the \code{speaker_std}
@@ -22,10 +22,6 @@ otherwise. Given as the V-Party abbreviation (\code{v2pashname}) for
 Peru: \code{"NM"}, \code{"PAP"}, \code{"RN"}, \code{"PP"},
 \code{"PPC"}, \code{"FIM"} or \code{"AP"}.}
 \item{notes}{Additional notes on the individual.}
-\item{is_speaker}{Integer indicator: 1 if the individual has at least one
-speech turn in the transcript corpus, 0 if they are named in the archive
-but never recorded speaking. Only individuals with \code{is_speaker == 1}
-can be used to filter with \code{\link{get_transcript_id}}.}
 }
 }
 \source{
