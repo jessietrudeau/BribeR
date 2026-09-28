@@ -1,141 +1,141 @@
 speaker,speaker_std,Position,Type,Party,notes
-Vladimir Montesinos,MONTESINOS,Head of National Intelligence Service (SIN),Montesinos,NA,NA
-Desconocido,DESCONOCIDO,NA,NA,NA,NA
+Vladimiro Montesinos,MONTESINOS,Chief Advisor to the National Intelligence Service (SIN),Montesinos,NA,NA
+Desconocido,DESCONOCIDO,Placeholder for any unidentified speaker,Other,NA,NA
 Alexander Martin Kouri Bumachar,ALEX KOURI,"Congressman (1992-1995), Mayor of Callao from 1996",Congress,PPC,NA
 Representante de Lucchetti,LUCCHETTI,Representative of the Lucchetti company in Peru (name unknown),Businessperson,NA,"The label may cover more than one individual. Lucchetti is a company, not a person; the existing note said it sometimes referred to Luksic and sometimes to an unknown employee. Not the same identifier as menendez, who speaks for Merardo Luksic in transcript 5."
-Carlos Eduardo Ferrero Costa,FERRERO,Congressman (1995-2000),Congress,NM,"Multiple Ferrero Costa in Peruvian politics. There is a Carlos and an Eduardo, but not a Carlos Eduardo."
+Eduardo Ferrero Costa,EDUARDO FERRERO,Minister of Foreign Affairs (1997-1998),Bureaucrat,NA,Brother of Carlos Ferrero Costa
+Carlos Ferrero Costa,CARLOS FERRERO,Constituent Congressman (1992-1995) and Congressman (1995-2000),Congress,NM,Brother of Eduardo Ferrero Costa
 Alberto Fujimori,FUJIMORI,President of Peru (1990-2000),Elected Official,NA,NA
-Abimael Guzman,GUZMAN,Guerrilla and terrorist leader in Peru,Illicit,NA,NA
-Carlos Blanco Oropeza,BLANCO,Congressman 1995-2000,Congress,NM,NA
-Jorge Trelles Montero,TRELLES,Congressman 1995-2000,Congress,NM,NA
-Alfredo Quispe Corre,QUISPE,Minister of Justice 1997-1999,Judiciary,NA,NA
-Eduardo Pando Pacheco,PANDO,Congressman 1995-2000,Congress,NM,NA
-Miguel Velit Nunez,VELIT,"Congressman 1992-1995, Presidente de la Comisión de Fiscalización del Congreso de la República 1997-2000",Congress,NM,NA
+Abimael Guzman,GUZMAN,Leader of Sendero Luminoso,Illicit,NA,NA
+Carlos Blanco Oropeza,BLANCO,Congressman (1995-2000),Congress,NM,NA
+Jorge Trelles Montero,TRELLES,Congressman (1995-2000),Congress,NM,NA
+Alfredo Quispe Corre,QUISPE,Minister of Justice (1997-1999),Bureaucrat,NA,NA
+Eduardo Pando Pacheco,PANDO,Congressman (1995-2000),Congress,NM,NA
+Miguel Velit Nunez,VELIT,"Constituent Congressman (1992-1995), Congressman (1995-2000), President of the Oversight Committee",Congress,NM,NA
 Ricardo Marcenaro Frers,MARCENARO,Congressman (1995-2000) and President of Congress (1999),Congress,NM,NA
-Adolfo Amoin Bueno,AMOIN,"Congressman 1995-2000, President of Tourism Comission 1997-1998",Congress,NM,NA
-Oscar Medelius Rodriguez,MEDELIUS,Congressman 1995-2000,Congress,NM,NA
+Adolfo Amorin Bueno,AMORIN,Congressman (1995-2000) and President of the Tourism Committee (1997-1998),Congress,NM,NA
+Oscar Medelius Rodriguez,MEDELIUS,Congressman (1995-2000),Congress,NM,NA
 Luz Salgado Rubianes de Paredes,SALGADO,Congresswoman from 1995,Congress,NM,NA
-Victor Joy Way Rojas,JOY WAY,"Congressman and President of Congress (1995-2000), Secretary of Economy and Finance (1999)",Congress,NM,NA
+Victor Joy Way Rojas,JOY WAY,"Congressman and President of Congress (1995-2000), Minister of Economy and Finance (1999)",Congress,NM,NA
 Carmen Lozada de Gamboa,LOZADA,"Congresswoman (1992-1995, 1995-2000)",Congress,NM,NA
-Daniel Espichan Tumay,ESPICHAN,"Congressman 1995-2000, legal consulting",Congress,NM,NA
-Edith Mellado Cespedes,MELLADO,"Congresswoman 1995-2000, President of Congress (1997-1998)",Congress,NM,NA
-Luisa Maria Cuculiza,CUCULIZA,"Mayor of Lima Borja District 1993-1999, Minister of Women's Promotion and Social Development from 1999 to 2000",Elected Official,NA,NA
-Juan Briones Davila,DAVILA,Minister of the Interior 1991-1997,Bureaucrat,NA,NA
-Alipio Montes de Oca,MONTES DE OCA,Supreme Court Justice (Chief Justice),Judiciary,NA,NA
-Luis Serpa Seguras,SERPA,President of Jurado Nacional de Elecciones,Judiciary,NA,NA
+Daniel Espichan Tumay,ESPICHAN,Congressman (1995-2000),Congress,NM,NA
+Edith Mellado Cespedes,MELLADO,Congresswoman (1995-2000) and President of Congress (1997-1998),Congress,NM,NA
+Luisa Maria Cuculiza Torre,CUCULIZA,"Mayor of San Borja (1993-1999), Minister of Women's Promotion and Human Development (1999-2000)",Elected Official,NA,NA
+Juan Briones Davila,DAVILA,Minister of the Interior (1991-1997),Bureaucrat,NA,NA
+Alipio Montes de Oca,MONTES DE OCA,Chief Justice of the Supreme Court,Judiciary,NA,NA
+Luis Serpa Seguras,SERPA,President of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,NA
 Victor Raul Castillo,CASTILLO,Supreme Court Justice,Judiciary,NA,NA
 Jose Dellepiane Massa,DELLEPIANE,Executive Secretary of the Comisión Ejecutiva del Poder Judicial,Judiciary,NA,NA
 Jaime Beltran Quiroga,BELTRAN,Judge,Judiciary,NA,NA
-Javier Valle Riestra Gonzalez,VALLE RIESTRA,"Prime Minister of Peru from June-August 1998 (not from Fujimori's party, but a cautious cooperator)",Bureaucrat,NA,NA
-Santander,SANTANDER,Advisor to Javier Valle Riestra (possibly chief of staff?),Bureaucrat,NA,NA
+Javier Valle Riestra Gonzalez Olaechea,VALLE RIESTRA,Prime Minister (1998),Bureaucrat,NA,NA
+Santander,SANTANDER,Advisor to Javier Valle Riestra,Bureaucrat,NA,NA
 Romulo Munoz Arce,ARCE,Magistrate of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,NA
 Jose Garcia Marcelo,MARCELO,Magistrate of the Tribunal Constitucional,Judiciary,NA,NA
 Walter Hernandez Canelo,HERNANDEZ CANELO,Magistrate of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,NA
-Juan Carlos Hurtado Miller,HURTADO MILLER,Fujimorist politician and candidate to mayor of Lima 1998,Bureaucrat,NA,NA
-Daniel Borobio Guede,BOROBIO,Advisor and Publicist to Fujimori,Bureaucrat,NA,NA
+Juan Carlos Hurtado Miller,HURTADO MILLER,Prime Minister and Minister of Economy and Finance (1990-1991); candidate for mayor of Lima (1998),Bureaucrat,NA,NA
+Daniel Borobio Guede,BOROBIO,Argentine publicist; private image advisor to Fujimori,Other,NA,NA
 Carlos Bringas,BRINGAS,Magistrate of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,Multiple Carlos Bringas in Peruvian politics
-Victor Ivachine,IVACHINE,Russian pilot,Foreign,NA,NA
-General Jose Villanueva Ruesta,VILLANUEVA RUESTA,Military General; advisor and confidante of Montesinos,Security,NA,NA
-Luis Venero Garrido,VENERO,"Brother of Alberto Venero Garrido, participated in organized crime and illegal pruchase of military equipment alongside Montesinos and Fujimori",Illicit,NA,NA
-Coronel Roberto Huaman Azcurra,HUAMAN,Colonel and Intelligence Advisor,Security,NA,NA
+Victor Ivachine,IVACHINE,Russian arms trader detained in the FARC arms-trafficking case,Foreign,NA,NA
+General Jose Villanueva Ruesta,VILLANUEVA RUESTA,"Minister of the Interior (1997-1999), Commander General of the Army and President of the Joint Command of the Armed Forces (1999-2000)",Security,NA,NA
+Luis Venero Garrido,VENERO,Brother of Alberto Venero Garrido,Other,NA,NA
+Coronel Roberto Huaman Azcurra,HUAMAN,"Army Colonel; head of External Front, Army Intelligence Service (SIE)",Security,NA,NA
 Manuel Tafur Ruiz,TAFUR,Congressman,Congress,FIM,NA
-Ernesto Gamarra Olivares,GAMARRA,Congressman with connections in El Comercio,Congress,AP,NA
-Jamil Mahuad,MAHUAD,President-elect of Ecuador,Foreign,NA,NA
+Ernesto Gamarra Olivares,GAMARRA,Congressman,Congress,AP,NA
+Jamil Mahuad,MAHUAD,President of Ecuador (1998-2000),Foreign,NA,NA
 Julio Vera Gutierrez,VERA,Controlling shareholder of ATV,Media,NA,NA
-Jose Francisco Crousillat Carreno,CROUSILLAT CARRENO,TV producer with America Television,Media,NA,NA
-Genaro Delgado Parker,GENARO DELGADO PARKER,Peruvian entrepreneur and founder of RPP,Media,NA,NA
-Luis Bedoya de Vivanco,BEDOYA,Alcalde de Miraflores,Elected Official,NA,NA
-Tomas Gonzales Reategui,REATEGUI,Ex-minister of the Presidency,Bureaucrat,NA,NA
-Dionisio Romero Seminario,ROMERO SEMINARIO,Peruvian financeeer,Businessperson,NA,NA
-General PNP Fernando Dianderas Ottone,DIANDERAS,General Director of the Police,Security,NA,NA
-General EP Carlos Alberto Bergamino Cruz,BERGAMINO,Minister of Defense,Security,NA,NA
-Embajadora,EMBAJADORA,Foreign Ambassador,Foreign,NA,NA
-El/la Locutora,LOCUTOR,Unknown participant in 1604,Media,NA,NA
-Ernesto Schutz Landazuri,SCHUTZ,Administrator of Panamerica Television,Media,NA,NA
-Jorge Santistevan de Noriega,NORIEGA,Defensor del Pueblo,Judiciary,NA,NA
-Eduardo Calmell del Solar,CALMELL,Member of the Chamber of Deputies,Congress,AP,NA
+Jose Francisco Crousillat Carreno,CROUSILLAT CARRENO,TV producer at America Television,Media,NA,NA
+Genaro Delgado Parker,GENARO DELGADO PARKER,Media businessman; founder of RPP,Media,NA,NA
+Luis Bedoya de Vivanco,BEDOYA,"Mayor of Miraflores (1984-1986, 1987-1989) and from 1999",Elected Official,NA,NA
+Tomas Gonzales Reategui,REATEGUI,Minister of the Presidency (1997-1999),Bureaucrat,NA,NA
+Dionisio Romero Seminario,ROMERO SEMINARIO,Peruvian financier,Businessperson,NA,NA
+General PNP Fernando Dianderas Ottone,DIANDERAS,Director General of the National Police (1997-2000),Security,NA,NA
+General EP Carlos Alberto Bergamino Cruz,BERGAMINO,Minister of Defense (1999-2000),Security,NA,NA
+El/la Locutora,LOCUTOR,Broadcast announcer,Media,NA,NA
+Ernesto Schutz Landazuri,SCHUTZ,President of the board of Panamericana Television,Media,NA,NA
+Jorge Santistevan de Noriega,NORIEGA,Ombudsman,Bureaucrat,NA,NA
+Eduardo Calmell del Solar,CALMELL,Director of the newspaper Expreso; Deputy (1990-1992),Media,AP,NA
 Eugenio Bertini Vinci,BERTINI,General Manager of Banco Wiese,Businessperson,NA,NA
-Agustin Mantilla Campos,CAMPOS,Congressman,Congress,PAP,NA
-Delegacion Israel,ISRAEL,"""Senor"" in transcript 919",Foreign,NA,NA
-El Oficial EP,MILITAR DESCONOCIDO,Oficial EP,Security,NA,NA
-El Coronel Ramirez,CRNL RAMIREZ,Coronel Ramirez in transcript 1300,Security,NA,NA
-Carlos Portillo Vazquez,PORTILLO,Secretary General of Air Force,Security,NA,NA
-Francisco Tudela,TUDELA,Foreign Minister of Peru (1995–1997) Vice President of Peru (2000),Bureaucrat,NA,NA
-Vicente Silva,SILVA,Attorney; Proxy for control of Media,Media,NA,NA
-Raquel de Lopez,DE LOPEZ,"Spouse or close relative of a foreign-linked businessman, positioned as a secondary source of information in transnational investigations.",NA,NA,NA
-Smith,SMITH,"Non-local civilian with indirect relevance to investigative or contextual narratives, often involved as a family member of a potential subject.",Foreign,NA,NA
-Liliana Villarreal,VILLAREAL,"Low-profile administrative actor responsible for supporting bureaucratic processes such as documentation, verification, or logistics.",NA,NA,NA
-Luis Frank Aybar,AYBAR,Arms Trafficker,Illicit,NA,NA
-Juan Manuel Lopez,LOPEZ,Arms Trafficker,Illicit,NA,NA
-Malea,MALEA,"Operational support personnel involved in logistics, transport coordination, and surveillance for investigative or security activities.",Security,NA,NA
-Gonzales,GONZALES,"Clerical or support-level administrative actor responsible for maintaining or processing records, lists, or procedural documents.",Bureaucrat,NA,NA
-El Americano,AMERICANO,"Transnational operative engaged in influence peddling, covert lobbying, and intelligence-adjacent activities that blur legal and institutional boundaries.",Foreign,NA,NA
-Marino Costa,COSTA,Minister of Health,Bureaucrat,NA,NA
-Barry MacCaffrey,MACCAFFREY,US General focused on counter-narcotics in Peru,Foreign,NA,NA
-General EP Cesar Saucedo Sanchez,SAUCEDO SANCHEZ,Commander General of the Army and President of the Group Command of the Armed Forces,Security,NA,NA
+Agustin Mantilla Campos,CAMPOS,Minister of the Interior (1989-1990) and Congressman (1995-2000),Congress,PAP,NA
+Delegacion Israel,ISRAEL,Israeli delegation member(s),Foreign,NA,NA
+El Oficial EP,MILITAR DESCONOCIDO,Unidentified Army officer,Security,NA,NA
+El Coronel Ramirez,CRNL RAMIREZ,Army Colonel; Inspector at the Military Hospital,Security,NA,NA
+Carlos Portillo Vazquez,PORTILLO,Secretary General of the Air Force,Security,NA,NA
+Francisco Tudela,TUDELA,Minister of Foreign Affairs (1995-1997) and Vice President (2000),Bureaucrat,NA,NA
+Vicente Silva,SILVA,Lawyer; acted for the Armed Forces in the purchase of Cable Canal de Noticias,Other,NA,NA
+Raquel de Lopez,DE LOPEZ,Wife of Juan Manuel Lopez Rodriguez,Other,NA,NA
+Smith,SMITH,Relative of Raquel Smith de Lopez,Other,NA,NA
+Liliana Villarreal,VILLAREAL,Defendant in the Plan Siberia arms-trafficking case,Other,NA,NA
+Luis Frank Aybar,AYBAR,Arms trafficker,Illicit,NA,NA
+Juan Manuel Lopez,LOPEZ,Arms trafficker,Illicit,NA,NA
+Malea,MALEA,Aide to Montesinos,Bureaucrat,NA,NA
+Gonzales,GONZALES,Military officer,Security,NA,NA
+El Americano,AMERICANO,Unidentified American businessman,Foreign,NA,NA
+Marino Costa,COSTA,Minister of Health (1996-1999),Bureaucrat,NA,NA
+Barry McCaffrey,MCCAFFREY,United States Army general; Director of the Office of National Drug Control Policy from 1996,Foreign,NA,NA
+General EP Cesar Saucedo Sanchez,SAUCEDO SANCHEZ,"Commander General of the Army and President of the Joint Command of the Armed Forces (1998-1999), Minister of the Interior (1999-2000)",Security,NA,NA
 Nicolas de Bari Hermoza,HERMOZA,Commander General of the Army (1991-1998),Security,NA,NA
 Almirante Antonio Ibarcena,IBARCENA,Commander General of the Navy (1996-2000),Security,NA,NA
 Elesvan Bello Vasquez,BELLO VASQUEZ,Commander General of the Air Force (1992-1998),Security,NA,NA
 Alberto Pandolfi,PANDOLFI,Prime Minister (1996-1999),Bureaucrat,NA,NA
-Dennis Jett,JETT,US Ambassador to Peru (1996-1999),Foreign,NA,NA
+Dennis Jett,JETT,United States Ambassador to Peru (1996-1999),Foreign,NA,NA
 Patricio Arancibia,ARANCIBIA,Retired Admiral of the Chilean Navy,Foreign,NA,NA
-Francisco Kouri,FRANCISCO KOURI,Alex Kouri's Cousin,Illicit,NA,NA
-Francisco Moncayo,MONCAYO,Ecuadorian Military Official,Foreign,NA,NA
-Juan Manuel Guillen,GUILLEN,Mayor of Arequipa (1998-2000),Elected Official,NA,NA
-Luis Albarracin Torres,ALBARRACIN,GENERAL DE BRIGADA,Security,NA,NA
-General EP Cesar Cano Angulo,CANO ANGULO,Jefe del Estado Mayor de las Fuerzas Armadas,Security,NA,NA
-General EP Julio Salazar Monro,SALAZAR,Minister of Defense and Army General,Security,NA,NA
-Patricio Ricketts,RICKETTS,Journalist and Media Personality,Media,NA,NA
-Humberto Rozas,ROZAS,Head of Peru's National Intelligence Service (1998-2000),Security,NA,NA
-Representante de Estados Unidos,REPRESENTANTE ESTADOS UNIDOS,"Foreign government official engaged in civilian diplomacy and intergovernmental coordination, particularly in security assistance, legal cooperation, and development policy.",Foreign,NA,NA
-General Delgado,GENERAL DELGADO,Commander General of the Army,Security,NA,NA
+Francisco Kouri,FRANCISCO KOURI,Cousin of Alex Kouri,Other,NA,NA
+Francisco Moncayo,MONCAYO,Ecuadorian Army general,Foreign,NA,NA
+Juan Manuel Guillen,GUILLEN,Mayor of Arequipa from 1999,Elected Official,NA,NA
+Luis Albarracin Torres,ALBARRACIN,Army Brigadier General,Security,NA,NA
+General EP Cesar Cano Angulo,CANO ANGULO,Chief of Staff of the Armed Forces,Security,NA,NA
+General EP Julio Salazar Monro,SALAZAR,"Head of the National Intelligence Service, SIN (1991-1998) and Minister of Defense (1998-1999)",Security,NA,NA
+Patricio Ricketts,RICKETTS,Journalist,Media,NA,NA
+Humberto Rozas,ROZAS,"Head of the National Intelligence Service, SIN (1998-2000)",Security,NA,NA
+Representante de Estados Unidos,REPRESENTANTE ESTADOS UNIDOS,United States government representative(s),Foreign,NA,NA
+General Delgado,GENERAL DELGADO,Army General,Security,NA,NA
 Domingo Palermo,PALERMO,Minister of Education (1996-1999),Bureaucrat,NA,NA
-Enrique Chirinos,CHIRINOS,"Constituent Congressman (1992-1995), Congress Member (1995-2000)",Congress,RN,NA
-Julio Vera Abad,VERA ABAD,Media Businessman; Owned Channel 9 and ATV,Media,NA,NA
-Ketin Vidal,VIDAL,"Director of DIRCOTE (anti-terrorism unit) in (1991-1992), Director General of the National Police (1996–1997)",Security,NA,NA
-Osman Morote,MOROTE,2nd in Command of Sendero Luminoso (Insurgency in Peru),Illicit,NA,NA
-Maria Pantoja,PANTOJA,Ranking Member of Sendero Luminoso (Insurgency in Peru),Illicit,NA,NA
-Oscar Doufour,DOUFOUR,"Peripheral or advisory figure in a covert or illicit network, contributing strategic or operational suggestions while maintaining a low-profile role; Publicist/Press Office",Bureaucrat,NA,NA
+Enrique Chirinos,CHIRINOS,Constituent Congressman (1992-1995) and Congressman (1995-2000),Congress,RN,NA
+Julio Vera Abad,VERA ABAD,Media businessman; owner of Channel 9 and ATV,Media,NA,NA
+Ketin Vidal,VIDAL,"Director of DIRCOTE, the anti-terrorism unit (1991-1992), and Director General of the National Police (1996-1997)",Security,NA,NA
+Osman Morote,MOROTE,Second in command of Sendero Luminoso,Illicit,NA,NA
+Maria Pantoja,PANTOJA,Ranking member of Sendero Luminoso,Illicit,NA,NA
+Oscar Doufour,DOUFOUR,Aide to Montesinos,Bureaucrat,NA,NA
 Alberto Kouri,ALBERTO KOURI,Lawyer and Congressman (2000),Congress,PP,NA
 Carlos Bolona,BOLONA,Minister of Economy and Finance (1991-1993; 2000),Bureaucrat,NA,NA
-Alamo Perez,PEREZ,"Professional journalist or media presenter facilitating high-level interviews for broadcast, particularly around politically or historically significant events.",Media,NA,NA
-Santos Cenepo,CENEPO,Military Colonel,Security,NA,NA
-General EP Aguirre Miguel,AGUIRRE,Army General,Security,NA,NA
-Arnulfo Alvarado Cabrera,ALVARADO CABRERA,Detained under Plan Siberia,NA,NA,NA
+Alamo Perez,PEREZ,Broadcast journalist,Media,NA,NA
+Santos Cenepo,CENEPO,Resident whose home was searched in the FARC arms-trafficking case,Other,NA,NA
+General EP Miguel Aguirre,AGUIRRE,Army General,Security,NA,NA
+Arnulfo Alvarado Cabrera,ALVARADO CABRERA,Detained under Plan Siberia,Other,NA,NA
 Mayor Arroyo,ARROYO,Army Major; Chief of Security of the Fuerzas de Accion Militar,Security,NA,NA
 Benigno,BENIGNO,Army officer (last name unknown),Security,NA,NA
 General Bornaz Saavedra,BORNAZ SAAVEDRA,Army General,Security,NA,NA
-General Bravo,BRAVO,General; coordinated the official response to the Yanamayo prison riot (2000),Security,NA,NA
-Alberto Bustamante Belaunde,BUSTAMANTE,Secretary of Justice (1999-2000),Bureaucrat,NA,NA
-General Cardenas,CARDENAS,Army General; General Staff officer,Security,NA,NA
-Cesar,CESAR,Aide to Montesinos at the SIN (last name unknown),Bureaucrat,NA,Identified from vocatives in transcript 50
+General Bravo,BRAVO,Official in charge during the Yanamayo prison riot (2000),Security,NA,NA
+Alberto Bustamante Belaunde,BUSTAMANTE,Minister of Justice (1999-2000),Bureaucrat,NA,NA
+General Cardenas,CARDENAS,Army General on the General Staff,Security,NA,NA
+Cesar,CESAR,Aide to Montesinos (last name unknown),Bureaucrat,NA,Identified from vocatives in transcript 50
 Almirante Colunge,COLUNGE,"Navy Admiral; head of ENAPU, the national ports authority",Bureaucrat,NA,NA
 Crousillat Lopez Torres,CROUSILLAT LOPEZ TORRES,Owner of America Television,Media,NA,"Father of Jose Francisco Crousillat Carreno. Given name unsettled: transcript 52 says Francisco, transcripts 66 and 76 say Jose Francisco"
-Del Mar Colina,DEL MAR COLINA,Businessman questioned in the FARC arms-trafficking searches,NA,NA,NA
+Del Mar Colina,DEL MAR COLINA,Businessman questioned in the FARC arms-trafficking searches,Other,NA,NA
 General EP Diaz Araujo Luis,DIAZ ARAUJO,Army General,Security,NA,NA
 Capitan Espinoza,ESPINOZA,Army Captain,Security,NA,NA
 Coronel Fablish Garaycoa,FABLISH,Army Colonel,Security,NA,NA
-Flor,FLOR,Domestic employee in the Lopez Rodriguez household (last name unknown),NA,NA,NA
-Rhaquel Granda Zapata,GRANDA,Associate of Luis Frank Aybar Cancho,NA,NA,NA
-Fernando Gross,GROSS,Jurist; advised on Peru's withdrawal from the Inter-American Court (1999),Foreign,NA,"Given name uncertain: the transcript labels say Fernando, the archive catalogue says Enrique"
+Flor,FLOR,Domestic employee in the Lopez Rodriguez household (last name unknown),Other,NA,NA
+Rhaquel Granda Zapata,GRANDA,Questioned about sheltering the suspects in the FARC arms-trafficking case,Other,NA,NA
+Fernando Gross,GROSS,Jurist; advised on Peru's withdrawal from the Inter-American Court (1999),Bureaucrat,NA,"Given name uncertain: the transcript labels say Fernando, the archive catalogue says Enrique"
 Heather,HEATHER,Member of the United States delegation (last name unknown),Foreign,NA,NA
-Henry,HENRY,(last name unknown),NA,NA,NA
+Henry,HENRY,(last name unknown),Other,NA,NA
 Humberto,HUMBERTO,Aide to General Saucedo Sanchez (last name unknown),Security,NA,Not Humberto Rozas; this man carries General Saucedo's briefcase
 General Indacochea,INDACOCHEA,Army General,Security,NA,NA
 Leopoldo,LEOPOLDO,Subordinate Army officer (last name unknown),Security,NA,NA
 General Magni,MAGNI,Army General,Security,NA,NA
 Manuel Delgado Parker,MANUEL DELGADO PARKER,Media businessman,Media,NA,Brother of Genaro Delgado Parker
 Gonzalo Menendez,MENENDEZ,Chilean businessman; representative of the Luksic group and Lucchetti in Peru,Foreign,NA,The person the lucchetti note refers to as el senor Lucchetti. Transcript 5 is titled Dialogo con chileno
-Luis Alberto Meza Rodriguez,MEZA RODRIGUEZ,Subject of the FARC arms-trafficking searches,NA,NA,NA
+Luis Alberto Meza Rodriguez,MEZA RODRIGUEZ,Subject of the FARC arms-trafficking searches,Other,NA,NA
 Coronel Purusana,PURUSANA,Army Colonel; Chief of Administrative Staff of the Second Infantry Division in Ayacucho,Security,NA,NA
-Ramos,RAMOS,Aide to Montesinos; handled media contracts,Bureaucrat,NA,NA
+Ramos,RAMOS,Aide to Montesinos,Bureaucrat,NA,NA
 General Alfredo Rodriguez,RODRIGUEZ,Army General,Security,NA,NA
-Alfredo Romero Castillo,ROMERO CASTILLO,Detained under Plan Siberia,NA,NA,NA
+Alfredo Romero Castillo,ROMERO CASTILLO,Detained under Plan Siberia,Other,NA,NA
 Coronel Sanchez,SANCHEZ,Army Colonel; Deputy Director of the Escuela Superior de Guerra,Security,NA,NA
-Hector Solis,SOLIS,Lawyer; contacted judges on Montesinos's instructions,Judiciary,NA,NA
+Hector Solis,SOLIS,Lawyer; contacted judges on Montesinos's instructions,Other,NA,NA
 General Suarez Carranza,SUAREZ CARRANZA,Army General,Security,NA,NA
 Gisela Valcarcel,VALCARCEL,Television presenter,Media,NA,NA
-Valdez,VALDEZ,NA,NA,NA,NA
+Valdez,VALDEZ,"Advisor to Manuel Guillen, mayor-elect of Arequipa",Other,NA,NA
 Cabo Vega,VEGA,Army Corporal assigned to Montesinos,Security,NA,NA
 Vivanco,VIVANCO,Police or military officer,Security,NA,NA
 Winter Zuzunaga,WINTER ZUZUNAGA,Co-owner of Cable Canal de Noticias (CCN),Media,NA,Covers the brothers Samuel and Mendel Winter Zuzunaga. A stage direction confirms transcript 76 is Samuel; transcript 78 has both brothers present and its labels do not distinguish them
