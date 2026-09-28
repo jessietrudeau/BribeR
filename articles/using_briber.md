@@ -138,9 +138,7 @@ kouri_crousillat_ids
 
 There are 140 speaker IDs that
 [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
-can filter on. The `actors` dataset lists 150 individuals in total;
-those with `is_speaker == 1` are the ones recorded speaking in the
-corpus.
+can filter on, one for each individual in the `actors` dataset.
 
 ### By topic
 
@@ -312,14 +310,13 @@ media_actors <- actors |>
   filter(type == "media") |>
   pull(speaker_std) 
 media_actors
-#>  [1] "valenzuela"              "vera"                   
-#>  [3] "hildebrant"              "iberico"                
-#>  [5] "crousillat carreno"      "genaro delgado parker"  
-#>  [7] "locutor"                 "schutz"                 
-#>  [9] "silva"                   "ricketts"               
-#> [11] "vera abad"               "perez"                  
-#> [13] "crousillat lopez torres" "manuel delgado parker"  
-#> [15] "valcarcel"               "winter zuzunaga"
+#>  [1] "vera"                    "crousillat carreno"     
+#>  [3] "genaro delgado parker"   "locutor"                
+#>  [5] "schutz"                  "silva"                  
+#>  [7] "ricketts"                "vera abad"              
+#>  [9] "perez"                   "crousillat lopez torres"
+#> [11] "manuel delgado parker"   "valcarcel"              
+#> [13] "winter zuzunaga"
 
 
 # Step 2: Filter for transcripts where media actors are present

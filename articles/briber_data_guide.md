@@ -133,22 +133,22 @@ speakers_per_transcript %>%
 
 ### `actors`
 
-This file contains biographical and institutional metadata for 150
-individuals named in the transcripts. The variable names are shown in
-the below table.
+This file contains biographical and institutional metadata for the 140
+individuals recorded speaking in the transcripts. The variable names are
+shown in the below table.
 
 ``` r
 
 head(actors)
-#> # A tibble: 6 × 7
-#>   speaker                      speaker_std position type  party notes is_speaker
-#>   <chr>                        <chr>       <chr>    <chr> <chr> <chr>      <int>
-#> 1 vladimir montesinos          montesinos  Head of… mont… NA    NA             1
-#> 2 desconocido                  desconocido NA       NA    NA    NA             1
-#> 3 alexander martin kouri buma… alex kouri  Congres… cong… PPC   NA             1
-#> 4 representante de lucchetti   lucchetti   Represe… busi… NA    The …          1
-#> 5 carlos eduardo ferrero costa ferrero     Congres… cong… NM    Mult…          1
-#> 6 alberto fujimori             fujimori    Preside… elec… NA    NA             1
+#> # A tibble: 6 × 6
+#>   speaker                         speaker_std position         type  party notes
+#>   <chr>                           <chr>       <chr>            <chr> <chr> <chr>
+#> 1 vladimir montesinos             montesinos  Head of Nationa… mont… NA    NA   
+#> 2 desconocido                     desconocido NA               NA    NA    NA   
+#> 3 alexander martin kouri bumachar alex kouri  Congressman (19… cong… PPC   NA   
+#> 4 representante de lucchetti      lucchetti   Representative … busi… NA    The …
+#> 5 carlos eduardo ferrero costa    ferrero     Congressman (19… cong… NM    Mult…
+#> 6 alberto fujimori                fujimori    President of Pe… elec… NA    NA
 ```
 
 | Column | Type | Description |
@@ -159,7 +159,6 @@ head(actors)
 | `type` | charater | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`,`illicit`, and unknown (`NA`). |
 | `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
 | `notes` | character | Miscellaneous notes for actors that were difficult to identify |
-| `is_speaker` | integer | 1 if the individual has at least one speech turn in the corpus, 0 if they are named in the archive but never recorded speaking. Only those with `is_speaker == 1` can be filtered with [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md) |
 
 For example, the file contains this biographical information about some
 of the speakers from Fujimori’s party:
@@ -173,9 +172,9 @@ actors %>%
 #> # A tibble: 3 × 5
 #>   speaker               speaker_std position              type     party
 #>   <chr>                 <chr>       <chr>                 <chr>    <chr>
-#> 1 rafael urrelo guerra  urrelo      Congressman 1995-2000 congress NM   
-#> 2 carlos blanco oropeza blanco      Congressman 1995-2000 congress NM   
-#> 3 jorge trelles montero trelles     Congressman 1995-2000 congress NM
+#> 1 carlos blanco oropeza blanco      Congressman 1995-2000 congress NM   
+#> 2 jorge trelles montero trelles     Congressman 1995-2000 congress NM   
+#> 3 eduardo pando pacheco pando       Congressman 1995-2000 congress NM
 ```
 
 ## Linking datasets
@@ -246,7 +245,7 @@ nrow(compiled_transcripts)
 #> [1] 45342
 names(actors)
 #> [1] "speaker"     "speaker_std" "position"    "type"        "party"      
-#> [6] "notes"       "is_speaker"
+#> [6] "notes"
 ```
 
 [^1]: We generate a new number within the BribeR package, see the

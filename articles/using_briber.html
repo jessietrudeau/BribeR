@@ -190,9 +190,8 @@ these speakers are present.</p>
 <span><span class="va">kouri_crousillat_ids</span></span>
 <span><span class="co">#&gt; [1] 82</span></span></code></pre></div>
 <p>There are 140 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
-filter on. The <code>actors</code> dataset lists 150 individuals in
-total; those with <code>is_speaker == 1</code> are the ones recorded
-speaking in the corpus.</p>
+filter on, one for each individual in the <code>actors</code>
+dataset.</p>
 </div>
 <div class="section level3">
 <h3 id="by-topic">By topic<a class="anchor" aria-label="anchor" href="#by-topic"></a>
@@ -347,14 +346,13 @@ index:</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"media"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">speaker_std</span><span class="op">)</span> </span>
 <span><span class="va">media_actors</span></span>
-<span><span class="co">#&gt;  [1] "valenzuela"              "vera"                   </span></span>
-<span><span class="co">#&gt;  [3] "hildebrant"              "iberico"                </span></span>
-<span><span class="co">#&gt;  [5] "crousillat carreno"      "genaro delgado parker"  </span></span>
-<span><span class="co">#&gt;  [7] "locutor"                 "schutz"                 </span></span>
-<span><span class="co">#&gt;  [9] "silva"                   "ricketts"               </span></span>
-<span><span class="co">#&gt; [11] "vera abad"               "perez"                  </span></span>
-<span><span class="co">#&gt; [13] "crousillat lopez torres" "manuel delgado parker"  </span></span>
-<span><span class="co">#&gt; [15] "valcarcel"               "winter zuzunaga"</span></span>
+<span><span class="co">#&gt;  [1] "vera"                    "crousillat carreno"     </span></span>
+<span><span class="co">#&gt;  [3] "genaro delgado parker"   "locutor"                </span></span>
+<span><span class="co">#&gt;  [5] "schutz"                  "silva"                  </span></span>
+<span><span class="co">#&gt;  [7] "ricketts"                "vera abad"              </span></span>
+<span><span class="co">#&gt;  [9] "perez"                   "crousillat lopez torres"</span></span>
+<span><span class="co">#&gt; [11] "manuel delgado parker"   "valcarcel"              </span></span>
+<span><span class="co">#&gt; [13] "winter zuzunaga"</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Step 2: Filter for transcripts where media actors are present</span></span>
