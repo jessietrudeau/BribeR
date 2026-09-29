@@ -24,10 +24,10 @@ all <- read_transcripts()
 head(all)
 
 # Load only transcript 1
-t5 <- read_transcripts(transcripts = 5)
+t1 <- read_transcripts(transcripts = 1)
 
 # Load transcripts 5, 7, and 13
-subset <- read_transcripts(transcripts = c(5, 13, 19))
+subset <- read_transcripts(transcripts = c(1, 8, 13))
 
 }
 \seealso{

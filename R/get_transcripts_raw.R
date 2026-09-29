@@ -20,10 +20,10 @@
 #' all_transcripts <- get_transcripts_raw()
 #'
 #' # Load a specific transcript by ID
-#' t5 <- get_transcripts_raw(n = 5)
+#' t1 <- get_transcripts_raw(n = 1)
 #'
 #' # Load multiple transcripts and combine them
-#' subset_combined <- get_transcripts_raw(n = c(5, 19, 104), combine = TRUE)
+#' subset_combined <- get_transcripts_raw(n = c(1, 13, 86), combine = TRUE)
 #' }
 #'
 #' @seealso [read_transcripts()], [get_transcript_id()], [get_transcript_speakers()]

@@ -41,7 +41,7 @@ speakers <- get_transcript_speakers()
 head(speakers)
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(5, 10))
+get_transcript_speakers(n = c(1, 5))
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
@@ -49,8 +49,8 @@ get_transcript_speakers(topic = "media")
 # Get speakers from transcripts about both media and reelection
 get_transcript_speakers(topic = c("media", "reelection"))
 
-# Get speakers from transcript 6, which is also about media
-get_transcript_speakers(n = 6, topic = "media")
+# Get speakers from transcript 2, which is also about media
+get_transcript_speakers(n = 2, topic = "media")
 
 }
 \seealso{
