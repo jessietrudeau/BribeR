@@ -26,7 +26,7 @@ head(all)
 # Load only transcript 1
 t1 <- read_transcripts(transcripts = 1)
 
-# Load transcripts 5, 7, and 13
+# Load transcripts 1, 8, and 13
 subset <- read_transcripts(transcripts = c(1, 8, 13))
 
 }

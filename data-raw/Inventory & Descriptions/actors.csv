@@ -2,7 +2,7 @@ speaker,speaker_std,Position,Type,Party,notes
 Vladimiro Montesinos,MONTESINOS,Chief Advisor to the National Intelligence Service (SIN),Montesinos,NA,NA
 Desconocido,DESCONOCIDO,Placeholder for any unidentified speaker,Other,NA,NA
 Alexander Martin Kouri Bumachar,ALEX KOURI,"Congressman (1992-1995), Mayor of Callao from 1996",Congress,PPC,NA
-Representante de Lucchetti,LUCCHETTI,Representative of the Lucchetti company in Peru (name unknown),Businessperson,NA,"The label may cover more than one individual. Lucchetti is a company, not a person; the existing note said it sometimes referred to Luksic and sometimes to an unknown employee. Not the same identifier as menendez, who speaks for Merardo Luksic in transcript 5."
+Representante de Lucchetti,LUCCHETTI,Representative of the Lucchetti company in Peru (name unknown),Businessperson,NA,"The label may cover more than one individual. Lucchetti is a company, not a person, and the label refers sometimes to Luksic and sometimes to an unknown employee. Not the same identifier as menendez, who speaks for Merardo Luksic in transcript 1."
 Eduardo Ferrero Costa,EDUARDO FERRERO,Minister of Foreign Affairs (1997-1998),Bureaucrat,NA,Brother of Carlos Ferrero Costa
 Carlos Ferrero Costa,CARLOS FERRERO,Constituent Congressman (1992-1995) and Congressman (1995-2000),Congress,NM,Brother of Eduardo Ferrero Costa
 Alberto Fujimori,FUJIMORI,President of Peru (1990-2000),Elected Official,NA,NA
@@ -107,9 +107,9 @@ General Bornaz Saavedra,BORNAZ SAAVEDRA,Army General,Security,NA,NA
 General Bravo,BRAVO,Official in charge during the Yanamayo prison riot (2000),Security,NA,NA
 Alberto Bustamante Belaunde,BUSTAMANTE,Minister of Justice (1999-2000),Bureaucrat,NA,NA
 General Cardenas,CARDENAS,Army General on the General Staff,Security,NA,NA
-Cesar,CESAR,Aide to Montesinos (last name unknown),Bureaucrat,NA,Identified from vocatives in transcript 50
+Cesar,CESAR,Aide to Montesinos (last name unknown),Bureaucrat,NA,Identified from vocatives in transcript 42
 Almirante Colunge,COLUNGE,"Navy Admiral; head of ENAPU, the national ports authority",Bureaucrat,NA,NA
-Crousillat Lopez Torres,CROUSILLAT LOPEZ TORRES,Owner of America Television,Media,NA,"Father of Jose Francisco Crousillat Carreno. Given name unsettled: transcript 52 says Francisco, transcripts 66 and 76 say Jose Francisco"
+Crousillat Lopez Torres,CROUSILLAT LOPEZ TORRES,Owner of America Television,Media,NA,"Father of Jose Francisco Crousillat Carreno. Given name unsettled: transcript 44 says Francisco, transcripts 60 and 70 say Jose Francisco"
 Del Mar Colina,DEL MAR COLINA,Businessman questioned in the FARC arms-trafficking searches,Other,NA,NA
 General EP Diaz Araujo Luis,DIAZ ARAUJO,Army General,Security,NA,NA
 Capitan Espinoza,ESPINOZA,Army Captain,Security,NA,NA
@@ -124,7 +124,7 @@ General Indacochea,INDACOCHEA,Army General,Security,NA,NA
 Leopoldo,LEOPOLDO,Subordinate Army officer (last name unknown),Security,NA,NA
 General Magni,MAGNI,Army General,Security,NA,NA
 Manuel Delgado Parker,MANUEL DELGADO PARKER,Media businessman,Media,NA,Brother of Genaro Delgado Parker
-Gonzalo Menendez,MENENDEZ,Chilean businessman; representative of the Luksic group and Lucchetti in Peru,Foreign,NA,The person the lucchetti note refers to as el senor Lucchetti. Transcript 5 is titled Dialogo con chileno
+Gonzalo Menendez,MENENDEZ,Chilean businessman; representative of the Luksic group and Lucchetti in Peru,Foreign,NA,The person the lucchetti note refers to as el senor Lucchetti. Transcript 1 is titled Dialogo con chileno
 Luis Alberto Meza Rodriguez,MEZA RODRIGUEZ,Subject of the FARC arms-trafficking searches,Other,NA,NA
 Coronel Purusana,PURUSANA,Army Colonel; Chief of Administrative Staff of the Second Infantry Division in Ayacucho,Security,NA,NA
 Ramos,RAMOS,Aide to Montesinos,Bureaucrat,NA,NA
@@ -137,4 +137,4 @@ Gisela Valcarcel,VALCARCEL,Television presenter,Media,NA,NA
 Valdez,VALDEZ,"Advisor to Manuel Guillen, mayor-elect of Arequipa",Other,NA,NA
 Cabo Vega,VEGA,Army Corporal assigned to Montesinos,Security,NA,NA
 Vivanco,VIVANCO,Police or military officer,Security,NA,NA
-Winter Zuzunaga,WINTER ZUZUNAGA,Co-owner of Cable Canal de Noticias (CCN),Media,NA,Covers the brothers Samuel and Mendel Winter Zuzunaga. A stage direction confirms transcript 76 is Samuel; transcript 78 has both brothers present and its labels do not distinguish them
+Winter Zuzunaga,WINTER ZUZUNAGA,Co-owner of Cable Canal de Noticias (CCN),Media,NA,Covers the brothers Samuel and Mendel Winter Zuzunaga. A stage direction confirms transcript 70 is Samuel; transcript 72 has both brothers present and its labels do not distinguish them
