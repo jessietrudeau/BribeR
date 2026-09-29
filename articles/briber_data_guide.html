@@ -88,7 +88,7 @@ them.</p>
 <h3 id="compiled_transcripts">
 <code>compiled_transcripts</code><a class="anchor" aria-label="anchor" href="#compiled_transcripts"></a>
 </h3>
-<p>This is the main dataset, containing every spoken line from all 96
+<p>This is the main dataset, containing every spoken line from all 95
 transcripts, indexed by transcript number.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;We generate a new number within the BribeR package, see
 the &lt;a href="https://jessietrudeau.com/BribeR/articles/briber_data_guide.html#id" class="external-link"&gt;id&lt;/a&gt;
 subsection for more information.&lt;/p&gt;'><sup>1</sup></a> Each row corresponds
@@ -99,7 +99,7 @@ to one speech turn within a transcript.</p>
 <span></span>
 <span><span class="va">transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 45,342</span></span>
+<span><span class="co">#&gt; Rows: 45,337</span></span>
 <span><span class="co">#&gt; Columns: 6</span></span>
 <span><span class="co">#&gt; $ id          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>10…</span></span>
 <span><span class="co">#&gt; $ row_id      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>5<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>8<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>11<span style="color: #949494;">, </span>12<span style="color: #949494;">, </span>13<span style="color: #949494;">, </span>14<span style="color: #949494;">, </span>15<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>17<span style="color: #949494;">,</span>…</span></span>
@@ -173,12 +173,12 @@ below table.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
 <span><span class="co">#&gt;      id file   format date       original_id type  summary                      </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     4 4.csv  csv    1997-06-13 s/n         video Official Ministry of Defence…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     5 5.csv  csv    1998-01-08 864         video Montesinos meets Daniel Boro…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     6 6.csv  csv    1998-01-12 1312        video The journalist Patricio Rick…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     8 8.csv  csv    1998-01-20 896         audio Montesinos meets with busine…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     9 9.csv  csv    1998-01-23 869         video Montesinos and Foreign Minis…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    10 10.csv csv    1998-01-28 872         video Montesinos reviews Alexander…</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 5.csv  csv    1998-01-08 864         video Montesinos meets Daniel Boro…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 6.csv  csv    1998-01-12 1312        video The journalist Patricio Rick…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 8.csv  csv    1998-01-20 896         audio Montesinos meets with busine…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     9 9.csv  csv    1998-01-23 869         video Montesinos and Foreign Minis…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    10 10.csv csv    1998-01-28 872         video Montesinos reviews Alexander…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    11 11.csv csv    1998-02-10 858         audio Part one of a lunch between …</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="25%">
@@ -263,7 +263,7 @@ below table.</p>
 </tr>
 </tbody>
 </table>
-<p>The 15 <code>topic_*</code> and 140 <code>speaker_*</code> columns
+<p>The 15 <code>topic_*</code> and 139 <code>speaker_*</code> columns
 take on a value of 1 if the topic or speaker is present and a value of 0
 otherwise. They are designed for fast filtering for specific actors or
 topics without loading the full corpus.</p>
@@ -276,7 +276,7 @@ topics without loading the full corpus.</p>
 <span><span class="co">#&gt;  [7] "topic_canal4"            "topic_media"            </span></span>
 <span><span class="co">#&gt;  [9] "topic_promotions"        "topic_ivcher"           </span></span>
 <span><span class="co">#&gt; [11] "topic_foreign"           "topic_wiese"            </span></span>
-<span><span class="co">#&gt; [13] "topic_public_officials"  "topic_security"         </span></span>
+<span><span class="co">#&gt; [13] "topic_appointments"      "topic_security"         </span></span>
 <span><span class="co">#&gt; [15] "topic_state_capture"</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -296,9 +296,9 @@ maximum of 19.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 23</span></span></span>
 <span><span class="co">#&gt;      id speaker_std_1 speaker_std_2 speaker_std_3 speaker_std_4 speaker_std_5</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     4 locutor       moncayo       <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     5 montesinos    menendez      borobio       desconocido   solis        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     6 montesinos    ricketts      <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 montesinos    menendez      borobio       desconocido   solis        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 montesinos    ricketts      <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 vera abad     montesinos    desconocido   <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>           </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 17 more variables: speaker_std_6 &lt;chr&gt;, speaker_std_7 &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_8 &lt;chr&gt;, speaker_std_9 &lt;chr&gt;, speaker_std_10 &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_11 &lt;chr&gt;, speaker_std_12 &lt;chr&gt;, speaker_std_13 &lt;chr&gt;,</span></span></span>
@@ -311,7 +311,7 @@ maximum of 19.</p>
 <code>actors</code><a class="anchor" aria-label="anchor" href="#actors"></a>
 </h3>
 <p>This file contains biographical and institutional metadata for the
-140 individuals recorded speaking in the transcripts. The variable names
+139 individuals recorded speaking in the transcripts. The variable names
 are shown in the below table.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
@@ -448,7 +448,7 @@ simplicity.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
 <span><span class="co">#&gt;      id original_id in_book in_online_archive</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     4 s/n               1                 0</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 864               1                 1</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="speaker_std">
@@ -480,7 +480,7 @@ for joins and filters.</p>
 can reference them by name after <code><a href="https://jessietrudeau.github.io/BribeR">library(BribeR)</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">compiled_transcripts</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 45342</span></span>
+<span><span class="co">#&gt; [1] 45337</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "speaker"     "speaker_std" "position"    "type"        "party"      </span></span>
 <span><span class="co">#&gt; [6] "notes"</span></span></code></pre></div>

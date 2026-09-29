@@ -189,7 +189,7 @@ these speakers are present.</p>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">kouri_crousillat_ids</span></span>
 <span><span class="co">#&gt; [1] 82</span></span></code></pre></div>
-<p>There are 140 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
+<p>There are 139 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
 filter on, one for each individual in the <code>actors</code>
 dataset.</p>
 </div>
@@ -203,15 +203,16 @@ where these topics are discussed.</p>
 <code class="sourceCode R"><span><span class="co"># Transcripts about media manipulation</span></span>
 <span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 37</span></span>
+<span><span class="co">#&gt; [1] 48</span></span>
 <span><span class="va">media_ids</span></span>
-<span><span class="co">#&gt;  [1]   4   6   8   9  24  25  33  34  35  39  41  42  43  44  45  50  55  56  58</span></span>
-<span><span class="co">#&gt; [20]  59  62  70  71  72  73  74  75  79  86  87  88  90  94  95  97 102 103</span></span>
+<span><span class="co">#&gt;  [1]   6   8   9  10  24  25  29  33  34  35  39  42  43  44  45  46  48  50  52</span></span>
+<span><span class="co">#&gt; [20]  55  56  57  58  59  60  62  66  70  71  72  73  74  75  76  77  78  79  82</span></span>
+<span><span class="co">#&gt; [39]  85  86  88  94  95  96  97 102 103 104</span></span>
 <span></span>
 <span><span class="co"># Transcripts about BOTH media and reelection </span></span>
 <span><span class="va">media_reelection_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_reelection_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 8</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 15</span></span></code></pre></div>
 <p>There are 15 valid topics, listed in the <a href="https://jessietrudeau.com/BribeR/articles/raw_data_guide.html#topics" class="external-link">Raw
 Data Guide</a>.</p>
 </div>
@@ -225,12 +226,12 @@ selected speaker(s) are present and topic is mentioned.</p>
 <code class="sourceCode R"><span><span class="co"># Find transcripts about media</span></span>
 <span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 37</span></span>
+<span><span class="co">#&gt; [1] 48</span></span>
 <span></span>
 <span><span class="co"># Find transcripts about media where a television producer is present</span></span>
 <span><span class="va">media_crousillat_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span>, speaker <span class="op">=</span> <span class="st">"crousillat carreno"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_crousillat_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -251,19 +252,19 @@ variable.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;      id date       speakers  n_words topics   </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     4 1997-06-13 <span style="color: #949494;">&lt;chr [2]&gt;</span>     175 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     6 1998-01-12 <span style="color: #949494;">&lt;chr [2]&gt;</span>   <span style="text-decoration: underline;">13</span>035 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     8 1998-01-20 <span style="color: #949494;">&lt;chr [3]&gt;</span>    <span style="text-decoration: underline;">4</span>895 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     9 1998-01-23 <span style="color: #949494;">&lt;chr [3]&gt;</span>   <span style="text-decoration: underline;">16</span>803 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    10 1998-01-28 <span style="color: #949494;">&lt;chr [6]&gt;</span>   <span style="text-decoration: underline;">15</span>535 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 1998-01-12 <span style="color: #949494;">&lt;chr [2]&gt;</span>   <span style="text-decoration: underline;">13</span>035 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 1998-01-20 <span style="color: #949494;">&lt;chr [3]&gt;</span>    <span style="text-decoration: underline;">4</span>895 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     9 1998-01-23 <span style="color: #949494;">&lt;chr [3]&gt;</span>   <span style="text-decoration: underline;">16</span>803 <span style="color: #949494;">&lt;chr [3]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    10 1998-01-28 <span style="color: #949494;">&lt;chr [6]&gt;</span>   <span style="text-decoration: underline;">15</span>535 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    11 1998-02-10 <span style="color: #949494;">&lt;chr [4]&gt;</span>    <span style="text-decoration: underline;">9</span>583 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Get metadata for transcript 5</span></span>
 <span><span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
 <span><span class="co">#&gt;      id date       speakers  n_words topics   </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>

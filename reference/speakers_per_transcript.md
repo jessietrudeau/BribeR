@@ -12,7 +12,7 @@ speakers_per_transcript
 
 ## Format
 
-A tibble with 96 rows and 23 variables:
+A tibble with 95 rows and 23 variables:
 
 - id:
 

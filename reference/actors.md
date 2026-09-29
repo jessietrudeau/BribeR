@@ -11,7 +11,7 @@ actors
 
 ## Format
 
-A tibble with 140 rows and 6 variables:
+A tibble with 139 rows and 6 variables:
 
 - speaker:
 

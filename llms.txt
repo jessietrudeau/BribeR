@@ -91,7 +91,7 @@ BribeR includes four searchable datasets:
 
 | Dataset | Description |
 |----|----|
-| `compiled_transcripts` | Full text corpus: 45,342 speech turns across 96 transcripts |
+| `compiled_transcripts` | Full text corpus: 45,337 speech turns across 95 transcripts |
 | `transcript_index` | Wide-format transcript-level metadata, including dates, recording format, summaries, topics, and speakers present |
 | `speakers_per_transcript` | Speaker roster per transcript |
 | `actors` | Actor-level metadata |

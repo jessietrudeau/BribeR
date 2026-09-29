@@ -136,7 +136,7 @@ kouri_crousillat_ids
 #> [1] 82
 ```
 
-There are 140 speaker IDs that
+There are 139 speaker IDs that
 [`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
 can filter on, one for each individual in the `actors` dataset.
 
@@ -152,15 +152,16 @@ transcript IDs where these topics are discussed.
 # Transcripts about media manipulation
 media_ids <- get_transcript_id(topic = "media")
 length(media_ids)
-#> [1] 37
+#> [1] 48
 media_ids
-#>  [1]   4   6   8   9  24  25  33  34  35  39  41  42  43  44  45  50  55  56  58
-#> [20]  59  62  70  71  72  73  74  75  79  86  87  88  90  94  95  97 102 103
+#>  [1]   6   8   9  10  24  25  29  33  34  35  39  42  43  44  45  46  48  50  52
+#> [20]  55  56  57  58  59  60  62  66  70  71  72  73  74  75  76  77  78  79  82
+#> [39]  85  86  88  94  95  96  97 102 103 104
 
 # Transcripts about BOTH media and reelection 
 media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
 length(media_reelection_ids)
-#> [1] 8
+#> [1] 15
 ```
 
 There are 15 valid topics, listed in the [Raw Data
@@ -177,12 +178,12 @@ speaker(s) are present and topic is mentioned.
 # Find transcripts about media
 media_ids <- get_transcript_id(topic = "media")
 length(media_ids)
-#> [1] 37
+#> [1] 48
 
 # Find transcripts about media where a television producer is present
 media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat carreno")
 length(media_crousillat_ids)
-#> [1] 2
+#> [1] 3
 ```
 
 ## Integrate with metadata
@@ -205,19 +206,19 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     4 1997-06-13 <chr [2]>     175 <chr [2]>
-#> 2     5 1998-01-08 <chr [5]>    9384 <chr [2]>
-#> 3     6 1998-01-12 <chr [2]>   13035 <chr [2]>
-#> 4     8 1998-01-20 <chr [3]>    4895 <chr [2]>
-#> 5     9 1998-01-23 <chr [3]>   16803 <chr [2]>
-#> 6    10 1998-01-28 <chr [6]>   15535 <chr [1]>
+#> 1     5 1998-01-08 <chr [5]>    9384 <chr [1]>
+#> 2     6 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 3     8 1998-01-20 <chr [3]>    4895 <chr [2]>
+#> 4     9 1998-01-23 <chr [3]>   16803 <chr [3]>
+#> 5    10 1998-01-28 <chr [6]>   15535 <chr [2]>
+#> 6    11 1998-02-10 <chr [4]>    9583 <chr [1]>
 
 # Get metadata for transcript 5
 read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9384 <chr [2]>
+#> 1     5 1998-01-08 <chr [5]>    9384 <chr [1]>
 ```
 
 ## Examples

@@ -82,48 +82,43 @@ get_transcript_speakers(n = c(5, 10))
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
-#> # A tibble: 48 × 2
-#>    speaker_std    transcripts
-#>    <chr>          <list>     
-#>  1 alberto kouri  <dbl [1]>  
-#>  2 alex kouri     <dbl [3]>  
-#>  3 arancibia      <dbl [1]>  
-#>  4 bello vasquez  <dbl [1]>  
-#>  5 bolona         <dbl [1]>  
-#>  6 borobio        <dbl [3]>  
-#>  7 bringas        <dbl [1]>  
-#>  8 calmell        <dbl [4]>  
-#>  9 carlos ferrero <dbl [1]>  
-#> 10 cesar          <dbl [1]>  
-#> # ℹ 38 more rows
+#> # A tibble: 60 × 2
+#>    speaker_std   transcripts
+#>    <chr>         <list>     
+#>  1 alex kouri    <dbl [4]>  
+#>  2 arancibia     <dbl [1]>  
+#>  3 arce          <dbl [1]>  
+#>  4 bedoya        <dbl [2]>  
+#>  5 bello vasquez <dbl [3]>  
+#>  6 bertini       <dbl [2]>  
+#>  7 bolona        <dbl [1]>  
+#>  8 borobio       <dbl [3]>  
+#>  9 bringas       <dbl [1]>  
+#> 10 calmell       <dbl [5]>  
+#> # ℹ 50 more rows
 
 # Get speakers from transcripts about both media and reelection
 get_transcript_speakers(topic = c("media", "reelection"))
-#> # A tibble: 16 × 2
+#> # A tibble: 23 × 2
 #>    speaker_std        transcripts
 #>    <chr>              <list>     
-#>  1 alberto kouri      <dbl [1]>  
-#>  2 alex kouri         <dbl [1]>  
-#>  3 bello vasquez      <dbl [1]>  
-#>  4 bringas            <dbl [1]>  
-#>  5 chirinos           <dbl [1]>  
-#>  6 crousillat carreno <dbl [1]>  
-#>  7 desconocido        <dbl [5]>  
-#>  8 doufour            <dbl [1]>  
-#>  9 ibarcena           <dbl [2]>  
-#> 10 joy way            <dbl [1]>  
-#> 11 montesinos         <dbl [8]>  
-#> 12 romero seminario   <dbl [1]>  
-#> 13 saucedo sanchez    <dbl [1]>  
-#> 14 serpa              <dbl [1]>  
-#> 15 tudela             <dbl [1]>  
-#> 16 villanueva ruesta  <dbl [1]>  
+#>  1 alex kouri         <dbl [2]>  
+#>  2 arce               <dbl [1]>  
+#>  3 bello vasquez      <dbl [3]>  
+#>  4 bolona             <dbl [1]>  
+#>  5 bringas            <dbl [1]>  
+#>  6 calmell            <dbl [1]>  
+#>  7 campos             <dbl [1]>  
+#>  8 chirinos           <dbl [1]>  
+#>  9 crnl ramirez       <dbl [1]>  
+#> 10 crousillat carreno <dbl [1]>  
+#> # ℹ 13 more rows
 
-# Get speakers from transcript 4, which is also about media
-get_transcript_speakers(n = 4, topic = "media")
+# Get speakers from transcript 6, which is also about media
+get_transcript_speakers(n = 6, topic = "media")
 #> # A tibble: 2 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     
-#> 1 locutor     <dbl [1]>  
-#> 2 moncayo     <dbl [1]>  
+#> 1 montesinos  <dbl [1]>  
+#> 2 ricketts    <dbl [1]>  
 ```

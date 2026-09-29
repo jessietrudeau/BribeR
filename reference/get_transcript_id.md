@@ -52,7 +52,7 @@ vector.
 # Retrieve all available transcript IDs
 ids <- get_transcript_id()
 head(ids)
-#> [1]  4  5  6  8  9 10
+#> [1]  5  6  8  9 10 11
 
 # Retrieve transcript IDs where Montesinos appears
 get_transcript_id(speaker = "montesinos")
@@ -68,9 +68,9 @@ get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
 
 # Retrieve transcript IDs about both media and reelection
 get_transcript_id(topic = c("media", "reelection"))
-#> [1]  35  39  62  79  87  88  97 103
+#>  [1]  35  46  48  57  62  75  77  78  79  82  85  86  97 102 103
 
 # Combine: transcripts with Alex Kouri that are also about media
 get_transcript_id(speaker = "alex kouri", topic = "media")
-#> [1] 39 41 86
+#> [1] 10 39 82 86
 ```

@@ -14,7 +14,7 @@ transcript_index
 
 ## Format
 
-A tibble with 96 rows. Descriptive columns first, followed by the
+A tibble with 95 rows. Descriptive columns first, followed by the
 `n_speakers` and `n_topics` summary counts, followed by the boolean
 (1/0) `speaker_*` and `topic_*` indicator columns. The counts are
 deliberately named with an `n_` prefix so that they are not picked up by
@@ -77,8 +77,7 @@ code selecting indicator columns with `speaker_` or `topic_`:
 - topic_referendum, topic_ecuador, topic_lucchetti_factory,
   topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
   topic_media, topic_promotions, topic_ivcher, topic_foreign,
-  topic_wiese, topic_public_officials, topic_security,
-  topic_state_capture:
+  topic_wiese, topic_appointments, topic_security, topic_state_capture:
 
   Integer indicator (1/0) for each topic.
 
