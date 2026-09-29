@@ -50,14 +50,14 @@ colnames(transcripts)
 
 head(transcripts)
 #> # A tibble: 6 × 6
-#>      id row_id date      speaker_std speaker                              speech
-#>   <dbl>  <int> <chr>     <chr>       <chr>                                <chr> 
-#> 1    10      1 1/28/1998 background  background                           Depar…
-#> 2    10      2 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Tú lo…
-#> 3    10      3 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…
-#> 4    10      4 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Me pa…
-#> 5    10      5 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…
-#> 6    10      6 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Con m…
+#>      id row_id date     speaker_std speaker                      speech         
+#>   <dbl>  <int> <chr>    <chr>       <chr>                        <chr>          
+#> 1     1      1 1/8/1998 background  background                   Departamento d…
+#> 2     1      2 1/8/1998 montesinos  el señor montesinos torres.- Un gusto en co…
+#> 3     1      3 1/8/1998 menendez    el señor gonzalo.-           Encantado de c…
+#> 4     1      4 1/8/1998 montesinos  el señor montesinos torres.- Siéntese.      
+#> 5     1      5 1/8/1998 menendez    el señor gonzalo.-           Gracias， muy a…
+#> 6     1      6 1/8/1998 montesinos  el señor montesinos torres.- Señor Borobio.
 ```
 
 You can filter to one or more transcripts using their numeric IDs:
@@ -66,13 +66,11 @@ You can filter to one or more transcripts using their numeric IDs:
 
 # Select first transcript
 t1 <- read_transcripts(transcripts = 1)
-#> Warning in read_transcripts(transcripts = 1): No transcripts found matching
-#> IDs: 1
 nrow(t1)
-#> [1] 0
+#> [1] 496
 
 # Select multiple transcripts 
-t_sub <- read_transcripts(transcripts = c(5, 12, 47))
+t_sub <- read_transcripts(transcripts = c(1, 7, 39))
 nrow(t_sub)
 #> [1] 1326
 ```
@@ -89,7 +87,7 @@ access the data before compilation.
 t3 <- get_transcripts_raw(n = 3)
 
 # Load multiple transcripts combined into a single tibble
-combined <- get_transcripts_raw(n = c(3, 19, 47), combine = TRUE)
+combined <- get_transcripts_raw(n = c(3, 13, 39), combine = TRUE)
 ```
 
 ## Find transcripts
@@ -114,18 +112,17 @@ montesinos_ids <- get_transcript_id(speaker = "montesinos")
 length(montesinos_ids)
 #> [1] 86
 montesinos_ids
-#>  [1]   5   6   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24  25
-#> [20]  26  27  28  29  30  31  32  33  34  35  36  38  39  40  41  44  45  46  47
-#> [39]  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67  68  69
-#> [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88
-#> [77]  89  90  94  95  96  97  98 102 103 104
+#>  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+#> [26] 26 27 28 29 30 31 32 35 36 37 38 39 40 41 42 43 44 48 49 50 51 52 53 54 55
+#> [51] 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
+#> [76] 81 82 83 84 85 86 87 88 89 90 95
 
 # Transcripts featuring Alex Kouri
 kouri_ids <- get_transcript_id(speaker = "alex kouri")
 length(kouri_ids)
 #> [1] 7
 kouri_ids
-#> [1] 10 38 39 41 82 83 86
+#> [1]  5 30 31 32 76 77 80
 
 # Transcripts featuring both Alex Kouri and Crousillat Carreno
 # (a TV producer with America Television)
@@ -133,7 +130,7 @@ kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat 
 length(kouri_crousillat_ids)
 #> [1] 1
 kouri_crousillat_ids
-#> [1] 82
+#> [1] 76
 ```
 
 There are 139 speaker IDs that
@@ -154,9 +151,8 @@ media_ids <- get_transcript_id(topic = "media")
 length(media_ids)
 #> [1] 48
 media_ids
-#>  [1]   6   8   9  10  24  25  29  33  34  35  39  42  43  44  45  46  48  50  52
-#> [20]  55  56  57  58  59  60  62  66  70  71  72  73  74  75  76  77  78  79  82
-#> [39]  85  86  88  94  95  96  97 102 103 104
+#>  [1]  2  3  4  5 18 19 26 27 28 31 33 34 35 36 38 40 42 44 47 48 49 50 51 52 53
+#> [26] 54 55 60 64 65 66 67 68 69 70 71 72 73 76 79 80 81 82 85 86 87 88 95
 
 # Transcripts about BOTH media and reelection 
 media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
@@ -206,19 +202,19 @@ head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9384 <chr [1]>
-#> 2     6 1998-01-12 <chr [2]>   13035 <chr [2]>
-#> 3     8 1998-01-20 <chr [3]>    4895 <chr [2]>
-#> 4     9 1998-01-23 <chr [3]>   16803 <chr [3]>
-#> 5    10 1998-01-28 <chr [6]>   15535 <chr [2]>
-#> 6    11 1998-02-10 <chr [4]>    9583 <chr [1]>
+#> 1     1 1998-01-08 <chr [5]>    9384 <chr [1]>
+#> 2     2 1998-01-12 <chr [2]>   13035 <chr [2]>
+#> 3     3 1998-01-20 <chr [3]>    4895 <chr [2]>
+#> 4     4 1998-01-23 <chr [3]>   16803 <chr [3]>
+#> 5     5 1998-01-28 <chr [6]>   15535 <chr [2]>
+#> 6     6 1998-02-10 <chr [4]>    9583 <chr [1]>
 
 # Get metadata for transcript 5
 read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
 #>   <dbl> <chr>      <list>      <int> <list>   
-#> 1     5 1998-01-08 <chr [5]>    9384 <chr [1]>
+#> 1     5 1998-01-28 <chr [6]>   15535 <chr [2]>
 ```
 
 ## Examples

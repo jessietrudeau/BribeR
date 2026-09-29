@@ -114,7 +114,7 @@ combination that never co-occurs returns a zero-row tibble.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> americano        <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Get speakers from specific transcripts</span></span></span>
-<span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   speaker_std transcripts</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     </span>
@@ -162,8 +162,8 @@ combination that never co-occurs returns a zero-row tibble.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> crousillat carreno <span style="color: #949494;">&lt;dbl [1]&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 13 more rows</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Get speakers from transcript 6, which is also about media</span></span></span>
-<span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">6</span>, topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Get speakers from transcript 2, which is also about media</span></span></span>
+<span class="r-in"><span><span class="fu">get_transcript_speakers</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span>, topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   speaker_std transcripts</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     </span>

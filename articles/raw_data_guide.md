@@ -83,7 +83,7 @@ Guide**](https://jessietrudeau.com/BribeR/articles/using_briber.html)**.**
 
 ## Transcripts
 
-The corpus spans recordings made between 1996 and 2000, covering the
+The corpus spans recordings made between 1998 and 2000, covering the
 period after Fujimori’s successful bid for a second term through the
 final months before the regime’s collapse. Transcripts were collected
 from two main sources:

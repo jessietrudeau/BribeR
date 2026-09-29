@@ -66,7 +66,7 @@ head(speakers)
 #> 6 americano        <dbl [1]>  
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(5, 10))
+get_transcript_speakers(n = c(1, 5))
 #> # A tibble: 9 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     
@@ -114,8 +114,8 @@ get_transcript_speakers(topic = c("media", "reelection"))
 #> 10 crousillat carreno <dbl [1]>  
 #> # ℹ 13 more rows
 
-# Get speakers from transcript 6, which is also about media
-get_transcript_speakers(n = 6, topic = "media")
+# Get speakers from transcript 2, which is also about media
+get_transcript_speakers(n = 2, topic = "media")
 #> # A tibble: 2 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     

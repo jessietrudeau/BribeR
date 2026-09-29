@@ -114,26 +114,24 @@ full-text transcription of one turn.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;      id row_id date      speaker_std speaker                              speech</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>    10      1 1/28/1998 background  background                           Depar…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    10      2 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Tú lo…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>    10      3 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>    10      4 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Me pa…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    10      5 1/28/1998 ibarcena    el señor ibárcena amico.—            (Inin…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    10      6 1/28/1998 alex kouri  el señor kouri bumachar, alexander.— Con m…</span></span></code></pre></div>
+<span><span class="co">#&gt;      id row_id date     speaker_std speaker                      speech         </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1      1 1/8/1998 background  background                   Departamento d…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     1      2 1/8/1998 montesinos  el señor montesinos torres.- Un gusto en co…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     1      3 1/8/1998 menendez    el señor gonzalo.-           Encantado de c…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     1      4 1/8/1998 montesinos  el señor montesinos torres.- Siéntese.      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     1      5 1/8/1998 menendez    el señor gonzalo.-           Gracias， muy a…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     1      6 1/8/1998 montesinos  el señor montesinos torres.- Señor Borobio.</span></span></code></pre></div>
 <p>You can filter to one or more transcripts using their numeric
 IDs:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select first transcript</span></span>
 <span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in read_transcripts(transcripts = 1): No transcripts found matching</span></span>
-<span><span class="co">#&gt; IDs: 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] 496</span></span>
 <span></span>
 <span><span class="co"># Select multiple transcripts </span></span>
-<span><span class="va">t_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">12</span>, <span class="fl">47</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">t_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t_sub</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1326</span></span></code></pre></div>
 <div class="section level3">
@@ -147,7 +145,7 @@ compilation.</p>
 <span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load multiple transcripts combined into a single tibble</span></span>
-<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">19</span>, <span class="fl">47</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">39</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -169,18 +167,17 @@ these speakers are present.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">montesinos_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 86</span></span>
 <span><span class="va">montesinos_ids</span></span>
-<span><span class="co">#&gt;  [1]   5   6   8   9  10  11  12  13  14  15  16  17  19  20  21  22  23  24  25</span></span>
-<span><span class="co">#&gt; [20]  26  27  28  29  30  31  32  33  34  35  36  38  39  40  41  44  45  46  47</span></span>
-<span><span class="co">#&gt; [39]  48  49  50  51  52  56  57  58  59  60  61  62  63  64  65  66  67  68  69</span></span>
-<span><span class="co">#&gt; [58]  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88</span></span>
-<span><span class="co">#&gt; [77]  89  90  94  95  96  97  98 102 103 104</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</span></span>
+<span><span class="co">#&gt; [26] 26 27 28 29 30 31 32 35 36 37 38 39 40 41 42 43 44 48 49 50 51 52 53 54 55</span></span>
+<span><span class="co">#&gt; [51] 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80</span></span>
+<span><span class="co">#&gt; [76] 81 82 83 84 85 86 87 88 89 90 95</span></span>
 <span></span>
 <span><span class="co"># Transcripts featuring Alex Kouri</span></span>
 <span><span class="va">kouri_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="st">"alex kouri"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 7</span></span>
 <span><span class="va">kouri_ids</span></span>
-<span><span class="co">#&gt; [1] 10 38 39 41 82 83 86</span></span>
+<span><span class="co">#&gt; [1]  5 30 31 32 76 77 80</span></span>
 <span></span>
 <span><span class="co"># Transcripts featuring both Alex Kouri and Crousillat Carreno</span></span>
 <span><span class="co"># (a TV producer with America Television)</span></span>
@@ -188,7 +185,7 @@ these speakers are present.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_crousillat_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="va">kouri_crousillat_ids</span></span>
-<span><span class="co">#&gt; [1] 82</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 76</span></span></code></pre></div>
 <p>There are 139 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
 filter on, one for each individual in the <code>actors</code>
 dataset.</p>
@@ -205,9 +202,8 @@ where these topics are discussed.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 48</span></span>
 <span><span class="va">media_ids</span></span>
-<span><span class="co">#&gt;  [1]   6   8   9  10  24  25  29  33  34  35  39  42  43  44  45  46  48  50  52</span></span>
-<span><span class="co">#&gt; [20]  55  56  57  58  59  60  62  66  70  71  72  73  74  75  76  77  78  79  82</span></span>
-<span><span class="co">#&gt; [39]  85  86  88  94  95  96  97 102 103 104</span></span>
+<span><span class="co">#&gt;  [1]  2  3  4  5 18 19 26 27 28 31 33 34 35 36 38 40 42 44 47 48 49 50 51 52 53</span></span>
+<span><span class="co">#&gt; [26] 54 55 60 64 65 66 67 68 69 70 71 72 73 76 79 80 81 82 85 86 87 88 95</span></span>
 <span></span>
 <span><span class="co"># Transcripts about BOTH media and reelection </span></span>
 <span><span class="va">media_reelection_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span>
@@ -252,19 +248,19 @@ variable.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;      id date       speakers  n_words topics   </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     6 1998-01-12 <span style="color: #949494;">&lt;chr [2]&gt;</span>   <span style="text-decoration: underline;">13</span>035 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     8 1998-01-20 <span style="color: #949494;">&lt;chr [3]&gt;</span>    <span style="text-decoration: underline;">4</span>895 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     9 1998-01-23 <span style="color: #949494;">&lt;chr [3]&gt;</span>   <span style="text-decoration: underline;">16</span>803 <span style="color: #949494;">&lt;chr [3]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    10 1998-01-28 <span style="color: #949494;">&lt;chr [6]&gt;</span>   <span style="text-decoration: underline;">15</span>535 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>    11 1998-02-10 <span style="color: #949494;">&lt;chr [4]&gt;</span>    <span style="text-decoration: underline;">9</span>583 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 1998-01-12 <span style="color: #949494;">&lt;chr [2]&gt;</span>   <span style="text-decoration: underline;">13</span>035 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 1998-01-20 <span style="color: #949494;">&lt;chr [3]&gt;</span>    <span style="text-decoration: underline;">4</span>895 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 1998-01-23 <span style="color: #949494;">&lt;chr [3]&gt;</span>   <span style="text-decoration: underline;">16</span>803 <span style="color: #949494;">&lt;chr [3]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 1998-01-28 <span style="color: #949494;">&lt;chr [6]&gt;</span>   <span style="text-decoration: underline;">15</span>535 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 1998-02-10 <span style="color: #949494;">&lt;chr [4]&gt;</span>    <span style="text-decoration: underline;">9</span>583 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Get metadata for transcript 5</span></span>
 <span><span class="fu"><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 5</span></span></span>
 <span><span class="co">#&gt;      id date       speakers  n_words topics   </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-08 <span style="color: #949494;">&lt;chr [5]&gt;</span>    <span style="text-decoration: underline;">9</span>384 <span style="color: #949494;">&lt;chr [1]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     5 1998-01-28 <span style="color: #949494;">&lt;chr [6]&gt;</span>   <span style="text-decoration: underline;">15</span>535 <span style="color: #949494;">&lt;chr [2]&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
