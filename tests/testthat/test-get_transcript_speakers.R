@@ -59,17 +59,17 @@ test_that("get_transcript_speakers narrows across multiple topics (AND logic)", 
 
   expect_true(all(both$speaker_std %in% media$speaker_std))
   expect_lt(nrow(both), nrow(media))
-  # speakers drawn from the 8 transcripts flagged for both topics
+  # speakers drawn from the transcripts flagged for both topics
   expect_true(all(unlist(both$transcripts) %in% get_transcript_id(topic = c("media", "reelection"))))
 })
 
 test_that("get_transcript_speakers combines n and topic with AND", {
-  # transcript 4 is flagged for media, transcript 1 is not
-  hit  <- get_transcript_speakers(n = 4, topic = "media")
+  # transcript 6 is flagged for media, transcript 5 is not
+  hit  <- get_transcript_speakers(n = 6, topic = "media")
   miss <- get_transcript_speakers(n = 5, topic = "media")
 
   expect_gt(nrow(hit), 0)
-  expect_true(all(unlist(hit$transcripts) == 4))
+  expect_true(all(unlist(hit$transcripts) == 6))
   expect_equal(nrow(miss), 0)
 })
 

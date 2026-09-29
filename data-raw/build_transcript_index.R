@@ -75,7 +75,6 @@ message("Using descriptions from: ", desc_path)
 }
 
 # ---- identify and convert topic columns to binary ----
-names(descriptions_df)[names(descriptions_df) == "topic_safety"] <- "topic_security"
 topic_cols <- grep("(?i)^topic", names(descriptions_df), value = TRUE)
 message("Detected ", length(topic_cols), " topic columns.")
 if (length(topic_cols) > 0) {

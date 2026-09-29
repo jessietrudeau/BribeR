@@ -5,7 +5,7 @@
 \alias{speakers_per_transcript}
 \title{Speakers Per Transcript}
 \format{
-A tibble with 96 rows and 23 variables:
+A tibble with 95 rows and 23 variables:
 \describe{
 \item{id}{Numeric transcript identifier.}
 \item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier

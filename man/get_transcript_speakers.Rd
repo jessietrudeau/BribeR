@@ -49,8 +49,8 @@ get_transcript_speakers(topic = "media")
 # Get speakers from transcripts about both media and reelection
 get_transcript_speakers(topic = c("media", "reelection"))
 
-# Get speakers from transcript 4, which is also about media
-get_transcript_speakers(n = 4, topic = "media")
+# Get speakers from transcript 6, which is also about media
+get_transcript_speakers(n = 6, topic = "media")
 
 }
 \seealso{

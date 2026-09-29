@@ -3,7 +3,7 @@
 #' The main corpus of the Vladivideos recordings. Each row represents a single
 #' speech turn within a transcript, with the speaker's words and metadata.
 #'
-#' @format A tibble with 45,342 rows and 6 variables:
+#' @format A tibble with 45,337 rows and 6 variables:
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
 #'   \item{row_id}{Row number within the transcript.}
@@ -25,7 +25,7 @@
 #' is the single source of transcript-level metadata for the package; there
 #' is no separate `descriptions` dataset.
 #'
-#' @format A tibble with 96 rows. Descriptive columns first, followed by the
+#' @format A tibble with 95 rows. Descriptive columns first, followed by the
 #'   `n_speakers` and `n_topics` summary counts, followed by the boolean (1/0)
 #'   `speaker_*` and `topic_*` indicator columns. The counts are deliberately
 #'   named with an `n_` prefix so that they are not picked up by code selecting
@@ -49,7 +49,7 @@
 #'   \item{topic_referendum, topic_ecuador, topic_lucchetti_factory,
 #'     topic_municipal98, topic_reelection, topic_miraflores, topic_canal4,
 #'     topic_media, topic_promotions, topic_ivcher, topic_foreign, topic_wiese,
-#'     topic_public_officials, topic_security, topic_state_capture}{Integer
+#'     topic_appointments, topic_security, topic_state_capture}{Integer
 #'     indicator (1/0) for each topic.}
 #' }
 #' @source Derived from the Vladivideos transcripts and accompanying metadata.
@@ -61,7 +61,7 @@
 #' A wide-format table listing the standardized speaker identifiers recorded speaking in
 #' each transcript, with one row per transcript and one column per speaker slot.
 #'
-#' @format A tibble with 96 rows and 23 variables:
+#' @format A tibble with 95 rows and 23 variables:
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
 #'   \item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier
@@ -77,7 +77,7 @@
 #' Biographical and institutional metadata for individuals who appear in the
 #' Vladivideos transcripts.
 #'
-#' @format A tibble with 140 rows and 6 variables:
+#' @format A tibble with 139 rows and 6 variables:
 #' \describe{
 #'   \item{speaker}{Full name of the individual.}
 #'   \item{speaker_std}{Standardized identifier matching the \code{speaker_std}

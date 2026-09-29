@@ -29,7 +29,7 @@ what each dataset contains and how to combine them.
 
 ## `compiled_transcripts`
 
-This is the main dataset, containing every spoken line from all 96
+This is the main dataset, containing every spoken line from all 95
 transcripts, indexed by transcript number.[^1] Each row
 corresponds to one speech turn within a transcript.
 
@@ -79,7 +79,7 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 | `speaker_*`          | integer   | Speaker indicators (1/0)                           |
 | `topic_*`            | integer   | Topic indicators (1/0)                             |
 
-The 15 `topic_*` and 140 `speaker_*` columns take on a value of 1 if the
+The 15 `topic_*` and 139 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
 designed for fast filtering for specific actors or topics without
 loading the full corpus.
@@ -106,7 +106,7 @@ speakers_per_transcript %>%
 
 ## `actors`
 
-This file contains biographical and institutional metadata for the 140
+This file contains biographical and institutional metadata for the 139
 individuals recorded speaking in the transcripts. The variable names are shown in the below table.
 
 ```{r actors}

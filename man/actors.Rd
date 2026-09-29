@@ -5,7 +5,7 @@
 \alias{actors}
 \title{Actor Roster}
 \format{
-A tibble with 140 rows and 6 variables:
+A tibble with 139 rows and 6 variables:
 \describe{
 \item{speaker}{Full name of the individual.}
 \item{speaker_std}{Standardized identifier matching the \code{speaker_std}

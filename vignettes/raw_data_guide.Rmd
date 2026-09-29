@@ -107,9 +107,9 @@ y que habíamos quedado te acuerdas (ininteligible). Entonces,
 conversamos más directos acá, quedamos así (ininteligible).*
 :::
 
-**BribeR** provides structured access to transcripts of 96 of these
-recordings, which contain 45,342 individual speech turns. The package
-also includes relevant metadata about the 140 individuals recorded
+**BribeR** provides structured access to transcripts of 95 of these
+recordings, which contain 45,337 individual speech turns. The package
+also includes relevant metadata about the 139 individuals recorded
 speaking and 15 topics.
 
 This page introduces the raw data, highlighting how it is organized at
@@ -146,7 +146,7 @@ library(BribeR)
 library(dplyr)
 library(ggplot2)
 
-## There are 96 transcripts in the dataset
+## There are 95 transcripts in the dataset
 meta <- read_transcript_meta_data()
 nrow(meta)
 ```
@@ -170,7 +170,7 @@ ggplot(meta, aes(x = n_words)) +
 
 # Actors
 
-Users can access biographical and institutional metadata for the 140
+Users can access biographical and institutional metadata for the 139
 individuals recorded speaking in the Vladivideos transcripts through the
 `actors` dataset. Each person is classified by their institutional role at the
 time of the recordings.
@@ -188,7 +188,7 @@ Actors are grouped into eleven categories. Vladimiro Montesinosis in his own cat
 | `congress` | 19 | Members of Congress, including allies and opposition members bribed to switch allegiance |
 | `bureaucrat` | 20 | Senior civil servants and agency heads |
 | `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
-| `foreign` | 11 | Foreign officials and diplomats |
+| `foreign` | 10 | Foreign officials and diplomats |
 | `media` | 13 | Television channel and newspaper executives |
 | `other` | 18 | Private individuals with no institutional role |
 | `illicit` | 5 | Individuals primarily associated with armed groups |
@@ -213,7 +213,7 @@ actors |>
   theme_minimal(base_size = 13)
 ```
 
-About 12% of all speech turns -- 5,291 turns across 66 of the 96
+About 12% of all speech turns -- 5,292 turns across 66 of the 95
 transcripts -- carry the speaker identifier `desconocido` (unidentified).
 **This is a placeholder, not a person.** It collects every speaker the
 transcribers could not name, so turns sharing this identifier are
@@ -249,7 +249,7 @@ topics include:
 | `referendum` | Presidental term limits referendum |
 | `municipal98` | 1998 municipal elections |
 | `miraflores` | 1998 Miraflores district elections |
-| `public_officials` | Interactions with civil servants and bureaucrats |
+| `appointments` | Appointing, reassigning and removing officeholders |
 
 As demonstrated by [McMillan and
 Zoido](https://www.aeaweb.org/articles?id=10.1257/0895330042632690)
@@ -261,7 +261,7 @@ domestic security operations.
 topic_names <- c(
   "state_capture", "reelection", "media", "promotions", "foreign",
   "ivcher", "canal4", "security", "wiese", "lucchetti_factory",
-  "ecuador", "referendum", "municipal98", "miraflores", "public_officials"
+  "ecuador", "referendum", "municipal98", "miraflores", "appointments"
 )
 
 topic_counts <- sapply(topic_names, function(t) {

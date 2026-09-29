@@ -42,9 +42,9 @@ test_that("get_transcript_id narrows across multiple topics (AND logic)", {
   expect_true(all(ids_both %in% ids_media))
   expect_true(all(ids_both %in% ids_reelection))
   # Pin the exact overlap so the semantics cannot silently flip back to OR
-  expect_equal(length(ids_media), 37)
-  expect_equal(length(ids_reelection), 26)
-  expect_equal(length(ids_both), 8)
+  expect_equal(length(ids_media), 48)
+  expect_equal(length(ids_reelection), 27)
+  expect_equal(length(ids_both), 15)
 })
 
 test_that("get_transcript_id combines speaker and topic with AND", {
@@ -54,7 +54,7 @@ test_that("get_transcript_id combines speaker and topic with AND", {
 
   expect_true(all(ids_both %in% ids_speaker))
   expect_true(all(ids_both %in% ids_topic))
-  expect_equal(length(ids_both), 2)
+  expect_equal(length(ids_both), 3)
 })
 
 test_that("get_transcript_id returns an empty vector when filters never co-occur", {
