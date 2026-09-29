@@ -1,6 +1,5 @@
 # ======================================================================
 # Build Transcript Index with Binary Topic & Speaker Columns
-# (Modified: Handles wide-format "speakers per transcript.csv" file)
 # ======================================================================
 
 # ---- setup ----
@@ -106,52 +105,13 @@ metadata_df <- descriptions_df %>%
   select(n, original_id, date, in_book, in_online_archive, type, summary, speakers, all_of(topic_cols)) %>%
   filter(!is.na(n))
 
-# ======================================================================
-# MODIFIED SECTION: Handle wide-format "speakers per transcript.csv"
-# ======================================================================
+# ---- speakers per transcript, derived from the dialogue ----
+# A speaker is anyone the transcript attributes at least one turn to, so
+# presence is read straight from the transcript files. "background" carries
+# stage directions rather than speech and is excluded.
+message("Deriving speaker presence from the transcript files...")
 
-message("Loading wide-format 'speakers per transcript.csv'...")
-
-speakers_candidates <- c(
-  Sys.getenv("SPEAKERS_CSV", unset = NA),
-  "data-raw/Inventory & Descriptions/speakers per transcript.csv",
-  "data-raw/speakers per transcript.csv"
-) |> unique()
-speakers_candidates <- speakers_candidates[!is.na(speakers_candidates)]
-speakers_path <- speakers_candidates[file_exists(speakers_candidates)][1]
-
-if (is.na(speakers_path)) {
-  stop("The file 'speakers per transcript.csv' was not found. Checked: ",
-       paste(speakers_candidates, collapse = " | "))
-}
-
-speakers_df <- read_csv(speakers_path, show_col_types = FALSE)
-names(speakers_df) <- gsub("speakrer_std_", "speaker_std_", names(speakers_df), fixed = TRUE)
-
-# Identify all speaker columns
-speaker_cols <- grep("^speaker_std_", names(speakers_df), value = TRUE)
-if (length(speaker_cols) == 0) {
-  stop("No 'speakrer_std_' columns detected in the speakers file.")
-}
-
-# Convert wide-format table to long-format (one row per speaker)
-speaker_table <- speakers_df %>%
-  pivot_longer(
-    cols = all_of(speaker_cols),
-    names_to = "speaker_col",
-    values_to = "speaker_std"
-  ) %>%
-  filter(!is.na(speaker_std), speaker_std != "") %>%
-  mutate(
-    n = as.integer(n),
-    speaker_key = .norm_key(speaker_std)
-  ) %>%
-  distinct(n, speaker_key)
-
-# A speaker counts as present in a transcript if the roster above lists them or
-# the transcript attributes at least one turn to them. The roster and the
-# dialogue disagree for some transcripts, so presence is the union of the two.
-dialogue_table <- map_dfr(files, function(path) {
+speaker_table <- map_dfr(files, function(path) {
   df <- read_csv(path, show_col_types = FALSE, progress = FALSE)
   if (!"speaker_std" %in% names(df)) {
     return(tibble(n = integer(), speaker_key = character()))
@@ -161,10 +121,9 @@ dialogue_table <- map_dfr(files, function(path) {
     speaker_key = .norm_key(df$speaker_std)
   )
 }) %>%
-  filter(!is.na(speaker_key), speaker_key != "") %>%
+  filter(!is.na(speaker_key), speaker_key != "", speaker_key != "background") %>%
   distinct(n, speaker_key)
 
-speaker_table <- distinct(bind_rows(speaker_table, dialogue_table))
 
 # Build binary matrix of speaker presence per transcript
 speaker_matrix <- speaker_table %>%
@@ -177,7 +136,7 @@ speaker_matrix <- speaker_table %>%
     names_prefix = "speaker_"
   )
 
-message("Constructed speaker matrix from wide-format file (",
+message("Constructed speaker matrix (",
         nrow(speaker_matrix), " transcripts; ",
         length(grep('^speaker_', names(speaker_matrix))), " unique speakers).")
 
@@ -264,7 +223,9 @@ transcript_index <- transcript_index %>%
   names(transcript_index)
 )
 .cnt_cols <- intersect(c("n_speakers", "n_topics"), names(transcript_index))
-.s_cols   <- grep("^speaker_", names(transcript_index), value = TRUE)
+# speaker columns are sorted so the order does not depend on which
+# transcript is scanned first; topic columns keep their authored order
+.s_cols   <- sort(grep("^speaker_", names(transcript_index), value = TRUE))
 .t_cols   <- grep("^topic_",   names(transcript_index), value = TRUE)
 
 transcript_index <- transcript_index %>%

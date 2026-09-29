@@ -24,8 +24,7 @@ DROP_COLS <- list()
 
 # (Optional) Rename columns per object (old_name = new_name):
 RENAME_COLS <- list(
-  "speakers_per_transcript" = c("n" = "id"),
-  "actors"                  = c("Position" = "position", "Type" = "type", "Party" = "party")
+  "actors" = c("Position" = "position", "Type" = "type", "Party" = "party")
 )
 
 # (Optional) Replace a value in a specific column per object. Each object
@@ -33,9 +32,7 @@ RENAME_COLS <- list(
 RENAME_VALUES <- list()
 
 # (Optional) Pattern-based column rename per object (fixed string, not regex):
-RENAME_COL_PATTERNS <- list(
-  "speakers_per_transcript" = c("speakrer_std_" = "speaker_std_")
-)
+RENAME_COL_PATTERNS <- list()
 
 # (Optional) Convert "x"/NA indicator columns to integer 0/1 per object.
 # Column names are matched by regex pattern. Any value matching /^\s*x\s*$/i
@@ -126,7 +123,7 @@ object_names <- make.unique(proposed_names, sep = "_")
 # Datasets intentionally not produced as standalone .rda files. "descriptions"
 # is folded directly into `transcript_index` by build_transcript_index.R
 # instead of being shipped as its own dataset.
-EXCLUDE_OBJECTS <- c("descriptions", "actors_description")
+EXCLUDE_OBJECTS <- c("descriptions")
 keep <- !object_names %in% EXCLUDE_OBJECTS
 csv_paths    <- csv_paths[keep]
 object_names <- object_names[keep]
@@ -142,6 +139,35 @@ print(mapping, row.names = FALSE)
 # save each CSV as its own .rda
 invisible(mapply(.save_one_csv_as_rda, csv_paths, object_names))
 message(sprintf("Done. %d datasets written to '%s/'.", length(csv_paths), OUTPUT_DIR))
+
+# ---- speakers per transcript, derived from the dialogue ----
+# A speaker is anyone with at least one turn in the transcript, so the roster
+# is computed rather than maintained by hand. Speakers appear in the order
+# they first speak. "background" carries stage directions and is excluded.
+CT_PATH <- file.path(OUTPUT_DIR, "compiled_transcripts.rda")
+if (!file.exists(CT_PATH)) {
+  stop("compiled_transcripts.rda not found. Run build_transcripts_detailed.R first.")
+}
+load(CT_PATH)
+
+.roster_for <- function(i) {
+  v <- trimws(compiled_transcripts$speaker_std[compiled_transcripts$id == i])
+  v <- v[!is.na(v) & nzchar(v) & v != "background"]
+  unique(v)
+}
+ids   <- sort(unique(compiled_transcripts$id))
+lists <- lapply(ids, .roster_for)
+width <- max(lengths(lists))
+mat   <- t(vapply(lists, function(v) c(v, rep(NA_character_, width - length(v))),
+                  character(width)))
+colnames(mat) <- paste0("speaker_std_", seq_len(width))
+speakers_per_transcript <- tibble::as_tibble(
+  cbind(data.frame(id = as.numeric(ids)), as.data.frame(mat, stringsAsFactors = FALSE))
+)
+save(speakers_per_transcript,
+     file = file.path(OUTPUT_DIR, "speakers_per_transcript.rda"), compress = "xz")
+message(sprintf("Derived speakers_per_transcript: %d transcripts, %d speaker slots, %d entries.",
+                nrow(speakers_per_transcript), width, sum(lengths(lists))))
 
 # ---- verify every actor is recorded speaking ----
 # `actors` is a speakers-only roster, so every speaker_std must appear at least
