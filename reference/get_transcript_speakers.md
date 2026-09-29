@@ -1,7 +1,7 @@
 # Get transcripts each speaker appears in
 
 Loads the bundled `speakers_per_transcript` dataset and returns one row
-per unique speaker with a list-column of transcript IDs (`n`) where that
+per unique speaker with a list-column of the transcript IDs where that
 speaker appears. Optionally filters to only transcripts matching
 specific IDs and/or topics.
 

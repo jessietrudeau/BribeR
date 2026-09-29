@@ -1,9 +1,9 @@
 # Retrieve Available Transcript IDs
 
-Returns all available transcript IDs (the unique values of `n`) from the
-bundled Vladivideos transcript dataset. Optionally filters to only those
-transcripts that include any of the specified speakers or topics, using
-the bundled `transcript_index` dataset.
+Returns all available transcript IDs (the unique values of `id`) from
+the bundled Vladivideos transcript dataset. Optionally filters to only
+those transcripts that include any of the specified speakers or topics,
+using the bundled `transcript_index` dataset.
 
 ## Usage
 
