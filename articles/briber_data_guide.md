@@ -122,7 +122,7 @@ speakers_per_transcript %>%
 #>   <dbl> <chr>         <chr>         <chr>         <chr>         <chr>        
 #> 1     1 montesinos    menendez      borobio       desconocido   solis        
 #> 2     2 montesinos    ricketts      NA            NA            NA           
-#> 3     3 vera abad     montesinos    desconocido   NA            NA           
+#> 3     3 montesinos    vera abad     desconocido   NA            NA           
 #> # ℹ 17 more variables: speaker_std_6 <chr>, speaker_std_7 <chr>,
 #> #   speaker_std_8 <chr>, speaker_std_9 <chr>, speaker_std_10 <chr>,
 #> #   speaker_std_11 <chr>, speaker_std_12 <chr>, speaker_std_13 <chr>,
