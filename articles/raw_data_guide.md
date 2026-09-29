@@ -32,7 +32,7 @@ judges confirming their availability to rule in Montesinos’s favor.
 
 See, for example, this exchange about consolidating power in the
 judicial branch between Montesinos and Alipio Montes de Oca, Supreme
-Court Judge (Transcript 21[^1], May 3, 1998). This exchange is printed
+Court Judge (Transcript 15[^1], May 3, 1998). This exchange is printed
 in English with Spanish original text in italics below.[^2]
 
 **MONTES DE OCA —** Okay, just say it.  
