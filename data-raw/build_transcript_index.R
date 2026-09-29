@@ -1,6 +1,8 @@
-# ======================================================================
-# Build Transcript Index with Binary Topic & Speaker Columns
-# ======================================================================
+# data-raw/build_transcript_index.R
+#
+# Builds `transcript_index`: one row per transcript, holding its metadata and
+# summary from Descriptions.csv alongside 0/1 indicator columns for every
+# speaker and every topic, which is what get_transcript_id() filters on.
 
 # ---- setup ----
 required_pkgs <- c("fs", "dplyr", "stringr", "tools", "readr", "purrr", "lubridate", "tidyr", "stringi")
@@ -26,20 +28,17 @@ library(tidyr)
 # ---- configuration ----
 transcripts_candidates <- c(
   Sys.getenv("TRANSCRIPTS_DIR", unset = NA),
-  "inst/data-raw/transcripts",
-  "data-raw/transcripts"
+  "inst/data-raw/transcripts"
 ) |> unique()
 transcripts_candidates <- transcripts_candidates[!is.na(transcripts_candidates)]
 transcripts_root <- transcripts_candidates[dir_exists(transcripts_candidates)][1]
 if (is.na(transcripts_root)) {
   stop("No transcripts directory found. Checked: ", paste(transcripts_candidates, collapse = " | "))
 }
-rel_start <- path_dir(transcripts_root)
-
 # ---- list transcript files ----
 files <- dir_ls(
   transcripts_root, recurse = TRUE, type = "file",
-  regexp = "(?i)\\.(csv|tsv)$"
+  regexp = "(?i)\\.csv$"
 )
 if (length(files) == 0L) stop("No transcript files found under: ", transcripts_root)
 
@@ -54,9 +53,7 @@ files <- files[ord]
 # its content is folded directly into `transcript_index` below.
 desc_candidates <- c(
   Sys.getenv("DESCRIPTIONS_CSV", unset = NA),
-  "data-raw/Inventory & Descriptions/Descriptions.csv",
-  "data-raw/descriptions.csv",
-  file.path(transcripts_root, "descriptions.csv")
+  "data-raw/Inventory & Descriptions/Descriptions.csv"
 ) |> unique()
 desc_candidates <- desc_candidates[!is.na(desc_candidates)]
 desc_path <- desc_candidates[file_exists(desc_candidates)][1]
@@ -140,15 +137,10 @@ message("Constructed speaker matrix (",
         nrow(speaker_matrix), " transcripts; ",
         length(grep('^speaker_', names(speaker_matrix))), " unique speakers).")
 
-# ======================================================================
-# Continue normal logic
-# ======================================================================
-
 # ---- load actors.csv and filter speaker columns ----
 actor_candidates <- c(
   Sys.getenv("ACTORS_CSV", unset = NA),
-  "data-raw/Inventory & Descriptions/actors.csv",
-  "data-raw/actors.csv"
+  "data-raw/Inventory & Descriptions/actors.csv"
 ) |> unique()
 actor_candidates <- actor_candidates[!is.na(actor_candidates)]
 actor_path <- actor_candidates[file_exists(actor_candidates)][1]

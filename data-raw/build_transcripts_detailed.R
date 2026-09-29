@@ -1,3 +1,8 @@
+# data-raw/build_transcripts_detailed.R
+#
+# Reads every transcript CSV and stacks them into `compiled_transcripts`,
+# one row per speech turn, with the recording date joined from
+# Descriptions.csv. Run this before the other two build scripts.
 
 # ---- setup ----
 required_pkgs <- c("dplyr", "readr", "stringr", "purrr", "stringi")
@@ -24,7 +29,7 @@ transcript_files <- list.files(transcript_dir, pattern = "\\.csv$", full.names =
 read_single_transcript <- function(file_path) {
   data <- read_csv(file_path, show_col_types = FALSE)
   n_value <- as.numeric(str_remove(basename(file_path), "\\.csv$"))
-  
+
   data %>%
     mutate(
       id = n_value,
@@ -34,7 +39,7 @@ read_single_transcript <- function(file_path) {
 
 all_transcripts <- map_dfr(transcript_files, read_single_transcript)
 
-# ---- merge topic and date info ----
+# ---- attach the recording date ----
 compiled_transcripts <- all_transcripts %>%
   left_join(descriptions, by = "id")
 
@@ -48,7 +53,8 @@ compiled_transcripts <- compiled_transcripts %>%
     speaker_std = stringi::stri_trans_general(speaker_std, "Latin-ASCII")
   )
 
-# ---- order columns (speaker_std before the speech text; see briber_data_guide) ----
+# ---- order columns ----
+# speaker_std sits before the speech text, as briber_data_guide describes.
 compiled_transcripts <- compiled_transcripts %>%
   select(id, row_id, date, speaker_std, speaker, speech)
 

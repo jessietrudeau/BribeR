@@ -1,4 +1,12 @@
-# data-raw/build_inventory_descriptions.R
+# data-raw/build_inventory_and_descriptions.R
+#
+# Turns the hand-maintained CSVs in "data-raw/Inventory & Descriptions" into
+# the package datasets, derives the speaker roster from the dialogue, and
+# checks that every actor is recorded speaking.
+#
+# Run build_transcripts_detailed.R first: the roster and the check both read
+# data/compiled_transcripts.rda.
+
 # ---- setup ----
 required_pkgs <- c("readr", "fs", "stringi")
 to_install <- setdiff(required_pkgs, rownames(installed.packages()))
@@ -10,44 +18,25 @@ if (!requireNamespace("fs", quietly = TRUE)) library(fs)
 INPUT_DIR  <- file.path("data-raw", "Inventory & Descriptions")
 OUTPUT_DIR <- "data"
 
-# (Optional) Override names here if you want custom dataset names:
-# e.g., c("Descriptions.csv" = "descriptions", "speakers per transcript.csv" = "speakers_per_transcript")
-OVERRIDE_NAMES <- c(
-  # "Descriptions.csv"               = "descriptions",
-  # "speakers per transcript.csv"    = "speakers_per_transcript",
-  # "Topic Descriptions.csv"         = "topic_descriptions",
-  # "Actors.csv"                     = "actors"
-)
-
-# (Optional) Columns to drop per object name after reading:
-DROP_COLS <- list()
-
-# (Optional) Rename columns per object (old_name = new_name):
+# Column renames applied after reading, per dataset.
 RENAME_COLS <- list(
   "actors" = c("Position" = "position", "Type" = "type", "Party" = "party")
 )
 
-# (Optional) Replace a value in a specific column per object. Each object
-# maps to a list of one or more list(col=, old=, new=) substitutions:
-RENAME_VALUES <- list()
-
-# (Optional) Pattern-based column rename per object (fixed string, not regex):
-RENAME_COL_PATTERNS <- list()
-
-# (Optional) Convert "x"/NA indicator columns to integer 0/1 per object.
-# Column names are matched by regex pattern. Any value matching /^\s*x\s*$/i
-# becomes 1L; NA or anything else becomes 0L.
-CONVERT_BINARY_COLS <- list()
-
-# (Optional) Columns whose string values should be lowercased per object:
+# Columns whose values are lowercased, per dataset. Speaker identifier columns
+# are lowercased for every dataset and do not need listing here.
 LOWERCASE_VALUE_COLS <- list(
   "actors" = c("type")
 )
 
+# Descriptions.csv is folded into `transcript_index` by build_transcript_index.R
+# rather than shipped on its own, so no .rda is written for it.
+EXCLUDE_OBJECTS <- c("descriptions")
+
 # ---- helpers ----
+# A CSV becomes a dataset named after its file: lowercased, with runs of
+# non-alphanumeric characters collapsed to single underscores.
 .clean_object_name <- function(fname) {
-  # strip extension, lower, replace non-alnum with underscores, collapse repeats,
-  # trim leading/trailing underscores, and ensure leading letter
   base <- tools::file_path_sans_ext(basename(fname))
   nm <- tolower(base)
   nm <- gsub("[^a-z0-9]+", "_", nm)
@@ -60,46 +49,35 @@ LOWERCASE_VALUE_COLS <- list(
 
 .save_one_csv_as_rda <- function(csv_path, object_name, out_dir = OUTPUT_DIR) {
   df <- readr::read_csv(csv_path, show_col_types = FALSE, progress = FALSE)
-  if (!is.null(DROP_COLS[[object_name]])) df <- df[, !names(df) %in% DROP_COLS[[object_name]], drop = FALSE]
+
   if (!is.null(RENAME_COLS[[object_name]])) {
     mapping <- RENAME_COLS[[object_name]]
     for (i in seq_along(mapping)) names(df)[names(df) == names(mapping)[i]] <- mapping[i]
   }
-  if (!is.null(RENAME_VALUES[[object_name]])) {
-    for (rv in RENAME_VALUES[[object_name]]) {
-      df[[rv$col]][df[[rv$col]] == rv$old] <- rv$new
-    }
-  }
-  if (!is.null(RENAME_COL_PATTERNS[[object_name]])) {
-    patterns <- RENAME_COL_PATTERNS[[object_name]]
-    for (i in seq_along(patterns)) names(df) <- gsub(names(patterns)[i], patterns[i], names(df), fixed = TRUE)
-  }
-  # Lowercase speaker identifier values after all column renames have been applied.
-  speaker_val_cols <- grep("^speaker$|^speaker_std(_[0-9]+)?$", names(df), value = TRUE, perl = TRUE)
+
+  # Lowercase speaker identifiers after the renames, so the column names match.
+  speaker_val_cols <- grep("^speaker$|^speaker_std(_[0-9]+)?$", names(df),
+                           value = TRUE, perl = TRUE)
   for (col in speaker_val_cols) df[[col]] <- tolower(df[[col]])
+
   if (!is.null(LOWERCASE_VALUE_COLS[[object_name]])) {
     for (col in LOWERCASE_VALUE_COLS[[object_name]]) df[[col]] <- tolower(df[[col]])
   }
-  if (!is.null(CONVERT_BINARY_COLS[[object_name]])) {
-    hit_cols <- unique(unlist(lapply(
-      CONVERT_BINARY_COLS[[object_name]],
-      function(p) grep(p, names(df), value = TRUE, perl = TRUE)
-    )))
-    for (col in hit_cols) {
-      raw <- df[[col]]
-      df[[col]] <- ifelse(!is.na(raw) & grepl("^\\s*x\\s*$", raw, ignore.case = TRUE), 1L, 0L)
-    }
-  }
+
   if (!fs::dir_exists(out_dir)) fs::dir_create(out_dir, recurse = TRUE)
 
-  # assign into current environment so save() captures the desired symbol name
+  # assign into this environment so save() writes the object under the name we want
   assign(object_name, df, envir = environment())
   out_path <- file.path(out_dir, paste0(object_name, ".rda"))
   save(list = object_name, file = out_path, compress = "xz")
   message(sprintf("Saved %-30s <- %s", paste0(object_name, ".rda"), fs::path_file(csv_path)))
 }
 
-# ---- build ----
+.norm_speaker <- function(x) {
+  stringi::stri_trans_general(tolower(trimws(as.character(x))), "Latin-ASCII")
+}
+
+# ---- write one dataset per CSV ----
 if (!fs::dir_exists(INPUT_DIR)) {
   stop(sprintf("Input directory not found: %s", INPUT_DIR))
 }
@@ -107,36 +85,18 @@ if (!fs::dir_exists(INPUT_DIR)) {
 csv_paths <- fs::dir_ls(INPUT_DIR, regexp = "\\.csv$", type = "file", recurse = FALSE)
 if (length(csv_paths) == 0L) stop(sprintf("No CSV files found in %s", INPUT_DIR))
 
-# derive object names (with optional overrides)
-proposed_names <- vapply(csv_paths, function(p) {
-  f <- fs::path_file(p)
-  if (!is.null(OVERRIDE_NAMES[[f]])) {
-    OVERRIDE_NAMES[[f]]
-  } else {
-    .clean_object_name(f)
-  }
-}, character(1))
+object_names <- make.unique(
+  vapply(csv_paths, function(p) .clean_object_name(fs::path_file(p)), character(1)),
+  sep = "_"
+)
 
-# ensure uniqueness if two files clean to the same name
-object_names <- make.unique(proposed_names, sep = "_")
-
-# Datasets intentionally not produced as standalone .rda files. "descriptions"
-# is folded directly into `transcript_index` by build_transcript_index.R
-# instead of being shipped as its own dataset.
-EXCLUDE_OBJECTS <- c("descriptions")
 keep <- !object_names %in% EXCLUDE_OBJECTS
 csv_paths    <- csv_paths[keep]
 object_names <- object_names[keep]
 
-# show mapping
-mapping <- data.frame(
-  file = fs::path_file(csv_paths),
-  object = object_names,
-  stringsAsFactors = FALSE
-)
-print(mapping, row.names = FALSE)
+print(data.frame(file = fs::path_file(csv_paths), object = object_names,
+                 stringsAsFactors = FALSE), row.names = FALSE)
 
-# save each CSV as its own .rda
 invisible(mapply(.save_one_csv_as_rda, csv_paths, object_names))
 message(sprintf("Done. %d datasets written to '%s/'.", length(csv_paths), OUTPUT_DIR))
 
@@ -171,24 +131,9 @@ message(sprintf("Derived speakers_per_transcript: %d transcripts, %d speaker slo
 
 # ---- verify every actor is recorded speaking ----
 # `actors` is a speakers-only roster, so every speaker_std must appear at least
-# once in the transcript files. Identifiers are lowercased and stripped of
-# diacritics to match how build_transcripts_detailed.R stores speaker_std.
-TRANSCRIPTS_DIR <- "inst/data-raw/transcripts"
-
-.norm_speaker <- function(x) {
-  stringi::stri_trans_general(tolower(trimws(as.character(x))), "Latin-ASCII")
-}
-
-transcript_files <- list.files(TRANSCRIPTS_DIR, pattern = "\\.csv$", full.names = TRUE)
-if (length(transcript_files) == 0L) {
-  stop(sprintf("No transcript CSVs found in %s", TRANSCRIPTS_DIR))
-}
-
-speaking <- unique(unlist(lapply(transcript_files, function(p) {
-  df <- readr::read_csv(p, show_col_types = FALSE, progress = FALSE)
-  if (!"speaker_std" %in% names(df)) return(character(0))
-  .norm_speaker(df$speaker_std)
-})))
+# once in the dialogue. compiled_transcripts already stores speaker_std
+# lowercased and stripped of diacritics; the actors side is normalised to match.
+speaking <- unique(trimws(compiled_transcripts$speaker_std))
 speaking <- speaking[!is.na(speaking) & nzchar(speaking)]
 
 load(file.path(OUTPUT_DIR, "actors.rda"))
@@ -199,5 +144,3 @@ if (length(silent) > 0) {
 }
 
 message(sprintf("All %d actors are recorded speaking.", nrow(actors)))
-
-

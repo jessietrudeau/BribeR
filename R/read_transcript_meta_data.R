@@ -139,7 +139,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
     dplyr::group_by(.data$id) |>
     dplyr::summarise(speakers = list(sort(unique(.data$speaker_std))), .groups = "drop")
 
-  # --- topics: from topic_* flag columns in descriptions
+  # --- topics: from the topic_* flag columns of transcript_index
   topic_cols <- grep("^topic_", names(desc), value = TRUE)
   topics_vec <- if (length(topic_cols)) {
     desc |>

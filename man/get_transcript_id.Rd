@@ -21,7 +21,7 @@ A sorted numeric vector of matching transcript IDs, or \code{numeric(0)}
 if no transcript satisfies every filter.
 }
 \description{
-Returns all available transcript IDs (the unique values of \code{n}) from the
+Returns all available transcript IDs (the unique values of \code{id}) from the
 bundled Vladivideos transcript dataset. Optionally filters to only those
 transcripts that include any of the specified speakers or topics, using
 the bundled \code{transcript_index} dataset.

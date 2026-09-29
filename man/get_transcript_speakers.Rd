@@ -24,7 +24,7 @@ A tibble with columns:
 }
 \description{
 Loads the bundled \code{speakers_per_transcript} dataset and returns one row per
-unique speaker with a list-column of transcript IDs (\code{n}) where that speaker
+unique speaker with a list-column of the transcript IDs where that speaker
 appears. Optionally filters to only transcripts matching specific IDs and/or
 topics.
 }

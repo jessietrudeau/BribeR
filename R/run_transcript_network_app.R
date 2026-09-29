@@ -36,7 +36,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     env[[object_name]]
   }
 
-  descriptions           <- .load_pkg_data("transcript_index")
+  transcript_index       <- .load_pkg_data("transcript_index")
   speakers_df            <- .load_pkg_data("speakers_per_transcript")
   topic_descriptions     <- .load_pkg_data("topic_descriptions")
   actor_descriptions_raw <- .load_pkg_data("actors")
@@ -150,7 +150,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     )
 
     # === Topic reshape ===
-    long_topics <- descriptions |>
+    long_topics <- transcript_index |>
       dplyr::select(.data$id, tidyselect::starts_with("topic_")) |>
       tidyr::pivot_longer(
         tidyselect::starts_with("topic_"),
@@ -323,9 +323,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::distinct(.data$id, .keep_all = TRUE)
 
     # === Build speaker dropdown map: node id -> display name ================
-    # useLabels = TRUE in nodesIdSelection reads from the node `label` column,
-    # which now holds the display name. We still need `values` to restrict the
-    # dropdown to speakers only (excluding topic nodes).
+    # useLabels = TRUE in nodesIdSelection reads the node `label` column, which
+    # holds the display name. `values` restricts the dropdown to speakers, so
+    # that topic nodes are left out of it.
     speaker_dropdown_values <- nodes_speaker_st$id
 
     # Drop helper `name` column before passing nodes to visNetwork

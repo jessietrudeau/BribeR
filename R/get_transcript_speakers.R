@@ -1,7 +1,7 @@
 #' Get transcripts each speaker appears in
 #'
 #' Loads the bundled `speakers_per_transcript` dataset and returns one row per
-#' unique speaker with a list-column of transcript IDs (`n`) where that speaker
+#' unique speaker with a list-column of the transcript IDs where that speaker
 #' appears. Optionally filters to only transcripts matching specific IDs and/or
 #' topics.
 #'
@@ -56,8 +56,7 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
     stop("Expected column 'id' in speakers_per_transcript dataset.", call. = FALSE)
   }
 
-  # accept both correct and misspelled prefixes
-  speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(df), value = TRUE)
+  speaker_cols <- grep("^speaker_std_[0-9]+$", names(df), value = TRUE)
   if (!length(speaker_cols)) {
     stop(
       "No speaker columns found. Expected columns like 'speaker_std_1'.",
