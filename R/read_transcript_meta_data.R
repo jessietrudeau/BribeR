@@ -158,7 +158,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
         })
       ) |>
       dplyr::ungroup() |>
-      dplyr::select(.data$id, .data$topics)
+      dplyr::select("id", "topics")
   } else {
     dplyr::transmute(desc, id = .data$id, topics = list(character(0)))
   }
@@ -192,7 +192,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
   if (!"n_words"  %in% names(meta)) meta$n_words  <- NA_integer_
 
   meta <- meta |>
-    dplyr::select(.data$id, .data$date, .data$speakers, .data$n_words, .data$topics) |>
+    dplyr::select("id", "date", "speakers", "n_words", "topics") |>
     tibble::as_tibble()
 
   if (!quiet) {

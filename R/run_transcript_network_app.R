@@ -151,7 +151,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Topic reshape ===
     long_topics <- transcript_index |>
-      dplyr::select(.data$id, tidyselect::starts_with("topic_")) |>
+      dplyr::select("id", tidyselect::starts_with("topic_")) |>
       tidyr::pivot_longer(
         tidyselect::starts_with("topic_"),
         names_to = "topic",
@@ -166,7 +166,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     # === Speakers reshape ===
     speaker_long <- speakers_df |>
       tidyr::pivot_longer(
-        cols = -.data$id,
+        cols = -"id",
         names_to = "speaker_col",
         values_to = "speaker"
       ) |>
@@ -194,7 +194,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Speaker pairs for placeholder edges (for layout support) ===
     speaker_pairs_topic_net <- speaker_long |>
-      dplyr::select(.data$id, .data$speaker) |>
+      dplyr::select("id", "speaker") |>
       dplyr::distinct() |>
       dplyr::group_by(.data$id) |>
       dplyr::filter(dplyr::n() > 1) |>
@@ -202,12 +202,12 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
         .groups = "drop"
       ) |>
-      tidyr::unnest(.data$pairs) |>
+      tidyr::unnest("pairs") |>
       dplyr::mutate(
         from = purrr::map_chr(.data$pairs, 1),
         to   = purrr::map_chr(.data$pairs, 2)
       ) |>
-      dplyr::select(.data$from, .data$to) |>
+      dplyr::select("from", "to") |>
       dplyr::filter(.data$from != .data$to)
 
     edges_placeholder <- speaker_pairs_topic_net |>
@@ -219,7 +219,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         )
       ) |>
       dplyr::distinct(.data$edge_id, .keep_all = TRUE) |>
-      dplyr::select(-.data$edge_id) |>
+      dplyr::select(-"edge_id") |>
       dplyr::group_by(.data$from, .data$to) |>
       dplyr::summarise(weight = dplyr::n(), .groups = "drop") |>
       dplyr::mutate(
@@ -229,7 +229,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Speaker pairs for co-appearance network ===
     speaker_pairs <- speaker_long |>
-      dplyr::select(.data$id, .data$speaker) |>
+      dplyr::select("id", "speaker") |>
       dplyr::distinct() |>
       dplyr::group_by(.data$id) |>
       dplyr::filter(dplyr::n() > 1) |>
@@ -237,12 +237,12 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
         .groups = "drop"
       ) |>
-      tidyr::unnest(.data$pairs) |>
+      tidyr::unnest("pairs") |>
       dplyr::mutate(
         from = purrr::map_chr(.data$pairs, 1),
         to   = purrr::map_chr(.data$pairs, 2)
       ) |>
-      dplyr::select(.data$from, .data$to) |>
+      dplyr::select("from", "to") |>
       dplyr::filter(.data$from != .data$to)
 
     edges_speaker_co <- speaker_pairs |>
@@ -254,7 +254,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         )
       ) |>
       dplyr::distinct(.data$edge_id, .keep_all = TRUE) |>
-      dplyr::select(-.data$edge_id) |>
+      dplyr::select(-"edge_id") |>
       dplyr::group_by(.data$from, .data$to) |>
       dplyr::summarise(weight = dplyr::n(), .groups = "drop") |>
       dplyr::mutate(width = pmax(1, log1p(.data$weight)))
@@ -317,8 +317,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         )
       ) |>
       dplyr::select(
-        .data$id, .data$group, .data$title, .data$color,
-        .data$label, .data$font.size, .data$value, .data$name
+        "id", "group", "title", "color",
+        "label", "font.size", "value", "name"
       ) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
 
@@ -330,7 +330,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # Drop helper `name` column before passing nodes to visNetwork
     nodes_speaker_st <- nodes_speaker_st |>
-      dplyr::select(-.data$name)
+      dplyr::select(-"name")
 
     # Add Montesinos image properties
     if (!has_img) {
@@ -357,7 +357,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::distinct() |>
       dplyr::left_join(
         topic_descriptions |>
-          dplyr::rename(topic = .data$topics, description = .data$descriptions) |>
+          dplyr::rename(topic = "topics", description = "descriptions") |>
           dplyr::mutate(topic = stringr::str_remove(.data$topic, "^topic_")),
         by = dplyr::join_by(id == topic)
       ) |>
@@ -374,23 +374,23 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         value = 300,
         color = "maroon"
       ) |>
-      dplyr::select(.data$id, .data$group, .data$title, .data$value,
-                    .data$color, .data$label, .data$font.size) |>
+      dplyr::select("id", "group", "title", "value",
+                    "color", "label", "font.size") |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
 
     # === Combined nodes for Speaker-Topic view ===
     nodes_st <- dplyr::bind_rows(
       nodes_speaker_st |>
         dplyr::select(
-          .data$id, .data$group, .data$title, .data$color,
-          .data$label, .data$font.size, .data$value, .data$shape,
-          .data$image, .data$size, .data$borderWidth
+          "id", "group", "title", "color",
+          "label", "font.size", "value", "shape",
+          "image", "size", "borderWidth"
         ),
       nodes_topic_st |>
         dplyr::mutate(shape = "dot") |>
         dplyr::select(
-          .data$id, .data$group, .data$title, .data$color,
-          .data$label, .data$font.size, .data$value, .data$shape
+          "id", "group", "title", "color",
+          "label", "font.size", "value", "shape"
         )
     ) |>
       dplyr::distinct(.data$id, .keep_all = TRUE)
@@ -445,9 +445,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       visNetwork::visNetwork(
         nodes_speaker_st |>
           dplyr::select(
-            .data$id, .data$group, .data$title, .data$color,
-            .data$label, .data$font.size, .data$value, .data$shape,
-            .data$image, .data$size, .data$borderWidth
+            "id", "group", "title", "color",
+            "label", "font.size", "value", "shape",
+            "image", "size", "borderWidth"
           ),
         edges_speaker_co
       ) |>
