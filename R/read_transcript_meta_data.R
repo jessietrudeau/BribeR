@@ -66,7 +66,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
   # --- load bundled data
   .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
     env <- new.env(parent = emptyenv())
-    utils::data(list = dataset_name, package = "BribeR", envir = env)
+    utils::data(list = dataset_name, package = "bribeR", envir = env)
     env[[object_name]]
   }
 

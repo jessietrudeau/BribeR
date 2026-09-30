@@ -1,7 +1,7 @@
-#' Retrieve Raw Transcript Files from BribeR
+#' Retrieve Raw Transcript Files from bribeR
 #'
 #' Retrieves one or more raw transcript `.csv` files from the
-#' `data-raw/transcripts` folder of the **BribeR** package.
+#' `data-raw/transcripts` folder of the **bribeR** package.
 #'
 #' Transcripts are named by their numeric ID (e.g., `1.csv`, `19.csv`, `104.csv`).
 #' You can load all transcripts or specify a subset by transcript ID.
@@ -29,10 +29,10 @@
 #' @seealso [read_transcripts()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
 get_transcripts_raw <- function(n = NULL, combine = FALSE) {
-  transcripts_dir <- system.file("data-raw", "transcripts", package = "BribeR")
+  transcripts_dir <- system.file("data-raw", "transcripts", package = "bribeR")
 
   if (transcripts_dir == "" || !dir.exists(transcripts_dir)) {
-    stop("Transcript directory not found. Is the BribeR package installed correctly?", call. = FALSE)
+    stop("Transcript directory not found. Is the bribeR package installed correctly?", call. = FALSE)
   }
 
   files <- list.files(transcripts_dir, pattern = "\\.csv$", full.names = TRUE)

@@ -1,8 +1,8 @@
 ---
-title: "Using BribeR"
+title: "Using bribeR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using BribeR}
+  %\VignetteIndexEntry{Using bribeR}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```
 
 
-**BribeR** provides structured, full-text access to 96 *Vladivideo* transcripts, along with metadata about the conversations, speakers, and topics. This vignette introduces the three main families of functions (below) and provides user-friendly examples for how to use **BribeR.**
+**bribeR** provides structured, full-text access to 96 *Vladivideo* transcripts, along with metadata about the conversations, speakers, and topics. This vignette introduces the three main families of functions (below) and provides user-friendly examples for how to use **bribeR.**
 
 **1. Read transcripts**
 
@@ -33,15 +33,15 @@ To begin, install and load the package:
 
 ```{r install, eval=FALSE}
 # Install from CRAN
-install.packages("BribeR")
+install.packages("bribeR")
 
 # Or install the development version from GitHub
-remotes::install_github("jessietrudeau/BribeR")
+remotes::install_github("jessietrudeau/bribeR")
 ```
 
 ```{r load, message=FALSE, warning=FALSE}
 # Load packages
-library(BribeR)
+library(bribeR)
 library(dplyr)
 ```
 
@@ -129,7 +129,7 @@ length(media_reelection_ids)
 
 ```
 
-There are 15 valid topics, listed in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html#topics). 
+There are 15 valid topics, listed in the [Raw Data Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html#topics). 
 
 ## By both
 
@@ -148,7 +148,7 @@ length(media_crousillat_ids)
 
 # Integrate with metadata
 
-Rich transcript-level and actor-level metadata is available in **BribeR**. 
+Rich transcript-level and actor-level metadata is available in **bribeR**. 
 
 The `read_transcript_meta_data()` function presents transcript-level data containing dates, summaries,[^1] speakers present, topics mentioned, and word counts. 
 
@@ -165,7 +165,7 @@ read_transcript_meta_data(5)
 
 # Examples 
 
-The two below examples demonstrate how the **BribeR** functions and data can be used together. 
+The two below examples demonstrate how the **bribeR** functions and data can be used together. 
 
 
 ## Example 1: Who speaks about media manipulation? For how long? 

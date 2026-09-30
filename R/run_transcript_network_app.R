@@ -14,7 +14,7 @@
 #'
 #' @param transcript_dir Optional path to a directory of transcript CSV/TSV files
 #'   (with a \code{speaker_std} column). If \code{NULL}, the app will use
-#'   \code{data-raw/transcripts} from the BribeR package.
+#'   \code{data-raw/transcripts} from the bribeR package.
 #'
 #' @return A \code{shiny.appobj} that, when printed, launches the
 #'   Transcript-Topic-Speaker Shiny application.
@@ -32,7 +32,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
   # ---- 0) Load bundled data -------------------------------------------------
   .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
     env <- new.env(parent = emptyenv())
-    utils::data(list = dataset_name, package = "BribeR", envir = env)
+    utils::data(list = dataset_name, package = "bribeR", envir = env)
     env[[object_name]]
   }
 
@@ -43,11 +43,11 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
   # ---- 1) Resolve transcript directory --------------------------------------
   if (is.null(transcript_dir)) {
-    transcript_dir <- system.file("data-raw", "transcripts", package = "BribeR")
+    transcript_dir <- system.file("data-raw", "transcripts", package = "bribeR")
   }
 
   # ---- 2) Optional Montesinos image -----------------------------------------
-  montesinos_image_path <- system.file("images", "montesinos.PNG", package = "BribeR")
+  montesinos_image_path <- system.file("images", "montesinos.PNG", package = "bribeR")
   if (montesinos_image_path == "" && file.exists(file.path("inst", "images", "montesinos.PNG"))) {
     montesinos_image_path <- file.path("inst", "images", "montesinos.PNG")
   }

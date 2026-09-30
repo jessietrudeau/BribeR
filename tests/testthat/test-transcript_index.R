@@ -9,7 +9,7 @@ test_that("transcript_index has the expected descriptive columns", {
 
 test_that("transcript_index does not include a separate descriptions dataset", {
   expect_warning(
-    utils::data("descriptions", package = "BribeR"),
+    utils::data("descriptions", package = "bribeR"),
     "not found"
   )
 })

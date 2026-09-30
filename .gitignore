@@ -17,3 +17,7 @@ Icon?
 
 # R session artifacts left in data/ by the build scripts
 .Rapp.history
+
+# built package tarballs, and the iCloud placeholders macOS leaves behind
+*.tar.gz
+*.icloud

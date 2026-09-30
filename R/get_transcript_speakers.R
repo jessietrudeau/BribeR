@@ -46,7 +46,7 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
   # --- helper: load bundled .rda
   .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
     env <- new.env(parent = emptyenv())
-    utils::data(list = dataset_name, package = "BribeR", envir = env)
+    utils::data(list = dataset_name, package = "bribeR", envir = env)
     env[[object_name]]
   }
 

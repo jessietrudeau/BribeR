@@ -1,4 +1,4 @@
-# BribeR 0.1.0
+# bribeR 0.1.0
 
 * Initial CRAN release.
 * Provides access to 101 Vladivideos transcripts via `read_transcripts()`,

@@ -1,7 +1,7 @@
 test_that("get_transcripts_raw returns a named list by default", {
   skip_if_not(
     dir.exists(file.path("data-raw", "transcripts")) ||
-      nzchar(system.file("data-raw", "transcripts", package = "BribeR")),
+      nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
   result <- get_transcripts_raw()
@@ -13,7 +13,7 @@ test_that("get_transcripts_raw returns a named list by default", {
 test_that("get_transcripts_raw filters by n", {
   skip_if_not(
     dir.exists(file.path("data-raw", "transcripts")) ||
-      nzchar(system.file("data-raw", "transcripts", package = "BribeR")),
+      nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
   result <- get_transcripts_raw(n = 2)
@@ -25,7 +25,7 @@ test_that("get_transcripts_raw filters by n", {
 test_that("get_transcripts_raw combine = TRUE returns a tibble with n column", {
   skip_if_not(
     dir.exists(file.path("data-raw", "transcripts")) ||
-      nzchar(system.file("data-raw", "transcripts", package = "BribeR")),
+      nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
   result <- get_transcripts_raw(n = 2, combine = TRUE)
@@ -37,7 +37,7 @@ test_that("get_transcripts_raw combine = TRUE returns a tibble with n column", {
 test_that("get_transcripts_raw errors on non-existent ID", {
   skip_if_not(
     dir.exists(file.path("data-raw", "transcripts")) ||
-      nzchar(system.file("data-raw", "transcripts", package = "BribeR")),
+      nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
   expect_error(

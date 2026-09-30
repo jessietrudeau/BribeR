@@ -1,4 +1,4 @@
-Package: BribeR
+Package: bribeR
 Title: Tools for Analyzing Vladivideo Transcript Data
 Version: 0.1.0
 Authors@R: 
@@ -12,8 +12,8 @@ Description: Provides access to and tools for analyzing the 'Vladivideos'
     filtering transcripts by speaker or topic, computing transcript-level
     metadata, and exploring relationships between speakers and topics through
     an interactive network visualization application.
-URL: https://jessietrudeau.github.io/BribeR, https://github.com/jessietrudeau/BribeR
-BugReports: https://github.com/jessietrudeau/BribeR/issues
+URL: https://jessietrudeau.com/bribeR, https://github.com/jessietrudeau/bribeR
+BugReports: https://github.com/jessietrudeau/bribeR/issues
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 Encoding: UTF-8

@@ -11,7 +11,7 @@ A tibble with 95 rows. Descriptive columns first, followed by the
 named with an \code{n_} prefix so that they are not picked up by code selecting
 indicator columns with \code{speaker_} or \code{topic_}:
 \describe{
-\item{id}{Numeric transcript identifier (BribeR internal numbering).}
+\item{id}{Numeric transcript identifier (bribeR internal numbering).}
 \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
 \item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 \item{date}{Date of the recording.}

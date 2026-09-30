@@ -13,7 +13,7 @@ in \code{transcript_index}.}
 }
 }
 \source{
-Manually compiled as part of the BribeR package development.
+Manually compiled as part of the bribeR package development.
 }
 \usage{
 topic_descriptions

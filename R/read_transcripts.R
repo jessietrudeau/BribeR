@@ -24,7 +24,7 @@
 #' @export
 read_transcripts <- function(transcripts = NULL) {
   env <- new.env(parent = emptyenv())
-  utils::data("compiled_transcripts", package = "BribeR", envir = env)
+  utils::data("compiled_transcripts", package = "bribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!is.null(transcripts)) {

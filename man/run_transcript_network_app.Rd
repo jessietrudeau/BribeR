@@ -9,7 +9,7 @@ run_transcript_network_app(transcript_dir = NULL)
 \arguments{
 \item{transcript_dir}{Optional path to a directory of transcript CSV/TSV files
 (with a \code{speaker_std} column). If \code{NULL}, the app will use
-\code{data-raw/transcripts} from the BribeR package.}
+\code{data-raw/transcripts} from the bribeR package.}
 }
 \value{
 A \code{shiny.appobj} that, when printed, launches the

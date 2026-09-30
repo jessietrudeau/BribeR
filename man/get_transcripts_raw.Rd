@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_transcripts_raw.R
 \name{get_transcripts_raw}
 \alias{get_transcripts_raw}
-\title{Retrieve Raw Transcript Files from BribeR}
+\title{Retrieve Raw Transcript Files from bribeR}
 \usage{
 get_transcripts_raw(n = NULL, combine = FALSE)
 }
@@ -19,7 +19,7 @@ If \code{combine = TRUE}, returns a combined tibble with an added column \code{n
 }
 \description{
 Retrieves one or more raw transcript \code{.csv} files from the
-\code{data-raw/transcripts} folder of the \strong{BribeR} package.
+\code{data-raw/transcripts} folder of the \strong{bribeR} package.
 }
 \details{
 Transcripts are named by their numeric ID (e.g., \verb{1.csv}, \verb{19.csv}, \verb{104.csv}).

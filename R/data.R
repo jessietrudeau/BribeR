@@ -31,7 +31,7 @@
 #'   named with an `n_` prefix so that they are not picked up by code selecting
 #'   indicator columns with `speaker_` or `topic_`:
 #' \describe{
-#'   \item{id}{Numeric transcript identifier (BribeR internal numbering).}
+#'   \item{id}{Numeric transcript identifier (bribeR internal numbering).}
 #'   \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
 #'   \item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 #'   \item{date}{Date of the recording.}
@@ -112,5 +112,5 @@
 #'     in \code{transcript_index}.}
 #'   \item{descriptions}{Plain-language description of what the topic covers.}
 #' }
-#' @source Manually compiled as part of the BribeR package development.
+#' @source Manually compiled as part of the bribeR package development.
 "topic_descriptions"

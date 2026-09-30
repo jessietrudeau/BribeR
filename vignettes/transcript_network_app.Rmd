@@ -46,7 +46,7 @@ initialize.
 
 ```{r, eval=FALSE}
 # To run the same app locally instead:
-library(BribeR)
+library(bribeR)
 run_transcript_network_app()
 ```
 

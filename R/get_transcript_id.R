@@ -44,7 +44,7 @@
 get_transcript_id <- function(speaker = NULL, topic = NULL) {
 
   env <- new.env(parent = emptyenv())
-  utils::data("compiled_transcripts", package = "BribeR", envir = env)
+  utils::data("compiled_transcripts", package = "bribeR", envir = env)
   data <- env$compiled_transcripts
 
   if (!"id" %in% names(data)) {
@@ -60,7 +60,7 @@ get_transcript_id <- function(speaker = NULL, topic = NULL) {
 
   # Load transcript_index for filtering
   env2 <- new.env(parent = emptyenv())
-  utils::data("transcript_index", package = "BribeR", envir = env2)
+  utils::data("transcript_index", package = "bribeR", envir = env2)
   index <- env2$transcript_index
 
   # Restrict to IDs that exist in the transcripts
