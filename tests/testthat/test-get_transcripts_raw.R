@@ -16,7 +16,7 @@ test_that("get_transcripts_raw filters by n", {
       nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
-  result <- get_transcripts_raw(n = 2)
+  result <- get_transcripts_raw(id = 2)
   expect_type(result, "list")
   expect_equal(length(result), 1)
   expect_equal(names(result), "2")
@@ -28,10 +28,10 @@ test_that("get_transcripts_raw combine = TRUE returns a tibble with n column", {
       nzchar(system.file("data-raw", "transcripts", package = "bribeR")),
     message = "data-raw/transcripts not available"
   )
-  result <- get_transcripts_raw(n = 2, combine = TRUE)
+  result <- get_transcripts_raw(id = 2, combine = TRUE)
   expect_s3_class(result, "data.frame")
-  expect_true("n" %in% names(result))
-  expect_true(all(result$n == 2))
+  expect_true("id" %in% names(result))
+  expect_true(all(result$id == 2))
 })
 
 test_that("get_transcripts_raw errors on non-existent ID", {
@@ -41,7 +41,7 @@ test_that("get_transcripts_raw errors on non-existent ID", {
     message = "data-raw/transcripts not available"
   )
   expect_error(
-    get_transcripts_raw(n = 99999),
+    get_transcripts_raw(id = 99999),
     "No matching transcripts"
   )
 })

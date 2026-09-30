@@ -4,10 +4,10 @@
 \alias{read_transcripts}
 \title{Read Vladivideos Transcript Data}
 \usage{
-read_transcripts(transcripts = NULL)
+read_transcripts(id = NULL)
 }
 \arguments{
-\item{transcripts}{Optional numeric vector of transcript IDs to keep.
+\item{id}{Optional numeric vector of transcript IDs to keep.
 If \code{NULL} (the default), all transcripts are returned.}
 }
 \value{
@@ -24,10 +24,10 @@ all <- read_transcripts()
 head(all)
 
 # Load only transcript 1
-t1 <- read_transcripts(transcripts = 1)
+t1 <- read_transcripts(id = 1)
 
 # Load transcripts 1, 8, and 13
-subset <- read_transcripts(transcripts = c(1, 8, 13))
+subset <- read_transcripts(id = c(1, 8, 13))
 
 }
 \seealso{

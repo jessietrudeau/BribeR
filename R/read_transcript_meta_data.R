@@ -15,7 +15,7 @@
 #' - **Speakers (`speakers` list-column):** Read from the bundled `speakers_per_transcript`
 #'   dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
 #' - **Duration (`n_words`):** Computed from the bundled `compiled_transcripts` dataset by
-#'   summing whitespace-delimited tokens in the `speech` column for each unique transcript `n`.
+#'   summing whitespace-delimited tokens in the `speech` column for each unique transcript `id`.
 #'
 #' @param id Optional numeric vector of transcript IDs to return metadata for
 #'   (e.g., `5`, or `c(5, 12, 47)`). If `NULL` (the default), metadata for every

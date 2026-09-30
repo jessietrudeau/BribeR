@@ -11,7 +11,7 @@
 #' is provided, all speakers across all transcripts are returned. Requesting a
 #' combination that never co-occurs returns a zero-row tibble.
 #'
-#' @param n Optional numeric vector of transcript IDs to restrict results to
+#' @param id Optional numeric vector of transcript IDs to restrict results to
 #'   (e.g., `1`, `c(1, 5, 10)`).
 #' @param topic Optional character vector of one or more topic names (e.g.,
 #'   `"media"`, `c("reelection", "state_capture")`). The `topic_` prefix is
@@ -28,7 +28,7 @@
 #' head(speakers)
 #'
 #' # Get speakers from specific transcripts
-#' get_transcript_speakers(n = c(1, 5))
+#' get_transcript_speakers(id = c(1, 5))
 #'
 #' # Get speakers from transcripts about media
 #' get_transcript_speakers(topic = "media")
@@ -37,11 +37,11 @@
 #' get_transcript_speakers(topic = c("media", "reelection"))
 #'
 #' # Get speakers from transcript 2, which is also about media
-#' get_transcript_speakers(n = 2, topic = "media")
+#' get_transcript_speakers(id = 2, topic = "media")
 #'
 #' @seealso [read_transcripts()], [get_transcript_id()], [get_transcripts_raw()]
 #' @export
-get_transcript_speakers <- function(n = NULL, topic = NULL) {
+get_transcript_speakers <- function(id = NULL, topic = NULL) {
 
   # --- helper: load bundled .rda
   .load_pkg_data <- function(dataset_name, object_name = dataset_name) {
@@ -68,18 +68,18 @@ get_transcript_speakers <- function(n = NULL, topic = NULL) {
   all_ids <- sort(unique(as.numeric(df$id)), na.last = NA)
   keep_ids <- all_ids
 
-  # Filter by n
-  if (!is.null(n)) {
-    n <- as.numeric(n)
-    missing_n <- n[!n %in% all_ids]
-    if (length(missing_n) > 0) {
+  # Filter by transcript ID
+  if (!is.null(id)) {
+    id <- as.numeric(id)
+    missing_ids <- id[!id %in% all_ids]
+    if (length(missing_ids) > 0) {
       warning(
         "Transcript ID(s) not found: ",
-        paste(missing_n, collapse = ", "),
+        paste(missing_ids, collapse = ", "),
         call. = FALSE
       )
     }
-    keep_ids <- intersect(keep_ids, n)
+    keep_ids <- intersect(keep_ids, id)
   }
 
   # Filter by topic using transcript_index

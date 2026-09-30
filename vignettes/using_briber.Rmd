@@ -63,11 +63,11 @@ You can filter to one or more transcripts using their numeric IDs:
 
 ```{r read-subset}
 # Select first transcript
-t1 <- read_transcripts(transcripts = 1)
+t1 <- read_transcripts(id = 1)
 nrow(t1)
 
 # Select multiple transcripts 
-t_sub <- read_transcripts(transcripts = c(1, 7, 39))
+t_sub <- read_transcripts(id = c(1, 7, 39))
 nrow(t_sub)
 ```
 
@@ -77,10 +77,10 @@ nrow(t_sub)
 
 ```{r raw, eval=TRUE}
 # Load transcript 3 as a data frame
-t3 <- get_transcripts_raw(n = 3)
+t3 <- get_transcripts_raw(id = 3)
 
 # Load multiple transcripts combined into a single tibble
-combined <- get_transcripts_raw(n = c(3, 13, 39), combine = TRUE)
+combined <- get_transcripts_raw(id = c(3, 13, 39), combine = TRUE)
 ```
 
 
@@ -179,7 +179,7 @@ library(ggplot2)
 media_ids <- get_transcript_id(topic = "media")
 
 # Step 2: load just those transcripts about the media 
-media_transcripts <- read_transcripts(transcripts = media_ids)
+media_transcripts <- read_transcripts(id = media_ids)
 
 # Step 3: count words spoken per actor
 media_transcripts |>

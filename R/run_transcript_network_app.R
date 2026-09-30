@@ -125,15 +125,15 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
             tibble::tibble()
           }
           if (!("speaker_std" %in% names(df))) {
-            return(tibble::tibble(speaker_std = character(), n = character()))
+            return(tibble::tibble(speaker_std = character(), file = character()))
           }
           df |>
             dplyr::filter(!is.na(.data$speaker_std), .data$speaker_std != "") |>
             dplyr::distinct(.data$speaker_std) |>
-            dplyr::mutate(n = basename(path))
+            dplyr::mutate(file = basename(path))
         })
         sf |>
-          dplyr::distinct(.data$speaker_std, .data$n) |>
+          dplyr::distinct(.data$speaker_std, .data$file) |>
           dplyr::count(.data$speaker_std, name = "conversation_count")
       } else {
         tibble::tibble(speaker_std = character(), conversation_count = integer())

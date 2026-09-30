@@ -4,10 +4,10 @@
 \alias{get_transcript_speakers}
 \title{Get transcripts each speaker appears in}
 \usage{
-get_transcript_speakers(n = NULL, topic = NULL)
+get_transcript_speakers(id = NULL, topic = NULL)
 }
 \arguments{
-\item{n}{Optional numeric vector of transcript IDs to restrict results to
+\item{id}{Optional numeric vector of transcript IDs to restrict results to
 (e.g., \code{1}, \code{c(1, 5, 10)}).}
 
 \item{topic}{Optional character vector of one or more topic names (e.g.,
@@ -41,7 +41,7 @@ speakers <- get_transcript_speakers()
 head(speakers)
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(1, 5))
+get_transcript_speakers(id = c(1, 5))
 
 # Get speakers from transcripts about media
 get_transcript_speakers(topic = "media")
@@ -50,7 +50,7 @@ get_transcript_speakers(topic = "media")
 get_transcript_speakers(topic = c("media", "reelection"))
 
 # Get speakers from transcript 2, which is also about media
-get_transcript_speakers(n = 2, topic = "media")
+get_transcript_speakers(id = 2, topic = "media")
 
 }
 \seealso{

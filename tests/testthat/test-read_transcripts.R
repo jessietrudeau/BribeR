@@ -26,13 +26,13 @@ test_that("read_transcripts does not include a topic column", {
 })
 
 test_that("read_transcripts filters to a single transcript ID", {
-  result <- read_transcripts(transcripts = 1)
+  result <- read_transcripts(id = 1)
   expect_gt(nrow(result), 0)
   expect_true(all(result$id == 1))
 })
 
 test_that("read_transcripts filters to multiple transcript IDs", {
-  result <- read_transcripts(transcripts = c(1, 2))
+  result <- read_transcripts(id = c(1, 2))
   expect_gt(nrow(result), 0)
   expect_true(all(result$id %in% c(1, 2)))
   expect_true(length(unique(result$id)) <= 2)
@@ -40,18 +40,18 @@ test_that("read_transcripts filters to multiple transcript IDs", {
 
 test_that("read_transcripts filtered result is a subset of the full data", {
   all_data    <- read_transcripts()
-  subset_data <- read_transcripts(transcripts = c(1, 2))
+  subset_data <- read_transcripts(id = c(1, 2))
   expect_true(nrow(subset_data) <= nrow(all_data))
 })
 
 test_that("read_transcripts warns when no transcripts match", {
   expect_warning(
-    read_transcripts(transcripts = 99999),
+    read_transcripts(id = 99999),
     "No transcripts found matching IDs"
   )
 })
 
 test_that("read_transcripts returns zero rows (with warning) for non-existent ID", {
-  result <- suppressWarnings(read_transcripts(transcripts = 99999))
+  result <- suppressWarnings(read_transcripts(id = 99999))
   expect_equal(nrow(result), 0)
 })

@@ -3,7 +3,7 @@
 #' Loads the bundled `compiled_transcripts` dataset and optionally filters
 #' by transcript ID(s).
 #'
-#' @param transcripts Optional numeric vector of transcript IDs to keep.
+#' @param id Optional numeric vector of transcript IDs to keep.
 #'   If `NULL` (the default), all transcripts are returned.
 #'
 #' @return A data frame with columns `id`, `row_id`, `date`, `speaker_std`,
@@ -15,26 +15,26 @@
 #' head(all)
 #'
 #' # Load only transcript 1
-#' t1 <- read_transcripts(transcripts = 1)
+#' t1 <- read_transcripts(id = 1)
 #'
 #' # Load transcripts 1, 8, and 13
-#' subset <- read_transcripts(transcripts = c(1, 8, 13))
+#' subset <- read_transcripts(id = c(1, 8, 13))
 #'
 #' @seealso [get_transcripts_raw()], [get_transcript_id()], [get_transcript_speakers()]
 #' @export
-read_transcripts <- function(transcripts = NULL) {
+read_transcripts <- function(id = NULL) {
   env <- new.env(parent = emptyenv())
   utils::data("compiled_transcripts", package = "bribeR", envir = env)
   data <- env$compiled_transcripts
 
-  if (!is.null(transcripts)) {
+  if (!is.null(id)) {
     if (!"id" %in% names(data)) {
       stop("Column 'id' not found in the data; cannot filter by transcript.")
     }
-    data <- data[data$id %in% transcripts, ]
+    data <- data[data$id %in% id, ]
     if (nrow(data) == 0) {
       warning("No transcripts found matching IDs: ",
-              paste(transcripts, collapse = ", "))
+              paste(id, collapse = ", "))
     }
   }
 

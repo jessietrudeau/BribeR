@@ -4,18 +4,18 @@
 \alias{get_transcripts_raw}
 \title{Retrieve Raw Transcript Files from bribeR}
 \usage{
-get_transcripts_raw(n = NULL, combine = FALSE)
+get_transcripts_raw(id = NULL, combine = FALSE)
 }
 \arguments{
-\item{n}{Optional integer or vector of integers specifying which transcript(s)
+\item{id}{Optional integer or vector of integers specifying which transcript(s)
 to load. If \code{NULL} (default), all transcripts are loaded.}
 
 \item{combine}{Logical; if \code{TRUE}, combines all transcripts into a single tibble
-with an added column \code{n} (the transcript ID). Defaults to \code{FALSE}.}
+with an added column \code{id} (the transcript ID). Defaults to \code{FALSE}.}
 }
 \value{
 If \code{combine = FALSE}, returns a named list of data frames (tibbles).
-If \code{combine = TRUE}, returns a combined tibble with an added column \code{n}.
+If \code{combine = TRUE}, returns a combined tibble with an added column \code{id}.
 }
 \description{
 Retrieves one or more raw transcript \code{.csv} files from the
@@ -31,10 +31,10 @@ You can load all transcripts or specify a subset by transcript ID.
 all_transcripts <- get_transcripts_raw()
 
 # Load a specific transcript by ID
-t1 <- get_transcripts_raw(n = 1)
+t1 <- get_transcripts_raw(id = 1)
 
 # Load multiple transcripts and combine them
-subset_combined <- get_transcripts_raw(n = c(1, 13, 86), combine = TRUE)
+subset_combined <- get_transcripts_raw(id = c(1, 13, 86), combine = TRUE)
 }
 
 }

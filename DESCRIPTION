@@ -28,8 +28,10 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    visNetwork,
-    tidyselect
+    tidyselect,
+    tools,
+    utils,
+    visNetwork
 Suggests:
     testthat (>= 3.0.0),
     withr,

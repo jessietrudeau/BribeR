@@ -42,7 +42,7 @@ normalized by removing the \code{topic_} prefix and replacing \verb{_} with spac
 \item \strong{Speakers (\code{speakers} list-column):} Read from the bundled \code{speakers_per_transcript}
 dataset. Speaker columns are collapsed to a unique, sorted character vector per transcript.
 \item \strong{Duration (\code{n_words}):} Computed from the bundled \code{compiled_transcripts} dataset by
-summing whitespace-delimited tokens in the \code{speech} column for each unique transcript \code{n}.
+summing whitespace-delimited tokens in the \code{speech} column for each unique transcript \code{id}.
 }
 }
 \examples{
