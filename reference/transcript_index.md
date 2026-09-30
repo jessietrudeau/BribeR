@@ -22,7 +22,7 @@ code selecting indicator columns with `speaker_` or `topic_`:
 
 - id:
 
-  Numeric transcript identifier (BribeR internal numbering).
+  Numeric transcript identifier (bribeR internal numbering).
 
 - file:
 

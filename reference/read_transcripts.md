@@ -23,9 +23,9 @@ A data frame with columns `id`, `row_id`, `date`, `speaker_std`,
 
 ## See also
 
-[`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md),
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md),
-[`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md)
+[`get_transcripts_raw()`](https://jessietrudeau.com/bribeR/reference/get_transcripts_raw.md),
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md),
+[`get_transcript_speakers()`](https://jessietrudeau.com/bribeR/reference/get_transcript_speakers.md)
 
 ## Examples
 

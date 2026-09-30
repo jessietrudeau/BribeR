@@ -10,16 +10,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/jessietrudeau/BribeR/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/jessietrudeau/bribeR/blob/master/DESCRIPTION)
 
-Trudeau J, Soto Plaza A (2026). *BribeR: Tools for Analyzing Vladivideo
+Trudeau J, Soto Plaza A (2026). *bribeR: Tools for Analyzing Vladivideo
 Transcript Data*. R package version 0.1.0,
-<https://jessietrudeau.github.io/BribeR>.
+<https://jessietrudeau.com/bribeR>.
 
     @Manual{,
-      title = {BribeR: Tools for Analyzing Vladivideo Transcript Data},
+      title = {bribeR: Tools for Analyzing Vladivideo Transcript Data},
       author = {Jessie Trudeau and Andrés {Soto Plaza}},
       year = {2026},
       note = {R package version 0.1.0},
-      url = {https://jessietrudeau.github.io/BribeR},
+      url = {https://jessietrudeau.com/bribeR},
     }

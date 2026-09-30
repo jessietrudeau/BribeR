@@ -24,4 +24,4 @@ A tibble with 15 rows and 2 variables:
 
 ## Source
 
-Manually compiled as part of the BribeR package development.
+Manually compiled as part of the bribeR package development.

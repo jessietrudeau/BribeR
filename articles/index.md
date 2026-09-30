@@ -3,10 +3,10 @@
 ### Articles
 
 - [Raw Data
-  Guide](https://jessietrudeau.github.io/BribeR/articles/raw_data_guide.md):
-- [BribeR Data
-  Guide](https://jessietrudeau.github.io/BribeR/articles/briber_data_guide.md):
+  Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.md):
+- [bribeR Data
+  Guide](https://jessietrudeau.com/bribeR/articles/briber_data_guide.md):
 - [Using
-  BribeR](https://jessietrudeau.github.io/BribeR/articles/using_briber.md):
+  bribeR](https://jessietrudeau.com/bribeR/articles/using_briber.md):
 - [Transcript Network
-  App](https://jessietrudeau.github.io/BribeR/articles/transcript_network_app.md):
+  App](https://jessietrudeau.com/bribeR/articles/transcript_network_app.md):

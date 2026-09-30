@@ -70,16 +70,16 @@ So we talk more directly here; we leave it that way (unintelligible).
 y que habíamos quedado te acuerdas (ininteligible). Entonces,
 conversamos más directos acá, quedamos así (ininteligible).*
 
-**BribeR** provides structured access to transcripts of 95 of these
+**bribeR** provides structured access to transcripts of 95 of these
 recordings, which contain 45,337 individual speech turns. The package
 also includes relevant metadata about the 139 individuals recorded
 speaking and 15 topics.
 
 This page introduces the raw data, highlighting how it is organized at
 the transcript-, actor-, and topic-level. This page uses some of the
-functions included in **BribeR**, all of which are detailed in the
+functions included in **bribeR**, all of which are detailed in the
 [**User
-Guide**](https://jessietrudeau.com/BribeR/articles/using_briber.html)**.**
+Guide**](https://jessietrudeau.com/bribeR/articles/using_briber.html)**.**
 
 ## Transcripts
 
@@ -107,7 +107,7 @@ from two main sources:
 
 ``` r
 
-library(BribeR)
+library(bribeR)
 library(dplyr)
 library(ggplot2)
 
@@ -286,7 +286,7 @@ meta |>
 [^1]: Originally numbered Transcript 888 in the Congress of Peru’s
     archive.
 
-[^2]: The transcripts in the **BribeR** database are not translated from
+[^2]: The transcripts in the **bribeR** database are not translated from
     their original Spanish version. This is translated just as an
     example for readability in the vignette.
 

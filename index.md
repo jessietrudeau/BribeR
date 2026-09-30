@@ -1,6 +1,6 @@
-# BribeR
+# bribeR
 
-**BribeR** is an R package for accessing and analyzing text transcript
+**bribeR** is an R package for accessing and analyzing text transcript
 data from the *Vladivideos,* covert recordings documenting bribery and
 corruption during Alberto Fujimori’s presidency in Peru (1990-2000).
 
@@ -14,7 +14,7 @@ at the center](reference/figures/network_viz.png)
 
 Speakers recorded in the *Vladivideo* files, with Montesinos in the
 center. See [Network
-Visualization](https://jessietrudeau.com/BribeR/articles/transcript_network_app.html)
+Visualization](https://jessietrudeau.com/bribeR/articles/transcript_network_app.html)
 for more details.
 
 ------------------------------------------------------------------------
@@ -27,11 +27,11 @@ commands:
 ``` r
 
 # Install from CRAN
-install.packages("BribeR")
+install.packages("bribeR")
 
 # Or install the development version from GitHub
 # install.packages("remotes")
-remotes::install_github("jessietrudeau/BribeR")
+remotes::install_github("jessietrudeau/bribeR")
 ```
 
 ------------------------------------------------------------------------
@@ -39,9 +39,9 @@ remotes::install_github("jessietrudeau/BribeR")
 ## Core Functions
 
 This package provides three families of functions to access, organize,
-and analyze *Vladivideo* data. For a full online guide, see the [BribeR
+and analyze *Vladivideo* data. For a full online guide, see the [bribeR
 User
-Guide](https://jessietrudeau.com/BribeR/articles/using_briber.html).
+Guide](https://jessietrudeau.com/bribeR/articles/using_briber.html).
 
 **1. Read transcripts**
 
@@ -62,7 +62,7 @@ transcripts or their speakers.
 
 ## Basic Usage
 
-The syntax of `BribeR` is designed to help users easily find and
+The syntax of `bribeR` is designed to help users easily find and
 download transcripts relevant to their interest. For example, a user
 interested in obtaining transcript text data and metadata about all
 conversations involving **media manipulation** would run the following
@@ -71,7 +71,7 @@ lines of code:
 ``` r
 
 # Load data 
-library(BribeR)
+library(bribeR)
 
 # Find specific transcripts about media manipulation
 media_ids <- get_transcript_id(topic = "media")
@@ -87,7 +87,7 @@ media_transcripts <- read_transcripts(media_ids)
 
 ## Datasets
 
-BribeR includes four searchable datasets:
+bribeR includes four searchable datasets:
 
 | Dataset | Description |
 |----|----|
@@ -97,11 +97,11 @@ BribeR includes four searchable datasets:
 | `actors` | Actor-level metadata |
 
 A full description of the raw data is in the [Raw Data
-Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html),
+Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html),
 as well as a description of additional actor- and topic-level metadata
-accessible in **BribeR.** A full description of the datasets included in
-the package is in the [BribeR Data
-Guide](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html).
+accessible in **bribeR.** A full description of the datasets included in
+the package is in the [bribeR Data
+Guide](https://jessietrudeau.com/bribeR/articles/briber_data_guide.html).
 
 ------------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ Guide](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html).
 
 Contributions are welcome. Please create a new branch for a feature, to
 open an issue, or for a pull request on
-[GitHub](https://github.com/jessietrudeau/BribeR/issues).
+[GitHub](https://github.com/jessietrudeau/bribeR/issues).
 
 Document exported functions with roxygen2 comments. Add or update tests
 in tests/testthat/.
@@ -139,8 +139,8 @@ the Sloan Foundation.
 
 ## Citation
 
-If you use **BribeR** in your research, please cite it as:
+If you use **bribeR** in your research, please cite it as:
 
-> Trudeau, Jessie, and Soto Plaza, Andrés. 2026. *BribeR: Tools for
+> Trudeau, Jessie, and Soto Plaza, Andrés. 2026. *bribeR: Tools for
 > Analyzing Vladivideo Transcript Data*. R package version 0.1.0.
-> <https://github.com/jessietrudeau/BribeR>
+> <https://github.com/jessietrudeau/bribeR>

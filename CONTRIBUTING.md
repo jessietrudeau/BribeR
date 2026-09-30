@@ -29,7 +29,7 @@ advice.
 
 - Fork the package and clone onto your computer. If you haven’t done
   this before, we recommend using
-  `usethis::create_from_github("jessietrudeau/BribeR", fork = TRUE)`.
+  `usethis::create_from_github("jessietrudeau/bribeR", fork = TRUE)`.
 
 - Install all development dependencies with
   `devtools::install_dev_deps()`, and then make sure the package passes
@@ -67,5 +67,5 @@ advice.
 ## Code of Conduct
 
 Please note that the bribeR project is released with a [Contributor Code
-of Conduct](https://jessietrudeau.github.io/BribeR/CODE_OF_CONDUCT.md).
-By contributing to this project you agree to abide by its terms.
+of Conduct](https://jessietrudeau.com/bribeR/CODE_OF_CONDUCT.md). By
+contributing to this project you agree to abide by its terms.

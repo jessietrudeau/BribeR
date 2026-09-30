@@ -45,9 +45,9 @@ zero-row tibble.
 
 ## See also
 
-[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md),
-[`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md)
+[`read_transcripts()`](https://jessietrudeau.com/bribeR/reference/read_transcripts.md),
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md),
+[`get_transcripts_raw()`](https://jessietrudeau.com/bribeR/reference/get_transcripts_raw.md)
 
 ## Examples
 

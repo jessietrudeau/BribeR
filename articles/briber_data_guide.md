@@ -1,6 +1,6 @@
-# BribeR Data Guide
+# bribeR Data Guide
 
-The data available in **BribeR** includes cleaned and processed versions
+The data available in **bribeR** includes cleaned and processed versions
 of the raw transcript data described in the Raw Data Guide, as well as
 companion metadata files to facilitate analysis. This vignette explains
 what each dataset contains and how to combine them.
@@ -15,7 +15,7 @@ one speech turn within a transcript.
 
 ``` r
 
-library(BribeR)
+library(bribeR)
 library(dplyr)
 
 transcripts <- read_transcripts()
@@ -50,7 +50,7 @@ unedited and in its original Spanish-language format.
 This wide-format file contains one row per transcript, combining
 descriptive metadata with binary indicator columns that take a value of
 1 if the transcript is about the topics or if the speakers are present.
-This file contains all transcript-level metadata in **BribeR**. Metadata
+This file contains all transcript-level metadata in **bribeR**. Metadata
 variable descriptions are shown in the below table.
 
 ``` r
@@ -156,7 +156,7 @@ head(actors)
 | `speaker` | character | Speaker’s full name |
 | `speaker_std` | character | Standardized speaker identifier |
 | `position` | character | Short description of the speaker’s position |
-| `type` | character | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit` and `other`. |
+| `type` | character | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit` and `other`. |
 | `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
 | `notes` | character | Miscellaneous notes for actors that were difficult to identify |
 
@@ -192,11 +192,11 @@ connect the datasets:
 
 ### `id`
 
-The `id` column is unique to **BribeR** and assigns a unique numeric
+The `id` column is unique to **bribeR** and assigns a unique numeric
 identifier to each transcript. The original transcript numbers (e.g.,
 from the the Peruvian Congress’ numbering system) are included in the
 `transcript_index` metadata file, but given that many are alphanumeric
-identifiers, **BribeR** generates new a new `id` variable for
+identifiers, **bribeR** generates new a new `id` variable for
 simplicity.
 
 ``` r
@@ -237,7 +237,7 @@ transcripts |>
 
 All datasets are lazily loaded when the package is attached, so you can
 reference them by name after
-[`library(BribeR)`](https://jessietrudeau.github.io/BribeR):
+[`library(bribeR)`](https://jessietrudeau.com/bribeR):
 
 ``` r
 
@@ -248,8 +248,8 @@ names(actors)
 #> [6] "notes"
 ```
 
-[^1]: We generate a new number within the BribeR package, see the
-    [id](https://jessietrudeau.com/BribeR/articles/briber_data_guide.html#id)
+[^1]: We generate a new number within the bribeR package, see the
+    [id](https://jessietrudeau.com/bribeR/articles/briber_data_guide.html#id)
     subsection for more information.
 
 [^2]: The party codes match `v2pashname`, the party abbreviation

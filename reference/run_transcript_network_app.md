@@ -17,7 +17,7 @@ run_transcript_network_app(transcript_dir = NULL)
 
   Optional path to a directory of transcript CSV/TSV files (with a
   `speaker_std` column). If `NULL`, the app will use
-  `data-raw/transcripts` from the BribeR package.
+  `data-raw/transcripts` from the bribeR package.
 
 ## Value
 
@@ -36,8 +36,8 @@ The app provides two network views:
 
 ## See also
 
-[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
-[`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md)
+[`read_transcripts()`](https://jessietrudeau.com/bribeR/reference/read_transcripts.md),
+[`read_transcript_meta_data()`](https://jessietrudeau.com/bribeR/reference/read_transcript_meta_data.md)
 
 ## Examples
 

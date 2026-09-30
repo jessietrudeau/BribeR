@@ -1,9 +1,9 @@
-# Using BribeR
+# Using bribeR
 
-**BribeR** provides structured, full-text access to 96 *Vladivideo*
+**bribeR** provides structured, full-text access to 96 *Vladivideo*
 transcripts, along with metadata about the conversations, speakers, and
 topics. This vignette introduces the three main families of functions
-(below) and provides user-friendly examples for how to use **BribeR.**
+(below) and provides user-friendly examples for how to use **bribeR.**
 
 **1. Read transcripts**
 
@@ -16,23 +16,23 @@ To begin, install and load the package:
 ``` r
 
 # Install from CRAN
-install.packages("BribeR")
+install.packages("bribeR")
 
 # Or install the development version from GitHub
-remotes::install_github("jessietrudeau/BribeR")
+remotes::install_github("jessietrudeau/bribeR")
 ```
 
 ``` r
 
 # Load packages
-library(BribeR)
+library(bribeR)
 library(dplyr)
 ```
 
 ## Read transcripts
 
 Use
-[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md)
+[`read_transcripts()`](https://jessietrudeau.com/bribeR/reference/read_transcripts.md)
 to access the corpus of full-text transcripts as a tidy data frame. Each
 row corresponds to one speech turn, indexed by transcript ID (`id`),
 date, standardized speaker name, and speaker. The column `speech`
@@ -77,7 +77,7 @@ nrow(t_sub)
 
 ### Read raw transcript data
 
-[`get_transcripts_raw()`](https://jessietrudeau.github.io/BribeR/reference/get_transcripts_raw.md)
+[`get_transcripts_raw()`](https://jessietrudeau.com/bribeR/reference/get_transcripts_raw.md)
 provides access to the original source CSV files for users who wish to
 access the data before compilation.
 
@@ -94,13 +94,13 @@ combined <- get_transcripts_raw(n = c(3, 13, 39), combine = TRUE)
 
 If users know the actor(s) or topic(s) they wish to focus on, but not
 the numeric `id`, use
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 to filter transcripts by speaker or topic characteristics.
 
 ### By actor
 
 The
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 function accepts lowercase string values for the standardized speaker’s
 name (the `speaker_std` variable), and returns transcript IDs where
 these speakers are present.
@@ -134,13 +134,13 @@ kouri_crousillat_ids
 ```
 
 There are 139 speaker IDs that
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 can filter on, one for each individual in the `actors` dataset.
 
 ### By topic
 
 Similarly,
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 function accepts lowercase string values for topic names, and returns
 transcript IDs where these topics are discussed.
 
@@ -161,7 +161,7 @@ length(media_reelection_ids)
 ```
 
 There are 15 valid topics, listed in the [Raw Data
-Guide](https://jessietrudeau.com/BribeR/articles/raw_data_guide.html#topics).
+Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html#topics).
 
 ### By both
 
@@ -185,10 +185,10 @@ length(media_crousillat_ids)
 ## Integrate with metadata
 
 Rich transcript-level and actor-level metadata is available in
-**BribeR**.
+**bribeR**.
 
 The
-[`read_transcript_meta_data()`](https://jessietrudeau.github.io/BribeR/reference/read_transcript_meta_data.md)
+[`read_transcript_meta_data()`](https://jessietrudeau.com/bribeR/reference/read_transcript_meta_data.md)
 function presents transcript-level data containing dates, summaries,[^1]
 speakers present, topics mentioned, and word counts.
 
@@ -219,7 +219,7 @@ read_transcript_meta_data(5)
 
 ## Examples
 
-The two below examples demonstrate how the **BribeR** functions and data
+The two below examples demonstrate how the **bribeR** functions and data
 can be used together.
 
 ### Example 1: Who speaks about media manipulation? For how long?
@@ -295,7 +295,7 @@ media_transcripts |>
 ### Example 2: Finding Transcripts by Speaker Type
 
 You can combine `actors` and
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md)
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 to filter the corpus by type of actor rather than by individual name.
 The example below finds all transcripts featuring any media-sector actor
 who appears in the transcript index:

@@ -1,7 +1,7 @@
-# Retrieve Raw Transcript Files from BribeR
+# Retrieve Raw Transcript Files from bribeR
 
 Retrieves one or more raw transcript `.csv` files from the
-`data-raw/transcripts` folder of the **BribeR** package.
+`data-raw/transcripts` folder of the **bribeR** package.
 
 ## Usage
 
@@ -34,9 +34,9 @@ transcript ID.
 
 ## See also
 
-[`read_transcripts()`](https://jessietrudeau.github.io/BribeR/reference/read_transcripts.md),
-[`get_transcript_id()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_id.md),
-[`get_transcript_speakers()`](https://jessietrudeau.github.io/BribeR/reference/get_transcript_speakers.md)
+[`read_transcripts()`](https://jessietrudeau.com/bribeR/reference/read_transcripts.md),
+[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md),
+[`get_transcript_speakers()`](https://jessietrudeau.com/bribeR/reference/get_transcript_speakers.md)
 
 ## Examples
 

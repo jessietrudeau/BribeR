@@ -2,7 +2,7 @@
 
 ## Overview
 
-[`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md)
+[`run_transcript_network_app()`](https://jessietrudeau.com/bribeR/reference/run_transcript_network_app.md)
 launches an interactive Shiny application visualizing the relationships
 between speakers and topics across the Vladivideos transcript corpus. It
 provides two network views:
@@ -15,7 +15,7 @@ provides two network views:
 On the package website, the app below runs live in your browser via
 [shinylive](https://posit-dev.github.io/r-shinylive/) – a WebAssembly
 build of R that needs no Shiny server. It behaves the same as calling
-[`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md)
+[`run_transcript_network_app()`](https://jessietrudeau.com/bribeR/reference/run_transcript_network_app.md)
 in RStudio or VS Code: select a speaker from the dropdown, drag nodes,
 zoom, and hover for details.
 
@@ -25,12 +25,12 @@ packages initialize.
 ``` r
 
 # To run the same app locally instead:
-library(BribeR)
+library(bribeR)
 run_transcript_network_app()
 ```
 
 If you’re reading this vignette outside the package website (e.g. via
 [`browseVignettes()`](https://rdrr.io/r/utils/browseVignettes.html)),
 the embedded app above won’t load – run
-[`run_transcript_network_app()`](https://jessietrudeau.github.io/BribeR/reference/run_transcript_network_app.md)
+[`run_transcript_network_app()`](https://jessietrudeau.com/bribeR/reference/run_transcript_network_app.md)
 directly instead.
