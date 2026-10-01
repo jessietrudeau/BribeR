@@ -1,6 +1,6 @@
 test_that("transcript_index has the expected descriptive columns", {
   expected <- c(
-    "id", "file", "format", "date", "original_id", "in_book",
+    "id", "file", "date", "original_id", "in_book",
     "in_online_archive", "type", "summary", "speakers",
     "n_speakers", "n_topics"
   )

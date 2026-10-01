@@ -32,7 +32,6 @@
 #' \describe{
 #'   \item{id}{Numeric transcript identifier (bribeR internal numbering).}
 #'   \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
-#'   \item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 #'   \item{date}{Date of the recording.}
 #'   \item{original_id}{Original transcript identifier from the source archive.}
 #'   \item{in_book}{1 if the transcript is cited in published work, 0 otherwise.}
@@ -87,7 +86,10 @@
 #'     \code{"security"}), \code{"security"}, \code{"congress"},
 #'     \code{"judiciary"}, \code{"media"}, \code{"businessperson"},
 #'     \code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
-#'     \code{"illicit"}, or \code{"other"} (private individuals with no
+#'     \code{"illicit"}, \code{"siberia"} (individuals investigated or
+#'     questioned during the Plan Siberia searches), \code{"intermediaries"}
+#'     (Montesinos's non-state intermediaries, including private lawyers and
+#'     image advisers), or \code{"other"} (private individuals with no
 #'     institutional role, including the \code{"desconocido"} placeholder).}
 #'   \item{party}{Political party affiliation for elected officials, \code{NA}
 #'     otherwise. Given as the V-Party abbreviation (\code{v2pashname}) for

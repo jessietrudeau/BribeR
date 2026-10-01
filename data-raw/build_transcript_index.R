@@ -175,11 +175,10 @@ if (exists("speaker_matrix") && nrow(speaker_matrix) > 0) {
 # ---- build transcript index ----
 transcript_index <- tibble(file_abs = files) %>%
   mutate(
-    n      = suppressWarnings(as.integer(tools::file_path_sans_ext(path_file(file_abs)))),
-    file   = path_file(file_abs),
-    format = tolower(tools::file_ext(file_abs))
+    n    = suppressWarnings(as.integer(tools::file_path_sans_ext(path_file(file_abs)))),
+    file = path_file(file_abs)
   ) %>%
-  select(n, file, format) %>%
+  select(n, file) %>%
   left_join(metadata_df, by = "n") %>%
   left_join(speaker_matrix, by = "n") %>%
   arrange(n)
@@ -210,7 +209,7 @@ transcript_index <- transcript_index %>%
 # Descriptive columns first, then speaker/topic counts, then the speaker_*
 # and topic_* boolean (1/0) indicator columns used for filtering.
 .desc_cols <- intersect(
-  c("n", "file", "format", "date", "original_id", "in_book",
+  c("n", "file", "date", "original_id", "in_book",
     "in_online_archive", "type", "summary", "speakers"),
   names(transcript_index)
 )

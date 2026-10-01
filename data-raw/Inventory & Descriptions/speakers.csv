@@ -33,11 +33,11 @@ Romulo Munoz Arce,ARCE,Magistrate of the Jurado Nacional de Elecciones (JNE),Jud
 Jose Garcia Marcelo,MARCELO,Magistrate of the Tribunal Constitucional,Judiciary,NA,NA
 Walter Hernandez Canelo,HERNANDEZ CANELO,Magistrate of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,NA
 Juan Carlos Hurtado Miller,HURTADO MILLER,Prime Minister and Minister of Economy and Finance (1990-1991); candidate for mayor of Lima (1998),Bureaucrat,NA,NA
-Daniel Borobio Guede,BOROBIO,Argentine publicist; private image advisor to Fujimori,Other,NA,NA
+Daniel Borobio Guede,BOROBIO,Argentine publicist; private image advisor to Fujimori,Intermediaries,NA,NA
 Carlos Bringas,BRINGAS,Magistrate of the Jurado Nacional de Elecciones (JNE),Judiciary,NA,Multiple Carlos Bringas in Peruvian politics
 Victor Ivachine,IVACHINE,Russian arms trader detained in the FARC arms-trafficking case,Foreign,NA,NA
 General Jose Villanueva Ruesta,VILLANUEVA RUESTA,"Minister of the Interior (1997-1999), Commander General of the Army and President of the Joint Command of the Armed Forces (1999-2000)",Security,NA,NA
-Luis Venero Garrido,VENERO,Brother of Alberto Venero Garrido,Other,NA,NA
+Luis Venero Garrido,VENERO,Brother of Alberto Venero Garrido,Intermediaries,NA,NA
 Coronel Roberto Huaman Azcurra,HUAMAN,"Army Colonel; head of External Front, Army Intelligence Service (SIE)",Security,NA,NA
 Manuel Tafur Ruiz,TAFUR,Congressman,Congress,FIM,NA
 Ernesto Gamarra Olivares,GAMARRA,Congressman,Congress,AP,NA
@@ -61,10 +61,10 @@ El Oficial EP,MILITAR DESCONOCIDO,Unidentified Army officer,Security,NA,NA
 El Coronel Ramirez,CRNL RAMIREZ,Army Colonel; Inspector at the Military Hospital,Security,NA,NA
 Carlos Portillo Vazquez,PORTILLO,Secretary General of the Air Force,Security,NA,NA
 Francisco Tudela,TUDELA,Minister of Foreign Affairs (1995-1997) and Vice President (2000),Bureaucrat,NA,NA
-Vicente Silva,SILVA,Lawyer; acted for the Armed Forces in the purchase of Cable Canal de Noticias,Other,NA,NA
-Enna Raquel Smith Maguina de Lopez,DE LOPEZ,Wife of Juan Manuel Lopez Rodriguez,Other,NA,NA
-Smith,SMITH,Relative of Raquel Smith de Lopez,Other,NA,NA
-Liliana Villarreal,VILLAREAL,Defendant in the Plan Siberia arms-trafficking case,Other,NA,NA
+Vicente Silva,SILVA,Lawyer; acted for the Armed Forces in the purchase of Cable Canal de Noticias,Intermediaries,NA,NA
+Enna Raquel Smith Maguina de Lopez,DE LOPEZ,Wife of Juan Manuel Lopez Rodriguez,Siberia,NA,NA
+Smith,SMITH,Relative of Raquel Smith de Lopez,Siberia,NA,NA
+Liliana Villarreal,VILLAREAL,Defendant in the Plan Siberia arms-trafficking case,Siberia,NA,NA
 Luis Frank Aybar,AYBAR,Arms trafficker,Illicit,NA,NA
 Juan Manuel Lopez,LOPEZ,Arms trafficker,Illicit,NA,NA
 Malea,MALEA,Aide to Montesinos,Bureaucrat,NA,NA
@@ -79,7 +79,7 @@ Elesvan Bello Vasquez,BELLO VASQUEZ,Commander General of the Air Force (1992-199
 Alberto Pandolfi,PANDOLFI,Prime Minister (1996-1999),Bureaucrat,NA,NA
 Dennis Jett,JETT,United States Ambassador to Peru (1996-1999),Foreign,NA,NA
 Patricio Arancibia,ARANCIBIA,Retired Admiral of the Chilean Navy,Foreign,NA,NA
-Francisco Kouri,FRANCISCO KOURI,Cousin of Alex Kouri,Other,NA,NA
+Francisco Kouri,FRANCISCO KOURI,Cousin of Alex Kouri,Other,NA,"Sought Montesinos's help with his own drug case rather than acting for him, so not an intermediary"
 Juan Manuel Guillen,GUILLEN,Mayor of Arequipa from 1999,Elected Official,NA,NA
 Luis Albarracin Torres,ALBARRACIN,Army Brigadier General,Security,NA,NA
 General EP Cesar Cano Angulo,CANO ANGULO,Chief of Staff of the Armed Forces,Security,NA,NA
@@ -98,9 +98,9 @@ Oscar Doufour,DOUFOUR,Aide to Montesinos,Bureaucrat,NA,NA
 Alberto Kouri,ALBERTO KOURI,Lawyer and Congressman (2000),Congress,PP,NA
 Carlos Bolona,BOLONA,Minister of Economy and Finance (1991-1993; 2000),Bureaucrat,NA,NA
 Alamo Perez,PEREZ,Broadcast journalist,Media,NA,NA
-Santos Cenepo,CENEPO,Resident whose home was searched in the FARC arms-trafficking case,Other,NA,NA
+Santos Cenepo,CENEPO,Resident whose home was searched in the FARC arms-trafficking case,Siberia,NA,NA
 General EP Miguel Aguirre,AGUIRRE,Army General,Security,NA,NA
-Arnulfo Alvarado Cabrera,ALVARADO CABRERA,Detained under Plan Siberia,Other,NA,NA
+Arnulfo Alvarado Cabrera,ALVARADO CABRERA,Detained under Plan Siberia,Siberia,NA,NA
 Mayor Arroyo,ARROYO,Army Major; Chief of Security of the Fuerzas de Accion Militar,Security,NA,NA
 Benigno,BENIGNO,Army officer (last name unknown),Security,NA,NA
 General Bornaz Saavedra,BORNAZ SAAVEDRA,Army General,Security,NA,NA
@@ -110,31 +110,31 @@ General Cardenas,CARDENAS,Army General on the General Staff,Security,NA,NA
 Cesar,CESAR,Aide to Montesinos (last name unknown),Bureaucrat,NA,Identified from vocatives in transcript 42
 Almirante Colunge,COLUNGE,"Navy Admiral; head of ENAPU, the national ports authority",Bureaucrat,NA,NA
 Crousillat Lopez Torres,CROUSILLAT LOPEZ TORRES,Owner of America Television,Media,NA,"Father of Jose Francisco Crousillat Carreno. Given name unsettled: transcript 44 says Francisco, transcripts 60 and 70 say Jose Francisco"
-Del Mar Colina,DEL MAR COLINA,Businessman questioned in the FARC arms-trafficking searches,Other,NA,NA
+Del Mar Colina,DEL MAR COLINA,Businessman questioned in the FARC arms-trafficking searches,Siberia,NA,NA
 General EP Diaz Araujo Luis,DIAZ ARAUJO,Army General,Security,NA,NA
 Capitan Espinoza,ESPINOZA,Army Captain,Security,NA,NA
 Coronel Fablish Garaycoa,FABLISH,Army Colonel,Security,NA,NA
-Flor,FLOR,Domestic employee in the Lopez Rodriguez household (last name unknown),Other,NA,NA
-Rhaquel Granda Zapata,GRANDA,Questioned about sheltering the suspects in the FARC arms-trafficking case,Other,NA,NA
+Flor,FLOR,Domestic employee in the Lopez Rodriguez household (last name unknown),Siberia,NA,NA
+Rhaquel Granda Zapata,GRANDA,Questioned about sheltering the suspects in the FARC arms-trafficking case,Siberia,NA,NA
 Fernando Gross,GROSS,Jurist; advised on Peru's withdrawal from the Inter-American Court (1999),Bureaucrat,NA,"Given name uncertain: the transcript labels say Fernando, the archive catalogue says Enrique"
 Heather,HEATHER,Member of the United States delegation (last name unknown),Foreign,NA,NA
-Henry,HENRY,(last name unknown),Other,NA,NA
+Henry,HENRY,(last name unknown),Other,NA,"One turn, with no context to identify him or place him in a category"
 Humberto,HUMBERTO,Aide to General Saucedo Sanchez (last name unknown),Security,NA,Not Humberto Rozas; this man carries General Saucedo's briefcase
 General Indacochea,INDACOCHEA,Army General,Security,NA,NA
 Leopoldo,LEOPOLDO,Subordinate Army officer (last name unknown),Security,NA,NA
 General Magni,MAGNI,Army General,Security,NA,NA
 Manuel Delgado Parker,MANUEL DELGADO PARKER,Media businessman,Media,NA,Brother of Genaro Delgado Parker
 Gonzalo Menendez,MENENDEZ,Chilean businessman; representative of the Luksic group and Lucchetti in Peru,Foreign,NA,The person the lucchetti note refers to as el senor Lucchetti. Transcript 1 is titled Dialogo con chileno
-Luis Alberto Meza Rodriguez,MEZA RODRIGUEZ,Subject of the FARC arms-trafficking searches,Other,NA,NA
+Luis Alberto Meza Rodriguez,MEZA RODRIGUEZ,Subject of the FARC arms-trafficking searches,Siberia,NA,NA
 Coronel Purusana,PURUSANA,Army Colonel; Chief of Administrative Staff of the Second Infantry Division in Ayacucho,Security,NA,NA
 Ramos,RAMOS,Aide to Montesinos,Bureaucrat,NA,NA
 General Alfredo Rodriguez,RODRIGUEZ,Army General,Security,NA,NA
-Alfredo Romero Castillo,ROMERO CASTILLO,Detained under Plan Siberia,Other,NA,NA
+Alfredo Romero Castillo,ROMERO CASTILLO,Detained under Plan Siberia,Siberia,NA,NA
 Coronel Sanchez,SANCHEZ,Army Colonel; Deputy Director of the Escuela Superior de Guerra,Security,NA,NA
-Hector Solis,SOLIS,Lawyer; contacted judges on Montesinos's instructions,Other,NA,NA
+Hector Solis,SOLIS,Lawyer; contacted judges on Montesinos's instructions,Intermediaries,NA,NA
 General Suarez Carranza,SUAREZ CARRANZA,Army General,Security,NA,NA
 Gisela Valcarcel,VALCARCEL,Television presenter,Media,NA,NA
-Valdez,VALDEZ,"Advisor to Manuel Guillen, mayor-elect of Arequipa",Other,NA,NA
+Valdez,VALDEZ,"Advisor to Manuel Guillen, mayor-elect of Arequipa",Other,NA,"Adviser to the mayor-elect of Arequipa, not to Montesinos, so not an intermediary"
 Cabo Vega,VEGA,Army Corporal assigned to Montesinos,Security,NA,NA
 Vivanco,VIVANCO,Police or military officer,Security,NA,NA
 Winter Zuzunaga,WINTER ZUZUNAGA,Co-owner of Cable Canal de Noticias (CCN),Media,NA,Covers the brothers Samuel and Mendel Winter Zuzunaga. A stage direction confirms transcript 70 is Samuel; transcript 72 has both brothers present and its labels do not distinguish them

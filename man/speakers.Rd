@@ -16,7 +16,10 @@ column in the transcripts corpus.}
 \code{"security"}), \code{"security"}, \code{"congress"},
 \code{"judiciary"}, \code{"media"}, \code{"businessperson"},
 \code{"elected official"}, \code{"bureaucrat"}, \code{"foreign"},
-\code{"illicit"}, or \code{"other"} (private individuals with no
+\code{"illicit"}, \code{"siberia"} (individuals investigated or
+questioned during the Plan Siberia searches), \code{"intermediaries"}
+(Montesinos's non-state intermediaries, including private lawyers and
+image advisers), or \code{"other"} (private individuals with no
 institutional role, including the \code{"desconocido"} placeholder).}
 \item{party}{Political party affiliation for elected officials, \code{NA}
 otherwise. Given as the V-Party abbreviation (\code{v2pashname}) for

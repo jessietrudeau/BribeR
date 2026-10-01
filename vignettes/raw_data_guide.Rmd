@@ -23,40 +23,40 @@ knitr::opts_chunk$set(
 # About the Vladivideos
 
 Between 1990 and 2000, Vladimiro Montesinos Torres, the head of Peru's
-National Intelligence Service under President Alberto Fujimori, secretly recorded meetings in which he bribed politicians, judges, military officers, media executives, and businesspeople. Most of the aptly named *Vladivideo* footage (and subsequent transcripts included in this package) was covertly recorded from within Montesinos' office, unbeknownst to his counterparts.
+National Intelligence Service under President Alberto Fujimori, secretly
+recorded meetings in which he bribed politicians, judges, military
+officers, media executives, and businesspeople. Most of the aptly named
+*Vladivideo* footage (and subsequent transcripts included in this
+package) was covertly recorded from within Montesinos' office,
+unbeknownst to his counterparts.
 
 Select recordings became public in 2000 and triggered the collapse of
 the Fujimori government. The rest were made public in 2001 during
 Congressional investigations and criminal proceedings. The Fujimori
 presidency remains one of the most extensively documented cases of
 systemic corruption in Latin American history, thanks to the evidence
-from the *Vladivideos,* such as the one shown below from the Peruvian Congressional Archives.
+from the *Vladivideos,* such as the one shown below from the Peruvian
+Congressional Archives.
 
-<div style="text-align: center;">
+::: {style="text-align: center;"}
+<a href="https://www.youtube.com/watch?v=krW92zMwk7E" target="_blank">
+<img src="https://img.youtube.com/vi/krW92zMwk7E/hqdefault.jpg" alt="Vladivideo 069A." style="width:65%; display:block; margin:0 auto;"/>
+</a>
 
-  <a href="https://www.youtube.com/watch?v=krW92zMwk7E" target="_blank">
-    <img
-      src="https://img.youtube.com/vi/krW92zMwk7E/hqdefault.jpg"
-      alt="Vladivideo 069A."
-      style="width:65%; display:block; margin:0 auto;"
-    />
-  </a>
+<p style="font-size:0.9em; margin-top:0.5em;">
 
-  <p style="font-size:0.9em; margin-top:0.5em;">
-    <em>
-      Vladivideo 069A: October 14, 1998. Source:
-      <a href="https://lum.cultura.pe/cdi/video/reunion-de-jose-francisco-crousillat-y-vladimiro-montesinos">LUM</a>.
-    </em>
-  </p>
+<em> Vladivideo 069A: October 14, 1998. Source:
+<a href="https://lum.cultura.pe/cdi/video/reunion-de-jose-francisco-crousillat-y-vladimiro-montesinos">LUM</a>.
+</em>
 
-</div>
-
+</p>
+:::
 
 The videos capture corruption across every major institution of the
 Peruvian state: legislators accepting cash to switch party allegiances,
-military generals coordinating electoral suppression, judges confirming their 
-availability to rule in Montesinos's favor, and even television channel owners 
-receiving monthly payments to censor news coverage.
+military generals coordinating electoral suppression, judges confirming
+their availability to rule in Montesinos's favor, and even television
+channel owners receiving monthly payments to censor news coverage.
 
 See, for example, this exchange about consolidating power in the
 judicial branch between Montesinos and Alipio Montes de Oca, Supreme
@@ -66,9 +66,9 @@ in English with Spanish original text in italics below.[^2]
 [^1]: Originally numbered Transcript 888 in the Congress of Peru's
     archive.
 
-[^2]: The transcripts in the **bribeR** database are not translated from their
-    original Spanish version. This is translated just as an example for
-    readability in the vignette.
+[^2]: The transcripts in the **bribeR** database are not translated from
+    their original Spanish version. This is translated just as an
+    example for readability in the vignette.
 
 ::: {.quote-box style="margin: 1.5em 2.5em; padding: 1em 1.25em; border-left: 4px solid #999; background-color: #f7f7f7; font-size: 0.95em;"}
 **MONTES DE OCA —** Okay, just say it.\
@@ -128,11 +128,12 @@ from two main sources:
 - **LUM digital collections:** 58 transcripts accessed through the
   [digital
   holdings](https://lum.cultura.pe/cdi/busqueda/colecciones?field_coleccion=55&field_palabra_clave%5B%5D=13462&field_year=)
-  of the *Lugar de la Memoria, la Tolerancia y la Inclusión Social*, an entity that is part of the Peruvian National Ministry of Culture.
+  of the *Lugar de la Memoria, la Tolerancia y la Inclusión Social*, an
+  entity that is part of the Peruvian National Ministry of Culture.
   (LUM).
-- **Congressional print volumes:** 41 additional transcripts from the six-volume
-  collection [*En la sala de la corrupción: Videos y audios de Vladimiro
-  Montesinos
+- **Congressional print volumes:** 37 additional transcripts from the
+  six-volume collection [*En la sala de la corrupción: Videos y audios
+  de Vladimiro Montesinos
   (1998–2000)*](https://books.google.com/books/about/En_la_sala_de_la_corrupci%C3%B3n.html?id=q7XHPgAACAAJ),
   edited by Antonio Zapata Velasco and published by the Fondo Editorial
   del Congreso del Perú. These volumes reproduce records originally made
@@ -172,32 +173,35 @@ ggplot(meta, aes(x = n_words)) +
 
 Users can access biographical and institutional metadata for the 139
 individuals recorded speaking in the Vladivideos transcripts through the
-`speakers` dataset. Each person is classified by their institutional role at the
-time of the recordings.
+`speakers` dataset. Each person is classified by their institutional
+role at the time of the recordings.
 
 ```{r speakers-load, message=FALSE}
 head(speakers[, c("speaker", "position", "type", "party", "speaker_std")])
 ```
 
-Speakers are grouped into eleven categories. Vladimiro Montesinosis in his own category:
+Speakers are grouped into thirteen categories. Vladimiro Montesinos is in
+his own category:
 
 | type | Count | Description |
 |------------------------|------------------------|------------------------|
 | `montesinos` | 1 | Vladimiro Montesinos, Chief Advisor to the National Intelligence Service (SIN) |
 | `security` | 37 | Military and police officers |
+| `bureaucrat` | 20 | Civil servants |
 | `congress` | 19 | Members of Congress, including allies and opposition members bribed to switch allegiance |
-| `bureaucrat` | 20 | Senior civil servants and agency heads |
-| `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
-| `foreign` | 10 | Foreign officials and diplomats |
 | `media` | 13 | Television channel and newspaper executives |
-| `other` | 18 | Private individuals with no institutional role |
+| `foreign` | 10 | Foreign citizens and officials, including diplomats |
+| `siberia` | 10 | Individuals investigated or questioned during Plan Siberia searches |
+| `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
 | `illicit` | 5 | Individuals primarily associated with armed groups |
-| `businessperson` | 3 | Private sector executives and financiers |
 | `elected official` | 4 | Mayors, executives, and (non-Congressional) other elected officials |
+| `intermediaries` | 4 | Montesinos' non-state intermediaries and trusted actors, including private lawyers and image advisers |
+| `other` | 4 | Private individuals with no institutional role |
+| `businessperson` | 3 | Private sector executives and financiers |
 
 This figure shows that the three most common types of speakers to be
-recorded are members of the security sector, congresspeople, and
-bureaucrats.
+recorded are members of the security sector, bureaucrats, and
+congresspeople.
 
 ```{r type-bar}
 speakers |>
@@ -214,14 +218,15 @@ speakers |>
 ```
 
 About 12% of all speech turns -- 5,292 turns across 66 of the 95
-transcripts -- carry the speaker identifier `desconocido` (unidentified).
-**This is a placeholder, not a person.** It collects every speaker the
-transcribers could not name, so turns sharing this identifier are
-generally spoken by different people and it should not be treated as a
-single speaker in any analysis. Unidentified speakers are often messengers
-who quickly exit, aides, or people who stay largely silent apart from
-salutations; in many cases the original label was simply `El señor`
-with no name attached.
+transcripts -- carry the speaker identifier `desconocido`
+(unidentified). **This is a placeholder, not one single person.**
+Unidentified text that is labeled as `desconocido` is often genuinely
+unknown (e.g., it is unclear from the audio or video file who said it),
+or is spoken by individuals that are unidentified, including
+messengers, aides, or other staffers who quickly enter and exit, or are
+silent for most of the conversation apart from salutations. In cases in
+the latter category, their spoken text in the original transcripts is
+labeled as `El señor` or a similar generic title with no name attached.
 
 # Topics
 
@@ -231,7 +236,9 @@ topics include:
 [^3]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
     more relevant topics. These were inductively determined by a close
-    reading of the transcripts.
+    reading of the transcripts. Then, their initial classification was
+    validated using Claude Opus 5.5, and validated by expert coders
+    again.
 
 | Topic | Description |
 |------------------------------------|------------------------------------|
@@ -249,7 +256,7 @@ topics include:
 | `referendum` | Presidental term limits referendum |
 | `municipal98` | 1998 municipal elections |
 | `miraflores` | 1998 Miraflores district elections |
-| `appointments` | Appointing, reassigning and removing officeholders |
+| `appointments` | Appointing, reassigning and removing public sector officials |
 
 As demonstrated by [McMillan and
 Zoido](https://www.aeaweb.org/articles?id=10.1257/0895330042632690)

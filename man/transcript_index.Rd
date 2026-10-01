@@ -13,7 +13,6 @@ indicator columns with \code{speaker_} or \code{topic_}:
 \describe{
 \item{id}{Numeric transcript identifier (bribeR internal numbering).}
 \item{file}{Source transcript filename, e.g. \code{"14.csv"}.}
-\item{format}{File format of the source transcript (e.g. \code{"csv"}).}
 \item{date}{Date of the recording.}
 \item{original_id}{Original transcript identifier from the source archive.}
 \item{in_book}{1 if the transcript is cited in published work, 0 otherwise.}
