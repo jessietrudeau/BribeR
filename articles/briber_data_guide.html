@@ -108,11 +108,6 @@ to one speech turn within a transcript.</p>
 <span><span class="co">#&gt; $ speaker     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "background"<span style="color: #949494;">, </span>"el señor montesinos torres.-"<span style="color: #949494;">, </span>"el señor go…</span></span>
 <span><span class="co">#&gt; $ speech      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Departamento de Transcripciones CONGRESO DE LA REPÚBLICA …</span></span></code></pre></div>
 <table class="table">
-<colgroup>
-<col width="22%">
-<col width="16%">
-<col width="61%">
-</colgroup>
 <thead><tr class="header">
 <th>Column</th>
 <th>Type</th>
@@ -169,21 +164,21 @@ This file contains all transcript-level metadata in
 <strong>bribeR</strong>. Metadata variable descriptions are shown in the
 below table.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"file"</span>, <span class="st">"format"</span>, <span class="st">"date"</span>, <span class="st">"original_id"</span>, <span class="st">"type"</span>, <span class="st">"summary"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;      id file  format date       original_id type  summary                       </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 1.csv csv    1998-01-08 864         video Montesinos meets Daniel Borob…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 2.csv csv    1998-01-12 1312        video The journalist Patricio Ricke…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 3.csv csv    1998-01-20 896         audio Montesinos meets with busines…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 4.csv csv    1998-01-23 869         video Montesinos and Foreign Minist…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 5.csv csv    1998-01-28 872         video Montesinos reviews Alexander …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 6.csv csv    1998-02-10 858         audio Part one of a lunch between M…</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">transcript_index</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"file"</span>, <span class="st">"date"</span>, <span class="st">"original_id"</span>, <span class="st">"type"</span>, <span class="st">"summary"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
+<span><span class="co">#&gt;      id file  date       original_id type  summary                              </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 1.csv 1998-01-08 864         video Montesinos meets Daniel Borobio and …</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 2.csv 1998-01-12 1312        video The journalist Patricio Ricketts vis…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 3.csv 1998-01-20 896         audio Montesinos meets with businessman Ju…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 4.csv 1998-01-23 869         video Montesinos and Foreign Minister Edua…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 5.csv 1998-01-28 872         video Montesinos reviews Alexander Kouri's…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 6.csv 1998-02-10 858         audio Part one of a lunch between Montesin…</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="25%">
-<col width="12%">
-<col width="61%">
+<col width="22%">
+<col width="22%">
+<col width="55%">
 </colgroup>
 <thead><tr class="header">
 <th>Column</th>
@@ -202,61 +197,59 @@ below table.</p>
 <td>Source transcript filename (e.g. <code>"14.csv"</code>)</td>
 </tr>
 <tr class="odd">
-<td><code>format</code></td>
-<td>character</td>
-<td>File format of the source transcript (e.g. <code>"csv"</code>)</td>
-</tr>
-<tr class="even">
 <td><code>date</code></td>
 <td>date</td>
 <td>Recording date</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>original_id</code></td>
 <td>character</td>
-<td>Original transcript number</td>
+<td>Original transcript number in book or LUM archive</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>in_book</code></td>
 <td>integer</td>
 <td>1 if available in print book, 0 otherwise</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>in_online_archive</code></td>
 <td>integer</td>
 <td>1 if available in the LUM online archive, 0 otherwise</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>type</code></td>
 <td>character</td>
 <td>Recording medium (<code>"audio"</code> or <code>"video"</code>)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>summary</code></td>
 <td>character</td>
-<td>Transcript summary (in English, XXXX)</td>
+<td>Transcript summary (in English)<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;These summaries were written by a native
+Spanish-language undergraduate RA, edited by Claude Opus 5.5, and then
+manually read and edited by the PI.&lt;/p&gt;"><sup>2</sup></a>
+</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>speakers</code></td>
 <td>character</td>
 <td>List of speaker names in the transcript</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>n_speakers</code></td>
 <td>integer</td>
 <td>Number of speakers in the transcript</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>n_topics</code></td>
 <td>integer</td>
 <td>Number of topics discussed in the transcript</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>speaker_*</code></td>
 <td>integer</td>
 <td>Speaker indicators (1/0)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>topic_*</code></td>
 <td>integer</td>
 <td>Topic indicators (1/0)</td>
@@ -287,8 +280,8 @@ topics without loading the full corpus.</p>
 search for the speakers present during any one conversation. The
 standardized speaker name <code>speaker_std</code> is used to indicate
 which speakers are present for each conversation, sorted by
-chronological speaking order. There is a minimum of 1 speaker per
-conversation and a maximum of 19.</p>
+chronological speaking order. There is a minimum of 2 speakers per
+conversation and a maximum of 22.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Who was present in the first three conversations?</span></span>
 <span><span class="va">speakers_per_transcript</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -326,9 +319,9 @@ are shown in the below table.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> carlos ferrero costa            carlos ferrero  Constituent… cong… NM    Brot…</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="25%">
-<col width="12%">
-<col width="61%">
+<col width="22%">
+<col width="22%">
+<col width="55%">
 </colgroup>
 <thead><tr class="header">
 <th>Column</th>
@@ -354,11 +347,12 @@ are shown in the below table.</p>
 <tr class="even">
 <td><code>type</code></td>
 <td>character</td>
-<td>One of 11 categories described in the <a href="https://jessietrudeau.com/bribeR/articles/raw_data_guide.html">Raw
+<td>One of 13 categories described in the <a href="https://jessietrudeau.com/bribeR/articles/raw_data_guide.html">Raw
 Data Guide</a>: <code>montesinos</code>, <code>security</code>,
 <code>congress</code>, <code>judiciary</code>, <code>media</code>,
 <code>businessperson</code>, <code>elected official</code>,
-<code>bureaucrat</code>, <code>foreign</code>, <code>illicit</code> and
+<code>bureaucrat</code>, <code>foreign</code>, <code>illicit</code>,
+<code>siberia</code>, <code>intermediaries</code> and
 <code>other</code>.</td>
 </tr>
 <tr class="odd">
@@ -369,7 +363,7 @@ recording, given as the <a href="https://www.v-dem.net/" class="external-link">V
 abbreviation<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;The party codes match &lt;code&gt;v2pashname&lt;/code&gt;, the party
 abbreviation variable for Peru in the V-Party dataset: &lt;code&gt;NM&lt;/code&gt;,
 &lt;code&gt;PAP&lt;/code&gt;, &lt;code&gt;RN&lt;/code&gt;, &lt;code&gt;PP&lt;/code&gt;, &lt;code&gt;PPC&lt;/code&gt;,
-&lt;code&gt;FIM&lt;/code&gt; and &lt;code&gt;AP&lt;/code&gt;.&lt;/p&gt;"><sup>2</sup></a>
+&lt;code&gt;FIM&lt;/code&gt; or &lt;code&gt;AP&lt;/code&gt;.&lt;/p&gt;"><sup>3</sup></a>
 </td>
 </tr>
 <tr class="even">
@@ -398,14 +392,14 @@ some of the speakers from Fujimori’s party:</p>
 <div class="section level2">
 <h2 id="linking-datasets">Linking datasets<a class="anchor" aria-label="anchor" href="#linking-datasets"></a>
 </h2>
-<p>Full-text transcript data and metadata can be linked by using
+<p>Full-text transcript data and metadata can be linked using
 <code>id</code> or <code>speaker_std</code> as a crosswalk. The table
 below shows which columns connect the datasets:</p>
 <table class="table">
 <thead><tr class="header">
 <th>From</th>
 <th>To</th>
-<th>Key column</th>
+<th>By</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -441,15 +435,6 @@ system) are included in the <code>transcript_index</code> metadata file,
 but given that many are alphanumeric identifiers,
 <strong>bribeR</strong> generates new a new <code>id</code> variable for
 simplicity.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## id column, crossed with original id and source</span></span>
-<span><span class="va">transcript_index</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">original_id</span>, <span class="va">in_book</span>, <span class="va">in_online_archive</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;      id original_id in_book in_online_archive</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 864               1                 1</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="speaker_std">
@@ -463,7 +448,7 @@ Montesinos Torres” and “El Señor M. Torres” both correspond to
 each speaker, consistent across all transcripts. Use
 <code>speaker_std</code> rather than the raw <code>speaker</code> column
 for joins and filters.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Count Montesinos's speaking turns across all transcripts</span></span>
 <span><span class="va">transcripts</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">speaker_std</span> <span class="op">==</span> <span class="st">"montesinos"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -479,7 +464,7 @@ for joins and filters.</p>
 </h2>
 <p>All datasets are lazily loaded when the package is attached, so you
 can reference them by name after <code><a href="https://jessietrudeau.com/bribeR">library(bribeR)</a></code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">compiled_transcripts</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 45337</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">speakers</span><span class="op">)</span></span>

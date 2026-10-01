@@ -97,10 +97,11 @@ Peruvian Congressional Archives.</p>
 <p><a href="https://www.youtube.com/watch?v=krW92zMwk7E" target="_blank" class="external-link">
 <img src="https://img.youtube.com/vi/krW92zMwk7E/hqdefault.jpg" alt="Vladivideo 069A." style="width:65%; display:block; margin:0 auto;"></a></p>
 <p style="font-size:0.9em; margin-top:0.5em;">
-<em> Vladivideo 069A: October 14, 1998. Source:
-<a href="https://lum.cultura.pe/cdi/video/reunion-de-jose-francisco-crousillat-y-vladimiro-montesinos" class="external-link">LUM</a>.
-</em>
 </p>
+<p><em> Vladivideo 069A: October 14, 1998. Source:
+<a href="https://lum.cultura.pe/cdi/video/reunion-de-jose-francisco-crousillat-y-vladimiro-montesinos" class="external-link">LUM</a>.
+</em></p>
+
 </div>
 <p>The videos capture corruption across every major institution of the
 Peruvian state: legislators accepting cash to switch party allegiances,
@@ -166,7 +167,7 @@ holdings</a> of the <em>Lugar de la Memoria, la Tolerancia y la
 Inclusión Social</em>, an entity that is part of the Peruvian National
 Ministry of Culture. (LUM).</li>
 <li>
-<strong>Congressional print volumes:</strong> 41 additional
+<strong>Congressional print volumes:</strong> 37 additional
 transcripts from the six-volume collection <a href="https://books.google.com/books/about/En_la_sala_de_la_corrupci%C3%B3n.html?id=q7XHPgAACAAJ" class="external-link"><em>En
 la sala de la corrupción: Videos y audios de Vladimiro Montesinos
 (1998–2000)</em></a>, edited by Antonio Zapata Velasco and published by
@@ -222,8 +223,8 @@ institutional role at the time of the recordings.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> representante de lucchetti      Representative of the… busi… <span style="color: #BB0000;">NA</span>    lucchetti  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> eduardo ferrero costa           Minister of Foreign A… bure… <span style="color: #BB0000;">NA</span>    eduardo fe…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> carlos ferrero costa            Constituent Congressm… cong… NM    carlos fer…</span></span></code></pre></div>
-<p>Speakers are grouped into eleven categories. Vladimiro Montesinosis
-in his own category:</p>
+<p>Speakers are grouped into thirteen categories. Vladimiro Montesinos
+is in his own category:</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -248,25 +249,15 @@ Service (SIN)</td>
 <td>Military and police officers</td>
 </tr>
 <tr class="odd">
+<td><code>bureaucrat</code></td>
+<td>20</td>
+<td>Civil servants</td>
+</tr>
+<tr class="even">
 <td><code>congress</code></td>
 <td>19</td>
 <td>Members of Congress, including allies and opposition members bribed
 to switch allegiance</td>
-</tr>
-<tr class="even">
-<td><code>bureaucrat</code></td>
-<td>20</td>
-<td>Senior civil servants and agency heads</td>
-</tr>
-<tr class="odd">
-<td><code>judiciary</code></td>
-<td>9</td>
-<td>Judges, prosecutors, and members of the electoral tribunals</td>
-</tr>
-<tr class="even">
-<td><code>foreign</code></td>
-<td>10</td>
-<td>Foreign officials and diplomats</td>
 </tr>
 <tr class="odd">
 <td><code>media</code></td>
@@ -274,9 +265,20 @@ to switch allegiance</td>
 <td>Television channel and newspaper executives</td>
 </tr>
 <tr class="even">
-<td><code>other</code></td>
-<td>18</td>
-<td>Private individuals with no institutional role</td>
+<td><code>foreign</code></td>
+<td>10</td>
+<td>Foreign citizens and officials, including diplomats</td>
+</tr>
+<tr class="odd">
+<td><code>siberia</code></td>
+<td>10</td>
+<td>Individuals investigated or questioned during Plan Siberia
+searches</td>
+</tr>
+<tr class="even">
+<td><code>judiciary</code></td>
+<td>9</td>
+<td>Judges, prosecutors, and members of the electoral tribunals</td>
 </tr>
 <tr class="odd">
 <td><code>illicit</code></td>
@@ -284,21 +286,32 @@ to switch allegiance</td>
 <td>Individuals primarily associated with armed groups</td>
 </tr>
 <tr class="even">
-<td><code>businessperson</code></td>
-<td>3</td>
-<td>Private sector executives and financiers</td>
-</tr>
-<tr class="odd">
 <td><code>elected official</code></td>
 <td>4</td>
 <td>Mayors, executives, and (non-Congressional) other elected
 officials</td>
 </tr>
+<tr class="odd">
+<td><code>intermediaries</code></td>
+<td>4</td>
+<td>Montesinos’ non-state intermediaries and trusted actors, including
+private lawyers and image advisers</td>
+</tr>
+<tr class="even">
+<td><code>other</code></td>
+<td>4</td>
+<td>Private individuals with no institutional role</td>
+</tr>
+<tr class="odd">
+<td><code>businessperson</code></td>
+<td>3</td>
+<td>Private sector executives and financiers</td>
+</tr>
 </tbody>
 </table>
 <p>This figure shows that the three most common types of speakers to be
-recorded are members of the security sector, congresspeople, and
-bureaucrats.</p>
+recorded are members of the security sector, bureaucrats, and
+congresspeople.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">speakers</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">type</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -314,13 +327,15 @@ bureaucrats.</p>
 <p><img src="raw_data_guide_files/figure-html/type-bar-1.png" class="r-plt" alt="" width="672"></p>
 <p>About 12% of all speech turns – 5,292 turns across 66 of the 95
 transcripts – carry the speaker identifier <code>desconocido</code>
-(unidentified). <strong>This is a placeholder, not a person.</strong> It
-collects every speaker the transcribers could not name, so turns sharing
-this identifier are generally spoken by different people and it should
-not be treated as a single speaker in any analysis. Unidentified
-speakers are often messengers who quickly exit, aides, or people who
-stay largely silent apart from salutations; in many cases the original
-label was simply <code>El señor</code> with no name attached.</p>
+(unidentified). <strong>This is a placeholder, not one single
+person.</strong> Unidentified text that is labeled as
+<code>desconocido</code> is often genuinely unknown (e.g., it is unclear
+from the audio or video file who said it), or is spoken by individuals
+that are unidentified, including messengers, aides, or other staffers
+who quickly enter and exit, or are silent for most of the conversation
+apart from salutations. In cases in the latter category, their spoken
+text in the original transcripts is labeled as <code>El señor</code> or
+a similar generic title with no name attached.</p>
 </div>
 <div class="section level2">
 <h2 id="topics">Topics<a class="anchor" aria-label="anchor" href="#topics"></a>
@@ -328,7 +343,8 @@ label was simply <code>El señor</code> with no name attached.</p>
 <p>Each transcript is hand-coded<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Each transcript was read and validated by 2-3 native
 Spanish-language speakers and classified as pertaining to one or more
 relevant topics. These were inductively determined by a close reading of
-the transcripts.&lt;/p&gt;"><sup>3</sup></a> and classified by topic(s). The 15 topics
+the transcripts. Then, their initial classification was validated using
+Claude Opus 5.5, and validated by expert coders again.&lt;/p&gt;"><sup>3</sup></a> and classified by topic(s). The 15 topics
 include:</p>
 <table class="table">
 <colgroup>
@@ -400,7 +416,7 @@ television network</td>
 </tr>
 <tr class="odd">
 <td><code>appointments</code></td>
-<td>Appointing, reassigning and removing officeholders</td>
+<td>Appointing, reassigning and removing public sector officials</td>
 </tr>
 </tbody>
 </table>

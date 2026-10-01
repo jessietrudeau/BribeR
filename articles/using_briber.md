@@ -1,6 +1,6 @@
 # Using bribeR
 
-**bribeR** provides structured, full-text access to 96 *Vladivideo*
+**bribeR** provides structured, full-text access to 95 *Vladivideo*
 transcripts, along with metadata about the conversations, speakers, and
 topics. This vignette introduces the three main families of functions
 (below) and provides user-friendly examples for how to use **bribeR.**
@@ -123,14 +123,6 @@ length(kouri_ids)
 #> [1] 7
 kouri_ids
 #> [1]  5 30 31 32 76 77 80
-
-# Transcripts featuring both Alex Kouri and Crousillat Carreno
-# (a TV producer with America Television)
-kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
-length(kouri_crousillat_ids)
-#> [1] 1
-kouri_crousillat_ids
-#> [1] 76
 ```
 
 There are 139 speaker IDs that
@@ -153,11 +145,6 @@ length(media_ids)
 media_ids
 #>  [1]  2  3  4  5 18 19 26 27 28 31 33 34 35 36 38 40 42 44 47 48 49 50 51 52 53
 #> [26] 54 55 60 64 65 66 67 68 69 70 71 72 73 76 79 80 81 82 85 86 87 88 95
-
-# Transcripts about BOTH media and reelection 
-media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
-length(media_reelection_ids)
-#> [1] 15
 ```
 
 There are 15 valid topics, listed in the [Raw Data
@@ -165,18 +152,26 @@ Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html#topics).
 
 ### By both
 
-Finally, users can filter transcripts by speaker and topic. This
-function uses AND logic and returns transcript IDs where both the
-selected speaker(s) are present and topic is mentioned.
+Users can filter transcripts by multiple speakers, topics, or speaker
+and topic. This function uses AND logic and returns transcript IDs where
+both the selected speaker(s) are present and topic(s) are mentioned.
 
 ``` r
 
-# Find transcripts about media
-media_ids <- get_transcript_id(topic = "media")
-length(media_ids)
-#> [1] 48
+# Transcripts featuring BOTH Alex Kouri and Crousillat Carreno
+# (a TV producer with America Television)
+kouri_crousillat_ids <- get_transcript_id(speaker = c("alex kouri", "crousillat carreno"))
+length(kouri_crousillat_ids)
+#> [1] 1
+kouri_crousillat_ids
+#> [1] 76
 
-# Find transcripts about media where a television producer is present
+# Transcripts about BOTH media and reelection 
+media_reelection_ids <- get_transcript_id(topic = c("media", "reelection"))
+length(media_reelection_ids)
+#> [1] 15
+
+# Find transcripts about media AND where a television producer is present
 media_crousillat_ids <- get_transcript_id(topic = "media", speaker = "crousillat carreno")
 length(media_crousillat_ids)
 #> [1] 3
@@ -189,7 +184,7 @@ Rich transcript-level and speaker-level metadata is available in
 
 The
 [`read_transcript_meta_data()`](https://jessietrudeau.com/bribeR/reference/read_transcript_meta_data.md)
-function presents transcript-level data containing dates, summaries,[^1]
+function presents transcript-level data containing dates, summaries,
 speakers present, topics mentioned, and word counts.
 
 When left blank, it returns the metadata for every transcript in the
@@ -222,7 +217,7 @@ read_transcript_meta_data(5)
 The two below examples demonstrate how the **bribeR** functions and data
 can be used together.
 
-### Example 1: Who speaks about media manipulation? For how long?
+### Example: Who speaks about media manipulation? For how long?
 
 Say that we are interested in how Montesinos and his counterparts talk
 about a commonly discussed topic, media manipulation. First, we start by
@@ -291,36 +286,3 @@ media_transcripts |>
 ```
 
 ![](using_briber_files/figure-html/unnamed-chunk-4-1.png)
-
-### Example 2: Finding Transcripts by Speaker Type
-
-You can combine `speakers` and
-[`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
-to filter the corpus by type of speaker rather than by individual name.
-The example below finds all transcripts featuring any media-sector
-speaker who appears in the transcript index:
-
-``` r
-
-# Step 1: find all media speakers 
-media_speakers <- speakers |>
-  filter(type == "media") |>
-  pull(speaker_std) 
-media_speakers
-#>  [1] "vera"                    "crousillat carreno"     
-#>  [3] "genaro delgado parker"   "locutor"                
-#>  [5] "schutz"                  "calmell"                
-#>  [7] "ricketts"                "vera abad"              
-#>  [9] "perez"                   "crousillat lopez torres"
-#> [11] "manuel delgado parker"   "valcarcel"              
-#> [13] "winter zuzunaga"
-
-
-# Step 2: Filter for transcripts where media speakers are present
-## ERROR: e.g. VALENZUELA
-#media_ids <- get_transcript_id(speaker = media_speakers)
-#length(media_ids)
-```
-
-[^1]: These summaries were written by undergraduate native-Spanish
-    speakers.

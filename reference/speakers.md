@@ -32,7 +32,10 @@ A tibble with 139 rows and 6 variables:
   (Vladimiro Montesinos himself, kept separate from `"security"`),
   `"security"`, `"congress"`, `"judiciary"`, `"media"`,
   `"businessperson"`, `"elected official"`, `"bureaucrat"`, `"foreign"`,
-  `"illicit"`, or `"other"` (private individuals with no institutional
+  `"illicit"`, `"siberia"` (individuals investigated or questioned
+  during the Plan Siberia searches), `"intermediaries"` (Montesinos's
+  non-state intermediaries, including private lawyers and image
+  advisers), or `"other"` (private individuals with no institutional
   role, including the `"desconocido"` placeholder).
 
 - party:

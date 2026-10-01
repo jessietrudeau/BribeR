@@ -55,29 +55,28 @@ variable descriptions are shown in the below table.
 
 ``` r
 
-head(transcript_index[, c("id", "file", "format", "date", "original_id", "type", "summary")])
-#> # A tibble: 6 × 7
-#>      id file  format date       original_id type  summary                       
-#>   <int> <chr> <chr>  <date>     <chr>       <chr> <chr>                         
-#> 1     1 1.csv csv    1998-01-08 864         video Montesinos meets Daniel Borob…
-#> 2     2 2.csv csv    1998-01-12 1312        video The journalist Patricio Ricke…
-#> 3     3 3.csv csv    1998-01-20 896         audio Montesinos meets with busines…
-#> 4     4 4.csv csv    1998-01-23 869         video Montesinos and Foreign Minist…
-#> 5     5 5.csv csv    1998-01-28 872         video Montesinos reviews Alexander …
-#> 6     6 6.csv csv    1998-02-10 858         audio Part one of a lunch between M…
+head(transcript_index[, c("id", "file", "date", "original_id", "type", "summary")])
+#> # A tibble: 6 × 6
+#>      id file  date       original_id type  summary                              
+#>   <int> <chr> <date>     <chr>       <chr> <chr>                                
+#> 1     1 1.csv 1998-01-08 864         video Montesinos meets Daniel Borobio and …
+#> 2     2 2.csv 1998-01-12 1312        video The journalist Patricio Ricketts vis…
+#> 3     3 3.csv 1998-01-20 896         audio Montesinos meets with businessman Ju…
+#> 4     4 4.csv 1998-01-23 869         video Montesinos and Foreign Minister Edua…
+#> 5     5 5.csv 1998-01-28 872         video Montesinos reviews Alexander Kouri's…
+#> 6     6 6.csv 1998-02-10 858         audio Part one of a lunch between Montesin…
 ```
 
 | Column | Type | Description |
 |----|----|----|
 | `id` | numeric | Transcript number |
 | `file` | character | Source transcript filename (e.g. `"14.csv"`) |
-| `format` | character | File format of the source transcript (e.g. `"csv"`) |
 | `date` | date | Recording date |
-| `original_id` | character | Original transcript number |
+| `original_id` | character | Original transcript number in book or LUM archive |
 | `in_book` | integer | 1 if available in print book, 0 otherwise |
 | `in_online_archive` | integer | 1 if available in the LUM online archive, 0 otherwise |
 | `type` | character | Recording medium (`"audio"` or `"video"`) |
-| `summary` | character | Transcript summary (in English, XXXX) |
+| `summary` | character | Transcript summary (in English)[^2] |
 | `speakers` | character | List of speaker names in the transcript |
 | `n_speakers` | integer | Number of speakers in the transcript |
 | `n_topics` | integer | Number of topics discussed in the transcript |
@@ -109,8 +108,8 @@ This file contains one row per transcript, allowing users to quickly
 search for the speakers present during any one conversation. The
 standardized speaker name `speaker_std` is used to indicate which
 speakers are present for each conversation, sorted by chronological
-speaking order. There is a minimum of 1 speaker per conversation and a
-maximum of 19.
+speaking order. There is a minimum of 2 speakers per conversation and a
+maximum of 22.
 
 ``` r
 
@@ -156,8 +155,8 @@ head(speakers)
 | `speaker` | character | Speaker’s full name |
 | `speaker_std` | character | Standardized speaker identifier |
 | `position` | character | Short description of the speaker’s position |
-| `type` | character | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit` and `other`. |
-| `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
+| `type` | character | One of 13 categories described in the [Raw Data Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit`, `siberia`, `intermediaries` and `other`. |
+| `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^3] |
 | `notes` | character | Miscellaneous notes for speakers that were difficult to identify |
 
 For example, the file contains this biographical information about some
@@ -179,11 +178,11 @@ speakers %>%
 
 ## Linking datasets
 
-Full-text transcript data and metadata can be linked by using `id` or
+Full-text transcript data and metadata can be linked using `id` or
 `speaker_std` as a crosswalk. The table below shows which columns
 connect the datasets:
 
-| From                   | To                        | Key column    |
+| From                   | To                        | By            |
 |------------------------|---------------------------|---------------|
 | `compiled_transcripts` | `transcript_index`        | `id`          |
 | `compiled_transcripts` | `speakers_per_transcript` | `id`          |
@@ -198,18 +197,6 @@ from the the Peruvian Congress’ numbering system) are included in the
 `transcript_index` metadata file, but given that many are alphanumeric
 identifiers, **bribeR** generates new a new `id` variable for
 simplicity.
-
-``` r
-
-## id column, crossed with original id and source
-transcript_index %>%
-  select(id, original_id, in_book, in_online_archive) %>%
-  slice_head()
-#> # A tibble: 1 × 4
-#>      id original_id in_book in_online_archive
-#>   <int> <chr>         <int>             <int>
-#> 1     1 864               1                 1
-```
 
 ### `speaker_std`
 
@@ -252,6 +239,10 @@ names(speakers)
     [id](https://jessietrudeau.com/bribeR/articles/briber_data_guide.html#id)
     subsection for more information.
 
-[^2]: The party codes match `v2pashname`, the party abbreviation
+[^2]: These summaries were written by a native Spanish-language
+    undergraduate RA, edited by Claude Opus 5.5, and then manually read
+    and edited by the PI.
+
+[^3]: The party codes match `v2pashname`, the party abbreviation
     variable for Peru in the V-Party dataset: `NM`, `PAP`, `RN`, `PP`,
-    `PPC`, `FIM` and `AP`.
+    `PPC`, `FIM` or `AP`.

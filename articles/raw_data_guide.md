@@ -94,7 +94,7 @@ from two main sources:
   of the *Lugar de la Memoria, la Tolerancia y la Inclusión Social*, an
   entity that is part of the Peruvian National Ministry of Culture.
   (LUM).
-- **Congressional print volumes:** 41 additional transcripts from the
+- **Congressional print volumes:** 37 additional transcripts from the
   six-volume collection [*En la sala de la corrupción: Videos y audios
   de Vladimiro Montesinos
   (1998–2000)*](https://books.google.com/books/about/En_la_sala_de_la_corrupci%C3%B3n.html?id=q7XHPgAACAAJ),
@@ -160,26 +160,28 @@ head(speakers[, c("speaker", "position", "type", "party", "speaker_std")])
 #> 6 carlos ferrero costa            Constituent Congressm… cong… NM    carlos fer…
 ```
 
-Speakers are grouped into eleven categories. Vladimiro Montesinosis in
-his own category:
+Speakers are grouped into thirteen categories. Vladimiro Montesinos is
+in his own category:
 
 | type | Count | Description |
 |----|----|----|
 | `montesinos` | 1 | Vladimiro Montesinos, Chief Advisor to the National Intelligence Service (SIN) |
 | `security` | 37 | Military and police officers |
+| `bureaucrat` | 20 | Civil servants |
 | `congress` | 19 | Members of Congress, including allies and opposition members bribed to switch allegiance |
-| `bureaucrat` | 20 | Senior civil servants and agency heads |
-| `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
-| `foreign` | 10 | Foreign officials and diplomats |
 | `media` | 13 | Television channel and newspaper executives |
-| `other` | 18 | Private individuals with no institutional role |
+| `foreign` | 10 | Foreign citizens and officials, including diplomats |
+| `siberia` | 10 | Individuals investigated or questioned during Plan Siberia searches |
+| `judiciary` | 9 | Judges, prosecutors, and members of the electoral tribunals |
 | `illicit` | 5 | Individuals primarily associated with armed groups |
-| `businessperson` | 3 | Private sector executives and financiers |
 | `elected official` | 4 | Mayors, executives, and (non-Congressional) other elected officials |
+| `intermediaries` | 4 | Montesinos’ non-state intermediaries and trusted actors, including private lawyers and image advisers |
+| `other` | 4 | Private individuals with no institutional role |
+| `businessperson` | 3 | Private sector executives and financiers |
 
 This figure shows that the three most common types of speakers to be
-recorded are members of the security sector, congresspeople, and
-bureaucrats.
+recorded are members of the security sector, bureaucrats, and
+congresspeople.
 
 ``` r
 
@@ -200,13 +202,14 @@ speakers |>
 
 About 12% of all speech turns – 5,292 turns across 66 of the 95
 transcripts – carry the speaker identifier `desconocido` (unidentified).
-**This is a placeholder, not a person.** It collects every speaker the
-transcribers could not name, so turns sharing this identifier are
-generally spoken by different people and it should not be treated as a
-single speaker in any analysis. Unidentified speakers are often
-messengers who quickly exit, aides, or people who stay largely silent
-apart from salutations; in many cases the original label was simply
-`El señor` with no name attached.
+**This is a placeholder, not one single person.** Unidentified text that
+is labeled as `desconocido` is often genuinely unknown (e.g., it is
+unclear from the audio or video file who said it), or is spoken by
+individuals that are unidentified, including messengers, aides, or other
+staffers who quickly enter and exit, or are silent for most of the
+conversation apart from salutations. In cases in the latter category,
+their spoken text in the original transcripts is labeled as `El señor`
+or a similar generic title with no name attached.
 
 ## Topics
 
@@ -229,7 +232,7 @@ topics include:
 | `referendum` | Presidental term limits referendum |
 | `municipal98` | 1998 municipal elections |
 | `miraflores` | 1998 Miraflores district elections |
-| `appointments` | Appointing, reassigning and removing officeholders |
+| `appointments` | Appointing, reassigning and removing public sector officials |
 
 As demonstrated by [McMillan and
 Zoido](https://www.aeaweb.org/articles?id=10.1257/0895330042632690)
@@ -293,4 +296,6 @@ meta |>
 [^3]: Each transcript was read and validated by 2-3 native
     Spanish-language speakers and classified as pertaining to one or
     more relevant topics. These were inductively determined by a close
-    reading of the transcripts.
+    reading of the transcripts. Then, their initial classification was
+    validated using Claude Opus 5.5, and validated by expert coders
+    again.

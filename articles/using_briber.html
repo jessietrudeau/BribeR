@@ -76,7 +76,7 @@
 
     
     
-<p><strong>bribeR</strong> provides structured, full-text access to 96
+<p><strong>bribeR</strong> provides structured, full-text access to 95
 <em>Vladivideo</em> transcripts, along with metadata about the
 conversations, speakers, and topics. This vignette introduces the three
 main families of functions (below) and provides user-friendly examples
@@ -177,15 +177,7 @@ these speakers are present.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 7</span></span>
 <span><span class="va">kouri_ids</span></span>
-<span><span class="co">#&gt; [1]  5 30 31 32 76 77 80</span></span>
-<span></span>
-<span><span class="co"># Transcripts featuring both Alex Kouri and Crousillat Carreno</span></span>
-<span><span class="co"># (a TV producer with America Television)</span></span>
-<span><span class="va">kouri_crousillat_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alex kouri"</span>, <span class="st">"crousillat carreno"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_crousillat_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1</span></span>
-<span><span class="va">kouri_crousillat_ids</span></span>
-<span><span class="co">#&gt; [1] 76</span></span></code></pre></div>
+<span><span class="co">#&gt; [1]  5 30 31 32 76 77 80</span></span></code></pre></div>
 <p>There are 139 speaker IDs that <code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> can
 filter on, one for each individual in the <code>speakers</code>
 dataset.</p>
@@ -203,28 +195,31 @@ where these topics are discussed.</p>
 <span><span class="co">#&gt; [1] 48</span></span>
 <span><span class="va">media_ids</span></span>
 <span><span class="co">#&gt;  [1]  2  3  4  5 18 19 26 27 28 31 33 34 35 36 38 40 42 44 47 48 49 50 51 52 53</span></span>
-<span><span class="co">#&gt; [26] 54 55 60 64 65 66 67 68 69 70 71 72 73 76 79 80 81 82 85 86 87 88 95</span></span>
-<span></span>
-<span><span class="co"># Transcripts about BOTH media and reelection </span></span>
-<span><span class="va">media_reelection_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_reelection_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 15</span></span></code></pre></div>
+<span><span class="co">#&gt; [26] 54 55 60 64 65 66 67 68 69 70 71 72 73 76 79 80 81 82 85 86 87 88 95</span></span></code></pre></div>
 <p>There are 15 valid topics, listed in the <a href="https://jessietrudeau.com/bribeR/articles/raw_data_guide.html#topics">Raw
 Data Guide</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="by-both">By both<a class="anchor" aria-label="anchor" href="#by-both"></a>
 </h3>
-<p>Finally, users can filter transcripts by speaker and topic. This
-function uses AND logic and returns transcript IDs where both the
-selected speaker(s) are present and topic is mentioned.</p>
+<p>Users can filter transcripts by multiple speakers, topics, or speaker
+and topic. This function uses AND logic and returns transcript IDs where
+both the selected speaker(s) are present and topic(s) are mentioned.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Find transcripts about media</span></span>
-<span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 48</span></span>
+<code class="sourceCode R"><span><span class="co"># Transcripts featuring BOTH Alex Kouri and Crousillat Carreno</span></span>
+<span><span class="co"># (a TV producer with America Television)</span></span>
+<span><span class="va">kouri_crousillat_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>speaker <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"alex kouri"</span>, <span class="st">"crousillat carreno"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">kouri_crousillat_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="va">kouri_crousillat_ids</span></span>
+<span><span class="co">#&gt; [1] 76</span></span>
 <span></span>
-<span><span class="co"># Find transcripts about media where a television producer is present</span></span>
+<span><span class="co"># Transcripts about BOTH media and reelection </span></span>
+<span><span class="va">media_reelection_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"media"</span>, <span class="st">"reelection"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_reelection_ids</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 15</span></span>
+<span></span>
+<span><span class="co"># Find transcripts about media AND where a television producer is present</span></span>
 <span><span class="va">media_crousillat_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span>, speaker <span class="op">=</span> <span class="st">"crousillat carreno"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">media_crousillat_ids</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
@@ -236,8 +231,7 @@ selected speaker(s) are present and topic is mentioned.</p>
 <p>Rich transcript-level and speaker-level metadata is available in
 <strong>bribeR</strong>.</p>
 <p>The <code><a href="../reference/read_transcript_meta_data.html">read_transcript_meta_data()</a></code> function presents
-transcript-level data containing dates, summaries,<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;These summaries were written by undergraduate
-native-Spanish speakers.&lt;/p&gt;"><sup>1</sup></a> speakers present,
+transcript-level data containing dates, summaries, speakers present,
 topics mentioned, and word counts.</p>
 <p>When left blank, it returns the metadata for every transcript in the
 corpus, but can also be filtered using the transcript <code>id</code>
@@ -268,7 +262,7 @@ variable.</p>
 <p>The two below examples demonstrate how the <strong>bribeR</strong>
 functions and data can be used together.</p>
 <div class="section level3">
-<h3 id="example-1-who-speaks-about-media-manipulation-for-how-long">Example 1: Who speaks about media manipulation? For how long?<a class="anchor" aria-label="anchor" href="#example-1-who-speaks-about-media-manipulation-for-how-long"></a>
+<h3 id="example-who-speaks-about-media-manipulation-for-how-long">Example: Who speaks about media manipulation? For how long?<a class="anchor" aria-label="anchor" href="#example-who-speaks-about-media-manipulation-for-how-long"></a>
 </h3>
 <p>Say that we are interested in how Montesinos and his counterparts
 talk about a commonly discussed topic, media manipulation. First, we
@@ -329,36 +323,7 @@ with the speaker-level metadata.</p>
 <span>  <span class="op">)</span> </span></code></pre></div>
 <p><img src="using_briber_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="672"></p>
 </div>
-<div class="section level3">
-<h3 id="example-2-finding-transcripts-by-speaker-type">Example 2: Finding Transcripts by Speaker Type<a class="anchor" aria-label="anchor" href="#example-2-finding-transcripts-by-speaker-type"></a>
-</h3>
-<p>You can combine <code>speakers</code> and
-<code><a href="../reference/get_transcript_id.html">get_transcript_id()</a></code> to filter the corpus by type of speaker
-rather than by individual name. The example below finds all transcripts
-featuring any media-sector speaker who appears in the transcript
-index:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Step 1: find all media speakers </span></span>
-<span><span class="va">media_speakers</span> <span class="op">&lt;-</span> <span class="va">speakers</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"media"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">speaker_std</span><span class="op">)</span> </span>
-<span><span class="va">media_speakers</span></span>
-<span><span class="co">#&gt;  [1] "vera"                    "crousillat carreno"     </span></span>
-<span><span class="co">#&gt;  [3] "genaro delgado parker"   "locutor"                </span></span>
-<span><span class="co">#&gt;  [5] "schutz"                  "calmell"                </span></span>
-<span><span class="co">#&gt;  [7] "ricketts"                "vera abad"              </span></span>
-<span><span class="co">#&gt;  [9] "perez"                   "crousillat lopez torres"</span></span>
-<span><span class="co">#&gt; [11] "manuel delgado parker"   "valcarcel"              </span></span>
-<span><span class="co">#&gt; [13] "winter zuzunaga"</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># Step 2: Filter for transcripts where media speakers are present</span></span>
-<span><span class="co">## ERROR: e.g. VALENZUELA</span></span>
-<span><span class="co">#media_ids &lt;- get_transcript_id(speaker = media_speakers)</span></span>
-<span><span class="co">#length(media_ids)</span></span></code></pre></div>
 </div>
-</div>
-
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

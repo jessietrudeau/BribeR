@@ -27,10 +27,6 @@ code selecting indicator columns with `speaker_` or `topic_`:
 
   Source transcript filename, e.g. `"14.csv"`.
 
-- format:
-
-  File format of the source transcript (e.g. `"csv"`).
-
 - date:
 
   Date of the recording.
