@@ -55,14 +55,14 @@ by transcript ID(s).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_transcripts</span><span class="op">(</span>transcripts <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_transcripts</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-transcripts">transcripts<a class="anchor" aria-label="anchor" href="#arg-transcripts"></a></dt>
+<dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>Optional numeric vector of transcript IDs to keep.
 If <code>NULL</code> (the default), all transcripts are returned.</p></dd>
 
@@ -93,10 +93,10 @@ If <code>NULL</code> (the default), all transcripts are returned.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     1      6 1/8/1998 montesinos  el señor montesinos torres.- Señor Borobio. </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load only transcript 1</span></span></span>
-<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu">read_transcripts</span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu">read_transcripts</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load transcripts 1, 8, and 13</span></span></span>
-<span class="r-in"><span><span class="va">subset</span> <span class="op">&lt;-</span> <span class="fu">read_transcripts</span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">8</span>, <span class="fl">13</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">subset</span> <span class="op">&lt;-</span> <span class="fu">read_transcripts</span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">8</span>, <span class="fl">13</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

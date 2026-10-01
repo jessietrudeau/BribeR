@@ -63,7 +63,7 @@ A tibble with one row per transcript and columns:
 
 - **Duration (`n_words`):** Computed from the bundled
   `compiled_transcripts` dataset by summing whitespace-delimited tokens
-  in the `speech` column for each unique transcript `n`.
+  in the `speech` column for each unique transcript `id`.
 
 ## See also
 

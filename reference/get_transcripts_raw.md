@@ -6,12 +6,12 @@ Retrieves one or more raw transcript `.csv` files from the
 ## Usage
 
 ``` r
-get_transcripts_raw(n = NULL, combine = FALSE)
+get_transcripts_raw(id = NULL, combine = FALSE)
 ```
 
 ## Arguments
 
-- n:
+- id:
 
   Optional integer or vector of integers specifying which transcript(s)
   to load. If `NULL` (default), all transcripts are loaded.
@@ -19,12 +19,12 @@ get_transcripts_raw(n = NULL, combine = FALSE)
 - combine:
 
   Logical; if `TRUE`, combines all transcripts into a single tibble with
-  an added column `n` (the transcript ID). Defaults to `FALSE`.
+  an added column `id` (the transcript ID). Defaults to `FALSE`.
 
 ## Value
 
 If `combine = FALSE`, returns a named list of data frames (tibbles). If
-`combine = TRUE`, returns a combined tibble with an added column `n`.
+`combine = TRUE`, returns a combined tibble with an added column `id`.
 
 ## Details
 
@@ -46,9 +46,9 @@ transcript ID.
 all_transcripts <- get_transcripts_raw()
 
 # Load a specific transcript by ID
-t1 <- get_transcripts_raw(n = 1)
+t1 <- get_transcripts_raw(id = 1)
 
 # Load multiple transcripts and combine them
-subset_combined <- get_transcripts_raw(n = c(1, 13, 86), combine = TRUE)
+subset_combined <- get_transcripts_raw(id = c(1, 13, 86), combine = TRUE)
 # }
 ```

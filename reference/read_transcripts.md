@@ -6,12 +6,12 @@ by transcript ID(s).
 ## Usage
 
 ``` r
-read_transcripts(transcripts = NULL)
+read_transcripts(id = NULL)
 ```
 
 ## Arguments
 
-- transcripts:
+- id:
 
   Optional numeric vector of transcript IDs to keep. If `NULL` (the
   default), all transcripts are returned.
@@ -44,8 +44,8 @@ head(all)
 #> 6     1      6 1/8/1998 montesinos  el señor montesinos torres.- Señor Borobio. 
 
 # Load only transcript 1
-t1 <- read_transcripts(transcripts = 1)
+t1 <- read_transcripts(id = 1)
 
 # Load transcripts 1, 8, and 13
-subset <- read_transcripts(transcripts = c(1, 8, 13))
+subset <- read_transcripts(id = c(1, 8, 13))
 ```

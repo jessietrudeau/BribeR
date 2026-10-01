@@ -55,27 +55,27 @@ data-raw/transcripts folder of the bribeR package."></head><body>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_transcripts_raw</span><span class="op">(</span>n <span class="op">=</span> <span class="cn">NULL</span>, combine <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_transcripts_raw</span><span class="op">(</span>id <span class="op">=</span> <span class="cn">NULL</span>, combine <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
+<dl><dt id="arg-id">id<a class="anchor" aria-label="anchor" href="#arg-id"></a></dt>
 <dd><p>Optional integer or vector of integers specifying which transcript(s)
 to load. If <code>NULL</code> (default), all transcripts are loaded.</p></dd>
 
 
 <dt id="arg-combine">combine<a class="anchor" aria-label="anchor" href="#arg-combine"></a></dt>
 <dd><p>Logical; if <code>TRUE</code>, combines all transcripts into a single tibble
-with an added column <code>n</code> (the transcript ID). Defaults to <code>FALSE</code>.</p></dd>
+with an added column <code>id</code> (the transcript ID). Defaults to <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>If <code>combine = FALSE</code>, returns a named list of data frames (tibbles).
-If <code>combine = TRUE</code>, returns a combined tibble with an added column <code>n</code>.</p>
+If <code>combine = TRUE</code>, returns a combined tibble with an added column <code>id</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -94,10 +94,10 @@ You can load all transcripts or specify a subset by transcript ID.</p>
 <span class="r-in"><span><span class="va">all_transcripts</span> <span class="op">&lt;-</span> <span class="fu">get_transcripts_raw</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load a specific transcript by ID</span></span></span>
-<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu">get_transcripts_raw</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu">get_transcripts_raw</span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load multiple transcripts and combine them</span></span></span>
-<span class="r-in"><span><span class="va">subset_combined</span> <span class="op">&lt;-</span> <span class="fu">get_transcripts_raw</span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">86</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">subset_combined</span> <span class="op">&lt;-</span> <span class="fu">get_transcripts_raw</span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">13</span>, <span class="fl">86</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -8,12 +8,12 @@ specific IDs and/or topics.
 ## Usage
 
 ``` r
-get_transcript_speakers(n = NULL, topic = NULL)
+get_transcript_speakers(id = NULL, topic = NULL)
 ```
 
 ## Arguments
 
-- n:
+- id:
 
   Optional numeric vector of transcript IDs to restrict results to
   (e.g., `1`, `c(1, 5, 10)`).
@@ -66,7 +66,7 @@ head(speakers)
 #> 6 americano        <dbl [1]>  
 
 # Get speakers from specific transcripts
-get_transcript_speakers(n = c(1, 5))
+get_transcript_speakers(id = c(1, 5))
 #> # A tibble: 9 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     
@@ -115,7 +115,7 @@ get_transcript_speakers(topic = c("media", "reelection"))
 #> # ℹ 13 more rows
 
 # Get speakers from transcript 2, which is also about media
-get_transcript_speakers(n = 2, topic = "media")
+get_transcript_speakers(id = 2, topic = "media")
 #> # A tibble: 2 × 2
 #>   speaker_std transcripts
 #>   <chr>       <list>     

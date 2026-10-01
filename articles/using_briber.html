@@ -126,12 +126,12 @@ full-text transcription of one turn.</p>
 IDs:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select first transcript</span></span>
-<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 496</span></span>
 <span></span>
 <span><span class="co"># Select multiple transcripts </span></span>
-<span><span class="va">t_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">t_sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span>, <span class="fl">39</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">t_sub</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1326</span></span></code></pre></div>
 <div class="section level3">
@@ -142,10 +142,10 @@ source CSV files for users who wish to access the data before
 compilation.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load transcript 3 as a data frame</span></span>
-<span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">t3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load multiple transcripts combined into a single tibble</span></span>
-<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">39</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">combined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcripts_raw.html">get_transcripts_raw</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">13</span>, <span class="fl">39</span><span class="op">)</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -281,7 +281,7 @@ counting which actors speak the most during these conversations:</p>
 <span><span class="va">media_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_transcript_id.html">get_transcript_id</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"media"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 2: load just those transcripts about the media </span></span>
-<span><span class="va">media_transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>transcripts <span class="op">=</span> <span class="va">media_ids</span><span class="op">)</span></span>
+<span><span class="va">media_transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_transcripts.html">read_transcripts</a></span><span class="op">(</span>id <span class="op">=</span> <span class="va">media_ids</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Step 3: count words spoken per actor</span></span>
 <span><span class="va">media_transcripts</span> <span class="op">|&gt;</span></span>
