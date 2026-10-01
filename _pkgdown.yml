@@ -5,11 +5,11 @@ template:
   light-switch: true
 
 home:
-  title: "bribeR: Tools for Analyzing the Vladivideos Corruption Transcripts"
+  title: "bribeR: Download, Process, and Analyze Vladivideos Transcripts"
   description: >
-    An R package for accessing and analyzing the Vladivideos — secret
-    recordings documenting systematic corruption under Peru's Fujimori
-    government in the 1990s.
+    An R package for accessing and analyzing text transcript
+    data from the *Vladivideos,* covert recordings documenting bribery and
+    corruption during Alberto Fujimori’s presidency in Peru (1990-2000).
 
   sidebar:
     structure: [links, license, citation, authors, dev]
