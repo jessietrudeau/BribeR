@@ -50,14 +50,14 @@ colnames(transcripts)
 
 head(transcripts)
 #> # A tibble: 6 × 6
-#>      id row_id date     speaker_std speaker                      speech         
-#>   <dbl>  <int> <chr>    <chr>       <chr>                        <chr>          
-#> 1     1      1 1/8/1998 background  background                   Departamento d…
-#> 2     1      2 1/8/1998 montesinos  el señor montesinos torres.- Un gusto en co…
-#> 3     1      3 1/8/1998 menendez    el señor gonzalo.-           Encantado de c…
-#> 4     1      4 1/8/1998 montesinos  el señor montesinos torres.- Siéntese.      
-#> 5     1      5 1/8/1998 menendez    el señor gonzalo.-           Gracias， muy a…
-#> 6     1      6 1/8/1998 montesinos  el señor montesinos torres.- Señor Borobio.
+#>      id row_id date       speaker_std speaker                      speech       
+#>   <dbl>  <int> <date>     <chr>       <chr>                        <chr>        
+#> 1     1      1 1998-01-08 background  background                   Departamento…
+#> 2     1      2 1998-01-08 montesinos  el señor montesinos torres.- Un gusto en …
+#> 3     1      3 1998-01-08 menendez    el señor gonzalo.-           Encantado de…
+#> 4     1      4 1998-01-08 montesinos  el señor montesinos torres.- Siéntese.    
+#> 5     1      5 1998-01-08 menendez    el señor gonzalo.-           Gracias， muy…
+#> 6     1      6 1998-01-08 montesinos  el señor montesinos torres.- Señor Borobi…
 ```
 
 You can filter to one or more transcripts using their numeric IDs:
@@ -92,12 +92,12 @@ combined <- get_transcripts_raw(id = c(3, 13, 39), combine = TRUE)
 
 ## Find transcripts
 
-If users know the actor(s) or topic(s) they wish to focus on, but not
+If users know the speaker(s) or topic(s) they wish to focus on, but not
 the numeric `id`, use
 [`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
 to filter transcripts by speaker or topic characteristics.
 
-### By actor
+### By speaker
 
 The
 [`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
@@ -135,7 +135,7 @@ kouri_crousillat_ids
 
 There are 139 speaker IDs that
 [`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
-can filter on, one for each individual in the `actors` dataset.
+can filter on, one for each individual in the `speakers` dataset.
 
 ### By topic
 
@@ -165,9 +165,9 @@ Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html#topics).
 
 ### By both
 
-Finally, users can filter transcripts by actor and topic. This function
-uses AND logic and returns transcript IDs where both the selected
-speaker(s) are present and topic is mentioned.
+Finally, users can filter transcripts by speaker and topic. This
+function uses AND logic and returns transcript IDs where both the
+selected speaker(s) are present and topic is mentioned.
 
 ``` r
 
@@ -184,7 +184,7 @@ length(media_crousillat_ids)
 
 ## Integrate with metadata
 
-Rich transcript-level and actor-level metadata is available in
+Rich transcript-level and speaker-level metadata is available in
 **bribeR**.
 
 The
@@ -201,7 +201,7 @@ meta <- read_transcript_meta_data()
 head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
-#>   <dbl> <chr>      <list>      <int> <list>   
+#>   <dbl> <date>     <list>      <int> <list>   
 #> 1     1 1998-01-08 <chr [5]>    9384 <chr [1]>
 #> 2     2 1998-01-12 <chr [2]>   13035 <chr [2]>
 #> 3     3 1998-01-20 <chr [3]>    4895 <chr [2]>
@@ -213,7 +213,7 @@ head(meta)
 read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
-#>   <dbl> <chr>      <list>      <int> <list>   
+#>   <dbl> <date>     <list>      <int> <list>   
 #> 1     5 1998-01-28 <chr [6]>   15535 <chr [2]>
 ```
 
@@ -227,7 +227,7 @@ can be used together.
 Say that we are interested in how Montesinos and his counterparts talk
 about a commonly discussed topic, media manipulation. First, we start by
 selecting the conversations about media manipulation and counting which
-actors speak the most during these conversations:
+speakers speak the most during these conversations:
 
 ``` r
 
@@ -239,13 +239,13 @@ media_ids <- get_transcript_id(topic = "media")
 # Step 2: load just those transcripts about the media 
 media_transcripts <- read_transcripts(id = media_ids)
 
-# Step 3: count words spoken per actor
+# Step 3: count words spoken per speaker
 media_transcripts |>
   mutate(n_words = lengths(strsplit(speech, "\\s+"))) |>
   group_by(speaker_std) |>
   summarise(total_words = sum(n_words, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(total_words)) |>
-  ## drop the 'background' and 'desconocido' to focus on identifiable actors only
+  ## drop the 'background' and 'desconocido' to focus on identifiable speakers only
   filter(speaker_std != "desconocido" & speaker_std != "background") |>
   head(10) |>
   ggplot(aes(x = reorder(speaker_std, total_words), y = total_words, fill = speaker_std)) +
@@ -261,15 +261,15 @@ media_transcripts |>
 ![](using_briber_files/figure-html/unnamed-chunk-3-1.png)
 
 Second, let’s say we’re interested in making some aggregate conclusions
-about the type of actor that’s speaking during such conversations. This
-requires crossing the corpus of media transcripts with the actor-level
-metadata.
+about the type of speaker that’s speaking during such conversations.
+This requires crossing the corpus of media transcripts with the
+speaker-level metadata.
 
 ``` r
 
-# Step 1: Left join media_transcripts with actor-level metadata from `actors`
+# Step 1: Left join media_transcripts with speaker-level metadata from `speakers`
 media_transcripts <- media_transcripts |>
-  left_join(actors |> select(speaker_std, type, position),
+  left_join(speakers |> select(speaker_std, type, position),
     by = "speaker_std"
   )
 
@@ -279,12 +279,12 @@ media_transcripts |>
   group_by(type) |>
   summarise(total_words = sum(n_words, na.rm = TRUE), .groups = "drop") |>
   arrange(desc(total_words)) |> 
-    filter(is.na(type) == F) |> #Filter only to identified actors
+    filter(is.na(type) == F) |> #Filter only to identified speakers
   ggplot(aes(x = reorder(type, total_words), y = total_words, fill = type)) +
   geom_col() + coord_flip() + theme_minimal(base_size = 13) +
   theme(legend.position = "none") +
   labs(
-    title = "Words spoken in media-related transcripts, by actor type",
+    title = "Words spoken in media-related transcripts, by speaker type",
     x     = NULL,
     y     = "Total words"
   ) 
@@ -294,19 +294,19 @@ media_transcripts |>
 
 ### Example 2: Finding Transcripts by Speaker Type
 
-You can combine `actors` and
+You can combine `speakers` and
 [`get_transcript_id()`](https://jessietrudeau.com/bribeR/reference/get_transcript_id.md)
-to filter the corpus by type of actor rather than by individual name.
-The example below finds all transcripts featuring any media-sector actor
-who appears in the transcript index:
+to filter the corpus by type of speaker rather than by individual name.
+The example below finds all transcripts featuring any media-sector
+speaker who appears in the transcript index:
 
 ``` r
 
-# Step 1: find all media actors 
-media_actors <- actors |>
+# Step 1: find all media speakers 
+media_speakers <- speakers |>
   filter(type == "media") |>
   pull(speaker_std) 
-media_actors
+media_speakers
 #>  [1] "vera"                    "crousillat carreno"     
 #>  [3] "genaro delgado parker"   "locutor"                
 #>  [5] "schutz"                  "calmell"                
@@ -316,9 +316,9 @@ media_actors
 #> [13] "winter zuzunaga"
 
 
-# Step 2: Filter for transcripts where media actors are present
+# Step 2: Filter for transcripts where media speakers are present
 ## ERROR: e.g. VALENZUELA
-#media_ids <- get_transcript_id(speaker = media_actors)
+#media_ids <- get_transcript_id(speaker = media_speakers)
 #length(media_ids)
 ```
 

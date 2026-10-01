@@ -94,11 +94,11 @@ bribeR includes four searchable datasets:
 | `compiled_transcripts` | Full text corpus: 45,337 speech turns across 95 transcripts |
 | `transcript_index` | Wide-format transcript-level metadata, including dates, recording format, summaries, topics, and speakers present |
 | `speakers_per_transcript` | Speaker roster per transcript |
-| `actors` | Actor-level metadata |
+| `speakers` | Speaker-level metadata |
 
 A full description of the raw data is in the [Raw Data
 Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html),
-as well as a description of additional actor- and topic-level metadata
+as well as a description of additional speaker- and topic-level metadata
 accessible in **bribeR.** A full description of the datasets included in
 the package is in the [bribeR Data
 Guide](https://jessietrudeau.com/bribeR/articles/briber_data_guide.html).

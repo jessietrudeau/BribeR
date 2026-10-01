@@ -20,8 +20,9 @@ A tibble with 95 rows and 23 variables:
 
 - speaker_std_1 ... speaker_std_22:
 
-  Standardized speaker identifier for the 1st through 22nd speaker slot.
-  `NA` if the slot is unused for that transcript.
+  Standardized speaker identifier for the 1st through 22nd speaker slot,
+  in the order the speakers first speak. `NA` if the slot is unused for
+  that transcript.
 
 ## Source
 

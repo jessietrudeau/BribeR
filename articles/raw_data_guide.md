@@ -2,8 +2,8 @@
 
 ## About the Vladivideos
 
-Between 1990 and 2000, Vladimiro Montesinos Torres—the head of Peru’s
-National Intelligence Service under President Alberto Fujimori—secretly
+Between 1990 and 2000, Vladimiro Montesinos Torres, the head of Peru’s
+National Intelligence Service under President Alberto Fujimori, secretly
 recorded meetings in which he bribed politicians, judges, military
 officers, media executives, and businesspeople. Most of the aptly named
 *Vladivideo* footage (and subsequent transcripts included in this
@@ -26,9 +26,9 @@ Congressional Archives.
 
 The videos capture corruption across every major institution of the
 Peruvian state: legislators accepting cash to switch party allegiances,
-television channel owners receiving monthly payments to censor news
-coverage, military generals coordinating electoral suppression, and
-judges confirming their availability to rule in Montesinos’s favor.
+military generals coordinating electoral suppression, judges confirming
+their availability to rule in Montesinos’s favor, and even television
+channel owners receiving monthly payments to censor news coverage.
 
 See, for example, this exchange about consolidating power in the
 judicial branch between Montesinos and Alipio Montes de Oca, Supreme
@@ -76,7 +76,7 @@ also includes relevant metadata about the 139 individuals recorded
 speaking and 15 topics.
 
 This page introduces the raw data, highlighting how it is organized at
-the transcript-, actor-, and topic-level. This page uses some of the
+the transcript-, speaker-, and topic-level. This page uses some of the
 functions included in **bribeR**, all of which are detailed in the
 [**User
 Guide**](https://jessietrudeau.com/bribeR/articles/using_briber.html)**.**
@@ -139,16 +139,16 @@ ggplot(meta, aes(x = n_words)) +
 
 ![](raw_data_guide_files/figure-html/length-hist-1.png)
 
-## Actors
+## Speakers
 
 Users can access biographical and institutional metadata for the 139
 individuals recorded speaking in the Vladivideos transcripts through the
-`actors` dataset. Each person is classified by their institutional role
-at the time of the recordings.
+`speakers` dataset. Each person is classified by their institutional
+role at the time of the recordings.
 
 ``` r
 
-head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
+head(speakers[, c("speaker", "position", "type", "party", "speaker_std")])
 #> # A tibble: 6 × 5
 #>   speaker                         position               type  party speaker_std
 #>   <chr>                           <chr>                  <chr> <chr> <chr>      
@@ -160,8 +160,8 @@ head(actors[, c("speaker", "position", "type", "party", "speaker_std")])
 #> 6 carlos ferrero costa            Constituent Congressm… cong… NM    carlos fer…
 ```
 
-Actors are grouped into eleven categories. Vladimiro Montesinosis in his
-own category:
+Speakers are grouped into eleven categories. Vladimiro Montesinosis in
+his own category:
 
 | type | Count | Description |
 |----|----|----|
@@ -177,21 +177,21 @@ own category:
 | `businessperson` | 3 | Private sector executives and financiers |
 | `elected official` | 4 | Mayors, executives, and (non-Congressional) other elected officials |
 
-This figure shows that the three most common types of actors to be
+This figure shows that the three most common types of speakers to be
 recorded are members of the security sector, congresspeople, and
 bureaucrats.
 
 ``` r
 
-actors |>
+speakers |>
   count(type, sort = TRUE) |>
   ggplot(aes(x = reorder(type, n), y = n)) +
   geom_col(fill = "#8B1A1A") +
   coord_flip() +
   labs(
-    title = "Actors by institutional type",
+    title = "Speakers by institutional type",
     x     = NULL,
-    y     = "Number of actors"
+    y     = "Number of speakers"
   ) +
   theme_minimal(base_size = 13)
 ```
@@ -203,10 +203,10 @@ transcripts – carry the speaker identifier `desconocido` (unidentified).
 **This is a placeholder, not a person.** It collects every speaker the
 transcribers could not name, so turns sharing this identifier are
 generally spoken by different people and it should not be treated as a
-single actor in any analysis. Unidentified speakers are often messengers
-who quickly exit, aides, or people who stay largely silent apart from
-salutations; in many cases the original label was simply `El señor` with
-no name attached.
+single speaker in any analysis. Unidentified speakers are often
+messengers who quickly exit, aides, or people who stay largely silent
+apart from salutations; in many cases the original label was simply
+`El señor` with no name attached.
 
 ## Topics
 

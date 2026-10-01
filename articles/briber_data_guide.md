@@ -24,7 +24,7 @@ glimpse(transcripts)
 #> Columns: 6
 #> $ id          <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 #> $ row_id      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
-#> $ date        <chr> "1/8/1998", "1/8/1998", "1/8/1998", "1/8/1998", "1/8/1998"…
+#> $ date        <date> 1998-01-08, 1998-01-08, 1998-01-08, 1998-01-08, 1998-01-0…
 #> $ speaker_std <chr> "background", "montesinos", "menendez", "montesinos", "men…
 #> $ speaker     <chr> "background", "el señor montesinos torres.-", "el señor go…
 #> $ speech      <chr> "Departamento de Transcripciones CONGRESO DE LA REPÚBLICA …
@@ -34,7 +34,7 @@ glimpse(transcripts)
 |---------------|-----------|----------------------------------------|
 | `id`          | numeric   | Transcript number                      |
 | `row_id`      | numeric   | Row number within the transcript       |
-| `date`        | character | Recording date                         |
+| `date`        | date      | Recording date                         |
 | `speaker_std` | character | Standardized speaker identifier        |
 | `speaker`     | character | Raw speaker label from the source file |
 | `speech`      | character | Speech text (Spanish)                  |
@@ -86,7 +86,7 @@ head(transcript_index[, c("id", "file", "format", "date", "original_id", "type",
 
 The 15 `topic_*` and 139 `speaker_*` columns take on a value of 1 if the
 topic or speaker is present and a value of 0 otherwise. They are
-designed for fast filtering for specific actors or topics without
+designed for fast filtering for specific speakers or topics without
 loading the full corpus.
 
 ``` r
@@ -107,10 +107,10 @@ names(transcript_index)[grepl("^topic_", names(transcript_index))]
 
 This file contains one row per transcript, allowing users to quickly
 search for the speakers present during any one conversation. The
-standardized speaker name `speaker_std` is used to indicate which actors
-are present for each conversation, sorted by chronological speaking
-order. There is a minimum of 1 speaker per conversation and a maximum of
-19.
+standardized speaker name `speaker_std` is used to indicate which
+speakers are present for each conversation, sorted by chronological
+speaking order. There is a minimum of 1 speaker per conversation and a
+maximum of 19.
 
 ``` r
 
@@ -131,7 +131,7 @@ speakers_per_transcript %>%
 #> #   speaker_std_20 <chr>, speaker_std_21 <chr>, speaker_std_22 <chr>
 ```
 
-### `actors`
+### `speakers`
 
 This file contains biographical and institutional metadata for the 139
 individuals recorded speaking in the transcripts. The variable names are
@@ -139,7 +139,7 @@ shown in the below table.
 
 ``` r
 
-head(actors)
+head(speakers)
 #> # A tibble: 6 × 6
 #>   speaker                         speaker_std     position     type  party notes
 #>   <chr>                           <chr>           <chr>        <chr> <chr> <chr>
@@ -158,14 +158,14 @@ head(actors)
 | `position` | character | Short description of the speaker’s position |
 | `type` | character | One of 11 categories described in the [Raw Data Guide](https://jessietrudeau.com/bribeR/articles/raw_data_guide.html): `montesinos`, `security`, `congress`, `judiciary`, `media`, `businessperson`, `elected official`, `bureaucrat`, `foreign`, `illicit` and `other`. |
 | `party` | character | For elected officials, the political party at the time of the recording, given as the [V-Party](https://www.v-dem.net/) abbreviation[^2] |
-| `notes` | character | Miscellaneous notes for actors that were difficult to identify |
+| `notes` | character | Miscellaneous notes for speakers that were difficult to identify |
 
 For example, the file contains this biographical information about some
 of the speakers from Fujimori’s party:
 
 ``` r
 
-actors %>%
+speakers %>%
   filter(type == "congress") %>%
   select(speaker, speaker_std, position, type, party) %>% 
   slice(3:5)
@@ -187,7 +187,7 @@ connect the datasets:
 |------------------------|---------------------------|---------------|
 | `compiled_transcripts` | `transcript_index`        | `id`          |
 | `compiled_transcripts` | `speakers_per_transcript` | `id`          |
-| `compiled_transcripts` | `actors`                  | `speaker_std` |
+| `compiled_transcripts` | `speakers`                | `speaker_std` |
 | `transcript_index`     | `speakers_per_transcript` | `id`          |
 
 ### `id`
@@ -243,7 +243,7 @@ reference them by name after
 
 nrow(compiled_transcripts)
 #> [1] 45337
-names(actors)
+names(speakers)
 #> [1] "speaker"     "speaker_std" "position"    "type"        "party"      
 #> [6] "notes"
 ```

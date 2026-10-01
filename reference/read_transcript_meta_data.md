@@ -79,7 +79,7 @@ meta <- read_transcript_meta_data()
 head(meta)
 #> # A tibble: 6 × 5
 #>      id date       speakers  n_words topics   
-#>   <dbl> <chr>      <list>      <int> <list>   
+#>   <dbl> <date>     <list>      <int> <list>   
 #> 1     1 1998-01-08 <chr [5]>    9384 <chr [1]>
 #> 2     2 1998-01-12 <chr [2]>   13035 <chr [2]>
 #> 3     3 1998-01-20 <chr [3]>    4895 <chr [2]>
@@ -91,14 +91,14 @@ head(meta)
 read_transcript_meta_data(5)
 #> # A tibble: 1 × 5
 #>      id date       speakers  n_words topics   
-#>   <dbl> <chr>      <list>      <int> <list>   
+#>   <dbl> <date>     <list>      <int> <list>   
 #> 1     5 1998-01-28 <chr [6]>   15535 <chr [2]>
 
 # Metadata for several transcripts
 read_transcript_meta_data(c(5, 12, 47))
 #> # A tibble: 3 × 5
 #>      id date       speakers  n_words topics   
-#>   <dbl> <chr>      <list>      <int> <list>   
+#>   <dbl> <date>     <list>      <int> <list>   
 #> 1     5 1998-01-28 <chr [6]>   15535 <chr [2]>
 #> 2    12 1998-04-14 <chr [3]>   11547 <chr [2]>
 #> 3    47 1999-04-04 <chr [2]>    9759 <chr [1]>

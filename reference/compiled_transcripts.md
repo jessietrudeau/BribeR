@@ -1,4 +1,4 @@
-# Vladivideos Detailed Transcripts
+# Vladivideos Transcript Corpus
 
 The main corpus of the Vladivideos recordings. Each row represents a
 single speech turn within a transcript, with the speaker's words and
@@ -24,7 +24,7 @@ A tibble with 45,337 rows and 6 variables:
 
 - date:
 
-  Date of the recording (character).
+  Date of the recording.
 
 - speaker_std:
 

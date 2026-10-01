@@ -31,13 +31,13 @@ Transcript-level summary information.
 Searchable datasets included in bribeR.
 
 - [`compiled_transcripts`](https://jessietrudeau.com/bribeR/reference/compiled_transcripts.md)
-  : Vladivideos Detailed Transcripts
+  : Vladivideos Transcript Corpus
 - [`transcript_index`](https://jessietrudeau.com/bribeR/reference/transcript_index.md)
   : Transcript Index
 - [`speakers_per_transcript`](https://jessietrudeau.com/bribeR/reference/speakers_per_transcript.md)
   : Speakers Per Transcript
-- [`actors`](https://jessietrudeau.com/bribeR/reference/actors.md) :
-  Actor Roster
+- [`speakers`](https://jessietrudeau.com/bribeR/reference/speakers.md) :
+  Speaker Roster
 
 ## Visualization
 

@@ -103,7 +103,7 @@ to one speech turn within a transcript.</p>
 <span><span class="co">#&gt; Columns: 6</span></span>
 <span><span class="co">#&gt; $ id          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1<span style="color: #949494;">, </span>1…</span></span>
 <span><span class="co">#&gt; $ row_id      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1<span style="color: #949494;">, </span>2<span style="color: #949494;">, </span>3<span style="color: #949494;">, </span>4<span style="color: #949494;">, </span>5<span style="color: #949494;">, </span>6<span style="color: #949494;">, </span>7<span style="color: #949494;">, </span>8<span style="color: #949494;">, </span>9<span style="color: #949494;">, </span>10<span style="color: #949494;">, </span>11<span style="color: #949494;">, </span>12<span style="color: #949494;">, </span>13<span style="color: #949494;">, </span>14<span style="color: #949494;">, </span>15<span style="color: #949494;">, </span>16<span style="color: #949494;">, </span>17<span style="color: #949494;">,</span>…</span></span>
-<span><span class="co">#&gt; $ date        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1/8/1998"<span style="color: #949494;">, </span>"1/8/1998"<span style="color: #949494;">, </span>"1/8/1998"<span style="color: #949494;">, </span>"1/8/1998"<span style="color: #949494;">, </span>"1/8/1998"…</span></span>
+<span><span class="co">#&gt; $ date        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 1998-01-08<span style="color: #949494;">, </span>1998-01-08<span style="color: #949494;">, </span>1998-01-08<span style="color: #949494;">, </span>1998-01-08<span style="color: #949494;">, </span>1998-01-0…</span></span>
 <span><span class="co">#&gt; $ speaker_std <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "background"<span style="color: #949494;">, </span>"montesinos"<span style="color: #949494;">, </span>"menendez"<span style="color: #949494;">, </span>"montesinos"<span style="color: #949494;">, </span>"men…</span></span>
 <span><span class="co">#&gt; $ speaker     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "background"<span style="color: #949494;">, </span>"el señor montesinos torres.-"<span style="color: #949494;">, </span>"el señor go…</span></span>
 <span><span class="co">#&gt; $ speech      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Departamento de Transcripciones CONGRESO DE LA REPÚBLICA …</span></span></code></pre></div>
@@ -131,7 +131,7 @@ to one speech turn within a transcript.</p>
 </tr>
 <tr class="odd">
 <td><code>date</code></td>
-<td>character</td>
+<td>date</td>
 <td>Recording date</td>
 </tr>
 <tr class="even">
@@ -265,7 +265,7 @@ below table.</p>
 </table>
 <p>The 15 <code>topic_*</code> and 139 <code>speaker_*</code> columns
 take on a value of 1 if the topic or speaker is present and a value of 0
-otherwise. They are designed for fast filtering for specific actors or
+otherwise. They are designed for fast filtering for specific speakers or
 topics without loading the full corpus.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 15 topics in the corpus</span></span>
@@ -286,9 +286,9 @@ topics without loading the full corpus.</p>
 <p>This file contains one row per transcript, allowing users to quickly
 search for the speakers present during any one conversation. The
 standardized speaker name <code>speaker_std</code> is used to indicate
-which actors are present for each conversation, sorted by chronological
-speaking order. There is a minimum of 1 speaker per conversation and a
-maximum of 19.</p>
+which speakers are present for each conversation, sorted by
+chronological speaking order. There is a minimum of 1 speaker per
+conversation and a maximum of 19.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Who was present in the first three conversations?</span></span>
 <span><span class="va">speakers_per_transcript</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -307,14 +307,14 @@ maximum of 19.</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   speaker_std_20 &lt;chr&gt;, speaker_std_21 &lt;chr&gt;, speaker_std_22 &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="actors">
-<code>actors</code><a class="anchor" aria-label="anchor" href="#actors"></a>
+<h3 id="speakers">
+<code>speakers</code><a class="anchor" aria-label="anchor" href="#speakers"></a>
 </h3>
 <p>This file contains biographical and institutional metadata for the
 139 individuals recorded speaking in the transcripts. The variable names
 are shown in the below table.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">speakers</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   speaker                         speaker_std     position     type  party notes</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
@@ -375,14 +375,15 @@ abbreviation variable for Peru in the V-Party dataset: &lt;code&gt;NM&lt;/code&g
 <tr class="even">
 <td><code>notes</code></td>
 <td>character</td>
-<td>Miscellaneous notes for actors that were difficult to identify</td>
+<td>Miscellaneous notes for speakers that were difficult to
+identify</td>
 </tr>
 </tbody>
 </table>
 <p>For example, the file contains this biographical information about
 some of the speakers from Fujimori’s party:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">actors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">speakers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">type</span> <span class="op">==</span> <span class="st">"congress"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">speaker</span>, <span class="va">speaker_std</span>, <span class="va">position</span>, <span class="va">type</span>, <span class="va">party</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
@@ -419,7 +420,7 @@ below shows which columns connect the datasets:</p>
 </tr>
 <tr class="odd">
 <td><code>compiled_transcripts</code></td>
-<td><code>actors</code></td>
+<td><code>speakers</code></td>
 <td><code>speaker_std</code></td>
 </tr>
 <tr class="even">
@@ -481,7 +482,7 @@ can reference them by name after <code><a href="https://jessietrudeau.com/bribeR
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">compiled_transcripts</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 45337</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">actors</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">speakers</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "speaker"     "speaker_std" "position"    "type"        "party"      </span></span>
 <span><span class="co">#&gt; [6] "notes"</span></span></code></pre></div>
 </div>
