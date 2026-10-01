@@ -111,7 +111,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
   # ---- 4) Server ------------------------------------------------------------
   server <- function(input, output, session) {
 
-    # Speaker frequency from transcripts (optional)
+    # How many transcripts each speaker appears in, counted from the transcript
+    # files. Empty when no transcript directory is available.
     speaker_frequency <- {
       if (!is.null(transcript_dir) && nzchar(transcript_dir) && dir.exists(transcript_dir)) {
         files <- fs::dir_ls(transcript_dir, regexp = "\\.(csv|tsv)$", recurse = TRUE)
@@ -192,7 +193,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         width = pmax(1, log1p(dplyr::coalesce(.data$conversation_count, 0)))
       )
 
-    # === Speaker pairs for placeholder edges (for layout support) ===
+    # === Speaker pairs behind the faint co-appearance edges ===
+    # Drawn in grey on the speaker-topic view so that speakers sharing a
+    # transcript are pulled together by the layout.
     speaker_pairs_topic_net <- speaker_long |>
       dplyr::select("id", "speaker") |>
       dplyr::distinct() |>

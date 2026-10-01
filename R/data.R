@@ -1,4 +1,4 @@
-#' Vladivideos Detailed Transcripts
+#' Vladivideos Transcript Corpus
 #'
 #' The main corpus of the Vladivideos recordings. Each row represents a single
 #' speech turn within a transcript, with the speaker's words and metadata.
@@ -21,9 +21,8 @@
 #'
 #' A wide-format lookup table with one row per transcript, combining
 #' descriptive metadata with binary indicator columns for topics and
-#' speakers, enabling fast filtering without loading the full corpus. This
-#' is the single source of transcript-level metadata for the package; there
-#' is no separate `descriptions` dataset.
+#' speakers, enabling fast filtering without loading the full corpus. It is
+#' the single source of transcript-level metadata for the package.
 #'
 #' @format A tibble with 95 rows. Descriptive columns first, followed by the
 #'   `n_speakers` and `n_topics` summary counts, followed by the boolean (1/0)
@@ -65,8 +64,8 @@
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
 #'   \item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier
-#'     for the 1st through 22nd speaker slot. \code{NA} if the slot is unused
-#'     for that transcript.}
+#'     for the 1st through 22nd speaker slot, in the order the speakers first
+#'     speak. \code{NA} if the slot is unused for that transcript.}
 #' }
 #' @source Derived from the Vladivideos transcripts.
 "speakers_per_transcript"
@@ -74,8 +73,8 @@
 
 #' Actor Roster
 #'
-#' Biographical and institutional metadata for individuals who appear in the
-#' Vladivideos transcripts.
+#' Biographical and institutional metadata for every individual recorded
+#' speaking in the Vladivideos transcripts.
 #'
 #' @format A tibble with 139 rows and 6 variables:
 #' \describe{

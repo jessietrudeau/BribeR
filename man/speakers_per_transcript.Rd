@@ -9,8 +9,8 @@ A tibble with 95 rows and 23 variables:
 \describe{
 \item{id}{Numeric transcript identifier.}
 \item{speaker_std_1 ... speaker_std_22}{Standardized speaker identifier
-for the 1st through 22nd speaker slot. \code{NA} if the slot is unused
-for that transcript.}
+for the 1st through 22nd speaker slot, in the order the speakers first
+speak. \code{NA} if the slot is unused for that transcript.}
 }
 }
 \source{

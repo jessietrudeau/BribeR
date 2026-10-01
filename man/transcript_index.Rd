@@ -42,8 +42,7 @@ transcript_index
 \description{
 A wide-format lookup table with one row per transcript, combining
 descriptive metadata with binary indicator columns for topics and
-speakers, enabling fast filtering without loading the full corpus. This
-is the single source of transcript-level metadata for the package; there
-is no separate \code{descriptions} dataset.
+speakers, enabling fast filtering without loading the full corpus. It is
+the single source of transcript-level metadata for the package.
 }
 \keyword{datasets}

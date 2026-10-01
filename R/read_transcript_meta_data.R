@@ -74,7 +74,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
   spt         <- .load_pkg_data("speakers_per_transcript")
   transcripts <- .load_pkg_data("compiled_transcripts")
 
-  # --- validate basics
+  # --- check the bundled data carries the columns this function needs
   if (!"id" %in% names(desc)) stop("`transcript_index` must include column 'id'.", call. = FALSE)
   if (!"date" %in% names(desc)) {
     if (!quiet) warning("`transcript_index` has no 'date' column; setting NA for dates.")
@@ -82,11 +82,11 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
   }
   if (!"id" %in% names(spt)) stop("`speakers_per_transcript` must include column 'id'.", call. = FALSE)
 
-  # --- normalize ids
+  # --- hold ids as text, so the joins below match whatever type came in
   desc <- dplyr::mutate(desc, id = as.character(.data$id))
   spt  <- dplyr::mutate(spt,  id = as.character(.data$id))
 
-  # --- drop transcript IDs that have no actual transcript data
+  # --- keep only the transcripts the corpus has speech turns for
   valid_ids <- unique(as.character(transcripts$id))
   desc <- dplyr::filter(desc, .data$id %in% valid_ids)
 
@@ -119,8 +119,8 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
     transcripts <- dplyr::filter(transcripts, as.numeric(.data$id) %in% requested)
   }
 
-  # --- speakers: wide -> long -> list-column
-  spt_speaker_cols <- grep("^(speakrer_std_|speaker_std_)[0-9]+$", names(spt), value = TRUE)
+  # --- collapse the wide speaker_std_1..N columns into one list-column per transcript
+  spt_speaker_cols <- grep("^speaker_std_[0-9]+$", names(spt), value = TRUE)
   if (!length(spt_speaker_cols)) {
     stop("`speakers_per_transcript` must include columns like 'speaker_std_1'.", call. = FALSE)
   }
@@ -186,7 +186,8 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
     dplyr::left_join(duration_df,  by = "id") |>
     dplyr::left_join(topics_vec,   by = "id")
 
-  # ensure list-cols exist even if missing
+  # a transcript with no speakers, topics or words gets nothing from the joins
+  # above, so create those columns when they are absent
   if (!"speakers" %in% names(meta)) meta$speakers <- replicate(nrow(meta), character(0), simplify = FALSE)
   if (!"topics"   %in% names(meta)) meta$topics   <- replicate(nrow(meta), character(0), simplify = FALSE)
   if (!"n_words"  %in% names(meta)) meta$n_words  <- NA_integer_

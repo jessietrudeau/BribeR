@@ -3,7 +3,7 @@
 \docType{data}
 \name{compiled_transcripts}
 \alias{compiled_transcripts}
-\title{Vladivideos Detailed Transcripts}
+\title{Vladivideos Transcript Corpus}
 \format{
 A tibble with 45,337 rows and 6 variables:
 \describe{

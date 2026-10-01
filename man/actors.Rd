@@ -33,7 +33,7 @@ published research.
 actors
 }
 \description{
-Biographical and institutional metadata for individuals who appear in the
-Vladivideos transcripts.
+Biographical and institutional metadata for every individual recorded
+speaking in the Vladivideos transcripts.
 }
 \keyword{datasets}

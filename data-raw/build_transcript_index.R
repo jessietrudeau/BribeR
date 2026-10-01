@@ -42,15 +42,15 @@ files <- dir_ls(
 )
 if (length(files) == 0L) stop("No transcript files found under: ", transcripts_root)
 
-# Sort numerically by basename if possible
+# Sort by the numeric filename, falling back to alphabetical if any name is not a number
 base_ids <- tools::file_path_sans_ext(path_file(files))
 nums <- suppressWarnings(as.integer(base_ids))
 ord <- if (all(!is.na(nums))) order(nums) else order(base_ids)
 files <- files[ord]
 
-# ---- load descriptions.csv ----
-# There is no standalone `descriptions` dataset shipped with the package;
-# its content is folded directly into `transcript_index` below.
+# ---- load Descriptions.csv ----
+# It supplies each transcript's date, summary, type and topic flags, which are
+# folded into `transcript_index` below rather than shipped as their own dataset.
 desc_candidates <- c(
   Sys.getenv("DESCRIPTIONS_CSV", unset = NA),
   "data-raw/Inventory & Descriptions/Descriptions.csv"
@@ -206,7 +206,7 @@ transcript_index <- transcript_index %>%
       rowSums(across(all_of(speaker_cols_present)), na.rm = TRUE) else NA_integer_
   )
 
-# ---- reorder columns and rename n -> id ----
+# ---- reorder columns and rename n to id ----
 # Descriptive columns first, then speaker/topic counts, then the speaker_*
 # and topic_* boolean (1/0) indicator columns used for filtering.
 .desc_cols <- intersect(
