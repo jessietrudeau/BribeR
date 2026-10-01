@@ -19,7 +19,7 @@ library(lubridate)
 library(tidyr)
 
 # Speaker identifiers are matched lowercased, whitespace-squished and stripped
-# of diacritics, so that the roster, the transcripts and actors.csv all resolve
+# of diacritics, so that the roster, the transcripts and speakers.csv all resolve
 # to the same key.
 .norm_key <- function(x) {
   stringi::stri_trans_general(str_to_lower(str_squish(str_trim(as.character(x)))), "Latin-ASCII")
@@ -137,28 +137,28 @@ message("Constructed speaker matrix (",
         nrow(speaker_matrix), " transcripts; ",
         length(grep('^speaker_', names(speaker_matrix))), " unique speakers).")
 
-# ---- load actors.csv and filter speaker columns ----
-actor_candidates <- c(
-  Sys.getenv("ACTORS_CSV", unset = NA),
-  "data-raw/Inventory & Descriptions/actors.csv"
+# ---- load speakers.csv and filter speaker columns ----
+speakers_candidates <- c(
+  Sys.getenv("SPEAKERS_CSV", unset = NA),
+  "data-raw/Inventory & Descriptions/speakers.csv"
 ) |> unique()
-actor_candidates <- actor_candidates[!is.na(actor_candidates)]
-actor_path <- actor_candidates[file_exists(actor_candidates)][1]
+speakers_candidates <- speakers_candidates[!is.na(speakers_candidates)]
+speakers_path <- speakers_candidates[file_exists(speakers_candidates)][1]
 
-if (!is.na(actor_path)) {
-  message("Using actors list from: ", actor_path)
-  actors_df <- read_csv(actor_path, show_col_types = FALSE)
-  valid_speakers <- actors_df %>%
+if (!is.na(speakers_path)) {
+  message("Using speaker roster from: ", speakers_path)
+  speakers_df <- read_csv(speakers_path, show_col_types = FALSE)
+  valid_speakers <- speakers_df %>%
     filter(!is.na(speaker_std)) %>%
     mutate(speaker_key = .norm_key(speaker_std)) %>%
     pull(speaker_key) %>%
     unique()
 } else {
-  warning("⚠️ actors.csv not found. Keeping all speakers.")
+  warning("⚠️ speakers.csv not found. Keeping all speakers.")
   valid_speakers <- unique(speaker_table$speaker_key)
 }
 
-# ---- filter speaker columns by actors.csv ----
+# ---- filter speaker columns by speakers.csv ----
 if (exists("speaker_matrix") && nrow(speaker_matrix) > 0) {
   speaker_cols_to_keep <- paste0("speaker_", valid_speakers)
   existing_speaker_cols <- grep("^speaker_", names(speaker_matrix), value = TRUE)
@@ -166,9 +166,9 @@ if (exists("speaker_matrix") && nrow(speaker_matrix) > 0) {
   speaker_matrix <- speaker_matrix %>%
     select(any_of(c("n", keep_cols)))
   removed_cols <- setdiff(existing_speaker_cols, keep_cols)
-  message("Filtered to ", length(keep_cols), " valid speakers from actors.csv.")
+  message("Filtered to ", length(keep_cols), " valid speakers from speakers.csv.")
   if (length(removed_cols) > 0) {
-    message("Removed ", length(removed_cols), " speakers not found in actors.csv.")
+    message("Removed ", length(removed_cols), " speakers not found in speakers.csv.")
   }
 }
 

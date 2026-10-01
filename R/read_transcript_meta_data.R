@@ -181,7 +181,7 @@ read_transcript_meta_data <- function(id = NULL, quiet = TRUE) {
 
   # --- assemble output
   meta <- desc |>
-    dplyr::transmute(id = as.numeric(.data$id), date = as.character(.data$date)) |>
+    dplyr::transmute(id = as.numeric(.data$id), date = .data$date) |>
     dplyr::left_join(speakers_vec, by = "id") |>
     dplyr::left_join(duration_df,  by = "id") |>
     dplyr::left_join(topics_vec,   by = "id")

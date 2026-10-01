@@ -39,7 +39,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
   transcript_index       <- .load_pkg_data("transcript_index")
   speakers_df            <- .load_pkg_data("speakers_per_transcript")
   topic_descriptions     <- .load_pkg_data("topic_descriptions")
-  actor_descriptions_raw <- .load_pkg_data("actors")
+  speaker_info_raw       <- .load_pkg_data("speakers")
 
   # ---- 1) Resolve transcript directory --------------------------------------
   if (is.null(transcript_dir)) {
@@ -262,27 +262,23 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::summarise(weight = dplyr::n(), .groups = "drop") |>
       dplyr::mutate(width = pmax(1, log1p(.data$weight)))
 
-    # === Speaker nodes (actors + frequency) ===
+    # === Speaker nodes, from the roster plus the transcript counts ===
     nodes_speaker_base <- speaker_long |>
       dplyr::transmute(id = stringr::str_trim(.data$speaker)) |>
       dplyr::distinct()
 
-    actor_descriptions <- actor_descriptions_raw |>
+    speaker_info <- speaker_info_raw |>
       dplyr::mutate(
         type = stringr::str_trim(.data$type),
-        type = dplyr::case_when(
-          .data$type %in% c("illict", "illicit") ~ "illicit",
-          .data$type == "bereaucrat"             ~ "bureaucrat",
-          .data$type == "business"               ~ "businessperson",
-          is.na(.data$type) | .data$type == ""   ~ "unknown",
-          TRUE                                   ~ .data$type
-        ),
+        # a speaker with no recorded type is drawn in the "unknown" colour
+        type = dplyr::if_else(is.na(.data$type) | .data$type == "",
+                              "unknown", .data$type),
         name = dplyr::coalesce(.data$speaker, .data$speaker_std)
       )
 
     nodes_speaker_st <- nodes_speaker_base |>
       dplyr::left_join(
-        actor_descriptions |>
+        speaker_info |>
           dplyr::mutate(
             speaker_std = stringr::str_trim(.data$speaker_std),
             position    = dplyr::coalesce(.data$position, "No info"),

@@ -9,7 +9,7 @@ A tibble with 45,337 rows and 6 variables:
 \describe{
 \item{id}{Numeric transcript identifier.}
 \item{row_id}{Row number within the transcript.}
-\item{date}{Date of the recording (character).}
+\item{date}{Date of the recording.}
 \item{speaker_std}{Standardized speaker identifier (lowercase surname).}
 \item{speaker}{Raw speaker label as it appears in the original transcript.}
 \item{speech}{Text of the speaker's turn (in Spanish).}

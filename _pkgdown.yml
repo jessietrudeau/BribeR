@@ -56,7 +56,7 @@ reference:
       - compiled_transcripts
       - transcript_index
       - speakers_per_transcript
-      - actors
+      - speakers
 
   - title: "Visualization"
     desc: "Functions and data files for Shiny network visualization."

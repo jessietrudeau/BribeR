@@ -2,7 +2,7 @@
 #
 # Turns the hand-maintained CSVs in "data-raw/Inventory & Descriptions" into
 # the package datasets, derives the speaker roster from the dialogue, and
-# checks that every actor is recorded speaking.
+# checks that every listed speaker is recorded speaking.
 #
 # Run build_transcripts_detailed.R first: the roster and the check both read
 # data/compiled_transcripts.rda.
@@ -20,13 +20,13 @@ OUTPUT_DIR <- "data"
 
 # Column renames applied after reading, per dataset.
 RENAME_COLS <- list(
-  "actors" = c("Position" = "position", "Type" = "type", "Party" = "party")
+  "speakers" = c("Position" = "position", "Type" = "type", "Party" = "party")
 )
 
 # Columns whose values are lowercased, per dataset. Speaker identifier columns
 # are lowercased for every dataset and do not need listing here.
 LOWERCASE_VALUE_COLS <- list(
-  "actors" = c("type")
+  "speakers" = c("type")
 )
 
 # Descriptions.csv is folded into `transcript_index` by build_transcript_index.R
@@ -129,18 +129,18 @@ save(speakers_per_transcript,
 message(sprintf("Derived speakers_per_transcript: %d transcripts, %d speaker slots, %d entries.",
                 nrow(speakers_per_transcript), width, sum(lengths(lists))))
 
-# ---- verify every actor is recorded speaking ----
-# `actors` is a speakers-only roster, so every speaker_std must appear at least
-# once in the dialogue. compiled_transcripts already stores speaker_std
-# lowercased and stripped of diacritics; the actors side is normalised to match.
+# ---- verify every listed speaker is recorded speaking ----
+# Every speaker_std in `speakers` must appear at least once in the dialogue.
+# compiled_transcripts already stores speaker_std lowercased and stripped of
+# diacritics; the roster side is normalised to match.
 speaking <- unique(trimws(compiled_transcripts$speaker_std))
 speaking <- speaking[!is.na(speaking) & nzchar(speaking)]
 
-load(file.path(OUTPUT_DIR, "actors.rda"))
-silent <- actors$speaker_std[!.norm_speaker(actors$speaker_std) %in% speaking]
+load(file.path(OUTPUT_DIR, "speakers.rda"))
+silent <- speakers$speaker_std[!.norm_speaker(speakers$speaker_std) %in% speaking]
 if (length(silent) > 0) {
-  stop(sprintf("actors.csv lists %d individual(s) who never speak: %s",
+  stop(sprintf("speakers.csv lists %d individual(s) who never speak: %s",
                length(silent), paste(silent, collapse = ", ")))
 }
 
-message(sprintf("All %d actors are recorded speaking.", nrow(actors)))
+message(sprintf("All %d listed speakers are recorded speaking.", nrow(speakers)))

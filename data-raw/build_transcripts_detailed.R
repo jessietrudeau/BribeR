@@ -40,8 +40,16 @@ read_single_transcript <- function(file_path) {
 all_transcripts <- map_dfr(transcript_files, read_single_transcript)
 
 # ---- attach the recording date ----
+# Descriptions.csv writes dates as m/d/Y; they are parsed here so the column is
+# a Date, matching transcript_index.
 compiled_transcripts <- all_transcripts %>%
-  left_join(descriptions, by = "id")
+  left_join(descriptions, by = "id") %>%
+  mutate(date = as.Date(date, format = "%m/%d/%Y"))
+
+if (any(is.na(compiled_transcripts$date))) {
+  stop(sprintf("%d rows have a date that is not in m/d/Y form.",
+               sum(is.na(compiled_transcripts$date))))
+}
 
 # ---- lowercase speaker columns ----
 # speaker_std is additionally stripped of diacritics, so that one person has a

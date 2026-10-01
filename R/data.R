@@ -7,7 +7,7 @@
 #' \describe{
 #'   \item{id}{Numeric transcript identifier.}
 #'   \item{row_id}{Row number within the transcript.}
-#'   \item{date}{Date of the recording (character).}
+#'   \item{date}{Date of the recording.}
 #'   \item{speaker_std}{Standardized speaker identifier (lowercase surname).}
 #'   \item{speaker}{Raw speaker label as it appears in the original transcript.}
 #'   \item{speech}{Text of the speaker's turn (in Spanish).}
@@ -71,7 +71,7 @@
 "speakers_per_transcript"
 
 
-#' Actor Roster
+#' Speaker Roster
 #'
 #' Biographical and institutional metadata for every individual recorded
 #' speaking in the Vladivideos transcripts.
@@ -97,7 +97,7 @@
 #' }
 #' @source Manually compiled from the Vladivideos archive and related
 #'   published research.
-"actors"
+"speakers"
 
 
 #' Topic Descriptions
