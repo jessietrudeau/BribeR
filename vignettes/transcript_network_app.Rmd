@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 `run_transcript_network_app()` launches an interactive Shiny application
 visualizing the relationships between speakers and topics across the
-Vladivideos transcript corpus. It provides two network views:
+Vladivideo corpus. It provides two network views:
 
 - **Speaker-Topic Network** -- connects speakers to the topics discussed in
   their transcripts.
@@ -41,7 +41,7 @@ the dropdown, drag nodes, zoom, and hover for details.
 </iframe>
 ```
 
-First load takes a few seconds while the in-browser R runtime and packages
+The first load will take a few seconds as the in-browser R packages
 initialize.
 
 ```{r, eval=FALSE}
@@ -51,5 +51,5 @@ run_transcript_network_app()
 ```
 
 If you're reading this vignette outside the package website (e.g. via
-`browseVignettes()`), the embedded app above won't load -- run
+`browseVignettes()`), the embedded app above won't load. Run
 `run_transcript_network_app()` directly instead.

@@ -1,36 +1,25 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 5 notes
+0 errors | 0 warnings | 0 notes
 
-### Notes
+Checked locally with `R CMD check --as-cran`. Two further notes are expected
+from CRAN's incoming checks, which do not run locally:
 
 **New submission**
-This is a new CRAN submission.
+This is a new submission.
 
-**Installed package size (10.7 MB)**
-The package includes 96 raw transcript CSV files in `inst/data-raw/transcripts/`
-(7.0 MB) that are required for the `get_transcripts_raw()` function, plus
-compiled datasets in `data/` (1.9 MB). The data are the primary value of the
-package — they represent a unique corpus of corruption transcripts not
-available elsewhere in a structured, machine-readable form.
-
-**`LICENSE.md` at top level**
-`LICENSE.md` is standard practice for MIT-licensed packages and is generated
-automatically by `usethis::use_mit_license()`.
-
-**Unable to verify current time**
-This is a transient check environment issue unrelated to the package.
-
-**HTML validation warnings in manual**
-The HTML checker flags `<main>` as unrecognized and warns about missing
-`summary` attributes on tables. These are known artifacts of the system `tidy`
-HTML validator on macOS being too old to recognize current HTML5 elements. The
-underlying `.Rd` documentation is valid and the rendered help pages display
-correctly. These warnings are not actionable.
+**Installed package size**
+The installed size is 10.5 Mb: 6.8 Mb of raw transcript CSV files in
+`inst/data-raw/transcripts/`, read by `get_transcripts_raw()`, and 1.9 Mb of
+compiled datasets in `data/`. The corpus is the purpose of the package. It is
+95 transcripts of the Peruvian *Vladivideos*, holding 45,337 speech turns, and
+is not available elsewhere in a structured, machine-readable form.
 
 ## Test environments
 
-- macOS Ventura 13.7.8, R 4.4.1 (local)
+- macOS 26.6.2, aarch64, R 4.6.1 (local)
+- macOS, Windows and Ubuntu, R release, via GitHub Actions
+- Ubuntu, R devel and R oldrel-1, via GitHub Actions
 
 ## Downstream dependencies
 

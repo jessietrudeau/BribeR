@@ -9,3 +9,5 @@
 ^CODE_OF_CONDUCT\.md$
 ^.*\.icloud$
 ^Icon
+^LICENSE\.md$
+^cran-comments\.md$
