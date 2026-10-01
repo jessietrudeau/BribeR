@@ -276,8 +276,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::mutate(
         type = stringr::str_trim(.data$type),
         # a speaker with no recorded type is shown as "other"
-        type = dplyr::if_else(is.na(.data$type) | .data$type == "",
-                              "other", .data$type),
+        type = dplyr::if_else(is.na(.data$type) | .data$type == "", "other", .data$type),
         name = dplyr::coalesce(.data$speaker, .data$speaker_std)
       )
 
