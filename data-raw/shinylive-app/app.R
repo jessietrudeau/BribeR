@@ -1,10 +1,10 @@
-# Standalone copy of BribeR::run_transcript_network_app(), for shinylive
-# export. Kept self-contained (own data copies via prepare_data.R, no
-# library(BribeR)) because shinylive/webR can only install packages from a
-# wasm package repository, and BribeR isn't published to one.
+# Standalone copy of bribeR::run_transcript_network_app(), for shinylive
+# export. It is self-contained -- its own data copies, written by
+# prepare_data.R, and no library(bribeR) -- because shinylive/webR can only
+# install packages from a wasm repository, and bribeR is not published to one.
 #
-# Behavior should stay identical to R/run_transcript_network_app.R -- if that
-# function changes, mirror the change here too.
+# This file and R/run_transcript_network_app.R must behave identically. A
+# change to either one has to be made in both.
 
 library(shiny)
 library(dplyr)
@@ -18,10 +18,10 @@ library(tibble)
 library(readr)
 
 # ---- 0) Load bundled data --------------------------------------------------
-descriptions           <- readRDS("transcript_index.rds")
-speakers_df            <- readRDS("speakers_per_transcript.rds")
-topic_descriptions     <- readRDS("topic_descriptions.rds")
-actor_descriptions_raw <- readRDS("actors.rds")
+transcript_index   <- readRDS("transcript_index.rds")
+speakers_df        <- readRDS("speakers_per_transcript.rds")
+topic_descriptions <- readRDS("topic_descriptions.rds")
+speaker_info_raw   <- readRDS("speakers.rds")
 
 # ---- 1) Resolve transcript directory ---------------------------------------
 transcript_dir <- "transcripts"
@@ -65,21 +65,22 @@ ui <- fluidPage(
           visNetworkOutput("speaker_topic_network", height = "700px")
         )
       ),
-      fluidRow(
-        column(width = 12, br(), uiOutput("type_legend"))
-      )
     ),
     tabPanel(
       "Speaker Co-Appearance Network",
       visNetworkOutput("speaker_co_network", height = "700px")
     )
+  ),
+  fluidRow(
+    column(width = 12, br(), uiOutput("type_legend"))
   )
 )
 
 # ---- 4) Server ---------------------------------------------------------------
 server <- function(input, output, session) {
 
-  # Speaker frequency from transcripts (optional)
+  # How many transcripts each speaker appears in, counted from the transcript
+  # files. Empty when no transcript directory is available.
   speaker_frequency <- {
     if (!is.null(transcript_dir) && nzchar(transcript_dir) && dir.exists(transcript_dir)) {
       files <- dir_ls(transcript_dir, regexp = "\\.(csv|tsv)$", recurse = TRUE)
@@ -93,15 +94,15 @@ server <- function(input, output, session) {
           tibble()
         }
         if (!("speaker_std" %in% names(df))) {
-          return(tibble(speaker_std = character(), n = character()))
+          return(tibble(speaker_std = character(), file = character()))
         }
         df |>
           filter(!is.na(.data$speaker_std), .data$speaker_std != "") |>
           distinct(.data$speaker_std) |>
-          mutate(n = basename(path))
+          mutate(file = basename(path))
       })
       sf |>
-        distinct(.data$speaker_std, .data$n) |>
+        distinct(.data$speaker_std, .data$file) |>
         count(.data$speaker_std, name = "conversation_count")
     } else {
       tibble(speaker_std = character(), conversation_count = integer())
@@ -114,12 +115,13 @@ server <- function(input, output, session) {
     "congress"         = "#BDB2FF", "security"   = "#A0C4FF", "bureaucrat" = "#CAFFBF",
     "judiciary"        = "#FDFFB6", "foreign"    = "#FFD6A5", "media"      = "#FFADAD",
     "illicit"          = "#FFC6FF", "elected official" = "#9BF6FF",
-    "businessperson"   = "#4daf4a", "unknown"    = "grey"
+    "businessperson"   = "#4daf4a", "siberia"    = "#B5838D",
+    "intermediaries"   = "#E9C46A", "other"      = "#D9D9D9"
   )
 
   # === Topic reshape ===
-  long_topics <- descriptions |>
-    select(.data$id, starts_with("topic_")) |>
+  long_topics <- transcript_index |>
+    select("id", starts_with("topic_")) |>
     pivot_longer(
       starts_with("topic_"),
       names_to = "topic",
@@ -134,11 +136,14 @@ server <- function(input, output, session) {
   # === Speakers reshape ===
   speaker_long <- speakers_df |>
     pivot_longer(
-      cols = -.data$id,
+      cols = -"id",
       names_to = "speaker_col",
       values_to = "speaker"
     ) |>
-    filter(!is.na(.data$speaker), .data$speaker != "") |>
+    # desconocido is a placeholder for any unidentified speaker rather than
+    # one person, so it is left out of the network
+    filter(!is.na(.data$speaker), .data$speaker != "",
+           .data$speaker != "desconocido") |>
     mutate(
       id      = as.character(.data$id),
       speaker = str_trim(.data$speaker)
@@ -146,7 +151,8 @@ server <- function(input, output, session) {
 
   # === Edges: Speaker -> Topic ===
   edges_speaker_topic <- speaker_long |>
-    inner_join(long_topics, by = "id") |>
+    # one row per speaker-topic pair: a transcript has many of each
+    inner_join(long_topics, by = "id", relationship = "many-to-many") |>
     mutate(speaker_std = .data$speaker) |>
     distinct(.data$speaker_std, .data$topic) |>
     left_join(
@@ -162,7 +168,7 @@ server <- function(input, output, session) {
 
   # === Speaker pairs for placeholder edges (for layout support) ===
   speaker_pairs_topic_net <- speaker_long |>
-    select(.data$id, .data$speaker) |>
+    select("id", "speaker") |>
     distinct() |>
     group_by(.data$id) |>
     filter(n() > 1) |>
@@ -170,12 +176,12 @@ server <- function(input, output, session) {
       pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
       .groups = "drop"
     ) |>
-    unnest(.data$pairs) |>
+    unnest("pairs") |>
     mutate(
       from = map_chr(.data$pairs, 1),
       to   = map_chr(.data$pairs, 2)
     ) |>
-    select(.data$from, .data$to) |>
+    select("from", "to") |>
     filter(.data$from != .data$to)
 
   edges_placeholder <- speaker_pairs_topic_net |>
@@ -187,7 +193,7 @@ server <- function(input, output, session) {
       )
     ) |>
     distinct(.data$edge_id, .keep_all = TRUE) |>
-    select(-.data$edge_id) |>
+    select(-"edge_id") |>
     group_by(.data$from, .data$to) |>
     summarise(weight = n(), .groups = "drop") |>
     mutate(
@@ -197,7 +203,7 @@ server <- function(input, output, session) {
 
   # === Speaker pairs for co-appearance network ===
   speaker_pairs <- speaker_long |>
-    select(.data$id, .data$speaker) |>
+    select("id", "speaker") |>
     distinct() |>
     group_by(.data$id) |>
     filter(n() > 1) |>
@@ -205,12 +211,12 @@ server <- function(input, output, session) {
       pairs = list(combn(.data$speaker, 2, simplify = FALSE)),
       .groups = "drop"
     ) |>
-    unnest(.data$pairs) |>
+    unnest("pairs") |>
     mutate(
       from = map_chr(.data$pairs, 1),
       to   = map_chr(.data$pairs, 2)
     ) |>
-    select(.data$from, .data$to) |>
+    select("from", "to") |>
     filter(.data$from != .data$to)
 
   edges_speaker_co <- speaker_pairs |>
@@ -222,38 +228,33 @@ server <- function(input, output, session) {
       )
     ) |>
     distinct(.data$edge_id, .keep_all = TRUE) |>
-    select(-.data$edge_id) |>
+    select(-"edge_id") |>
     group_by(.data$from, .data$to) |>
     summarise(weight = n(), .groups = "drop") |>
     mutate(width = pmax(1, log1p(.data$weight)))
 
-  # === Speaker nodes (actors + frequency) ===
+  # === Speaker nodes, from the roster plus the transcript counts ===
   nodes_speaker_base <- speaker_long |>
     transmute(id = str_trim(.data$speaker)) |>
     distinct()
 
-  actor_descriptions <- actor_descriptions_raw |>
+  speaker_info <- speaker_info_raw |>
     mutate(
       type = str_trim(.data$type),
-      type = case_when(
-        .data$type %in% c("illict", "illicit") ~ "illicit",
-        .data$type == "bereaucrat"             ~ "bureaucrat",
-        .data$type == "business"               ~ "businessperson",
-        is.na(.data$type) | .data$type == ""   ~ "unknown",
-        TRUE                                   ~ .data$type
-      ),
+      # a speaker with no recorded type is shown as "other"
+      type = if_else(is.na(.data$type) | .data$type == "", "other", .data$type),
       name = coalesce(.data$speaker, .data$speaker_std)
     )
 
   nodes_speaker_st <- nodes_speaker_base |>
     left_join(
-      actor_descriptions |>
+      speaker_info |>
         mutate(
           speaker_std = str_trim(.data$speaker_std),
           position    = coalesce(.data$position, "No info"),
           type        = if_else(
             is.na(.data$type) | .data$type == "",
-            "unknown",
+            "other",
             .data$type
           )
         ),
@@ -267,7 +268,7 @@ server <- function(input, output, session) {
     mutate(
       group = "Speaker",
       color = type_colors[.data$type],
-      color = ifelse(is.na(.data$color), type_colors[["unknown"]], .data$color),
+      color = ifelse(is.na(.data$color), type_colors[["other"]], .data$color),
       # Use display name as label so nodesIdSelection dropdown shows it via
       # useLabels = TRUE. On-graph text is suppressed via font.size = 0.
       label = coalesce(
@@ -279,26 +280,26 @@ server <- function(input, output, session) {
       title = paste0(
         "<b>", coalesce(.data$name, .data$id), "</b><br>",
         "<b>Standardized ID:</b> ", .data$id, "<br>",
-        "<b>Type:</b> ", coalesce(.data$type, "unknown"), "<br>",
+        "<b>Type:</b> ", coalesce(.data$type, "other"), "<br>",
         "<b>Position:</b> ", coalesce(.data$position, "No info"), "<br>",
         "<b>Transcripts:</b> ", coalesce(as.character(.data$conversation_count), "0")
       )
     ) |>
     select(
-      .data$id, .data$group, .data$title, .data$color,
-      .data$label, .data$font.size, .data$value, .data$name
+      "id", "group", "title", "color",
+      "label", "font.size", "value", "name"
     ) |>
     distinct(.data$id, .keep_all = TRUE)
 
   # === Build speaker dropdown map: node id -> display name ================
-  # useLabels = TRUE in nodesIdSelection reads from the node `label` column,
-  # which now holds the display name. We still need `values` to restrict the
-  # dropdown to speakers only (excluding topic nodes).
+  # useLabels = TRUE in nodesIdSelection reads the node `label` column, which
+  # holds the display name. `values` restricts the dropdown to speakers, so
+  # that topic nodes are left out of it.
   speaker_dropdown_values <- nodes_speaker_st$id
 
   # Drop helper `name` column before passing nodes to visNetwork
   nodes_speaker_st <- nodes_speaker_st |>
-    select(-.data$name)
+    select(-"name")
 
   # Add Montesinos image properties
   if (!has_img) {
@@ -325,7 +326,7 @@ server <- function(input, output, session) {
     distinct() |>
     left_join(
       topic_descriptions |>
-        rename(topic = .data$topics, description = .data$descriptions) |>
+        rename(topic = "topics", description = "descriptions") |>
         mutate(topic = str_remove(.data$topic, "^topic_")),
       by = join_by(id == topic)
     ) |>
@@ -342,23 +343,23 @@ server <- function(input, output, session) {
       value = 300,
       color = "maroon"
     ) |>
-    select(.data$id, .data$group, .data$title, .data$value,
-           .data$color, .data$label, .data$font.size) |>
+    select("id", "group", "title", "value",
+           "color", "label", "font.size") |>
     distinct(.data$id, .keep_all = TRUE)
 
   # === Combined nodes for Speaker-Topic view ===
   nodes_st <- bind_rows(
     nodes_speaker_st |>
       select(
-        .data$id, .data$group, .data$title, .data$color,
-        .data$label, .data$font.size, .data$value, .data$shape,
-        .data$image, .data$size, .data$borderWidth
+        "id", "group", "title", "color",
+        "label", "font.size", "value", "shape",
+        "image", "size", "borderWidth"
       ),
     nodes_topic_st |>
       mutate(shape = "dot") |>
       select(
-        .data$id, .data$group, .data$title, .data$color,
-        .data$label, .data$font.size, .data$value, .data$shape
+        "id", "group", "title", "color",
+        "label", "font.size", "value", "shape"
       )
   ) |>
     distinct(.data$id, .keep_all = TRUE)
@@ -413,9 +414,9 @@ server <- function(input, output, session) {
     visNetwork(
       nodes_speaker_st |>
         select(
-          .data$id, .data$group, .data$title, .data$color,
-          .data$label, .data$font.size, .data$value, .data$shape,
-          .data$image, .data$size, .data$borderWidth
+          "id", "group", "title", "color",
+          "label", "font.size", "value", "shape",
+          "image", "size", "borderWidth"
         ),
       edges_speaker_co
     ) |>
@@ -469,13 +470,14 @@ server <- function(input, output, session) {
                           border: 1px solid #333;
                           border-radius: 50%;
                           margin-right: 6px;'></span>",
-          "<span style='font-size: 14px;'>", type, "</span></div>"
+          "<span style='font-size: 14px;'>",
+          str_to_title(type), "</span></div>"
         )
       }
     )
     HTML(
       paste(
-        "<b>Legend – Speaker Types & Topics:</b><br><div style='margin-top: 5px;'>",
+        "<b>Speaker Types and Topics</b><br><div style='margin-top: 5px;'>",
         paste(legend_items, collapse = ""),
         "</div>"
       )

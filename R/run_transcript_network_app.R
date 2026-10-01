@@ -97,14 +97,14 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
             visNetwork::visNetworkOutput("speaker_topic_network", height = "700px")
           )
         ),
-        shiny::fluidRow(
-          shiny::column(width = 12, shiny::br(), shiny::uiOutput("type_legend"))
-        )
       ),
       shiny::tabPanel(
         "Speaker Co-Appearance Network",
         visNetwork::visNetworkOutput("speaker_co_network", height = "700px")
       )
+    ),
+    shiny::fluidRow(
+      shiny::column(width = 12, shiny::br(), shiny::uiOutput("type_legend"))
     )
   )
 
@@ -147,7 +147,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       "congress"         = "#BDB2FF", "security"   = "#A0C4FF", "bureaucrat" = "#CAFFBF",
       "judiciary"        = "#FDFFB6", "foreign"    = "#FFD6A5", "media"      = "#FFADAD",
       "illicit"          = "#FFC6FF", "elected official" = "#9BF6FF",
-      "businessperson"   = "#4daf4a", "unknown"    = "grey"
+      "businessperson"   = "#4daf4a", "siberia"    = "#B5838D",
+      "intermediaries"   = "#E9C46A", "other"      = "#D9D9D9"
     )
 
     # === Topic reshape ===
@@ -171,7 +172,10 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         names_to = "speaker_col",
         values_to = "speaker"
       ) |>
-      dplyr::filter(!is.na(.data$speaker), .data$speaker != "") |>
+      # desconocido is a placeholder for any unidentified speaker rather than
+      # one person, so it is left out of the network
+      dplyr::filter(!is.na(.data$speaker), .data$speaker != "",
+                    .data$speaker != "desconocido") |>
       dplyr::mutate(
         id      = as.character(.data$id),
         speaker = stringr::str_trim(.data$speaker)
@@ -179,7 +183,8 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
 
     # === Edges: Speaker -> Topic ===
     edges_speaker_topic <- speaker_long |>
-      dplyr::inner_join(long_topics, by = "id") |>
+      # one row per speaker-topic pair: a transcript has many of each
+      dplyr::inner_join(long_topics, by = "id", relationship = "many-to-many") |>
       dplyr::mutate(speaker_std = .data$speaker) |>
       dplyr::distinct(.data$speaker_std, .data$topic) |>
       dplyr::left_join(
@@ -270,9 +275,9 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
     speaker_info <- speaker_info_raw |>
       dplyr::mutate(
         type = stringr::str_trim(.data$type),
-        # a speaker with no recorded type is drawn in the "unknown" colour
+        # a speaker with no recorded type is shown as "other"
         type = dplyr::if_else(is.na(.data$type) | .data$type == "",
-                              "unknown", .data$type),
+                              "other", .data$type),
         name = dplyr::coalesce(.data$speaker, .data$speaker_std)
       )
 
@@ -284,7 +289,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
             position    = dplyr::coalesce(.data$position, "No info"),
             type        = dplyr::if_else(
               is.na(.data$type) | .data$type == "",
-              "unknown",
+              "other",
               .data$type
             )
           ),
@@ -298,7 +303,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
       dplyr::mutate(
         group = "Speaker",
         color = type_colors[.data$type],
-        color = ifelse(is.na(.data$color), type_colors[["unknown"]], .data$color),
+        color = ifelse(is.na(.data$color), type_colors[["other"]], .data$color),
         # Use display name as label so nodesIdSelection dropdown shows it via
         # useLabels = TRUE. On-graph text is suppressed via font.size = 0.
         label = dplyr::coalesce(
@@ -310,7 +315,7 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
         title = paste0(
           "<b>", dplyr::coalesce(.data$name, .data$id), "</b><br>",
           "<b>Standardized ID:</b> ", .data$id, "<br>",
-          "<b>Type:</b> ", dplyr::coalesce(.data$type, "unknown"), "<br>",
+          "<b>Type:</b> ", dplyr::coalesce(.data$type, "other"), "<br>",
           "<b>Position:</b> ", dplyr::coalesce(.data$position, "No info"), "<br>",
           "<b>Transcripts:</b> ", dplyr::coalesce(as.character(.data$conversation_count), "0")
         )
@@ -500,13 +505,14 @@ run_transcript_network_app <- function(transcript_dir = NULL) {
                             border: 1px solid #333;
                             border-radius: 50%;
                             margin-right: 6px;'></span>",
-            "<span style='font-size: 14px;'>", type, "</span></div>"
+            "<span style='font-size: 14px;'>",
+            stringr::str_to_title(type), "</span></div>"
           )
         }
       )
       shiny::HTML(
         paste(
-          "<b>Legend \u2013 Speaker Types & Topics:</b><br><div style='margin-top: 5px;'>",
+          "<b>Speaker Types and Topics</b><br><div style='margin-top: 5px;'>",
           paste(legend_items, collapse = ""),
           "</div>"
         )
